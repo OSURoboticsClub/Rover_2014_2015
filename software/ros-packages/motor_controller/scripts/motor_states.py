@@ -63,6 +63,7 @@ class StateMachine(object):
     #
     def state_change(self, data):
         state = self.states.get(data.data, "stop")
+        print data.data
         state()
 
 
