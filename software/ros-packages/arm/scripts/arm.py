@@ -78,6 +78,8 @@ class ArmSerial(SerialBoard):
             command = 0
         packet = struct.pack(self.packet_struct, chr(0xff), chr(command), chr(x), chr(y), chr(z), chr(0), chr(self.checksum()), chr(0xff))
         self.serial.write(packet)
+        self.serial.read(1) 
+        time.sleep(15)
         
 class ArmController(object):
     

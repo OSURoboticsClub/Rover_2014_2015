@@ -38,7 +38,6 @@ class ArmStates(object):
         print "Moving"
         while self.working:
             pass
-        time.sleep(15)
         self.arm.publish(String("%d,%d,%d,%d" % tuple([int(x) for x in position])))
         self.working = True
 
