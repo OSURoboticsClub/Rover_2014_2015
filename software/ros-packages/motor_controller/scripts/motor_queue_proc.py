@@ -85,7 +85,7 @@ class TimeTimer(GeneralTimer):
     	#meters per second
     	self.mps = 1
     	#amount of angles turned per second
-    	self.aps = 15
+    	self.aps = 40
 
     def start(self):
 	rospy.Timer(rospy.Duration(self.get_time()), self.timer_callback, True)
