@@ -47,7 +47,7 @@ ISR(USARTC0_RXC_vect){
 						//LoL, ignore checksum
 						if(recievedData[DRIVE_HEAD] == 255 && recievedData[DRIVE_FOOTER] == 255){ //basic verification, TODO: Add checksum verification
 							//SendStringPC("Valid Drive Packet. \r\n");
-							RGBSetColor(ORANGE);
+							//RGBSetColor(ORANGE);
 							freshData = 1;     //There is new data to process
 							//Process the data:
 							driveData.leftSpeed = recievedData[LEFT_SPEED];
@@ -58,7 +58,7 @@ ISR(USARTC0_RXC_vect){
 						}
 						else {
 							//++invalidPacketCount;
-							RGBSetColor(BLUE); //Something went pretty wrong...
+							//RGBSetColor(BLUE); //Something went pretty wrong...
 							//flush buffer? Nah, this shouldn't be necessary because it will have just the right amount of
 							//stuffz in the array when we get to this point
 						}

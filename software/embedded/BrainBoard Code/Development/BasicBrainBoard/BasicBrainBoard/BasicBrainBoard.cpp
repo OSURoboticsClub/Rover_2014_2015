@@ -79,9 +79,8 @@ int main(void)
 	//TODO: Is the following line needed?
 	//PMIC.CTRL |= PMIC_LOLVLEN_bm;   //draws current for ?
 
-	//TODO TODO TODO Remove
-	
-	CurrentState = MainProgram;
+	//Uncomment the line below if you want to bypass poking
+	//CurrentState = MainProgram;
 
 
 	//We need to init drive early so that the roving light will blink
@@ -112,6 +111,11 @@ int main(void)
 					if (recieveChar == 'r'){
 						CurrentState = MainProgram;
 					}
+					else if (recieveChar == 'p'){  //Hack to make device always respond to poke
+						SendStringPC(XmegaIDStr); //Identify itself
+						//CurrentState = WaitForReady;
+					}
+					
 					//else, do nothing and wait for more chars
 				}
 				break;

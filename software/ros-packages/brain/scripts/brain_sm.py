@@ -79,7 +79,7 @@ class State(object):
 
     def activate(self, callback):
         for topic in self.motor_forwards:
-            rospy.Subscriber(topic, String, callback)
+            rospy.Subscriber("/motor/commands/"+topic, String, callback)
 
     def deactivate(self):
         for sub in self.subs:
