@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Atmel Studio Solution File, Format Version 11.00
+Project("{E66E83B9-2572-4076-B26E-6BE79FF3018A}") = "BasicBrainBoard", "BasicBrainBoard\BasicBrainBoard.cppproj", "{AF4EBF3B-8902-40D0-B995-0910DE9D2D8B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|AVR = Debug|AVR
+		Release|AVR = Release|AVR
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AF4EBF3B-8902-40D0-B995-0910DE9D2D8B}.Debug|AVR.ActiveCfg = Debug|AVR
+		{AF4EBF3B-8902-40D0-B995-0910DE9D2D8B}.Debug|AVR.Build.0 = Debug|AVR
+		{AF4EBF3B-8902-40D0-B995-0910DE9D2D8B}.Release|AVR.ActiveCfg = Release|AVR
+		{AF4EBF3B-8902-40D0-B995-0910DE9D2D8B}.Release|AVR.Build.0 = Release|AVR
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
