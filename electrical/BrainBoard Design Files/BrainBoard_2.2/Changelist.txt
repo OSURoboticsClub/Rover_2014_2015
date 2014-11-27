@@ -3,11 +3,11 @@ Changelist for this revision:
 - Fix JTAG Header
   - Incorrect Pitch on BOM
   - Purchase shroud (to ensure correct direction)
-- Fix USB Connector 
-  - Doesn't properly mount to board
-- Holes for the power pin are too large
-- Power Pin might be opposite
-  - Optional change
+- Fix USB Connector Footprint
+  - Mounting holes in wrong position
+- Holes for the power connector pins are too large
+- Power connector footprint missing hole for retaining pin.
+- [Optional] Power connector would be better in opposite polarity (ground contacts first)
 - Add method of keying BrainBoard so that it can only be inserted one way
 - Vias!
 - Labeled Test points at relevant positions
@@ -18,7 +18,7 @@ Changelist for this revision:
 - If possible, orient parts with an eye for reflowing the board
 - Keep in mind DCDC position on board
   - Place on top if possible?
-- Linear reg footprint is incorrect small pins slightly too wide)
+- Linear reg footprint is incorrect (small pins slightly too far apart)
 - Pins 14 and 15 of the microcontroller need to be swapped (gnd and vcc on the "left" side)
 - Remove C18
   - Required on megas, not on XMegas.
