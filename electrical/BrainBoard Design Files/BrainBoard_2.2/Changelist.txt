@@ -1,0 +1,47 @@
+Changelist for this revision:
+
+- Fix JTAG Header
+  - Incorrect Pitch on BOM
+  - Purchase shroud (to ensure correct direction)
+- Fix USB Connector 
+  - Doesn't properly mount to board
+- Holes for the power pin are too large
+- Power Pin might be opposite
+  - Optional change
+- Add method of keying BrainBoard so that it can only be inserted one way
+- Vias!
+- Labeled Test points at relevant positions
+  - Main voltages
+  - Oscillator
+  - etc
+- Break out 5v to daughter boards
+- If possible, orient parts with an eye for reflowing the board
+- Keep in mind DCDC position on board
+  - Place on top if possible?
+- Linear reg footprint is incorrect small pins slightly too wide)
+- Pins 14 and 15 of the microcontroller need to be swapped (gnd and vcc on the "left" side)
+- Remove C18
+  - Required on megas, not on XMegas.
+- Change R8, R9, and R10 to ~150 ohm resistors (RGB LED Resistors)
+  - RGB LED is too bright with ~70 ohm resistors
+
+Cosmetic / Not-Physical Changes:
+- Pin 1 marking on the microcontroller footprint is too subtle (dot!)
+- General Reference Designators illegible / toosmall
+- Silkscreen says HW version instead of actual revision version
+- U13 and U8 are inductiors, should be L3 and L4
+- +/- near power connector pins (debugging help)
+- Label for switch
+- Label for LEDs
+- Serial Number Spot
+  
+BOM Fixes (including things mentioned previously)
+- JTAG Header wrong pitch / change to shrouded version
+- .1uf Cap wrong part ordered / not enough (Could be Nick's fault) (Note: C7 should have a >16V rating)
+- L1 Wrong size part on BOM
+- L2 not on BOM
+- Resonator footprint wrong size for hand soldering
+
+
+Other Notes: 
+- Has the filtering arrangement for the main power rail been tested? I was under the impression that it was a bad idea to include inductors in a power supply filter without a lossy element (like a resistor), as the inductor and filter capacitor will form a resonant circuit. (Ferrite beads are OK, as they're designed to be lossy.)  
