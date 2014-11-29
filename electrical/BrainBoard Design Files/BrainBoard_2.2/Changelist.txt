@@ -15,6 +15,7 @@ Changelist for this revision:
   - Oscillator
   - etc
 - Break out 5v to daughter boards
+- Break out 24V to daughter boards (~300mA capable - for powering brainboard from daughterboard)
 - If possible, orient parts with an eye for reflowing the board
 - Keep in mind DCDC position on board
   - Place on top if possible?
