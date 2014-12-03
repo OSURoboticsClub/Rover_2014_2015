@@ -26,6 +26,7 @@
     <BootSegment>2</BootSegment>
     <eraseonlaunchrule>1</eraseonlaunchrule>
     <AsfFrameworkConfig>
+<<<<<<< HEAD
       <framework-data xmlns="">
         <options />
         <configurations />
@@ -36,6 +37,18 @@
           <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.17.0" />
         </dependencies>
       </framework-data>
+=======
+      <framework-data>
+  <options />
+  <configurations />
+  <files />
+  <documentation help="" />
+  <offline-documentation help="" />
+  <dependencies>
+    <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.6.0" />
+  </dependencies>
+</framework-data>
+>>>>>>> origin/master
     </AsfFrameworkConfig>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
