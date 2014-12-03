@@ -25,7 +25,12 @@ Changelist for this revision:
   - Required on megas, not on XMegas.
 - Change R8, R9, and R10 to ~150 ohm resistors (RGB LED Resistors)
   - RGB LED is too bright with ~70 ohm resistors
-
+- Add reverse protection MOSFET
+  - http://goo.gl/vLj4jX
+  - Spec MOSFET
+    - Gate to Source voltage is larger than max input voltage (so you don't have to have a diode)
+    - Low on resistance
+  
 Cosmetic / Not-Physical Changes:
 - Pin 1 marking on the microcontroller footprint is too subtle (dot!)
 - General Reference Designators illegible / toosmall
