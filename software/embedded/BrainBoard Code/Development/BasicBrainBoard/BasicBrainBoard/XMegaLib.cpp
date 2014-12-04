@@ -47,6 +47,7 @@ void RGBSetColor(RGBColors choice){
 			TCC0.CCA = 0;             //Blue
 			break;
 		case OFF:
+		default:
 			TCC0.CCB = 0;  //Red
 			TCC1.CCA = 0;  //Green
 			TCC0.CCA = 0;  //Blue
