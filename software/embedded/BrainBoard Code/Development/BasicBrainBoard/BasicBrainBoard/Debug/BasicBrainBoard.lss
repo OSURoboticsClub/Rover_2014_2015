@@ -21,19 +21,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   8 .debug_frame  00000230  00000000  00000000  00002e10  2**2
                   CONTENTS, READONLY, DEBUGGING
-<<<<<<< HEAD
   9 .debug_str    00000f4f  00000000  00000000  00003040  2**0
                   CONTENTS, READONLY, DEBUGGING
  10 .debug_loc    0000068e  00000000  00000000  00003f8f  2**0
                   CONTENTS, READONLY, DEBUGGING
  11 .debug_ranges 000000a8  00000000  00000000  0000461d  2**0
-=======
-  9 .debug_str    000008fa  00000000  00000000  00001990  2**0
-                  CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    000000ac  00000000  00000000  0000228a  2**0
-                  CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000028  00000000  00000000  00002336  2**0
->>>>>>> origin/master
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -465,7 +457,6 @@ void uart_init(void){
 
 void timer_init(void){
 	TCC0.PER = 100;	//period for PWM
-<<<<<<< HEAD
  2f0:	e0 e0       	ldi	r30, 0x00	; 0
  2f2:	f8 e0       	ldi	r31, 0x08	; 8
  2f4:	24 e6       	ldi	r18, 0x64	; 100
@@ -495,37 +486,6 @@ void timer_init(void){
  318:	90 e0       	ldi	r25, 0x00	; 0
  31a:	80 a7       	std	Z+40, r24	; 0x28
  31c:	91 a7       	std	Z+41, r25	; 0x29
-=======
- 282:	e0 e0       	ldi	r30, 0x00	; 0
- 284:	f8 e0       	ldi	r31, 0x08	; 8
- 286:	24 e6       	ldi	r18, 0x64	; 100
- 288:	30 e0       	ldi	r19, 0x00	; 0
- 28a:	26 a3       	std	Z+38, r18	; 0x26
- 28c:	37 a3       	std	Z+39, r19	; 0x27
-	TCC0.CTRLA = TC_CLKSEL_DIV256_gc; //sets the PWM base frequency by 2000000/256
- 28e:	66 e0       	ldi	r22, 0x06	; 6
- 290:	60 83       	st	Z, r22
-	TCC0.CTRLB = TC_WGMODE_SINGLESLOPE_gc; //sets the wave generation mode to single slope
- 292:	53 e0       	ldi	r21, 0x03	; 3
- 294:	51 83       	std	Z+1, r21	; 0x01
-	TCC0.CTRLB |= (0b00110000); //
- 296:	81 81       	ldd	r24, Z+1	; 0x01
- 298:	80 63       	ori	r24, 0x30	; 48
- 29a:	81 83       	std	Z+1, r24	; 0x01
-	TCC0.INTCTRLA = TC_OVFINTLVL_LO_gc; //interrupt register
- 29c:	41 e0       	ldi	r20, 0x01	; 1
- 29e:	46 83       	std	Z+6, r20	; 0x06
-	TCC0.CCB = 10; 
- 2a0:	8a e0       	ldi	r24, 0x0A	; 10
- 2a2:	90 e0       	ldi	r25, 0x00	; 0
- 2a4:	82 a7       	std	Z+42, r24	; 0x2a
- 2a6:	93 a7       	std	Z+43, r25	; 0x2b
-	TCC0.CCA = 50;
- 2a8:	82 e3       	ldi	r24, 0x32	; 50
- 2aa:	90 e0       	ldi	r25, 0x00	; 0
- 2ac:	80 a7       	std	Z+40, r24	; 0x28
- 2ae:	91 a7       	std	Z+41, r25	; 0x29
->>>>>>> origin/master
 	
 	TCC1.PER = 100;
  31e:	e0 e4       	ldi	r30, 0x40	; 64
@@ -741,7 +701,6 @@ int main(void)
  43c:	81 83       	std	Z+1, r24	; 0x01
 	//PORTC.DIRCLR = PIN0_bm;
 	timer_init();
-<<<<<<< HEAD
  43e:	58 df       	rcall	.-336    	; 0x2f0 <_Z10timer_initv>
 	PMIC.CTRL |= PMIC_LOLVLEN_bm; //draws current for ?
  440:	e0 ea       	ldi	r30, 0xA0	; 160
@@ -775,36 +734,6 @@ int main(void)
  460:	18 e0       	ldi	r17, 0x08	; 8
 
 	sei();
-=======
- 2d6:	d5 df       	rcall	.-86     	; 0x282 <_Z10timer_initv>
-	PMIC.CTRL |= PMIC_LOLVLEN_bm; //draws current for ?
- 2d8:	e0 ea       	ldi	r30, 0xA0	; 160
- 2da:	f0 e0       	ldi	r31, 0x00	; 0
- 2dc:	82 81       	ldd	r24, Z+2	; 0x02
- 2de:	81 60       	ori	r24, 0x01	; 1
- 2e0:	82 83       	std	Z+2, r24	; 0x02
-    { 
-		static long i = 0;
-		i++;
-		
-		/***Setting color phase difference about a third***/
-		TCC0.CCA = i % 75; 
- 2e2:	0f 2e       	mov	r0, r31
- 2e4:	fb e4       	ldi	r31, 0x4B	; 75
- 2e6:	8f 2e       	mov	r8, r31
- 2e8:	91 2c       	mov	r9, r1
- 2ea:	a1 2c       	mov	r10, r1
- 2ec:	b1 2c       	mov	r11, r1
- 2ee:	f0 2d       	mov	r31, r0
- 2f0:	c0 e0       	ldi	r28, 0x00	; 0
- 2f2:	d8 e0       	ldi	r29, 0x08	; 8
-		TCC0.CCB = (i + 33) % 75; 
-		TCC1.CCA = (i + 66) % 75; 
- 2f4:	00 e4       	ldi	r16, 0x40	; 64
- 2f6:	18 e0       	ldi	r17, 0x08	; 8
-	timer_init();
-	PMIC.CTRL |= PMIC_LOLVLEN_bm; //draws current for ?
->>>>>>> origin/master
     while(1)
     { 
 		static long i = 0;
@@ -830,7 +759,6 @@ int main(void)
  492:	90 e2       	ldi	r25, 0x20	; 32
  494:	51 df       	rcall	.-350    	; 0x338 <_Z12SendStringPCPc>
 		
-<<<<<<< HEAD
 		SendStringPC("Hi: ");
  496:	81 e1       	ldi	r24, 0x11	; 17
  498:	90 e2       	ldi	r25, 0x20	; 32
@@ -845,15 +773,6 @@ int main(void)
  4a4:	5b d0       	rcall	.+182    	; 0x55c <__divmodsi4>
  4a6:	68 a7       	std	Y+40, r22	; 0x28
  4a8:	79 a7       	std	Y+41, r23	; 0x29
-=======
-		/***Setting color phase difference about a third***/
-		TCC0.CCA = i % 75; 
- 324:	a5 01       	movw	r20, r10
- 326:	94 01       	movw	r18, r8
- 328:	20 d0       	rcall	.+64     	; 0x36a <__divmodsi4>
- 32a:	68 a7       	std	Y+40, r22	; 0x28
- 32c:	79 a7       	std	Y+41, r23	; 0x29
->>>>>>> origin/master
 		TCC0.CCB = (i + 33) % 75; 
  4aa:	c7 01       	movw	r24, r14
  4ac:	b6 01       	movw	r22, r12
