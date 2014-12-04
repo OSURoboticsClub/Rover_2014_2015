@@ -37,7 +37,8 @@ SUBDIRS :=
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
 ../BasicBrainBoard.cpp \
-../usart_driver.c
+../usart_driver.c \
+../XMegaLib.cpp
 
 
 PREPROCESSING_SRCS += 
@@ -48,19 +49,23 @@ ASM_SRCS +=
 
 OBJS +=  \
 BasicBrainBoard.o \
-usart_driver.o
+usart_driver.o \
+XMegaLib.o
 
 OBJS_AS_ARGS +=  \
 BasicBrainBoard.o \
-usart_driver.o
+usart_driver.o \
+XMegaLib.o
 
 C_DEPS +=  \
 BasicBrainBoard.d \
-usart_driver.d
+usart_driver.d \
+XMegaLib.d
 
 C_DEPS_AS_ARGS +=  \
 BasicBrainBoard.d \
-usart_driver.d
+usart_driver.d \
+XMegaLib.d
 
 OUTPUT_FILE_PATH +=BasicBrainBoard.elf
 
@@ -73,6 +78,8 @@ OUTPUT_FILE_DEP:= ./makedep.mk
 LIB_DEP+= 
 
 # AVR32/GNU C Compiler
+
+
 
 
 

@@ -1,17 +1,13 @@
 Archive member included because of file (symbol)
 
-c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_divmodsi4.o)
-                              BasicBrainBoard.o (__divmodsi4)
-c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_negsi2.o)
-                              c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_divmodsi4.o) (__negsi2)
 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_exit.o)
                               c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6/crtx128a3u.o (exit)
+c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_tablejump.o)
+                              XMegaLib.o (__tablejump2__)
 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_copy_data.o)
                               BasicBrainBoard.o (__do_copy_data)
 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_clear_bss.o)
                               BasicBrainBoard.o (__do_clear_bss)
-c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_udivmodsi4.o)
-                              c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_divmodsi4.o) (__udivmodsi4)
 
 Discarded input sections
 
@@ -24,7 +20,6 @@ Discarded input sections
                 0x00000000       0x64 BasicBrainBoard.o
  .bss.recieveBuffer
                 0x00000000        0xa BasicBrainBoard.o
- .bss.swap      0x00000000        0x2 BasicBrainBoard.o
  .text          0x00000000        0x0 usart_driver.o
  .bss           0x00000000        0x0 usart_driver.o
  .text.USART_InterruptDriver_DreInterruptLevel_Set
@@ -41,32 +36,8 @@ Discarded input sections
                 0x00000000       0x18 usart_driver.o
  .text.USART_NineBits_GetChar
                 0x00000000       0x18 usart_driver.o
- .text          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_divmodsi4.o)
- .bss           0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_divmodsi4.o)
- .text.libgcc.mul
-                0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_divmodsi4.o)
- .text.libgcc   0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_divmodsi4.o)
- .text.libgcc.prologue
-                0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_divmodsi4.o)
- .text.libgcc.builtins
-                0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_divmodsi4.o)
- .text.libgcc.fmul
-                0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_divmodsi4.o)
- .text.libgcc.fixed
-                0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_divmodsi4.o)
- .text          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_negsi2.o)
- .bss           0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_negsi2.o)
- .text.libgcc.mul
-                0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_negsi2.o)
- .text.libgcc   0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_negsi2.o)
- .text.libgcc.prologue
-                0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_negsi2.o)
- .text.libgcc.builtins
-                0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_negsi2.o)
- .text.libgcc.fmul
-                0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_negsi2.o)
- .text.libgcc.fixed
-                0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_negsi2.o)
+ .text          0x00000000        0x0 XMegaLib.o
+ .bss           0x00000000        0x0 XMegaLib.o
  .text          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_exit.o)
  .bss           0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_exit.o)
  .text.libgcc.mul
@@ -82,6 +53,20 @@ Discarded input sections
                 0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_exit.o)
  .text.libgcc.fixed
                 0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_exit.o)
+ .text          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_tablejump.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_tablejump.o)
+ .text.libgcc.mul
+                0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_tablejump.o)
+ .text.libgcc.div
+                0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_tablejump.o)
+ .text.libgcc.prologue
+                0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_tablejump.o)
+ .text.libgcc.builtins
+                0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_tablejump.o)
+ .text.libgcc.fmul
+                0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_tablejump.o)
+ .text.libgcc.fixed
+                0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_tablejump.o)
  .text          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_copy_data.o)
  .bss           0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_copy_data.o)
  .text.libgcc.mul
@@ -112,19 +97,6 @@ Discarded input sections
                 0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_clear_bss.o)
  .text.libgcc.fixed
                 0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_clear_bss.o)
- .text          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_udivmodsi4.o)
- .bss           0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_udivmodsi4.o)
- .text.libgcc.mul
-                0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_udivmodsi4.o)
- .text.libgcc   0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_udivmodsi4.o)
- .text.libgcc.prologue
-                0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_udivmodsi4.o)
- .text.libgcc.builtins
-                0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_udivmodsi4.o)
- .text.libgcc.fmul
-                0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_udivmodsi4.o)
- .text.libgcc.fixed
-                0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_udivmodsi4.o)
 
 Memory Configuration
 
@@ -143,6 +115,7 @@ Linker script and memory map
 LOAD c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6/crtx128a3u.o
 LOAD BasicBrainBoard.o
 LOAD usart_driver.o
+LOAD XMegaLib.o
 START GROUP
 LOAD c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6\libm.a
 END GROUP
@@ -244,49 +217,51 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x5dc
+.text           0x00000000      0x696
  *(.vectors)
  .vectors       0x00000000      0x1fc c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6/crtx128a3u.o
                 0x00000000                __vector_default
                 0x00000000                __vectors
  *(.vectors)
  *(.progmem.gcc*)
-                0x000001fc                . = ALIGN (0x2)
-                0x000001fc                __trampolines_start = .
+ .progmem.gcc_sw_table._Z11RGBSetColor9RGBColors
+                0x000001fc        0xe XMegaLib.o
+                0x0000020a                . = ALIGN (0x2)
+                0x0000020a                __trampolines_start = .
  *(.trampolines)
- .trampolines   0x000001fc        0x0 linker stubs
+ .trampolines   0x0000020a        0x0 linker stubs
  *(.trampolines*)
-                0x000001fc                __trampolines_end = .
+                0x0000020a                __trampolines_end = .
  *(.progmem*)
-                0x000001fc                . = ALIGN (0x2)
+                0x0000020a                . = ALIGN (0x2)
  *(.jumptables)
  *(.jumptables*)
  *(.lowtext)
  *(.lowtext*)
-                0x000001fc                __ctors_start = .
+                0x0000020a                __ctors_start = .
  *(.ctors)
-                0x000001fc                __ctors_end = .
-                0x000001fc                __dtors_start = .
+                0x0000020a                __ctors_end = .
+                0x0000020a                __dtors_start = .
  *(.dtors)
-                0x000001fc                __dtors_end = .
+                0x0000020a                __dtors_end = .
  SORT(*)(.ctors)
  SORT(*)(.dtors)
  *(.init0)
- .init0         0x000001fc        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6/crtx128a3u.o
-                0x000001fc                __init
+ .init0         0x0000020a        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6/crtx128a3u.o
+                0x0000020a                __init
  *(.init0)
  *(.init1)
  *(.init1)
  *(.init2)
- .init2         0x000001fc       0x10 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6/crtx128a3u.o
+ .init2         0x0000020a       0x10 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6/crtx128a3u.o
  *(.init2)
  *(.init3)
  *(.init3)
  *(.init4)
- .init4         0x0000020c       0x1a c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_copy_data.o)
-                0x0000020c                __do_copy_data
- .init4         0x00000226       0x10 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_clear_bss.o)
-                0x00000226                __do_clear_bss
+ .init4         0x0000021a       0x1a c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_copy_data.o)
+                0x0000021a                __do_copy_data
+ .init4         0x00000234       0x10 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_clear_bss.o)
+                0x00000234                __do_clear_bss
  *(.init4)
  *(.init5)
  *(.init5)
@@ -297,184 +272,181 @@ END GROUP
  *(.init8)
  *(.init8)
  *(.init9)
- .init9         0x00000236        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6/crtx128a3u.o
+ .init9         0x00000244        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6/crtx128a3u.o
  *(.init9)
  *(.text)
- .text          0x0000023a        0x2 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6/crtx128a3u.o
-                0x0000023a                __vector_38
-                0x0000023a                __vector_104
-                0x0000023a                __vector_22
-                0x0000023a                __vector_63
-                0x0000023a                __vector_28
-                0x0000023a                __vector_67
-                0x0000023a                __vector_1
-                0x0000023a                __vector_119
-                0x0000023a                __vector_32
-                0x0000023a                __vector_75
-                0x0000023a                __vector_71
-                0x0000023a                __vector_91
-                0x0000023a                __vector_34
-                0x0000023a                __vector_62
-                0x0000023a                __vector_77
-                0x0000023a                __vector_102
-                0x0000023a                __vector_24
-                0x0000023a                __vector_12
-                0x0000023a                __vector_55
-                0x0000023a                __vector_69
-                0x0000023a                __vector_81
-                0x0000023a                __vector_90
-                0x0000023a                __vector_46
-                0x0000023a                __bad_interrupt
-                0x0000023a                __vector_122
-                0x0000023a                __vector_72
-                0x0000023a                __vector_114
-                0x0000023a                __vector_6
-                0x0000023a                __vector_110
-                0x0000023a                __vector_31
-                0x0000023a                __vector_92
-                0x0000023a                __vector_35
-                0x0000023a                __vector_78
-                0x0000023a                __vector_74
-                0x0000023a                __vector_117
-                0x0000023a                __vector_39
-                0x0000023a                __vector_107
-                0x0000023a                __vector_3
-                0x0000023a                __vector_105
-                0x0000023a                __vector_98
-                0x0000023a                __vector_23
-                0x0000023a                __vector_68
-                0x0000023a                __vector_30
-                0x0000023a                __vector_73
-                0x0000023a                __vector_45
-                0x0000023a                __vector_93
-                0x0000023a                __vector_61
-                0x0000023a                __vector_11
-                0x0000023a                __vector_54
-                0x0000023a                __vector_99
-                0x0000023a                __vector_13
-                0x0000023a                __vector_17
-                0x0000023a                __vector_19
-                0x0000023a                __vector_56
-                0x0000023a                __vector_7
-                0x0000023a                __vector_125
-                0x0000023a                __vector_49
-                0x0000023a                __vector_123
-                0x0000023a                __vector_41
-                0x0000023a                __vector_86
-                0x0000023a                __vector_100
-                0x0000023a                __vector_101
-                0x0000023a                __vector_64
-                0x0000023a                __vector_88
-                0x0000023a                __vector_109
-                0x0000023a                __vector_43
-                0x0000023a                __vector_27
-                0x0000023a                __vector_5
-                0x0000023a                __vector_113
-                0x0000023a                __vector_33
-                0x0000023a                __vector_76
-                0x0000023a                __vector_115
-                0x0000023a                __vector_47
-                0x0000023a                __vector_52
-                0x0000023a                __vector_37
-                0x0000023a                __vector_95
-                0x0000023a                __vector_103
-                0x0000023a                __vector_96
-                0x0000023a                __vector_89
-                0x0000023a                __vector_108
-                0x0000023a                __vector_4
-                0x0000023a                __vector_44
-                0x0000023a                __vector_82
-                0x0000023a                __vector_106
-                0x0000023a                __vector_118
-                0x0000023a                __vector_51
-                0x0000023a                __vector_9
-                0x0000023a                __vector_2
-                0x0000023a                __vector_21
-                0x0000023a                __vector_15
-                0x0000023a                __vector_66
-                0x0000023a                __vector_36
-                0x0000023a                __vector_79
-                0x0000023a                __vector_58
-                0x0000023a                __vector_70
-                0x0000023a                __vector_83
-                0x0000023a                __vector_29
-                0x0000023a                __vector_60
-                0x0000023a                __vector_121
-                0x0000023a                __vector_40
-                0x0000023a                __vector_85
-                0x0000023a                __vector_94
-                0x0000023a                __vector_126
-                0x0000023a                __vector_8
-                0x0000023a                __vector_48
-                0x0000023a                __vector_124
-                0x0000023a                __vector_116
-                0x0000023a                __vector_112
-                0x0000023a                __vector_111
-                0x0000023a                __vector_80
-                0x0000023a                __vector_84
-                0x0000023a                __vector_57
-                0x0000023a                __vector_53
-                0x0000023a                __vector_10
-                0x0000023a                __vector_50
-                0x0000023a                __vector_16
-                0x0000023a                __vector_59
-                0x0000023a                __vector_18
-                0x0000023a                __vector_97
-                0x0000023a                __vector_42
-                0x0000023a                __vector_87
-                0x0000023a                __vector_65
-                0x0000023a                __vector_120
-                0x0000023c                . = ALIGN (0x2)
+ .text          0x00000248        0x2 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6/crtx128a3u.o
+                0x00000248                __vector_38
+                0x00000248                __vector_104
+                0x00000248                __vector_22
+                0x00000248                __vector_63
+                0x00000248                __vector_28
+                0x00000248                __vector_67
+                0x00000248                __vector_1
+                0x00000248                __vector_119
+                0x00000248                __vector_32
+                0x00000248                __vector_75
+                0x00000248                __vector_71
+                0x00000248                __vector_91
+                0x00000248                __vector_34
+                0x00000248                __vector_62
+                0x00000248                __vector_77
+                0x00000248                __vector_102
+                0x00000248                __vector_24
+                0x00000248                __vector_12
+                0x00000248                __vector_55
+                0x00000248                __vector_69
+                0x00000248                __vector_81
+                0x00000248                __vector_90
+                0x00000248                __vector_46
+                0x00000248                __bad_interrupt
+                0x00000248                __vector_122
+                0x00000248                __vector_72
+                0x00000248                __vector_114
+                0x00000248                __vector_6
+                0x00000248                __vector_110
+                0x00000248                __vector_31
+                0x00000248                __vector_92
+                0x00000248                __vector_35
+                0x00000248                __vector_78
+                0x00000248                __vector_74
+                0x00000248                __vector_117
+                0x00000248                __vector_39
+                0x00000248                __vector_107
+                0x00000248                __vector_3
+                0x00000248                __vector_105
+                0x00000248                __vector_98
+                0x00000248                __vector_23
+                0x00000248                __vector_68
+                0x00000248                __vector_30
+                0x00000248                __vector_73
+                0x00000248                __vector_45
+                0x00000248                __vector_93
+                0x00000248                __vector_61
+                0x00000248                __vector_11
+                0x00000248                __vector_54
+                0x00000248                __vector_99
+                0x00000248                __vector_13
+                0x00000248                __vector_17
+                0x00000248                __vector_19
+                0x00000248                __vector_56
+                0x00000248                __vector_7
+                0x00000248                __vector_125
+                0x00000248                __vector_49
+                0x00000248                __vector_123
+                0x00000248                __vector_41
+                0x00000248                __vector_86
+                0x00000248                __vector_100
+                0x00000248                __vector_101
+                0x00000248                __vector_64
+                0x00000248                __vector_88
+                0x00000248                __vector_109
+                0x00000248                __vector_43
+                0x00000248                __vector_27
+                0x00000248                __vector_5
+                0x00000248                __vector_113
+                0x00000248                __vector_33
+                0x00000248                __vector_76
+                0x00000248                __vector_115
+                0x00000248                __vector_47
+                0x00000248                __vector_52
+                0x00000248                __vector_37
+                0x00000248                __vector_95
+                0x00000248                __vector_103
+                0x00000248                __vector_96
+                0x00000248                __vector_89
+                0x00000248                __vector_108
+                0x00000248                __vector_4
+                0x00000248                __vector_44
+                0x00000248                __vector_82
+                0x00000248                __vector_106
+                0x00000248                __vector_118
+                0x00000248                __vector_51
+                0x00000248                __vector_9
+                0x00000248                __vector_2
+                0x00000248                __vector_21
+                0x00000248                __vector_15
+                0x00000248                __vector_66
+                0x00000248                __vector_36
+                0x00000248                __vector_79
+                0x00000248                __vector_58
+                0x00000248                __vector_70
+                0x00000248                __vector_83
+                0x00000248                __vector_29
+                0x00000248                __vector_60
+                0x00000248                __vector_121
+                0x00000248                __vector_40
+                0x00000248                __vector_85
+                0x00000248                __vector_94
+                0x00000248                __vector_126
+                0x00000248                __vector_8
+                0x00000248                __vector_48
+                0x00000248                __vector_124
+                0x00000248                __vector_116
+                0x00000248                __vector_112
+                0x00000248                __vector_111
+                0x00000248                __vector_80
+                0x00000248                __vector_84
+                0x00000248                __vector_57
+                0x00000248                __vector_53
+                0x00000248                __vector_10
+                0x00000248                __vector_50
+                0x00000248                __vector_16
+                0x00000248                __vector_59
+                0x00000248                __vector_18
+                0x00000248                __vector_97
+                0x00000248                __vector_42
+                0x00000248                __vector_87
+                0x00000248                __vector_65
+                0x00000248                __vector_120
+                0x0000024a                . = ALIGN (0x2)
  *(.text.*)
  .text.__vector_20
-                0x0000023c       0x30 BasicBrainBoard.o
-                0x0000023c                __vector_20
+                0x0000024a       0x30 BasicBrainBoard.o
+                0x0000024a                __vector_20
  .text.__vector_14
-                0x0000026c       0x30 BasicBrainBoard.o
-                0x0000026c                __vector_14
- .text._Z9uart_initv
-                0x0000029c       0x54 BasicBrainBoard.o
-                0x0000029c                _Z9uart_initv
- .text._Z10timer_initv
-                0x000002f0       0x48 BasicBrainBoard.o
-                0x000002f0                _Z10timer_initv
- .text._Z12SendStringPCPc
-                0x00000338       0x20 BasicBrainBoard.o
-                0x00000338                _Z12SendStringPCPc
+                0x0000027a       0x30 BasicBrainBoard.o
+                0x0000027a                __vector_14
  .text.__vector_25
-                0x00000358       0x52 BasicBrainBoard.o
-                0x00000358                __vector_25
+                0x000002aa       0x52 BasicBrainBoard.o
+                0x000002aa                __vector_25
  .text.__vector_26
-                0x000003aa       0x52 BasicBrainBoard.o
-                0x000003aa                __vector_26
+                0x000002fc       0x52 BasicBrainBoard.o
+                0x000002fc                __vector_26
+ .text._Z9uart_initv
+                0x0000034e       0x54 BasicBrainBoard.o
+                0x0000034e                _Z9uart_initv
+ .text._Z10timer_initv
+                0x000003a2       0x48 BasicBrainBoard.o
+                0x000003a2                _Z10timer_initv
+ .text._Z12SendStringPCPc
+                0x000003ea       0x20 BasicBrainBoard.o
+                0x000003ea                _Z12SendStringPCPc
  .text._Z23SetXMEGA32MhzCalibratedv
-                0x000003fc       0x32 BasicBrainBoard.o
-                0x000003fc                _Z23SetXMEGA32MhzCalibratedv
- .text.main     0x0000042e       0xbe BasicBrainBoard.o
-                0x0000042e                main
+                0x0000040a       0x32 BasicBrainBoard.o
+                0x0000040a                _Z23SetXMEGA32MhzCalibratedv
+ .text.main     0x0000043c      0x10a BasicBrainBoard.o
+                0x0000043c                main
  .text.USART_InterruptDriver_Initialize
-                0x000004ec       0x12 usart_driver.o
-                0x000004ec                USART_InterruptDriver_Initialize
+                0x00000546       0x12 usart_driver.o
+                0x00000546                USART_InterruptDriver_Initialize
  .text.USART_RXComplete
-                0x000004fe       0x2a usart_driver.o
-                0x000004fe                USART_RXComplete
+                0x00000558       0x2a usart_driver.o
+                0x00000558                USART_RXComplete
  .text.USART_DataRegEmpty
-                0x00000528       0x34 usart_driver.o
-                0x00000528                USART_DataRegEmpty
- .text.libgcc.div
-                0x0000055c       0x28 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_divmodsi4.o)
-                0x0000055c                __divmodsi4
- .text.libgcc.div
-                0x00000584       0x10 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_negsi2.o)
-                0x00000584                __negsi2
- .text.libgcc.div
-                0x00000594       0x44 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_udivmodsi4.o)
-                0x00000594                __udivmodsi4
-                0x000005d8                . = ALIGN (0x2)
+                0x00000582       0x34 usart_driver.o
+                0x00000582                USART_DataRegEmpty
+ .text._Z11RGBSetColor9RGBColors
+                0x000005b6       0xd0 XMegaLib.o
+                0x000005b6                _Z11RGBSetColor9RGBColors
+ .text.libgcc   0x00000686        0xc c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_tablejump.o)
+                0x00000686                __tablejump2__
+                0x0000068a                __tablejump__
+                0x00000692                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x000005d8        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_exit.o)
-                0x000005d8                _exit
-                0x000005d8                exit
+ .fini9         0x00000692        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_exit.o)
+                0x00000692                _exit
+                0x00000692                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -493,52 +465,52 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x000005d8        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_exit.o)
+ .fini0         0x00000692        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_exit.o)
  *(.fini0)
-                0x000005dc                _etext = .
+                0x00000696                _etext = .
 
-.data           0x00802000       0x16 load address 0x000005dc
+.data           0x00802000       0x40 load address 0x00000696
                 0x00802000                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00802000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6/crtx128a3u.o
  .data          0x00802000        0x0 BasicBrainBoard.o
  .data          0x00802000        0x0 usart_driver.o
- .data          0x00802000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_divmodsi4.o)
- .data          0x00802000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_negsi2.o)
+ .data          0x00802000        0x0 XMegaLib.o
  .data          0x00802000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_exit.o)
+ .data          0x00802000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_tablejump.o)
  .data          0x00802000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_copy_data.o)
  .data          0x00802000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_clear_bss.o)
- .data          0x00802000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_udivmodsi4.o)
  *(.data*)
  *(.rodata)
  *(.rodata*)
  .rodata.str1.1
-                0x00802000       0x16 BasicBrainBoard.o
+                0x00802000       0x3f BasicBrainBoard.o
  *(.gnu.linkonce.d*)
-                0x00802016                . = ALIGN (0x2)
-                0x00802016                _edata = .
-                0x00802016                PROVIDE (__data_end, .)
+                0x00802040                . = ALIGN (0x2)
+ *fill*         0x0080203f        0x1 
+                0x00802040                _edata = .
+                0x00802040                PROVIDE (__data_end, .)
 
-.bss            0x00802016       0x13
-                0x00802016                PROVIDE (__bss_start, .)
+.bss            0x00802040       0x13
+                0x00802040                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
  .bss._ZZ4mainE1i
-                0x00802016        0x4 BasicBrainBoard.o
+                0x00802040        0x4 BasicBrainBoard.o
  .bss.USART_PC_Data
-                0x0080201a        0xf BasicBrainBoard.o
-                0x0080201a                USART_PC_Data
+                0x00802044        0xf BasicBrainBoard.o
+                0x00802044                USART_PC_Data
  *(COMMON)
-                0x00802029                PROVIDE (__bss_end, .)
-                0x000005dc                __data_load_start = LOADADDR (.data)
-                0x000005f2                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00802053                PROVIDE (__bss_end, .)
+                0x00000696                __data_load_start = LOADADDR (.data)
+                0x000006d6                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x00802029        0x0
-                0x00802029                PROVIDE (__noinit_start, .)
+.noinit         0x00802053        0x0
+                0x00802053                PROVIDE (__noinit_start, .)
  *(.noinit*)
-                0x00802029                PROVIDE (__noinit_end, .)
-                0x00802029                _end = .
-                0x00802029                PROVIDE (__heap_start, .)
+                0x00802053                PROVIDE (__noinit_end, .)
+                0x00802053                _end = .
+                0x00802053                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
  *(.eeprom*)
@@ -582,6 +554,7 @@ END GROUP
  .comment       0x00000000       0x30 BasicBrainBoard.o
                                  0x31 (size before relaxing)
  .comment       0x00000000       0x31 usart_driver.o
+ .comment       0x00000000       0x31 XMegaLib.o
 
 .note.gnu.build-id
  *(.note.gnu.build-id)
@@ -598,47 +571,56 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000       0xc8
+.debug_aranges  0x00000000       0xe8
  *(.debug_aranges)
  .debug_aranges
                 0x00000000       0x60 BasicBrainBoard.o
  .debug_aranges
                 0x00000060       0x68 usart_driver.o
+ .debug_aranges
+                0x000000c8       0x20 XMegaLib.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x1ac7
+.debug_info     0x00000000     0x2917
  *(.debug_info .gnu.linkonce.wi.*)
- .debug_info    0x00000000     0x1541 BasicBrainBoard.o
- .debug_info    0x00001541      0x586 usart_driver.o
+ .debug_info    0x00000000     0x17f0 BasicBrainBoard.o
+ .debug_info    0x000017f0      0x586 usart_driver.o
+ .debug_info    0x00001d76      0xba1 XMegaLib.o
 
-.debug_abbrev   0x00000000      0x4db
+.debug_abbrev   0x00000000      0x5df
  *(.debug_abbrev)
- .debug_abbrev  0x00000000      0x2d8 BasicBrainBoard.o
- .debug_abbrev  0x000002d8      0x203 usart_driver.o
+ .debug_abbrev  0x00000000      0x2e4 BasicBrainBoard.o
+ .debug_abbrev  0x000002e4      0x203 usart_driver.o
+ .debug_abbrev  0x000004e7       0xf8 XMegaLib.o
 
-.debug_line     0x00000000      0x6ef
+.debug_line     0x00000000      0x981
  *(.debug_line .debug_line.* .debug_line_end)
- .debug_line    0x00000000      0x3db BasicBrainBoard.o
- .debug_line    0x000003db      0x314 usart_driver.o
+ .debug_line    0x00000000      0x48f BasicBrainBoard.o
+ .debug_line    0x0000048f      0x314 usart_driver.o
+ .debug_line    0x000007a3      0x1de XMegaLib.o
 
-.debug_frame    0x00000000      0x230
+.debug_frame    0x00000000      0x254
  *(.debug_frame)
  .debug_frame   0x00000000      0x16c BasicBrainBoard.o
  .debug_frame   0x0000016c       0xc4 usart_driver.o
+ .debug_frame   0x00000230       0x24 XMegaLib.o
 
-.debug_str      0x00000000      0xf4f
+.debug_str      0x00000000      0xfb0
  *(.debug_str)
- .debug_str     0x00000000      0xd77 BasicBrainBoard.o
-                                0xde8 (size before relaxing)
- .debug_str     0x00000d77      0x1d8 usart_driver.o
+ .debug_str     0x00000000      0xdbf BasicBrainBoard.o
+                                0xe3a (size before relaxing)
+ .debug_str     0x00000dbf      0x1d8 usart_driver.o
                                 0x491 (size before relaxing)
+ .debug_str     0x00000f97       0x19 XMegaLib.o
+                                0x550 (size before relaxing)
 
-.debug_loc      0x00000000      0x68e
+.debug_loc      0x00000000      0x745
  *(.debug_loc)
  .debug_loc     0x00000000      0x29f BasicBrainBoard.o
  .debug_loc     0x0000029f      0x3ef usart_driver.o
+ .debug_loc     0x0000068e       0xb7 XMegaLib.o
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -658,10 +640,11 @@ END GROUP
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x00000000       0xa8
+.debug_ranges   0x00000000       0xb8
  *(.debug_ranges)
  .debug_ranges  0x00000000       0x50 BasicBrainBoard.o
  .debug_ranges  0x00000050       0x58 usart_driver.o
+ .debug_ranges  0x000000a8       0x10 XMegaLib.o
 
 .debug_macro
  *(.debug_macro)
