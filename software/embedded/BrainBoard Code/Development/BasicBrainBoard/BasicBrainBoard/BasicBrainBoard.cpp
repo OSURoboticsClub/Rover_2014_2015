@@ -18,6 +18,8 @@ extern "C"{
 	#include "avr_compiler.h"
 };
 
+#define XMEGAID "ID: 1"
+
 //Temp Prototypes
 void SetXMEGA32MhzCalibrated();
 void uart_init(void);
@@ -34,12 +36,6 @@ volatile char SendBuffer[100];
 
 //enum { HEADER, COMMAND, BASEROTVAL1, BASEROTVAL2, ACT1VAL1, ACT1VAL2, ACT2VAL1, ACT2VAL2, CHECKSUM, TAIL};
 
-enum XMegaStates{
-	WaitForHost,
-	MainProgram
-} CurrentState = WaitForHost;
-
-
 ISR(TCC1_OVF_vect){
 	TCC1.INTFLAGS = TC1_OVFIF_bm;
 }
@@ -54,6 +50,12 @@ ISR(USARTC0_DRE_vect){
 }
 
 char recieveChar;
+
+enum XMegaStates{
+	WaitForPing,
+	WaitForReady,
+	MainProgram
+} CurrentState = WaitForPing;
 
 int main(void)
 {
@@ -71,35 +73,37 @@ int main(void)
 	
     while(1)
     { 
-		if(USART_RXBufferData_Available(&USART_PC_Data)){
-			recieveChar = USART_RXBuffer_GetByte(&USART_PC_Data);
-			switch(recieveChar){
-				case 'r':
-					SendStringPC("Red LED.\r\n");
-					RGBSetColor(RED);
-					break;
-				case 'b':
-					SendStringPC("Blue LED.\r\n");
-					RGBSetColor(BLUE);	
-					break;
-				case 'g':
-					SendStringPC("Green LED.\r\n");
-					RGBSetColor(GREEN);				
-					break;
-				case 'y':
-					SendStringPC("Yellow LED.\r\n");
-					RGBSetColor(YELLOW);
-					break;
-				case 'o':
-					SendStringPC("Off.\r\n");
-					RGBSetColor(OFF);
-					break;
-				default:
-					SendStringPC("Can't do that.\r\n");
-					break;
-					
-			}
-			_delay_ms(10);
+		//if(USART_RXBufferData_Available(&USART_PC_Data)){
+		//	recieveChar = USART_RXBuffer_GetByte(&USART_PC_Data);
+		switch (CurrentState){
+			case WaitForPing:
+				RGBSetColor(RED);
+				if(USART_RXBufferData_Available(&USART_PC_Data)){
+					recieveChar = USART_RXBuffer_GetByte(&USART_PC_Data);  //Read character off of buffer
+					if (recieveChar == 'p'){
+						SendStringPC(XMEGAID); //Identify itself
+						CurrentState = WaitForReady;
+					}
+					//else, do nothing and wait for more chars
+				}
+				break;
+			case WaitForReady:
+				RGBSetColor(YELLOW);
+				char recieveChar;
+				if(USART_RXBufferData_Available(&USART_PC_Data)){
+					recieveChar = USART_RXBuffer_GetByte(&USART_PC_Data);  //Read character off of buffer
+					if (recieveChar == 'r'){
+						CurrentState = MainProgram;
+					}
+					//else, do nothing and wait for more chars
+				}
+				break;
+			case MainProgram:
+				RGBSetColor(GREEN);
+				
+				/* Main program code goes here! */
+				
+				break;
 		}
 		
 		
