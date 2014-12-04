@@ -39,7 +39,8 @@ enum RGBColors{
 	PURPLE,
 	YELLOW,
 	WHITE,
-	ORANGE
+	ORANGE,
+	OFF
 	};
 
 

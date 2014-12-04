@@ -90,6 +90,10 @@ int main(void)
 					SendStringPC("Yellow LED.\r\n");
 					RGBSetColor(YELLOW);
 					break;
+				case 'o':
+					SendStringPC("Off.\r\n");
+					RGBSetColor(OFF);
+					break;
 				default:
 					SendStringPC("Can't do that.\r\n");
 					break;
