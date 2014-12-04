@@ -53,6 +53,8 @@ ISR(USARTC0_DRE_vect){
 	USART_DataRegEmpty(&USART_PC_Data);
 }
 
+char recieveChar;
+
 int main(void)
 {
 	SetXMEGA32MhzCalibrated();
@@ -69,36 +71,33 @@ int main(void)
 	
     while(1)
     { 
-		static long i = 0;
-		i++;
+		if(USART_RXBufferData_Available(&USART_PC_Data)){
+			recieveChar = USART_RXBuffer_GetByte(&USART_PC_Data);
+			switch(recieveChar){
+				case 'r':
+					SendStringPC("Red LED.\r\n");
+					RGBSetColor(RED);
+					break;
+				case 'b':
+					SendStringPC("Blue LED.\r\n");
+					RGBSetColor(BLUE);	
+					break;
+				case 'g':
+					SendStringPC("Green LED.\r\n");
+					RGBSetColor(GREEN);				
+					break;
+				case 'y':
+					SendStringPC("Yellow LED.\r\n");
+					RGBSetColor(YELLOW);
+					break;
+				default:
+					SendStringPC("Can't do that.\r\n");
+					break;
+					
+			}
+			_delay_ms(10);
+		}
 		
-		SendStringPC("Red.\r\n");
-		RGBSetColor(RED);
-		_delay_ms(1000);
-		
-		SendStringPC("Blue.\r\n");
-		RGBSetColor(BLUE);
-		_delay_ms(1000);
-		
-		SendStringPC("Green.\r\n");
-		RGBSetColor(GREEN);
-		_delay_ms(1000);
-		
-		SendStringPC("Purple.\r\n");
-		RGBSetColor(PURPLE);
-		_delay_ms(1000);
-		
-		SendStringPC("Yellow.\r\n");
-		RGBSetColor(YELLOW);
-		_delay_ms(1000);
-		
-		SendStringPC("White.\r\n");
-		RGBSetColor(WHITE);
-		_delay_ms(1000);
-		
-		SendStringPC("Orange.\r\n");
-		RGBSetColor(ORANGE);
-		_delay_ms(1000);
 		
     }
 }
