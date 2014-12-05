@@ -30,6 +30,8 @@ Changelist for this revision:
   - Spec MOSFET
     - Gate to Source voltage is larger than max input voltage (so you don't have to have a diode)
     - Low on resistance
+- Add ID DIP Switch
+	- A la Medulla
   
 Cosmetic / Not-Physical Changes:
 - Pin 1 marking on the microcontroller footprint is too subtle (dot!)
