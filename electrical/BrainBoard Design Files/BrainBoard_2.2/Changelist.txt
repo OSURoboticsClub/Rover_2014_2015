@@ -30,14 +30,11 @@ Changelist for this revision:
   - Spec MOSFET
     - Gate to Source voltage is larger than max input voltage (so you don't have to have a diode)
     - Low on resistance
-<<<<<<< HEAD
 - Added a fuse
   - 400 mA trip, 200 mA hold
 - M3 sized hole added to each corner
-=======
 - Add ID DIP Switch
 	- A la Medulla
->>>>>>> origin/master
   
 Cosmetic / Not-Physical Changes:
 - Pin 1 marking on the microcontroller footprint is too subtle (dot!)
