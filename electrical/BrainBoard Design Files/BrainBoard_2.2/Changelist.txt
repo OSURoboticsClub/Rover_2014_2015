@@ -34,7 +34,10 @@ Changelist for this revision:
   - 400 mA trip, 200 mA hold
 - M3 sized hole added to each corner
 - Add ID DIP Switch
-	- A la Medulla
+  - A la Medulla
+- Add ability to power the Brainboard over USB
+  - Jumper, low value resistor, diode
+  
   
 Cosmetic / Not-Physical Changes:
 - Pin 1 marking on the microcontroller footprint is too subtle (dot!)
