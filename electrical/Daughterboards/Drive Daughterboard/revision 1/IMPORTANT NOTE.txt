@@ -1,0 +1,21 @@
+Important Note on Soldermask Layers
+===================================
+I assumed that PADS acted like every other PCB program
+and generated the soldermask layer automatically, so I didn't
+create solder mask apertures while making my footprints. As a
+result, the board file has no solder mask openings.
+This may cause a problem if we submit the file directly to
+DFRobot, depending on if they create the openings for us.
+
+The gerber files have solder mask openings copied from the
+copper layers. I've previewed the gerbers using OSHPark, and
+I believe that they are correct. We should be able to
+use them to order the PCBs and stencils.
+
+
+
+Less Important Notes on Other Aspects of the Design
+===================================================
+-The design BOM describes each component individually, including its function.
+-The Assembly/Ordering BOM groups components of the same type together.
+-Gerber files were prepared according to OSHPark's naming system.
