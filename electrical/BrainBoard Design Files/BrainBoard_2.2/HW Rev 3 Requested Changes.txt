@@ -1,0 +1,14 @@
+Potential Issues with Brainboard HW revision 3
+======================================================
+
+Nick Ames
+---------
+-A diode should be connected between the 5V regulator's Vin and Vout,
+ to prevent it from blowing up when the usb cable is connected without a 24V supply present.
+ Most regulators cannot handle the output pin being at a higher voltage than the input.
+
+-The BOM doesn't have a female header for J2. I've found that Digikey's 2x14 pin female headers
+ are very expensive, and they only stock machine-pin types. (Machine pin female headers
+ are unsuitable for this application because they have a high insertion force and
+ most can't tolerate .025 square pins.)
+ To get around this, I decided to build the daughterboard sockets out of two generic 1x14 female headers.
