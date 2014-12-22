@@ -13,8 +13,8 @@ Nick Ames
 -Consider placing a 0.1uF capacitor between 5V and Gnd.
  It can't hurt, and may give us a bit more noise margin.
  
--Add an outline or note on the silkscreen to indicate the correct side to mount the
- encoder connector.
+-Add an outline or note on the silkscreen to indicate that the connector
+ should be mounted on the bottom side.
  
 -Add board name and revision number to the silkscreen.
 
