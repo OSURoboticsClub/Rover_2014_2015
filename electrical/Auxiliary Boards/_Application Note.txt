@@ -1,0 +1,7 @@
+Note:
+
+These boards are designed to preform Auxiliary functions.
+
+Board 1: Breaks out the connection on a AMT113Q-V to the bare conductors of an Ethernet Cable.
+
+Board 2: Breaks out the RJ45 connection that connects the cable coming from the encoder and subtracts the Differential signal.
