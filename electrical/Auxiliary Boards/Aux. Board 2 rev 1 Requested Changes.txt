@@ -1,0 +1,12 @@
+Potential Issues of Aux. Board 2 rev. 1
+=======================================
+
+Nick Ames
+---------
+-Add board name and revision number to the silkscreen.
+
+-Add a 0.1uF capacitor between 5V and ground.
+ (Even slow CMOS logic exhibits terrible ground bounce without adequate decoupling.)
+
+-The AM26LV32IDR has an absolute maximum voltage of 3.6V!
+ The ST26C32ABDR (Digikey 497-2066-1-ND) appears to be a 5V equivalent.
