@@ -1,0 +1,5 @@
+Change Log for OSURC Drive Daughterboard
+========================================
+rev. 1.0: Initial release
+rev. 1.1: Added documentation.
+rev. 1.2: Changed drill file extension to .TXT.
