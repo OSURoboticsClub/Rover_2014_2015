@@ -1,0 +1,4 @@
+Change Log for OSURC Arm Daughterboard
+========================================
+rev. 1.0: Initial release
+rev. 1.1: Changed drill file extension to .txt.
