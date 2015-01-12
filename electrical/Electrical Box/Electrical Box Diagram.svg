@@ -36,9 +36,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.35481989"
+     inkscape:zoom="0.12544778"
      inkscape:cx="903.61249"
-     inkscape:cy="-144.90009"
+     inkscape:cy="558.85309"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -72,7 +72,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -81,21 +81,12 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,3957.874)">
-    <path
-       style="fill:none;stroke:#000000;stroke-width:15;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-       d="m 617.21455,4922.8681 c 16.90999,0 33.81998,0 50.72997,0 3.75777,0 7.51555,0 11.27332,0 1.87889,0 3.79426,-0.3685 5.63667,0 2.91309,0.5826 5.5419,2.2357 8.45499,2.8183 1.8424,0.3685 3.75777,0 5.63666,0 4.69722,0 9.39444,0 14.09166,0 14.09166,0 28.18331,0 42.27497,0 37.57775,0 75.1555,0 112.73325,0 16.90999,0 33.81998,0 50.72996,0 4.69722,0 9.39444,0 14.09166,0 2.81833,0 5.78129,-0.8912 8.45499,0 1.2604,0.4201 1.55794,2.3982 2.81834,2.8183 1.55368,0.5179 14.51822,0 16.90998,0 10.33388,0 20.66777,0 31.00165,0 1.90862,0 18.44438,-0.428 19.72828,0 1.2604,0.4202 1.558,2.3982 2.8184,2.8184 1.5537,0.5178 14.5182,0 16.91,0 11.2733,0 22.5466,0 33.8199,0 4.6972,0 9.3945,0 14.0917,0 1.8789,0 3.8139,-0.4557 5.6367,0 2.0379,0.5094 3.5987,2.3088 5.6366,2.8183 1.8228,0.4557 3.7578,0 5.6367,0 1.8789,0 3.7578,0 5.6366,0 6.5761,0 13.1523,0 19.7284,0 19.7283,0 39.4566,0 59.1849,0 9.3945,0 18.7889,0 28.1833,0 2.9309,0 14.6931,-0.5543 16.91,0 2.038,0.5095 3.5768,2.4063 5.6367,2.8183 2.7636,0.5527 5.6366,0 8.455,0 8.455,0 16.91,0 25.365,0 19.7283,0 39.4566,0 59.1849,0 6.5761,0 13.1522,0 19.7283,0 3.7578,0 7.5886,-0.7369 11.2734,0 2.913,0.5826 5.5419,2.2357 8.4549,2.8183 1.8424,0.3685 3.7578,0 5.6367,0 4,0 12.0917,0 14.0917,0 11.2733,0 22.5466,0 33.8199,0 28.1834,0 56.3667,0 84.55,0 89.2471,0 178.4943,0 267.7415,0 77.0343,0 154.0687,0 231.1031,0 11.2733,0 22.5467,0 33.82,0 0.9394,0 1.8789,0 2.8183,0 0.9395,0 2.1541,0.6643 2.8184,0 0.6642,-0.6642 -0.6643,-2.154 0,-2.8183 1.4091,-1.4092 7.0458,1.4092 8.455,0 0.6642,-0.6643 -0.6643,-2.154 0,-2.8183 0.6642,-0.6643 2.154,0.6643 2.8183,0 0.6643,-0.6643 -0.6643,-2.1541 0,-2.8183 0.6643,-0.6643 2.154,0.6642 2.8183,0 1.3286,-1.3286 -1.3286,-4.3081 0,-5.6367 0.6643,-0.6643 2.1541,0.6643 2.8183,0 0.6643,-0.6643 -0.4201,-1.9781 0,-2.8183 0.5942,-1.1884 1.8789,-1.8789 2.8184,-2.8184 0.9394,-0.9394 1.63,-2.2241 2.8183,-2.8183 0.8403,-0.4201 2.1541,0.6643 2.8183,0 2.7803,-2.7802 -5.7749,-5.6367 2.8184,-5.6367"
-       id="path5342"
-       inkscape:connector-curvature="0"
-       transform="translate(0,-3957.874)" />
-    <path
-       style="fill:none;stroke:#0400d8;stroke-width:15;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-       d="m 498.84464,4643.8533 c -3.83621,-7.2632 8.95522,-12.2738 11.27333,-16.91 0.42013,-0.8403 -0.66429,-2.1541 0,-2.8184 0.66428,-0.6642 1.97806,0.4202 2.81833,0 1.18831,-0.5941 1.63001,-2.2241 2.81833,-2.8183 0.84026,-0.4201 2.15404,0.6643 2.81833,0 0.66429,-0.6643 -0.66429,-2.154 0,-2.8183 1.32857,-1.3286 4.30809,1.3286 5.63666,0 0.66429,-0.6643 -0.66429,-2.1541 0,-2.8184 0.66429,-0.6642 1.97807,0.4202 2.81833,0 1.18832,-0.5941 1.63002,-2.2241 2.81833,-2.8183 1.778,-0.889 12.31366,0.889 14.09166,0 1.18831,-0.5941 1.63002,-2.2242 2.81833,-2.8183 1.01921,-0.5096 12.1314,0 14.09166,0 0.93944,0 2.15404,-0.6643 2.81833,0 0.66429,0.6643 -0.66429,2.154 0,2.8183 1.32857,1.3286 4.30809,-1.3286 5.63666,0 0.66429,0.6643 -0.66428,2.1541 0,2.8183 0.66429,0.6643 2.15405,-0.6642 2.81833,0 0.66429,0.6643 -0.66428,2.1541 0,2.8184 0.66429,0.6643 1.97807,-0.4202 2.81834,0 1.18831,0.5941 1.63001,2.2242 2.81833,2.8183 0.84026,0.4201 2.15404,-0.6643 2.81833,0 0,4.1469 -0.66429,2.1541 2.81833,5.6367 0.93944,0.9394 1.63002,2.2241 2.81833,2.8183 0.84026,0.4201 2.15404,-0.6643 2.81833,0 0.66429,0.6643 -0.66429,2.154 0,2.8183 5.83123,5.8313 -0.22795,-8.9109 5.63666,2.8184 0.42014,0.8402 -0.42013,1.978 0,2.8183 0.59416,1.1883 2.22418,1.63 2.81834,2.8183 0.55872,1.1175 -0.57617,7.8789 0,8.455 0.66428,0.6643 2.15404,-0.6643 2.81833,0 0.57617,0.5762 -0.55873,7.3376 0,8.455 0.59415,1.1883 2.22417,1.63 2.81833,2.8183 0.42013,0.8403 -0.42013,1.9781 0,2.8184 0.59415,1.1883 2.22417,1.63 2.81833,2.8183 0.84026,1.6805 -0.84026,3.9561 0,5.6367 0.59416,1.1883 2.22417,1.63 2.81833,2.8183 0.84026,1.6805 -0.84026,3.9561 0,5.6367 0.59416,1.1883 2.22418,1.63 2.81833,2.8183 0.88569,1.7714 -0.88569,9.5019 0,11.2733 0.59416,1.1883 2.22418,1.63 2.81833,2.8184 0.37053,0.741 0,9.7995 0,11.2733 0,8.455 0,16.91 0,25.365 0,8.455 0,16.9099 0,25.3649 0,0.9395 0,1.8789 0,2.8184 0,0.9394 -0.66428,2.154 0,2.8183 0.66429,0.6643 2.15405,-0.6643 2.81833,0 0.66429,0.6643 0,1.8789 0,2.8183 0,6.5761 0,13.1522 0,19.7284 0,10.3338 0,20.6677 0,31.0016 0,1.4738 -0.37052,10.5323 0,11.2733 0.59416,1.1883 2.22418,1.63 2.81834,2.8184 0.97335,1.9467 -0.98929,13.1023 0,14.0916 0.66428,0.6643 2.15404,-0.6643 2.81833,0 0.77115,0.7712 -0.76446,9.7444 0,11.2733 0.59415,1.1884 2.22417,1.6301 2.81833,2.8184 0.88569,1.7714 -0.88569,9.5019 0,11.2733 0.59415,1.1883 2.22417,1.63 2.81833,2.8183 0.42013,0.8403 0,1.8789 0,2.8184 0,0.9394 0,1.8788 0,2.8183 0,4.6972 0,9.3944 0,14.0916 0,0.9395 0,1.8789 0,2.8184 0,0.9394 -0.66429,2.154 0,2.8183 0.66429,0.6643 2.15404,-0.6643 2.81833,0 0.66429,0.6643 0,1.8789 0,2.8183 0,1.9603 -0.5096,13.0725 0,14.0917 0.59416,1.1883 2.22418,1.63 2.81833,2.8183 0.84027,1.6806 -1.32857,4.3081 0,5.6367 0.66429,0.6643 2.15405,-0.6643 2.81833,0 1.32858,1.3286 -0.84026,3.9561 0,5.6367 0.75294,1.5058 4.88373,4.1307 5.63667,5.6366 0.42013,0.8403 -0.66429,2.1541 0,2.8183 0.66428,0.6643 2.15404,-0.6642 2.81833,0 0.66428,0.6643 -0.66429,2.1541 0,2.8184 0.66428,0.6643 2.15404,-0.6643 2.81833,0 0.66429,0.6643 -0.66429,2.154 0,2.8183 0.66429,0.6643 1.97807,-0.4201 2.81833,0 1.18831,0.5942 1.63002,2.2242 2.81833,2.8183 1.68053,0.8403 3.95614,-0.8402 5.63666,0 1.18832,0.5942 1.63002,2.2242 2.81834,2.8184 1.68052,0.8402 3.95613,-0.8403 5.63666,0 1.18831,0.5941 1.63002,2.2241 2.81833,2.8183 1.778,0.889 12.31366,-0.889 14.09166,0 1.18831,0.5942 1.63001,2.2242 2.81833,2.8183 1.55093,0.7755 14.70663,-0.7344 16.90998,0 1.2604,0.4202 1.63002,2.2242 2.81834,2.8184 0.74105,0.3705 9.79956,0 11.27332,0 7.51555,0 15.0311,0 22.54665,0 2.76863,0 15.04595,-0.6214 16.90999,0 1.99286,0.6643 3.6438,2.154 5.63666,2.8183 0.89124,0.2971 1.87889,0 2.81833,0 1.87889,0 3.75778,0 5.63667,0 7.51555,0 15.0311,0 22.54665,0 13.15221,0 26.30442,0 39.45663,0 3.34423,0 19.81141,-0.5471 22.54665,0 2.05987,0.412 3.5768,2.4064 5.63667,2.8183 4.606,0.9212 9.39444,0 14.09165,0 1.87889,0 3.81388,-0.4557 5.63667,0 2.03794,0.5095 3.6438,2.1541 5.63666,2.8184 1.78247,0.5941 3.75777,0 5.63666,0 5.63666,0 11.27333,0 16.90999,0 1.87889,0 3.85419,-0.5942 5.63666,0 1.99286,0.6642 3.59873,2.3088 5.63666,2.8183 1.82279,0.4557 3.75778,0 5.63667,0 1.81361,0 17.82103,-0.4768 19.72832,0 2.03794,0.5095 3.57679,2.4063 5.63666,2.8183 2.73524,0.5471 19.20242,0 22.54665,0 1.87889,0 3.81387,-0.4557 5.63666,0 2.03794,0.5095 3.59873,2.3089 5.63666,2.8184 1.82279,0.4556 3.75778,0 5.63667,0 1.87888,0 3.75777,0 5.63666,0 7.51552,0 15.03112,0 22.54662,0 1.8789,0 3.7578,0 5.6367,0 1.8789,0 3.8139,-0.4557 5.6367,0 2.0379,0.5094 3.5987,2.3088 5.6366,2.8183 1.8228,0.4557 3.7578,0 5.6367,0 6.5761,0 13.1522,0 19.7283,0 0.9394,0 1.9271,-0.2971 2.8183,0 1.9929,0.6643 3.6438,2.154 5.6367,2.8183 1.8226,0.6076 11.0143,0 14.0917,0 10.3338,0 20.6677,0 31.0016,0 15.0311,0 30.0622,0 45.0933,0 4.6972,0 9.3944,0 14.0917,0 0.9394,0 1.8788,0 2.8183,0 0.9394,0 1.9781,0.4201 2.8183,0 1.1883,-0.5941 1.63,-2.2242 2.8183,-2.8183 1.0192,-0.5096 12.1314,0 14.0917,0 9.3944,0 18.7889,0 28.1833,0 40.3961,0 80.7922,0 121.1883,0 9.3944,0 18.7888,0 28.1833,0 1.8789,0 3.7577,0 5.6366,0 1.8789,0 3.8139,0.4557 5.6367,0 2.0379,-0.5095 3.5987,-2.3089 5.6367,-2.8183 2.765,-0.6913 15.2822,0.8138 16.9099,0 1.1884,-0.5942 1.6301,-2.2242 2.8184,-2.8184 1.778,-0.889 12.3136,0.889 14.0916,0 1.1884,-0.5941 1.6301,-2.2242 2.8184,-2.8183 0.7626,-0.3813 15.696,0 16.91,0 12.2127,0 24.4255,0 36.6383,0 17.8494,0 35.6988,0 53.5483,0 5.6366,0 11.2733,0 16.9099,0 1.8789,0 3.8139,-0.4557 5.6367,0 2.0379,0.5095 3.5987,2.3088 5.6367,2.8183 2.7342,0.6836 5.6366,0 8.455,0 5.6366,0 11.2733,0 16.91,0 1.4737,0 10.5322,0.3705 11.2733,0 1.1883,-0.5941 1.5579,-2.3982 2.8183,-2.8183 1.4427,-0.4809 14.8951,0 16.91,0 11.2733,0 22.5466,0 33.82,0 18.7888,0 37.5777,0 56.3666,0 8.455,0 16.91,0 25.365,0 1.8789,0 3.7942,-0.3685 5.6366,0 2.9131,0.5826 5.5419,2.2357 8.455,2.8183 3.6848,0.737 7.5156,0 11.2734,0 6.5761,0 13.1522,0 19.7283,0 24.4255,0 48.8511,0 73.2766,0 8.455,0 16.91,0 25.365,0 1.2692,0 7.5973,0.4289 8.455,0 1.1883,-0.5941 1.63,-2.2242 2.8183,-2.8183 1.6805,-0.8403 3.9561,0.8403 5.6367,0 1.1883,-0.5942 1.63,-2.2242 2.8183,-2.8183 1.4903,-0.7452 9.9003,0.3432 11.2733,0 2.038,-0.5095 3.6438,-2.1541 5.6367,-2.8184 2.7005,-0.9002 11.4807,0.8703 14.0916,0 1.2604,-0.4201 1.558,-2.3982 2.8184,-2.8183 1.5586,-0.5195 14.0718,0 16.91,0 0.9394,0 1.978,0.4201 2.8183,0 1.1883,-0.5942 1.63,-2.2242 2.8183,-2.8183 0.8577,-0.4289 7.1858,0 8.455,0 9.3945,0 18.7889,0 28.1833,0 21.6072,0 43.2144,0 64.8216,0"
-       id="path5336"
-       inkscape:connector-curvature="0"
-       transform="translate(0,-3957.874)" />
     <g
        id="g3830"
-       transform="translate(-229.91411,-6.9446572)">
+       transform="translate(-229.91411,-6.9446572)"
+       inkscape:export-filename="/home/nick/Desktop/nickfolder/documents/projects/in-progress/project 5d - OSURC Rover Electronics 2015/Box Layout/g4009.png"
+       inkscape:export-xdpi="50.005138"
+       inkscape:export-ydpi="50.005138">
       <rect
          y="959.84332"
          x="902.48315"
@@ -153,7 +144,10 @@
            style="font-size:48px" /></flowRegion><flowPara
          id="flowPara3854" /></flowRoot>    <g
        id="g3137"
-       transform="translate(-1207.673,625.01949)">
+       transform="translate(-1207.673,625.01949)"
+       inkscape:export-filename="/home/nick/Desktop/nickfolder/documents/projects/in-progress/project 5d - OSURC Rover Electronics 2015/Box Layout/g4009.png"
+       inkscape:export-xdpi="50.005138"
+       inkscape:export-ydpi="50.005138">
       <rect
          y="-55.141361"
          x="1883.4962"
@@ -177,7 +171,10 @@
            id="flowPara3027">Drive</flowPara><flowPara
            id="flowPara3039">(stacked)</flowPara></flowRoot>    </g>
     <g
-       id="g3128">
+       id="g3128"
+       inkscape:export-filename="/home/nick/Desktop/nickfolder/documents/projects/in-progress/project 5d - OSURC Rover Electronics 2015/Box Layout/g4009.png"
+       inkscape:export-xdpi="50.005138"
+       inkscape:export-ydpi="50.005138">
       <path
          inkscape:connector-curvature="0"
          id="path270"
@@ -216,7 +213,10 @@
        xml:space="preserve"
        id="flowRoot3069"
        style="font-size:64px;font-style:normal;font-weight:bold;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold"
-       transform="translate(44.15066,-3982.7985)"><flowRegion
+       transform="translate(44.15066,-3982.7985)"
+       inkscape:export-filename="/home/nick/Desktop/nickfolder/documents/projects/in-progress/project 5d - OSURC Rover Electronics 2015/Box Layout/g4009.png"
+       inkscape:export-xdpi="50.005138"
+       inkscape:export-ydpi="50.005138"><flowRegion
          id="flowRegion3071"><rect
            id="rect3073"
            width="2451.4653"
@@ -226,7 +226,10 @@
            style="font-size:64px;font-weight:bold;-inkscape-font-specification:Sans Bold" /></flowRegion><flowPara
          id="flowPara3075">Note: Electrical box is 4 in. tall.</flowPara></flowRoot>    <g
        id="g3928"
-       transform="translate(83.335931,34.723305)">
+       transform="translate(83.335931,34.723305)"
+       inkscape:export-filename="/home/nick/Desktop/nickfolder/documents/projects/in-progress/project 5d - OSURC Rover Electronics 2015/Box Layout/g4009.png"
+       inkscape:export-xdpi="50.005138"
+       inkscape:export-ydpi="50.005138">
       <g
          id="g3937"
          transform="translate(768.68603,387.83652)">
@@ -261,7 +264,10 @@
     </g>
     <g
        id="g3972"
-       transform="translate(308.14121,400.21528)">
+       transform="translate(308.14121,400.21528)"
+       inkscape:export-filename="/home/nick/Desktop/nickfolder/documents/projects/in-progress/project 5d - OSURC Rover Electronics 2015/Box Layout/g4009.png"
+       inkscape:export-xdpi="50.005138"
+       inkscape:export-ydpi="50.005138">
       <rect
          transform="matrix(0,1,-1,0,0,0)"
          y="-12.242264"
@@ -285,7 +291,10 @@
            id="flowPara3970">3x Aux</flowPara></flowRoot>    </g>
     <g
        transform="translate(600.82452,401.07991)"
-       id="g3979">
+       id="g3979"
+       inkscape:export-filename="/home/nick/Desktop/nickfolder/documents/projects/in-progress/project 5d - OSURC Rover Electronics 2015/Box Layout/g4009.png"
+       inkscape:export-xdpi="50.005138"
+       inkscape:export-ydpi="50.005138">
       <rect
          style="fill:#5ec9ef;fill-opacity:1;stroke:#000000;stroke-width:4.40360641;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
          id="rect3981"
@@ -314,12 +323,18 @@
        height="235.70961"
        x="-17.187159"
        y="4767.1606"
-       transform="translate(0,-3957.874)" />
+       transform="translate(0,-3957.874)"
+       inkscape:export-filename="/home/nick/Desktop/nickfolder/documents/projects/in-progress/project 5d - OSURC Rover Electronics 2015/Box Layout/g4009.png"
+       inkscape:export-xdpi="50.005138"
+       inkscape:export-ydpi="50.005138" />
     <flowRoot
        xml:space="preserve"
        id="flowRoot3993"
        style="font-size:56px;font-style:normal;font-weight:bold;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold"
-       transform="translate(98.212338,-3957.874)"><flowRegion
+       transform="translate(98.212338,-3957.874)"
+       inkscape:export-filename="/home/nick/Desktop/nickfolder/documents/projects/in-progress/project 5d - OSURC Rover Electronics 2015/Box Layout/g4009.png"
+       inkscape:export-xdpi="50.005138"
+       inkscape:export-ydpi="50.005138"><flowRegion
          id="flowRegion3995"><rect
            id="rect3997"
            width="414.94711"
@@ -334,19 +349,28 @@
        d="m -61.382711,4889.9262 112.944188,0"
        id="path4005"
        inkscape:connector-curvature="0"
-       transform="translate(0,-3957.874)" />
+       transform="translate(0,-3957.874)"
+       inkscape:export-filename="/home/nick/Desktop/nickfolder/documents/projects/in-progress/project 5d - OSURC Rover Electronics 2015/Box Layout/g4009.png"
+       inkscape:export-xdpi="50.005138"
+       inkscape:export-ydpi="50.005138" />
     <rect
        style="fill:#babaf8;fill-opacity:1;stroke:#000000;stroke-width:5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect3991-7"
        width="108.03357"
        height="235.70961"
        x="2062.2639"
-       y="806.83148" />
+       y="806.83148"
+       inkscape:export-filename="/home/nick/Desktop/nickfolder/documents/projects/in-progress/project 5d - OSURC Rover Electronics 2015/Box Layout/g4009.png"
+       inkscape:export-xdpi="50.005138"
+       inkscape:export-ydpi="50.005138" />
     <flowRoot
        xml:space="preserve"
        id="flowRoot3993-2"
        style="font-size:56px;font-style:normal;font-weight:bold;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold"
-       transform="translate(2759.5715,-3955.4185)"><flowRegion
+       transform="translate(2759.5715,-3955.4185)"
+       inkscape:export-filename="/home/nick/Desktop/nickfolder/documents/projects/in-progress/project 5d - OSURC Rover Electronics 2015/Box Layout/g4009.png"
+       inkscape:export-xdpi="50.005138"
+       inkscape:export-ydpi="50.005138"><flowRegion
          id="flowRegion3995-3"><rect
            id="rect3997-3"
            width="414.94711"
@@ -360,10 +384,16 @@
        style="fill:none;stroke:#000000;stroke-width:8.60000038;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        d="m 2121.1914,932.05243 112.9442,0"
        id="path4005-3"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/nick/Desktop/nickfolder/documents/projects/in-progress/project 5d - OSURC Rover Electronics 2015/Box Layout/g4009.png"
+       inkscape:export-xdpi="50.005138"
+       inkscape:export-ydpi="50.005138" />
     <g
        id="g3881"
-       transform="translate(227.95968,-951.40247)">
+       transform="translate(227.95968,-951.40247)"
+       inkscape:export-filename="/home/nick/Desktop/nickfolder/documents/projects/in-progress/project 5d - OSURC Rover Electronics 2015/Box Layout/g4009.png"
+       inkscape:export-xdpi="50.005138"
+       inkscape:export-ydpi="50.005138">
       <g
          id="g3888"
          transform="translate(1576.4381,562.51755)">
@@ -390,7 +420,10 @@
     </g>
     <g
        id="g3927"
-       transform="translate(-239.14334,546.04396)">
+       transform="translate(-239.14334,546.04396)"
+       inkscape:export-filename="/home/nick/Desktop/nickfolder/documents/projects/in-progress/project 5d - OSURC Rover Electronics 2015/Box Layout/g4009.png"
+       inkscape:export-xdpi="50.005138"
+       inkscape:export-ydpi="50.005138">
       <rect
          y="-306.39435"
          x="859.35797"
@@ -413,7 +446,10 @@
            id="flowPara3905">Computer PS</flowPara></flowRoot>    </g>
     <g
        id="g3940"
-       transform="translate(681.55851,554.0154)">
+       transform="translate(681.55851,554.0154)"
+       inkscape:export-filename="/home/nick/Desktop/nickfolder/documents/projects/in-progress/project 5d - OSURC Rover Electronics 2015/Box Layout/g4009.png"
+       inkscape:export-xdpi="50.005138"
+       inkscape:export-ydpi="50.005138">
       <rect
          y="-320.00885"
          x="584.3634"
@@ -439,7 +475,10 @@
     </g>
     <g
        id="g3958"
-       transform="translate(-1310.0487,76.994998)">
+       transform="translate(-1310.0487,76.994998)"
+       inkscape:export-filename="/home/nick/Desktop/nickfolder/documents/projects/in-progress/project 5d - OSURC Rover Electronics 2015/Box Layout/g4009.png"
+       inkscape:export-xdpi="50.005138"
+       inkscape:export-ydpi="50.005138">
       <rect
          y="-384.49545"
          x="1860.7689"
@@ -462,7 +501,10 @@
            id="flowPara3956">Switch</flowPara></flowRoot>    </g>
     <g
        id="g3975"
-       transform="translate(66.859401,1347.7644)">
+       transform="translate(66.859401,1347.7644)"
+       inkscape:export-filename="/home/nick/Desktop/nickfolder/documents/projects/in-progress/project 5d - OSURC Rover Electronics 2015/Box Layout/g4009.png"
+       inkscape:export-xdpi="50.005138"
+       inkscape:export-ydpi="50.005138">
       <rect
          y="-863.56055"
          x="1046.0475"
@@ -485,7 +527,10 @@
            id="flowPara3973">Wifi</flowPara></flowRoot>    </g>
     <g
        id="g3992"
-       transform="translate(2188.2273,785.04252)">
+       transform="translate(2188.2273,785.04252)"
+       inkscape:export-filename="/home/nick/Desktop/nickfolder/documents/projects/in-progress/project 5d - OSURC Rover Electronics 2015/Box Layout/g4009.png"
+       inkscape:export-xdpi="50.005138"
+       inkscape:export-ydpi="50.005138">
       <rect
          y="-846.70416"
          x="-236.23349"
@@ -508,7 +553,9 @@
            id="flowPara3990">Jetson</flowPara></flowRoot>    </g>
     <g
        id="g4009"
-       transform="translate(581.91546,904.75896)">
+       transform="translate(581.91546,904.75896)"
+       inkscape:export-xdpi="50.005138"
+       inkscape:export-ydpi="50.005138">
       <rect
          y="-470.8757"
          x="-175.5229"
@@ -528,49 +575,5 @@
              width="197.92023"
              id="rect4005" /></flowRegion><flowPara
            id="flowPara4007">Gimbal</flowPara></flowRoot>    </g>
-    <flowRoot
-       xml:space="preserve"
-       id="flowRoot4016"
-       style="font-size:56px;font-style:normal;font-weight:bold;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold"
-       transform="translate(0,-3957.874)"><flowRegion
-         id="flowRegion4018"><rect
-           id="rect4020"
-           width="2172.2188"
-           height="729.38721"
-           x="-19.928612"
-           y="5165.6797"
-           style="font-size:56px;text-align:start;text-anchor:start" /></flowRegion><flowPara
-         id="flowPara4022">Small signal wires are not shown. Only power and ethernet wires</flowPara><flowPara
-         id="flowPara5400">are depicted.</flowPara><flowPara
-         id="flowPara4024">Power wire colors:</flowPara><flowPara
-         id="flowPara4028">     24V (nominal) Battery</flowPara><flowPara
-         id="flowPara4030">     12V/19V for Computing Device</flowPara><flowPara
-         id="flowPara4032">     56V for ethernet switch</flowPara><flowPara
-         id="flowPara3890">     Motor</flowPara><flowPara
-         id="flowPara4036">Signal Wire colors:</flowPara><flowPara
-         id="flowPara4040">     Ethernet</flowPara><flowPara
-         id="flowPara4034" /><flowPara
-         id="flowPara4026" /></flowRoot>    <path
-       style="fill:none;stroke:#000000;stroke-width:15;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 171.38606,963.67996 -75.728724,0"
-       id="path3116"
-       inkscape:connector-curvature="0" />
-    <path
-       style="fill:none;stroke:#000000;stroke-width:15;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m -1.6509403,1801.3899 51.8143903,0"
-       id="path3118"
-       inkscape:connector-curvature="0" />
-    <path
-       style="fill:none;stroke:#0500d5;stroke-width:15;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0"
-       d="m 293.10646,4649.4899 c 0,-4.6972 0,-9.3944 0,-14.0916 0,-0.9395 0.42013,-1.9781 0,-2.8184 -0.59416,-1.1883 -2.22418,-1.63 -2.81834,-2.8183 -0.84026,-1.6805 1.32858,-4.3081 0,-5.6367 -0.66428,-0.6642 -2.15404,0.6643 -2.81833,0 -0.66428,-0.6642 0.66429,-2.154 0,-2.8183 -0.66428,-0.6643 -1.97806,0.4201 -2.81833,0 -1.18831,-0.5941 -1.63002,-2.2242 -2.81833,-2.8183 -0.84026,-0.4202 -2.15404,0.6643 -2.81833,0 -0.66429,-0.6643 0.66429,-2.1541 0,-2.8184 -0.66429,-0.6642 -1.87889,0 -2.81833,0 -7.51555,0 -15.0311,0 -22.54665,0 -1.035,0 -11.15991,-0.1134 -11.27333,0 -0.66429,0.6643 0.66429,2.1541 0,2.8184 -1.32857,1.3286 -3.95613,-0.8403 -5.63666,0 -2.37663,1.1883 -3.26004,4.4483 -5.63666,5.6366 -0.84027,0.4202 -2.15405,-0.6642 -2.81833,0 -0.66429,0.6643 0.66428,2.1541 0,2.8184 -0.66429,0.6643 -2.15405,-0.6643 -2.81834,0 -1.32857,1.3285 1.32858,4.3081 0,5.6366 -0.66428,0.6643 -2.15404,-0.6643 -2.81833,0 -0.66428,0.6643 0.42013,1.9781 0,2.8184 -1.691,3.382 -6.76399,5.073 -8.45499,8.455 -0.42013,0.8402 0.42013,1.978 0,2.8183 -9.34723,9.3472 1.32857,-2.6572 -2.81833,5.6367 -5.86461,11.7292 0.19456,-3.0129 -5.63667,2.8183 -1.32857,1.3286 0.84027,3.9561 0,5.6366 -0.59415,1.1884 -2.22417,1.6301 -2.81833,2.8184 -1.12733,2.2546 1.12734,6.2003 0,8.455 -0.59415,1.1883 -2.22417,1.63 -2.81833,2.8183 -1.12733,2.2547 1.12733,6.2003 0,8.455 -0.59415,1.1883 -2.22417,1.63 -2.81833,2.8183 -1.12733,2.2547 1.12733,6.2004 0,8.455 -0.59416,1.1883 -2.22417,1.63 -2.81833,2.8184 -0.88569,1.7713 0.88569,9.5019 0,11.2733 -0.59416,1.1883 -2.22418,1.63 -2.81833,2.8183 -0.85568,1.7114 0.85568,15.1986 0,16.91 -0.59416,1.1883 -2.22418,1.63 -2.81833,2.8183 -1.12734,2.2547 1.12733,6.2004 0,8.455 -0.59416,1.1883 -2.22418,1.63 -2.81833,2.8184 -0.42014,0.8402 0.42013,1.978 0,2.8183 -0.59416,1.1883 -2.22418,1.63 -2.81834,2.8183 -0.42013,0.8403 0.42014,1.9781 0,2.8183 -0.59415,1.1884 -2.22417,1.6301 -2.81833,2.8184 -0.42013,0.8402 0.66429,2.154 0,2.8183 -0.66428,0.6643 -2.15404,-0.6643 -2.81833,0 -5.83123,5.8312 8.91089,-0.2279 -2.81833,5.6367 -0.84026,0.4201 -2.15404,-0.6643 -2.81833,0 -0.66429,0.6643 0.66429,2.154 0,2.8183 -0.66429,0.6643 -2.15404,-0.6643 -2.81833,0 -0.66429,0.6643 0.42013,1.9781 0,2.8183 -0.59416,1.1883 -1.87889,1.8789 -2.81833,2.8184 -0.93945,0.9394 -1.63002,2.2241 -2.81833,2.8183 -0.84027,0.4201 -2.15405,-0.6643 -2.81834,0 -0.66428,0.6643 0.66429,2.154 0,2.8183 -0.66428,0.6643 -2.15404,-0.6643 -2.81833,0 -0.66428,0.6643 0.42013,1.9781 0,2.8184 -0.59415,1.1883 -2.22417,1.63 -2.81833,2.8183 -0.42013,0.8403 0.66429,2.154 0,2.8183 -0.66429,0.6643 -2.15404,-0.6643 -2.81833,0 -0.66429,0.6643 0.66429,2.1541 0,2.8184 -0.66429,0.6642 -1.97807,-0.4202 -2.81833,0 -1.18831,0.5941 -1.63002,2.2241 -2.81833,2.8183 -0.84027,0.4201 -2.15405,-0.6643 -2.81833,0 -0.66429,0.6643 0.66428,2.154 0,2.8183 -0.66429,0.6643 -1.97807,-0.4201 -2.81834,0 -1.18831,0.5942 -1.63001,2.2242 -2.81833,2.8183 -0.84026,0.4202 -2.15404,-0.6642 -2.81833,0 -0.66428,0.6643 0.66429,2.1541 0,2.8184 -1.32857,1.3286 -4.30809,-1.3286 -5.63666,0 -0.66429,0.6643 0.66429,2.154 0,2.8183 -1.32857,1.3286 -3.95613,-0.8403 -5.63666,0 -1.18832,0.5942 -1.63002,2.2242 -2.81833,2.8183 -1.11745,0.5588 -7.87883,-0.5761 -8.455,0 -0.66429,0.6643 0.66429,2.1541 0,2.8184 -0.66429,0.6643 -1.87889,0 -2.81833,0 -4.69722,0 -9.39444,0 -14.091656,0"
-       id="path3892"
-       inkscape:connector-curvature="0"
-       transform="translate(0,-3957.874)" />
-    <path
-       style="fill:none;stroke:#0400c1;stroke-width:15;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
-       d="m 8.4549939,5621.8142 c 11.2733251,-2.8183 59.1849571,0 59.1849571,0"
-       id="path5338"
-       inkscape:connector-curvature="0"
-       transform="translate(0,-3957.874)" />
   </g>
 </svg>
