@@ -1,0 +1,5 @@
+Change Log for OSURC Arm Daughterboard
+========================================
+rev. 1.0: Initial release
+rev. 1.1: Changed drill file extension to .txt.
+rev. 2.0: Fixed row spacing on Pololu driver footprint.

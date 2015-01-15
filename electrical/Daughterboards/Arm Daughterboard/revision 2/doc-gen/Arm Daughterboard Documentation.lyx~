@@ -1,0 +1,1534 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman lmodern
+\font_sans lmss
+\font_typewriter lmtt
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement h
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks true
+\pdf_pdfborder true
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle true
+\pdf_quoted_options "urlcolor=blue"
+\papersize default
+\use_geometry true
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2cm
+\topmargin 2cm
+\rightmargin 2cm
+\bottommargin 2cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+OSURC Rover 2015 Arm Daughterboard Rev.
+ 1 Manual
+\end_layout
+
+\begin_layout Author
+Nick Ames (nick@fetchmodus.org)
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Graphics
+	filename img/placeholder.png
+	lyxscale 10
+	width 5cm
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Assembled arm daughterboard
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+General Specifications
+\end_layout
+
+\begin_layout Standard
+This manual covers the arm daughterboard, a component of the electronics
+ of the OSU Robotics Club's 2015 rover.
+ The arm daughterboard holds the stepper drivers for the robot's arm, and
+ provides an interface to the arm's sensors.
+ It includes:
+\end_layout
+
+\begin_layout Itemize
+5x stepper drivers (Pololu DRV8825 carriers; up to 1.5A per phase)
+\end_layout
+
+\begin_layout Itemize
+5x limit switch inputs
+\end_layout
+
+\begin_layout Itemize
+4x interfaces for resistive flex sensors
+\end_layout
+
+\begin_layout Itemize
+A communication interface to the Drive Daughterboard (including the 
+\begin_inset Formula $\overline{{\rm {PAUSE}}}$
+\end_inset
+
+ signal)
+\end_layout
+
+\begin_layout Standard
+The daughterboard is powered from a nominal 24V supply, using the same connector
+ and pinout as the brainboards.
+ 
+\series bold
+Power should be connected to the daughterboard.
+ 
+\series default
+The brainboard receives power from the daughterboard.
+\end_layout
+
+\begin_layout Section
+Mechanical Dimensions
+\end_layout
+
+\begin_layout Standard
+The Arm Daughterboard is a 3.90
+\begin_inset Quotes erd
+\end_inset
+
+ square PCB with four .125
+\begin_inset Quotes erd
+\end_inset
+
+ holes spaced on a 3.5
+\begin_inset Quotes erd
+\end_inset
+
+ square centered within it.
+ Each hole is surrounded by a .340
+\begin_inset Quotes erd
+\end_inset
+
+ diameter circular buffer zone suitable for a standoff or washer.
+ The stepper drivers and brainboard project from the top of the board, making
+ its highest point approx.
+ 0.75
+\begin_inset Quotes erd
+\end_inset
+
+ above the bottom of the board.
+ There are no components on the rear side, but the leads of through-hole
+ connectors will protrude about 0.05
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Graphics
+	filename img/Arm Daughterboard Diagram.png
+	lyxscale 10
+	width 8cm
+
+\end_inset
+
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Arm daughterboard PCB dimensions
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+External Connections
+\end_layout
+
+\begin_layout Subsection
+24V Power
+\begin_inset CommandInset label
+LatexCommand label
+name "sub:24V-Power"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Nominal 24V power (up to 32V) is supplied through a vertical 2-pin Molex
+ Mini-Fit Jr.
+ connector, the same type used on the brainboards.
+ The upper (longer) pin is ground, and the lower pin is +24V.
+ The power input should be connected to the daughterboard only; the brainboard
+ receives power from the daughterboard.
+ The arm daughterboard can consume a maximum of 4A of current.
+\end_layout
+
+\begin_layout Subsection
+Arm Interface
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "6cm"
+special "none"
+height "1in"
+height_special "totalheight"
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename connector imgs/arm.svg
+	height 8cm
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hspace{}
+\length 0.5cm
+\end_inset
+
+
+\family sans
+\size small
+
+\begin_inset Tabular
+<lyxtabular version="3" rows="4" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+\emph on
+Connector Parts
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+\emph on
+Board Header
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+Assmann AWP34-7240-T-R (HKC34H-ND)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+\emph on
+Wire Connector
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+Assmann AWHW-34G-0202-T (HRP34H-ND)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+\emph on
+Wire
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+3M 3302/34 300SF (MC34M-5-ND)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\family default
+\size default
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Arm connector
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Stepper Drivers
+\end_layout
+
+\begin_layout Standard
+\begin_inset Wrap table
+lines 0
+placement O
+overhang 0in
+width "40col%"
+status open
+
+\begin_layout Plain Layout
+\align center
+
+\family sans
+\size small
+\begin_inset Tabular
+<lyxtabular version="3" rows="10" columns="4">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+\emph on
+Switches
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell multirow="3" alignment="left" valignment="middle" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+\emph on
+Microstep Mode
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+\emph on
+3
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+\emph on
+2
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+\emph on
+1
+\end_layout
+
+\end_inset
+</cell>
+<cell multirow="4" alignment="center" valignment="top" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+off
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+off
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+off
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+Full Step
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+off
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+off
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+ON
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+1/2 (half)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+off
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+ON
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+off
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+1/4 (quarter)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+off
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+ON
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+ON
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+1/8
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+ON
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+off
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+off
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+1/16
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+ON
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+off
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+ON
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+1/32
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+ON
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+ON
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+off
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+1/32
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+ON
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+ON
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+ON
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+1/32
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Stepper driver microstep settings
+\end_layout
+
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "microstep table"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The arm daughterboard includes five Pololu DRV8825 stepper driver modules,
+ designated 1-5.
+ Each module has two settings that must be configured: the coil current
+ and the number of microsteps.
+ 
+\end_layout
+
+\begin_layout Standard
+Coil current is set using the small trimpot and can be determined by measuring
+ the voltage on the round testpoint near the center of the board.
+ The coil current in amps is equal to twice the test point voltage in volts
+ (
+\begin_inset Formula $I_{coil}=2V_{test}$
+\end_inset
+
+).
+ The maximum allowable coil current is 1.5A.
+ Therefore, the test point voltage should never be set higher than 0.75V.
+ Set the stepper motor current high enough to ensure that steps are never
+ missed, even under maximum speed and the greatest anticipated load.
+\end_layout
+
+\begin_layout Standard
+Microstepping subdivides the physical steps in the stepper motor, allowing
+ smoother movement.
+ The microstep setting of each module is determined by the DIP switch next
+ to it.
+ See table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "microstep table"
+
+\end_inset
+
+ for the settings.
+\end_layout
+
+\begin_layout Subsubsection
+Limit Switches
+\end_layout
+
+\begin_layout Standard
+Limit switches are provided to allow the robot to home the arm axises when
+ it starts up.
+ There are five limit switches, corresponding to the five axises driven
+ by the stepper motors.
+ Each limit switch pin should be connected to an NC (normally-closed) microswitc
+h, with the other terminal of the switch connected to ground.
+ Unconnected limit switches will be interpreted by the microcontroller as
+ being pressed.
+\end_layout
+
+\begin_layout Subsubsection
+Flex Sensors
+\end_layout
+
+\begin_layout Standard
+To identify when an object is grasped, analog inputs for up to four flex
+ sensors are provided.
+ These are designed to be used with Spectrasymbol flex sensors available
+ from Sparkfun (
+\begin_inset CommandInset href
+LatexCommand href
+name "4.5\""
+target "https://www.sparkfun.com/products/8606"
+
+\end_inset
+
+, 
+\begin_inset CommandInset href
+LatexCommand href
+name "2.2\""
+target "https://www.sparkfun.com/products/10264"
+
+\end_inset
+
+).
+ Each sensor should be connected between the flex input pin and ground.
+ The resistance of the flex sensors can vary dramatically, so the voltage
+ divider resistors on the PCB may need to be changed.
+\end_layout
+
+\begin_layout Subsection
+Drive Daughterboard Interface
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset space \hfill{}
+\end_inset
+
+
+\begin_inset Box Frameless
+position "c"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "3cm"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename connector imgs/drivecom.svg
+	height 1.5cm
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset space \hspace{}
+\length 1cm
+\end_inset
+
+
+\family sans
+\size small
+
+\begin_inset Tabular
+<lyxtabular version="3" rows="5" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0">
+<column alignment="center" valignment="top" width="0">
+<row>
+<cell multicolumn="1" alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+\emph on
+Connector Parts
+\end_layout
+
+\end_inset
+</cell>
+<cell multicolumn="2" alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+\emph on
+Board Header
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+TE 640454-3 (A19430-ND)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+\emph on
+Wire Connector
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+TE 3-643814-3 (A31018-ND)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+\emph on
+Strain Relief
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+TE 643075-3 (A19231-ND)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+\emph on
+Wire
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\family sans
+\size small
+1
+\begin_inset Formula $\frac{1}{2}$
+\end_inset
+
+ twisted pairs from cat-5 cable
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\family default
+\size default
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Drive daughterboard interface connector
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+A four-pin connector is provided to receive RC receiver commands and the
+ 
+\begin_inset Formula $\overline{{\rm {PAUSE}}}$
+\end_inset
+
+ signal from the drive daughterboard.
+ All three signals are 3.3V level.
+\end_layout
+
+\begin_layout Section
+Microcontroller Connections
+\end_layout
+
+\begin_layout Standard
+This section contains the complete microcontroller connection table.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset space \hfill{}
+\end_inset
+
+
+\family sans
+
+\begin_inset External
+	template GnumericSpreadsheet
+	filename /home/nick/Desktop/nickfolder/documents/projects/in-progress/project 5d - OSURC Rover Electronics 2015/Daughterboards/arm board/revision 1/documentation/Arm Daughterboard Microcontroller Connections.xls
+
+\end_inset
+
+
+\family default
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Microcontroller connections
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Assembly Notes
+\end_layout
+
+\begin_layout Subsection
+Soldering
+\end_layout
+
+\begin_layout Standard
+The daughterboards are designed to be reflow soldered.
+ Solder paste should be deposited using a kapton stencil (
+\begin_inset CommandInset href
+LatexCommand href
+name "OSHStencils"
+target "https://www.oshstencils.com/"
+
+\end_inset
+
+ is an inexpensive source), then surface-mount components should be placed.
+ Next, the solder should be reflowed in an oven.
+ Through-hole parts should be soldered manually.
+\end_layout
+
+\begin_layout Subsection
+Connectors
+\end_layout
+
+\begin_layout Standard
+MTA connectors are insulation-displacement connectors, meaning the wires
+ do not need to be stripped before they are inserted.
+ A special tool (MTA-100: A9982-ND, MTA-156: A9981-ND) is needed to push
+ the wires down into the connector.
+ These tools are a bit expensive, and the business end is quite simple,
+ so we'll probably make our own.
+ In a pinch, a small screwdriver can be used to insert the wires.
+ However, connectors assembled this way should not be used on the robot
+ due to reliability concerns.
+\end_layout
+
+\begin_layout Standard
+Twisted pairs from cat-5 cable are used for the connection to the drive
+ daughterboard.
+ Multiple wires should be bundled together with half-inch pieces of heatshrink
+ tubing every three inches or so.
+\end_layout
+
+\begin_layout Standard
+Ribbon connectors should be assembled using a vise.
+ Line up the ribbon cable in the connector, making sure that the pin one
+ triangle is on the side of the ribbon cable with the brown stripe, and
+ that the cable is exiting from the correct side of the connector.
+ Loosely snap on the retaining clip.
+ Place the part in a vise and tighten the vise to push the retaining clip
+ all the way down.
+ Don't crush the connector.
+\end_layout
+
+\begin_layout Section
+Assembly/Ordering Bill of Materials 
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:Assembly/Ordering-Bill-of"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+(This is a summary bill of materials.
+ For a complete BOM, refer to the design files.)
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float table
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset space \hfill{}
+\end_inset
+
+
+\family sans
+\size footnotesize
+
+\begin_inset External
+	template GnumericSpreadsheet
+	filename spreadsheets/Arm Board Assembly-Ordering BOM - Doc Formatted.xls
+
+\end_inset
+
+
+\family default
+\size default
+
+\begin_inset space \hfill{}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Summary of Assembly/Ordering BOM
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Schematic
+\end_layout
+
+\begin_layout Standard
+\begin_inset External
+	template PDFPages
+	filename /home/nick/Desktop/nickfolder/documents/projects/in-progress/project 5d - OSURC Rover Electronics 2015/Daughterboards/arm board/revision 1/preview/Arm Daughterboard Schematic.pdf
+	extra LaTeX "pages=-"
+	rotateAngle 270
+	rotateOrigin center
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
