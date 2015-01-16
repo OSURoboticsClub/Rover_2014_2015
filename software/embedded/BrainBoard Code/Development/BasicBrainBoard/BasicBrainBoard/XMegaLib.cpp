@@ -6,7 +6,6 @@
  */ 
 
 #include "XMegaLib.h"
-#include <string.h>
 #include <avr/io.h>
 
 //This function handles making colors on the RGB LED

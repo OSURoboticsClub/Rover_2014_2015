@@ -9,11 +9,22 @@
 #ifndef BRAINBOARD_H_
 #define BRAINBOARD_H_
 
-void driveMain();
-void armMain();
-void radioMain();
-void debugMain();
 
+void SetXMEGA32MhzCalibrated();       //Sets the clock speed to 32Mhz
+void uart_init(void);                 //Initializes UART
+void timer_init(void);                //Initializes the timers (for UART)
+void SendStringPC(char *stufftosend); //Sends a string over the FTDI chip
+
+void driveMain();  //Contains the drive code
+void armMain();    //Contains the arm code
+void radioMain();  //Contains the radio code
+void debugMain();  //Contains misc. debug code. No specific purpose
+
+enum XMegaStates{
+	WaitForPing,
+	WaitForReady,
+	MainProgram
+} CurrentState = WaitForPing;
 
 
 #endif /* BRAINBOARD_H_ */

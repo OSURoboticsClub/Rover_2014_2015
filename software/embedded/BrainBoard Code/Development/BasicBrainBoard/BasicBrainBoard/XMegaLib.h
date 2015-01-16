@@ -2,9 +2,11 @@
  * XMegaMacros.h
  *
  * Author: Nick
+ * 
+ * This file contains functions that are general to the entire Xmega platform
  */ 
 
-
+#include <string.h>
 
 //Error and Status LED outputs
 

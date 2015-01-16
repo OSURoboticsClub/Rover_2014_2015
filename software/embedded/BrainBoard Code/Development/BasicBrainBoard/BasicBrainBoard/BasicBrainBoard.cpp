@@ -1,10 +1,14 @@
 /*
  * BasicBrainBoard.cpp
  *
- * Created: 11/25/2014 6:03:12 PM
- *  Author: OSURC2
+ *  Microcontroller Control code for OSU Robotics Club's Mars Rover Team's Rover.
+ *  This code and related documentation (including hardware design/files/doc) can 
+ *  be found at https://github.com/OSURoboticsClub/Rover2015
+ *  
+ *  This board is designed to preform 3 main functions: Drive, Arm, and Radio.
+ *
+ *  Authors: Nick McComb, Brain Sia, Cameron Stuart
  */ 
-
 
 #define F_CPU 32000000UL
 
@@ -19,22 +23,9 @@ extern "C"{
 	#include "avr_compiler.h"
 };
 
-//Temp Prototypes
-void SetXMEGA32MhzCalibrated();
-void uart_init(void);
-void timer_init(void);
-void SendStringPC(char *stufftosend);
-
 USART_data_t USART_PC_Data;
 
-#define GRIP_BM_SERIAL (1 << 1)
-
-#define PACKETSIZE 10
-volatile char recieveBuffer[PACKETSIZE];
-volatile char SendBuffer[100];
-
-//enum { HEADER, COMMAND, BASEROTVAL1, BASEROTVAL2, ACT1VAL1, ACT1VAL2, ACT2VAL1, ACT2VAL2, CHECKSUM, TAIL};
-
+//Misc. ISRs
 ISR(TCC1_OVF_vect){
 	TCC1.INTFLAGS = TC1_OVFIF_bm;
 }
@@ -50,17 +41,29 @@ ISR(USARTC0_DRE_vect){
 
 char recieveChar;
 
-enum XMegaStates{
-	WaitForPing,
-	WaitForReady,
-	MainProgram
-} CurrentState = WaitForPing;
 
-//#define XMEGAID "ID: 1"
+/*
+Description: Main function that initializes all of the general hardware. There are more
+specific inits in each of the boards' main functions (to maintain interchangeability).
 
+Author: Nick McComb
 
+Pseudocode:
+- Init
+- State Machine:
+	- WaitForPing (default):
+		- Wait until I recieve a 'p' from the PC Comms
+			- return "ID" string over PC Comms
+			- Change State -> WaitForReady
+	- WaitForReady:
+		- Wait until recieve a 'r' from the PC Comms
+			- Change State -> MainProgram
+	- MainProgram:
+		- Determine which board we are
+			- Launch the 'main' function associated with the board
+				-INFINITE LOOP
 
-
+*/
 int main(void)
 {
 	SetXMEGA32MhzCalibrated();
@@ -149,9 +152,14 @@ This function exists inside a while(1) so it will loop itself forever
 
 */
 void driveMain(){
+	static char miscStr[10];
 	RGBSetColor(BLUE);
+	strcpy(miscStr,"Blue!\n\r");
+	SendStringPC(miscStr);
 	_delay_ms(500);
 	RGBSetColor(RED);
+	strcpy(miscStr,"Red!\n\r");
+	SendStringPC(miscStr);
 	_delay_ms(500);
 }
 
@@ -195,6 +203,8 @@ void debugMain(){
 	
 }
 
+
+//Inits the UART for the board
 void uart_init(void){
 	PORTC.DIRSET = PIN3_bm;																			//Sets TX Pin as output
 	PORTC.DIRCLR = PIN2_bm;																			//Sets RX pin as input
@@ -257,12 +267,18 @@ void SetXMEGA32MhzCalibrated(){
 
 /*
 
-Dumpster:  (old code that I want to keep for reference purposes)
+"Recycle Bin":  (old code that I want to keep for reference purposes)
 
 
 //if(USART_RXBufferData_Available(&USART_PC_Data)){
 //	recieveChar = USART_RXBuffer_GetByte(&USART_PC_Data);
 
+#define PACKETSIZE 10
+volatile char recieveBuffer[PACKETSIZE];
+volatile char SendBuffer[100];
+
+
+//enum { HEADER, COMMAND, BASEROTVAL1, BASEROTVAL2, ACT1VAL1, ACT1VAL2, ACT2VAL1, ACT2VAL2, CHECKSUM, TAIL};
 
 
 */
