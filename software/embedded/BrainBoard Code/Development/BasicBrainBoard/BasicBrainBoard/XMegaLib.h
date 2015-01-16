@@ -11,11 +11,9 @@
 #define STATUS1_SET(void) (PORTC.OUTSET = PIN5_bm)
 #define STATUS1_CLR(void) (PORTC.OUTCLR = PIN5_bm)
 
-#define STATUS2_SET(void) (PORTC.OUTSET = PIN6_bm)
-#define STATUS2_CLR(void) (PORTC.OUTCLR = PIN6_bm)
-
-#define ERROR_SET(void) (PORTC.OUTSET = PIN7_bm)
-#define ERROR_CLR(void) (PORTC.OUTCLR = PIN7_bm)
+//Check the DIP Switches on the BB
+#define CHECK_DIP_SW_1(void) (!(PORTC.IN & PIN7_bm)) //Returns true if bit 1 of the DIP Switch is "ON"
+#define CHECK_DIP_SW_2(void) (!(PORTC.IN & PIN6_bm)) //Returns true if bit 2 of the DIP Switch is "ON"
 
 //RGB LED Control
 //RGB LED Pin Descriptions (All on Port C)
@@ -43,8 +41,17 @@ enum RGBColors{
 	OFF
 	};
 
+enum XMEGAID{
+	DRIVE,
+	ARM,
+	RADIO,
+	DEBUG_MODE
+};  //Variable for internal ID use
 
 //Define for the PWM cycle for an "ON" led. Used to adjust brightness
 #define COLOR_ON 50
 
 void RGBSetColor(RGBColors choice);
+void initializeIO(void);  //Sets up all of the IO and associated settings
+//void determineID(void);
+void determineID(char * XmegaIDStr, XMEGAID & CurrentID);

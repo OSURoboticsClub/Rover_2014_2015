@@ -18,8 +18,6 @@ extern "C"{
 	#include "avr_compiler.h"
 };
 
-#define XMEGAID "ID: 1"
-
 //Temp Prototypes
 void SetXMEGA32MhzCalibrated();
 void uart_init(void);
@@ -57,31 +55,39 @@ enum XMegaStates{
 	MainProgram
 } CurrentState = WaitForPing;
 
+//#define XMEGAID "ID: 1"
+
+
+
+
 int main(void)
 {
 	SetXMEGA32MhzCalibrated();
 	
+	//Main's Variable Declarations
+	char XmegaIDStr[11];
+	XMEGAID CurrentID;
+		
 	//Initialization Code
 	uart_init();
-	PORTC.DIRSET = (PIN5_bm | PIN6_bm | PIN7_bm); //Sets status/error led outputs
-	PORTC.DIRSET = (PIN0_bm | PIN1_bm | PIN4_bm); //Set RGB Led outputs
-	//PORTC.DIRCLR = PIN0_bm;
+	initializeIO();
+	determineID(XmegaIDStr, CurrentID);
 	timer_init();  //Initialize Timers
+	sei(); //Enable interrupts
+	
 	PMIC.CTRL |= PMIC_LOLVLEN_bm; //draws current for ?
 
-	sei(); //Enable interrupts
 	
     while(1)
     { 
-		//if(USART_RXBufferData_Available(&USART_PC_Data)){
-		//	recieveChar = USART_RXBuffer_GetByte(&USART_PC_Data);
+		
 		switch (CurrentState){
 			case WaitForPing:
 				RGBSetColor(RED);
 				if(USART_RXBufferData_Available(&USART_PC_Data)){
 					recieveChar = USART_RXBuffer_GetByte(&USART_PC_Data);  //Read character off of buffer
 					if (recieveChar == 'p'){
-						SendStringPC(XMEGAID); //Identify itself
+						SendStringPC(XmegaIDStr); //Identify itself
 						CurrentState = WaitForReady;
 					}
 					//else, do nothing and wait for more chars
@@ -99,16 +105,30 @@ int main(void)
 				}
 				break;
 			case MainProgram:
-				RGBSetColor(GREEN);
-				
-				/* Main program code goes here! */
-				
+				//RGBSetColor(GREEN);
+				while (1){
+					switch (CurrentID) {
+						case DRIVE:
+						//Drive code goes here
+						break;
+						case ARM:
+						//Arm code goes here
+						break;
+						case RADIO:
+						//Radio code goes here
+						break;
+						case DEBUG_MODE:
+						//Debug code goes here
+						break;
+					}
+				}
 				break;
 		}
 		
 		
     }
 }
+
 
 void uart_init(void){
 	PORTC.DIRSET = PIN3_bm;																			//Sets TX Pin as output
@@ -123,7 +143,7 @@ void uart_init(void){
 	PMIC.CTRL |= PMIC_LOLVLEX_bm;
 }
 
-
+//Initializes timers
 void timer_init(void){
 	TCC0.PER = 100;	//period for PWM
 	TCC0.CTRLA = TC_CLKSEL_DIV256_gc; //sets the PWM base frequency by 2000000/256
@@ -141,7 +161,7 @@ void timer_init(void){
 	TCC1.CCA = 50;
 }
 
-
+//Sends a string to the computer
 void SendStringPC(char *stufftosend){
 	for(int i = 0 ; stufftosend[i] != '\0' ; i++){
 		while(!USART_IsTXDataRegisterEmpty(&USARTC0));
@@ -149,7 +169,7 @@ void SendStringPC(char *stufftosend){
 	}
 }
 
-
+//Configures the XMEGA to run on it's 32Mhz internal? oscillator
 void SetXMEGA32MhzCalibrated(){
 	CCP = CCP_IOREG_gc;						//Disable register security for oscillator update
 	OSC.CTRL = OSC_RC32MEN_bm;				//Enable 32MHz oscillator
@@ -166,3 +186,18 @@ void SetXMEGA32MhzCalibrated(){
 	DFLLRC32M.CTRL |= DFLL_ENABLE_bm;		//Enable calibration of 32Mhz oscillator 
 	*/
 }
+
+
+
+
+/*
+
+Dumpster:  (old code that I want to keep for reference purposes)
+
+
+//if(USART_RXBufferData_Available(&USART_PC_Data)){
+//	recieveChar = USART_RXBuffer_GetByte(&USART_PC_Data);
+
+
+
+*/
