@@ -14,6 +14,12 @@ Discarded input sections
  .bss           0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6/crtx128a3u.o
  .text          0x00000000        0x0 BasicBrainBoard.o
  .bss           0x00000000        0x0 BasicBrainBoard.o
+ .text._Z7armMainv
+                0x00000000        0x2 BasicBrainBoard.o
+ .text._Z9radioMainv
+                0x00000000        0x2 BasicBrainBoard.o
+ .text._Z9debugMainv
+                0x00000000        0x2 BasicBrainBoard.o
  .bss.SendBuffer
                 0x00000000       0x64 BasicBrainBoard.o
  .bss.recieveBuffer
@@ -211,7 +217,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x72a
+.text           0x00000000      0x760
  *(.vectors)
  .vectors       0x00000000      0x1fc c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6/crtx128a3u.o
                 0x00000000                __vector_default
@@ -407,52 +413,55 @@ END GROUP
  .text.__vector_26
                 0x000002fc       0x52 BasicBrainBoard.o
                 0x000002fc                __vector_26
+ .text._Z9driveMainv
+                0x0000034e       0x2e BasicBrainBoard.o
+                0x0000034e                _Z9driveMainv
  .text._Z9uart_initv
-                0x0000034e       0x54 BasicBrainBoard.o
-                0x0000034e                _Z9uart_initv
+                0x0000037c       0x54 BasicBrainBoard.o
+                0x0000037c                _Z9uart_initv
  .text._Z10timer_initv
-                0x000003a2       0x48 BasicBrainBoard.o
-                0x000003a2                _Z10timer_initv
+                0x000003d0       0x48 BasicBrainBoard.o
+                0x000003d0                _Z10timer_initv
  .text._Z12SendStringPCPc
-                0x000003ea       0x20 BasicBrainBoard.o
-                0x000003ea                _Z12SendStringPCPc
+                0x00000418       0x20 BasicBrainBoard.o
+                0x00000418                _Z12SendStringPCPc
  .text._Z23SetXMEGA32MhzCalibratedv
-                0x0000040a       0x32 BasicBrainBoard.o
-                0x0000040a                _Z23SetXMEGA32MhzCalibratedv
- .text.main     0x0000043c       0x8a BasicBrainBoard.o
-                0x0000043c                main
+                0x00000438       0x32 BasicBrainBoard.o
+                0x00000438                _Z23SetXMEGA32MhzCalibratedv
+ .text.main     0x0000046a       0x92 BasicBrainBoard.o
+                0x0000046a                main
  .text.USART_InterruptDriver_Initialize
-                0x000004c6       0x12 usart_driver.o
-                0x000004c6                USART_InterruptDriver_Initialize
+                0x000004fc       0x12 usart_driver.o
+                0x000004fc                USART_InterruptDriver_Initialize
  .text.USART_RXBufferData_Available
-                0x000004d8       0x10 usart_driver.o
-                0x000004d8                USART_RXBufferData_Available
+                0x0000050e       0x10 usart_driver.o
+                0x0000050e                USART_RXBufferData_Available
  .text.USART_RXBuffer_GetByte
-                0x000004e8       0x18 usart_driver.o
-                0x000004e8                USART_RXBuffer_GetByte
+                0x0000051e       0x18 usart_driver.o
+                0x0000051e                USART_RXBuffer_GetByte
  .text.USART_RXComplete
-                0x00000500       0x2a usart_driver.o
-                0x00000500                USART_RXComplete
+                0x00000536       0x2a usart_driver.o
+                0x00000536                USART_RXComplete
  .text.USART_DataRegEmpty
-                0x0000052a       0x34 usart_driver.o
-                0x0000052a                USART_DataRegEmpty
+                0x00000560       0x34 usart_driver.o
+                0x00000560                USART_DataRegEmpty
  .text._Z11RGBSetColor9RGBColors
-                0x0000055e       0xea XMegaLib.o
-                0x0000055e                _Z11RGBSetColor9RGBColors
+                0x00000594       0xea XMegaLib.o
+                0x00000594                _Z11RGBSetColor9RGBColors
  .text._Z12initializeIOv
-                0x00000648       0x18 XMegaLib.o
-                0x00000648                _Z12initializeIOv
+                0x0000067e       0x18 XMegaLib.o
+                0x0000067e                _Z12initializeIOv
  .text._Z11determineIDPcR7XMEGAID
-                0x00000660       0xba XMegaLib.o
-                0x00000660                _Z11determineIDPcR7XMEGAID
- .text.libgcc   0x0000071a        0xc c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_tablejump.o)
-                0x0000071a                __tablejump2__
-                0x0000071e                __tablejump__
-                0x00000726                . = ALIGN (0x2)
+                0x00000696       0xba XMegaLib.o
+                0x00000696                _Z11determineIDPcR7XMEGAID
+ .text.libgcc   0x00000750        0xc c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_tablejump.o)
+                0x00000750                __tablejump2__
+                0x00000754                __tablejump__
+                0x0000075c                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000726        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_exit.o)
-                0x00000726                _exit
-                0x00000726                exit
+ .fini9         0x0000075c        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_exit.o)
+                0x0000075c                _exit
+                0x0000075c                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -471,11 +480,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000726        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_exit.o)
+ .fini0         0x0000075c        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_exit.o)
  *(.fini0)
-                0x0000072a                _etext = .
+                0x00000760                _etext = .
 
-.data           0x00802000       0x18 load address 0x0000072a
+.data           0x00802000       0x18 load address 0x00000760
                 0x00802000                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00802000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6/crtx128a3u.o
@@ -512,8 +521,8 @@ END GROUP
                 0x0080201a                USART_PC_Data
  *(COMMON)
                 0x00802029                PROVIDE (__bss_end, .)
-                0x0000072a                __data_load_start = LOADADDR (.data)
-                0x00000742                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000760                __data_load_start = LOADADDR (.data)
+                0x00000778                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00802029        0x0
                 0x00802029                PROVIDE (__noinit_start, .)
@@ -581,49 +590,49 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000       0xf8
+.debug_aranges  0x00000000      0x118
  *(.debug_aranges)
  .debug_aranges
-                0x00000000       0x60 BasicBrainBoard.o
+                0x00000000       0x80 BasicBrainBoard.o
  .debug_aranges
-                0x00000060       0x68 usart_driver.o
+                0x00000080       0x68 usart_driver.o
  .debug_aranges
-                0x000000c8       0x30 XMegaLib.o
+                0x000000e8       0x30 XMegaLib.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x29e5
+.debug_info     0x00000000     0x2b54
  *(.debug_info .gnu.linkonce.wi.*)
- .debug_info    0x00000000     0x165d BasicBrainBoard.o
- .debug_info    0x0000165d      0x586 usart_driver.o
- .debug_info    0x00001be3      0xe02 XMegaLib.o
+ .debug_info    0x00000000     0x17cc BasicBrainBoard.o
+ .debug_info    0x000017cc      0x586 usart_driver.o
+ .debug_info    0x00001d52      0xe02 XMegaLib.o
 
-.debug_abbrev   0x00000000      0x5f6
+.debug_abbrev   0x00000000      0x66a
  *(.debug_abbrev)
- .debug_abbrev  0x00000000      0x29a BasicBrainBoard.o
- .debug_abbrev  0x0000029a      0x203 usart_driver.o
- .debug_abbrev  0x0000049d      0x159 XMegaLib.o
+ .debug_abbrev  0x00000000      0x30e BasicBrainBoard.o
+ .debug_abbrev  0x0000030e      0x203 usart_driver.o
+ .debug_abbrev  0x00000511      0x159 XMegaLib.o
 
-.debug_line     0x00000000      0x92a
+.debug_line     0x00000000      0xa14
  *(.debug_line .debug_line.* .debug_line_end)
- .debug_line    0x00000000      0x36f BasicBrainBoard.o
- .debug_line    0x0000036f      0x314 usart_driver.o
- .debug_line    0x00000683      0x2a7 XMegaLib.o
+ .debug_line    0x00000000      0x459 BasicBrainBoard.o
+ .debug_line    0x00000459      0x314 usart_driver.o
+ .debug_line    0x0000076d      0x2a7 XMegaLib.o
 
-.debug_frame    0x00000000      0x284
+.debug_frame    0x00000000      0x2c4
  *(.debug_frame)
- .debug_frame   0x00000000      0x17c BasicBrainBoard.o
- .debug_frame   0x0000017c       0xc4 usart_driver.o
- .debug_frame   0x00000240       0x44 XMegaLib.o
+ .debug_frame   0x00000000      0x1bc BasicBrainBoard.o
+ .debug_frame   0x000001bc       0xc4 usart_driver.o
+ .debug_frame   0x00000280       0x44 XMegaLib.o
 
-.debug_str      0x00000000     0x10a8
+.debug_str      0x00000000     0x114f
  *(.debug_str)
- .debug_str     0x00000000      0xe33 BasicBrainBoard.o
-                                0xeb6 (size before relaxing)
- .debug_str     0x00000e33      0x1a4 usart_driver.o
+ .debug_str     0x00000000      0xeda BasicBrainBoard.o
+                                0xf5d (size before relaxing)
+ .debug_str     0x00000eda      0x1a4 usart_driver.o
                                 0x491 (size before relaxing)
- .debug_str     0x00000fd7       0xd1 XMegaLib.o
+ .debug_str     0x0000107e       0xd1 XMegaLib.o
                                 0x73a (size before relaxing)
 
 .debug_loc      0x00000000      0x7aa
@@ -650,11 +659,11 @@ END GROUP
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x00000000       0xe0
+.debug_ranges   0x00000000      0x100
  *(.debug_ranges)
- .debug_ranges  0x00000000       0x68 BasicBrainBoard.o
- .debug_ranges  0x00000068       0x58 usart_driver.o
- .debug_ranges  0x000000c0       0x20 XMegaLib.o
+ .debug_ranges  0x00000000       0x88 BasicBrainBoard.o
+ .debug_ranges  0x00000088       0x58 usart_driver.o
+ .debug_ranges  0x000000e0       0x20 XMegaLib.o
 
 .debug_macro
  *(.debug_macro)

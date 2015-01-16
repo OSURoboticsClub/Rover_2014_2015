@@ -27,15 +27,15 @@
     <eraseonlaunchrule>1</eraseonlaunchrule>
     <AsfFrameworkConfig>
       <framework-data>
-  <options />
-  <configurations />
-  <files />
-  <documentation help="" />
-  <offline-documentation help="" />
-  <dependencies>
-    <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.6.0" />
-  </dependencies>
-</framework-data>
+        <options />
+        <configurations />
+        <files />
+        <documentation help="" />
+        <offline-documentation help="" />
+        <dependencies>
+          <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.6.0" />
+        </dependencies>
+      </framework-data>
     </AsfFrameworkConfig>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -124,6 +124,9 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="BasicBrainBoard.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="BrainBoard.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="usart_driver.c">

@@ -46,7 +46,7 @@ enum XMEGAID{
 	ARM,
 	RADIO,
 	DEBUG_MODE
-};  //Variable for internal ID use
+};
 
 //Define for the PWM cycle for an "ON" led. Used to adjust brightness
 #define COLOR_ON 50

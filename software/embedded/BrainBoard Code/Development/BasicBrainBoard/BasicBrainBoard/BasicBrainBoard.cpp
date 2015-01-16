@@ -11,6 +11,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
+#include "BrainBoard.h"
 #include "XMegaLib.h"
 
 extern "C"{
@@ -106,21 +107,27 @@ int main(void)
 				break;
 			case MainProgram:
 				//RGBSetColor(GREEN);
-				while (1){
-					switch (CurrentID) {
-						case DRIVE:
-						//Drive code goes here
+				switch (CurrentID) {
+					case DRIVE:
+						while (1) {
+							driveMain();
+						}
 						break;
-						case ARM:
-						//Arm code goes here
+					case ARM:
+						while (1) {
+							armMain();
+						}
 						break;
-						case RADIO:
-						//Radio code goes here
+					case RADIO:
+						while (1) {
+							radioMain();
+						}
 						break;
-						case DEBUG_MODE:
-						//Debug code goes here
-						break;
-					}
+					case DEBUG_MODE:
+						while(1) {
+							debugMain();
+						}
+					break;
 				}
 				break;
 		}
@@ -129,6 +136,64 @@ int main(void)
     }
 }
 
+/*
+Description: This function holds all of the code for the drive firmware for the BB
+Author: Cameron Stuart
+
+Pseudocode (algorithm):
+- Makes the Rover Drive
+- Expand this portion
+
+Usage Notes:
+This function exists inside a while(1) so it will loop itself forever
+
+*/
+void driveMain(){
+	RGBSetColor(BLUE);
+	_delay_ms(500);
+	RGBSetColor(RED);
+	_delay_ms(500);
+}
+
+/*
+Description: This function holds all of the code for the arm firmware for the BB
+Author: Brain Sia
+
+Pseudocode (algorithm):
+- Makes the Arm Arm
+- Expand this portion
+
+Usage Notes:
+This function exists inside a while(1) so it will loop itself forever
+
+*/
+void armMain(){
+	
+}
+
+/*
+Description: This function holds all of the code for the radio firmware for the BB
+Author: TBD
+
+Pseudocode (algorithm):
+- Makes the Radio Function
+- Expand this portion
+
+Usage Notes:
+This function exists inside a while(1) so it will loop itself forever
+
+*/
+void radioMain(){
+	
+}
+
+/*
+Description: General-Purpose debug function. No designated function, available 
+for all who program the board.
+*/
+void debugMain(){
+	
+}
 
 void uart_init(void){
 	PORTC.DIRSET = PIN3_bm;																			//Sets TX Pin as output
