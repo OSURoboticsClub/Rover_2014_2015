@@ -20,6 +20,9 @@ void armMain();    //Contains the arm code
 void radioMain();  //Contains the radio code
 void debugMain();  //Contains misc. debug code. No specific purpose
 
+
+
+
 enum XMegaStates{
 	WaitForPing,
 	WaitForReady,

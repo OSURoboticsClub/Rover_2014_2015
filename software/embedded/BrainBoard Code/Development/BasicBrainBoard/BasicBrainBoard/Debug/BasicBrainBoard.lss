@@ -3,29 +3,29 @@ BasicBrainBoard.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         000007a2  00000000  00000000  00000094  2**1
+  0 .text         000007ee  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         00000026  00802000  000007a2  00000836  2**0
+  1 .data         00000026  00802000  000007ee  00000882  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .bss          0000001b  00802026  00802026  0000085c  2**0
+  2 .bss          0000001b  00802026  00802026  000008a8  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  0000085c  2**0
+  3 .comment      00000030  00000000  00000000  000008a8  2**0
                   CONTENTS, READONLY
-  4 .debug_aranges 00000118  00000000  00000000  0000088c  2**0
+  4 .debug_aranges 00000140  00000000  00000000  000008d8  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   00002b69  00000000  00000000  000009a4  2**0
+  5 .debug_info   00002ea1  00000000  00000000  00000a18  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 0000066a  00000000  00000000  0000350d  2**0
+  6 .debug_abbrev 0000073a  00000000  00000000  000038b9  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   00000a3a  00000000  00000000  00003b77  2**0
+  7 .debug_line   00000be1  00000000  00000000  00003ff3  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  000002c4  00000000  00000000  000045b4  2**2
+  8 .debug_frame  000002f8  00000000  00000000  00004bd4  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    0000113e  00000000  00000000  00004878  2**0
+  9 .debug_str    0000118e  00000000  00000000  00004ecc  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    000007aa  00000000  00000000  000059b6  2**0
+ 10 .debug_loc    000007aa  00000000  00000000  0000605a  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000100  00000000  00000000  00006160  2**0
+ 11 .debug_ranges 00000118  00000000  00000000  00006804  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -59,7 +59,7 @@ Disassembly of section .text:
   32:	00 00       	nop
   34:	09 c1       	rjmp	.+530    	; 0x248 <__bad_interrupt>
   36:	00 00       	nop
-  38:	20 c1       	rjmp	.+576    	; 0x27a <__vector_14>
+  38:	2e c1       	rjmp	.+604    	; 0x296 <__vector_14>
   3a:	00 00       	nop
   3c:	05 c1       	rjmp	.+522    	; 0x248 <__bad_interrupt>
   3e:	00 00       	nop
@@ -71,7 +71,7 @@ Disassembly of section .text:
   4a:	00 00       	nop
   4c:	fd c0       	rjmp	.+506    	; 0x248 <__bad_interrupt>
   4e:	00 00       	nop
-  50:	fc c0       	rjmp	.+504    	; 0x24a <__vector_20>
+  50:	0a c1       	rjmp	.+532    	; 0x266 <__vector_20>
   52:	00 00       	nop
   54:	f9 c0       	rjmp	.+498    	; 0x248 <__bad_interrupt>
   56:	00 00       	nop
@@ -81,9 +81,9 @@ Disassembly of section .text:
   5e:	00 00       	nop
   60:	f3 c0       	rjmp	.+486    	; 0x248 <__bad_interrupt>
   62:	00 00       	nop
-  64:	22 c1       	rjmp	.+580    	; 0x2aa <__vector_25>
+  64:	30 c1       	rjmp	.+608    	; 0x2c6 <__vector_25>
   66:	00 00       	nop
-  68:	49 c1       	rjmp	.+658    	; 0x2fc <__vector_26>
+  68:	57 c1       	rjmp	.+686    	; 0x318 <__vector_26>
   6a:	00 00       	nop
   6c:	ed c0       	rjmp	.+474    	; 0x248 <__bad_interrupt>
   6e:	00 00       	nop
@@ -285,13 +285,13 @@ Disassembly of section .text:
  1f6:	00 00       	nop
  1f8:	27 c0       	rjmp	.+78     	; 0x248 <__bad_interrupt>
  1fa:	00 00       	nop
- 1fc:	f4 02       	muls	r31, r20
- 1fe:	0e 03       	fmul	r16, r22
- 200:	01 03       	mulsu	r16, r17
- 202:	1b 03       	fmul	r17, r19
- 204:	28 03       	fmul	r18, r16
- 206:	35 03       	mulsu	r19, r21
- 208:	42 03       	mulsu	r20, r18
+ 1fc:	1a 03       	fmul	r17, r18
+ 1fe:	34 03       	mulsu	r19, r20
+ 200:	27 03       	mulsu	r18, r23
+ 202:	41 03       	mulsu	r20, r17
+ 204:	4e 03       	fmul	r20, r22
+ 206:	5b 03       	fmul	r21, r19
+ 208:	68 03       	fmul	r22, r16
 
 0000020a <__ctors_end>:
  20a:	11 24       	eor	r1, r1
@@ -307,7 +307,7 @@ Disassembly of section .text:
  21a:	10 e2       	ldi	r17, 0x20	; 32
  21c:	a0 e0       	ldi	r26, 0x00	; 0
  21e:	b0 e2       	ldi	r27, 0x20	; 32
- 220:	e2 ea       	ldi	r30, 0xA2	; 162
+ 220:	ee ee       	ldi	r30, 0xEE	; 238
  222:	f7 e0       	ldi	r31, 0x07	; 7
  224:	00 e0       	ldi	r16, 0x00	; 0
  226:	0b bf       	out	0x3b, r16	; 59
@@ -331,1081 +331,1144 @@ Disassembly of section .text:
  23e:	a1 34       	cpi	r26, 0x41	; 65
  240:	b2 07       	cpc	r27, r18
  242:	e1 f7       	brne	.-8      	; 0x23c <.do_clear_bss_loop>
- 244:	2a d1       	rcall	.+596    	; 0x49a <main>
- 246:	ab c2       	rjmp	.+1366   	; 0x79e <_exit>
+ 244:	50 d1       	rcall	.+672    	; 0x4e6 <main>
+ 246:	d1 c2       	rjmp	.+1442   	; 0x7ea <_exit>
 
 00000248 <__bad_interrupt>:
  248:	db ce       	rjmp	.-586    	; 0x0 <__vectors>
 
-0000024a <__vector_20>:
+0000024a <_Z11armGPIOInitv>:
+#include <avr/io.h>
+
+void armGPIOInit(){
+	//Stepper Driver 1
+	
+	PORTE.DIRSET = (PIN4_bm); //Step Pin
+ 24a:	e0 e8       	ldi	r30, 0x80	; 128
+ 24c:	f6 e0       	ldi	r31, 0x06	; 6
+ 24e:	80 e1       	ldi	r24, 0x10	; 16
+ 250:	81 83       	std	Z+1, r24	; 0x01
+	PORTE.DIRSET = (PIN7_bm); //Dir Pin
+ 252:	80 e8       	ldi	r24, 0x80	; 128
+ 254:	81 83       	std	Z+1, r24	; 0x01
+	PORTE.DIRSET = (PIN5_bm); //nEN Pin
+ 256:	80 e2       	ldi	r24, 0x20	; 32
+ 258:	81 83       	std	Z+1, r24	; 0x01
+ 25a:	08 95       	ret
+
+0000025c <_Z7armInitv>:
+	
+}
+
+
+void armInit(){
+	MD1_nEN_CLR();
+ 25c:	80 e2       	ldi	r24, 0x20	; 32
+ 25e:	e0 e8       	ldi	r30, 0x80	; 128
+ 260:	f6 e0       	ldi	r31, 0x06	; 6
+ 262:	86 83       	std	Z+6, r24	; 0x06
+ 264:	08 95       	ret
+
+00000266 <__vector_20>:
 
 /*
 Description: General-Purpose debug function. No designated function, available 
 for all who program the board.
 */
 void debugMain(){
- 24a:	1f 92       	push	r1
- 24c:	0f 92       	push	r0
- 24e:	0f b6       	in	r0, 0x3f	; 63
- 250:	0f 92       	push	r0
- 252:	11 24       	eor	r1, r1
- 254:	0b b6       	in	r0, 0x3b	; 59
- 256:	0f 92       	push	r0
- 258:	8f 93       	push	r24
- 25a:	ef 93       	push	r30
- 25c:	ff 93       	push	r31
- 25e:	81 e0       	ldi	r24, 0x01	; 1
- 260:	e0 e4       	ldi	r30, 0x40	; 64
- 262:	f8 e0       	ldi	r31, 0x08	; 8
- 264:	84 87       	std	Z+12, r24	; 0x0c
- 266:	ff 91       	pop	r31
- 268:	ef 91       	pop	r30
- 26a:	8f 91       	pop	r24
- 26c:	0f 90       	pop	r0
- 26e:	0b be       	out	0x3b, r0	; 59
- 270:	0f 90       	pop	r0
- 272:	0f be       	out	0x3f, r0	; 63
- 274:	0f 90       	pop	r0
- 276:	1f 90       	pop	r1
- 278:	18 95       	reti
+ 266:	1f 92       	push	r1
+ 268:	0f 92       	push	r0
+ 26a:	0f b6       	in	r0, 0x3f	; 63
+ 26c:	0f 92       	push	r0
+ 26e:	11 24       	eor	r1, r1
+ 270:	0b b6       	in	r0, 0x3b	; 59
+ 272:	0f 92       	push	r0
+ 274:	8f 93       	push	r24
+ 276:	ef 93       	push	r30
+ 278:	ff 93       	push	r31
+ 27a:	81 e0       	ldi	r24, 0x01	; 1
+ 27c:	e0 e4       	ldi	r30, 0x40	; 64
+ 27e:	f8 e0       	ldi	r31, 0x08	; 8
+ 280:	84 87       	std	Z+12, r24	; 0x0c
+ 282:	ff 91       	pop	r31
+ 284:	ef 91       	pop	r30
+ 286:	8f 91       	pop	r24
+ 288:	0f 90       	pop	r0
+ 28a:	0b be       	out	0x3b, r0	; 59
+ 28c:	0f 90       	pop	r0
+ 28e:	0f be       	out	0x3f, r0	; 63
+ 290:	0f 90       	pop	r0
+ 292:	1f 90       	pop	r1
+ 294:	18 95       	reti
 
-0000027a <__vector_14>:
- 27a:	1f 92       	push	r1
- 27c:	0f 92       	push	r0
- 27e:	0f b6       	in	r0, 0x3f	; 63
- 280:	0f 92       	push	r0
- 282:	11 24       	eor	r1, r1
- 284:	0b b6       	in	r0, 0x3b	; 59
- 286:	0f 92       	push	r0
- 288:	8f 93       	push	r24
- 28a:	ef 93       	push	r30
- 28c:	ff 93       	push	r31
- 28e:	81 e0       	ldi	r24, 0x01	; 1
- 290:	e0 e0       	ldi	r30, 0x00	; 0
- 292:	f8 e0       	ldi	r31, 0x08	; 8
- 294:	84 87       	std	Z+12, r24	; 0x0c
- 296:	ff 91       	pop	r31
- 298:	ef 91       	pop	r30
- 29a:	8f 91       	pop	r24
- 29c:	0f 90       	pop	r0
- 29e:	0b be       	out	0x3b, r0	; 59
- 2a0:	0f 90       	pop	r0
- 2a2:	0f be       	out	0x3f, r0	; 63
- 2a4:	0f 90       	pop	r0
- 2a6:	1f 90       	pop	r1
- 2a8:	18 95       	reti
+00000296 <__vector_14>:
+ 296:	1f 92       	push	r1
+ 298:	0f 92       	push	r0
+ 29a:	0f b6       	in	r0, 0x3f	; 63
+ 29c:	0f 92       	push	r0
+ 29e:	11 24       	eor	r1, r1
+ 2a0:	0b b6       	in	r0, 0x3b	; 59
+ 2a2:	0f 92       	push	r0
+ 2a4:	8f 93       	push	r24
+ 2a6:	ef 93       	push	r30
+ 2a8:	ff 93       	push	r31
+ 2aa:	81 e0       	ldi	r24, 0x01	; 1
+ 2ac:	e0 e0       	ldi	r30, 0x00	; 0
+ 2ae:	f8 e0       	ldi	r31, 0x08	; 8
+ 2b0:	84 87       	std	Z+12, r24	; 0x0c
+ 2b2:	ff 91       	pop	r31
+ 2b4:	ef 91       	pop	r30
+ 2b6:	8f 91       	pop	r24
+ 2b8:	0f 90       	pop	r0
+ 2ba:	0b be       	out	0x3b, r0	; 59
+ 2bc:	0f 90       	pop	r0
+ 2be:	0f be       	out	0x3f, r0	; 63
+ 2c0:	0f 90       	pop	r0
+ 2c2:	1f 90       	pop	r1
+ 2c4:	18 95       	reti
 
-000002aa <__vector_25>:
- 2aa:	1f 92       	push	r1
- 2ac:	0f 92       	push	r0
- 2ae:	0f b6       	in	r0, 0x3f	; 63
- 2b0:	0f 92       	push	r0
- 2b2:	11 24       	eor	r1, r1
- 2b4:	0b b6       	in	r0, 0x3b	; 59
- 2b6:	0f 92       	push	r0
- 2b8:	2f 93       	push	r18
- 2ba:	3f 93       	push	r19
- 2bc:	4f 93       	push	r20
- 2be:	5f 93       	push	r21
- 2c0:	6f 93       	push	r22
- 2c2:	7f 93       	push	r23
- 2c4:	8f 93       	push	r24
- 2c6:	9f 93       	push	r25
- 2c8:	af 93       	push	r26
- 2ca:	bf 93       	push	r27
- 2cc:	ef 93       	push	r30
- 2ce:	ff 93       	push	r31
- 2d0:	81 e3       	ldi	r24, 0x31	; 49
- 2d2:	90 e2       	ldi	r25, 0x20	; 32
- 2d4:	51 d1       	rcall	.+674    	; 0x578 <USART_RXComplete>
- 2d6:	ff 91       	pop	r31
- 2d8:	ef 91       	pop	r30
- 2da:	bf 91       	pop	r27
- 2dc:	af 91       	pop	r26
- 2de:	9f 91       	pop	r25
- 2e0:	8f 91       	pop	r24
- 2e2:	7f 91       	pop	r23
- 2e4:	6f 91       	pop	r22
- 2e6:	5f 91       	pop	r21
- 2e8:	4f 91       	pop	r20
- 2ea:	3f 91       	pop	r19
- 2ec:	2f 91       	pop	r18
- 2ee:	0f 90       	pop	r0
- 2f0:	0b be       	out	0x3b, r0	; 59
- 2f2:	0f 90       	pop	r0
- 2f4:	0f be       	out	0x3f, r0	; 63
- 2f6:	0f 90       	pop	r0
- 2f8:	1f 90       	pop	r1
- 2fa:	18 95       	reti
+000002c6 <__vector_25>:
+ 2c6:	1f 92       	push	r1
+ 2c8:	0f 92       	push	r0
+ 2ca:	0f b6       	in	r0, 0x3f	; 63
+ 2cc:	0f 92       	push	r0
+ 2ce:	11 24       	eor	r1, r1
+ 2d0:	0b b6       	in	r0, 0x3b	; 59
+ 2d2:	0f 92       	push	r0
+ 2d4:	2f 93       	push	r18
+ 2d6:	3f 93       	push	r19
+ 2d8:	4f 93       	push	r20
+ 2da:	5f 93       	push	r21
+ 2dc:	6f 93       	push	r22
+ 2de:	7f 93       	push	r23
+ 2e0:	8f 93       	push	r24
+ 2e2:	9f 93       	push	r25
+ 2e4:	af 93       	push	r26
+ 2e6:	bf 93       	push	r27
+ 2e8:	ef 93       	push	r30
+ 2ea:	ff 93       	push	r31
+ 2ec:	81 e3       	ldi	r24, 0x31	; 49
+ 2ee:	90 e2       	ldi	r25, 0x20	; 32
+ 2f0:	69 d1       	rcall	.+722    	; 0x5c4 <USART_RXComplete>
+ 2f2:	ff 91       	pop	r31
+ 2f4:	ef 91       	pop	r30
+ 2f6:	bf 91       	pop	r27
+ 2f8:	af 91       	pop	r26
+ 2fa:	9f 91       	pop	r25
+ 2fc:	8f 91       	pop	r24
+ 2fe:	7f 91       	pop	r23
+ 300:	6f 91       	pop	r22
+ 302:	5f 91       	pop	r21
+ 304:	4f 91       	pop	r20
+ 306:	3f 91       	pop	r19
+ 308:	2f 91       	pop	r18
+ 30a:	0f 90       	pop	r0
+ 30c:	0b be       	out	0x3b, r0	; 59
+ 30e:	0f 90       	pop	r0
+ 310:	0f be       	out	0x3f, r0	; 63
+ 312:	0f 90       	pop	r0
+ 314:	1f 90       	pop	r1
+ 316:	18 95       	reti
 
-000002fc <__vector_26>:
- 2fc:	1f 92       	push	r1
- 2fe:	0f 92       	push	r0
- 300:	0f b6       	in	r0, 0x3f	; 63
- 302:	0f 92       	push	r0
- 304:	11 24       	eor	r1, r1
- 306:	0b b6       	in	r0, 0x3b	; 59
- 308:	0f 92       	push	r0
- 30a:	2f 93       	push	r18
- 30c:	3f 93       	push	r19
- 30e:	4f 93       	push	r20
- 310:	5f 93       	push	r21
- 312:	6f 93       	push	r22
- 314:	7f 93       	push	r23
- 316:	8f 93       	push	r24
- 318:	9f 93       	push	r25
- 31a:	af 93       	push	r26
- 31c:	bf 93       	push	r27
- 31e:	ef 93       	push	r30
- 320:	ff 93       	push	r31
- 322:	81 e3       	ldi	r24, 0x31	; 49
- 324:	90 e2       	ldi	r25, 0x20	; 32
- 326:	3d d1       	rcall	.+634    	; 0x5a2 <USART_DataRegEmpty>
- 328:	ff 91       	pop	r31
- 32a:	ef 91       	pop	r30
- 32c:	bf 91       	pop	r27
- 32e:	af 91       	pop	r26
- 330:	9f 91       	pop	r25
- 332:	8f 91       	pop	r24
- 334:	7f 91       	pop	r23
- 336:	6f 91       	pop	r22
- 338:	5f 91       	pop	r21
- 33a:	4f 91       	pop	r20
- 33c:	3f 91       	pop	r19
- 33e:	2f 91       	pop	r18
- 340:	0f 90       	pop	r0
- 342:	0b be       	out	0x3b, r0	; 59
- 344:	0f 90       	pop	r0
- 346:	0f be       	out	0x3f, r0	; 63
- 348:	0f 90       	pop	r0
- 34a:	1f 90       	pop	r1
- 34c:	18 95       	reti
+00000318 <__vector_26>:
+ 318:	1f 92       	push	r1
+ 31a:	0f 92       	push	r0
+ 31c:	0f b6       	in	r0, 0x3f	; 63
+ 31e:	0f 92       	push	r0
+ 320:	11 24       	eor	r1, r1
+ 322:	0b b6       	in	r0, 0x3b	; 59
+ 324:	0f 92       	push	r0
+ 326:	2f 93       	push	r18
+ 328:	3f 93       	push	r19
+ 32a:	4f 93       	push	r20
+ 32c:	5f 93       	push	r21
+ 32e:	6f 93       	push	r22
+ 330:	7f 93       	push	r23
+ 332:	8f 93       	push	r24
+ 334:	9f 93       	push	r25
+ 336:	af 93       	push	r26
+ 338:	bf 93       	push	r27
+ 33a:	ef 93       	push	r30
+ 33c:	ff 93       	push	r31
+ 33e:	81 e3       	ldi	r24, 0x31	; 49
+ 340:	90 e2       	ldi	r25, 0x20	; 32
+ 342:	55 d1       	rcall	.+682    	; 0x5ee <USART_DataRegEmpty>
+ 344:	ff 91       	pop	r31
+ 346:	ef 91       	pop	r30
+ 348:	bf 91       	pop	r27
+ 34a:	af 91       	pop	r26
+ 34c:	9f 91       	pop	r25
+ 34e:	8f 91       	pop	r24
+ 350:	7f 91       	pop	r23
+ 352:	6f 91       	pop	r22
+ 354:	5f 91       	pop	r21
+ 356:	4f 91       	pop	r20
+ 358:	3f 91       	pop	r19
+ 35a:	2f 91       	pop	r18
+ 35c:	0f 90       	pop	r0
+ 35e:	0b be       	out	0x3b, r0	; 59
+ 360:	0f 90       	pop	r0
+ 362:	0f be       	out	0x3f, r0	; 63
+ 364:	0f 90       	pop	r0
+ 366:	1f 90       	pop	r1
+ 368:	18 95       	reti
 
-0000034e <_Z9uart_initv>:
+0000036a <_Z7armMainv>:
+ 36a:	6f df       	rcall	.-290    	; 0x24a <_Z11armGPIOInitv>
+ 36c:	77 df       	rcall	.-274    	; 0x25c <_Z7armInitv>
+ 36e:	e0 e8       	ldi	r30, 0x80	; 128
+ 370:	f6 e0       	ldi	r31, 0x06	; 6
+ 372:	80 e8       	ldi	r24, 0x80	; 128
+ 374:	85 83       	std	Z+5, r24	; 0x05
+ 376:	80 e1       	ldi	r24, 0x10	; 16
+ 378:	86 83       	std	Z+6, r24	; 0x06
+ 37a:	2f ef       	ldi	r18, 0xFF	; 255
+ 37c:	39 ef       	ldi	r19, 0xF9	; 249
+ 37e:	90 e0       	ldi	r25, 0x00	; 0
+ 380:	21 50       	subi	r18, 0x01	; 1
+ 382:	30 40       	sbci	r19, 0x00	; 0
+ 384:	90 40       	sbci	r25, 0x00	; 0
+ 386:	e1 f7       	brne	.-8      	; 0x380 <_Z7armMainv+0x16>
+ 388:	00 c0       	rjmp	.+0      	; 0x38a <_Z7armMainv+0x20>
+ 38a:	00 00       	nop
+ 38c:	85 83       	std	Z+5, r24	; 0x05
+ 38e:	25 ed       	ldi	r18, 0xD5	; 213
+ 390:	2a 95       	dec	r18
+ 392:	f1 f7       	brne	.-4      	; 0x390 <_Z7armMainv+0x26>
+ 394:	00 00       	nop
+ 396:	86 83       	std	Z+6, r24	; 0x06
+ 398:	f0 cf       	rjmp	.-32     	; 0x37a <_Z7armMainv+0x10>
+
+0000039a <_Z9uart_initv>:
 }
 
 
 //Inits the UART for the board
 void uart_init(void){
 	PORTC.DIRSET = PIN3_bm;																			//Sets TX Pin as output
- 34e:	e0 e4       	ldi	r30, 0x40	; 64
- 350:	f6 e0       	ldi	r31, 0x06	; 6
- 352:	88 e0       	ldi	r24, 0x08	; 8
- 354:	81 83       	std	Z+1, r24	; 0x01
+ 39a:	e0 e4       	ldi	r30, 0x40	; 64
+ 39c:	f6 e0       	ldi	r31, 0x06	; 6
+ 39e:	88 e0       	ldi	r24, 0x08	; 8
+ 3a0:	81 83       	std	Z+1, r24	; 0x01
 	PORTC.DIRCLR = PIN2_bm;																			//Sets RX pin as input
- 356:	84 e0       	ldi	r24, 0x04	; 4
- 358:	82 83       	std	Z+2, r24	; 0x02
+ 3a2:	84 e0       	ldi	r24, 0x04	; 4
+ 3a4:	82 83       	std	Z+2, r24	; 0x02
 	
 	USART_InterruptDriver_Initialize(&USART_PC_Data, &USARTC0, USART_DREINTLVL_LO_gc);				//Initialize USARTC0 as interrupt driven serial and clear it's buffers
- 35a:	41 e0       	ldi	r20, 0x01	; 1
- 35c:	60 ea       	ldi	r22, 0xA0	; 160
- 35e:	78 e0       	ldi	r23, 0x08	; 8
- 360:	81 e3       	ldi	r24, 0x31	; 49
- 362:	90 e2       	ldi	r25, 0x20	; 32
- 364:	ec d0       	rcall	.+472    	; 0x53e <USART_InterruptDriver_Initialize>
+ 3a6:	41 e0       	ldi	r20, 0x01	; 1
+ 3a8:	60 ea       	ldi	r22, 0xA0	; 160
+ 3aa:	78 e0       	ldi	r23, 0x08	; 8
+ 3ac:	81 e3       	ldi	r24, 0x31	; 49
+ 3ae:	90 e2       	ldi	r25, 0x20	; 32
+ 3b0:	ec d0       	rcall	.+472    	; 0x58a <USART_InterruptDriver_Initialize>
 	USART_Format_Set(USART_PC_Data.usart, USART_CHSIZE_8BIT_gc, USART_PMODE_DISABLED_gc, false);	//Set the data format of 8 bits, no parity, 1 stop bit
- 366:	e0 91 31 20 	lds	r30, 0x2031
- 36a:	f0 91 32 20 	lds	r31, 0x2032
- 36e:	83 e0       	ldi	r24, 0x03	; 3
- 370:	85 83       	std	Z+5, r24	; 0x05
+ 3b2:	e0 91 31 20 	lds	r30, 0x2031
+ 3b6:	f0 91 32 20 	lds	r31, 0x2032
+ 3ba:	83 e0       	ldi	r24, 0x03	; 3
+ 3bc:	85 83       	std	Z+5, r24	; 0x05
 	USART_RxdInterruptLevel_Set(USART_PC_Data.usart, USART_RXCINTLVL_LO_gc);						//Enable the receive interrupt
- 372:	83 81       	ldd	r24, Z+3	; 0x03
- 374:	8f 7c       	andi	r24, 0xCF	; 207
- 376:	80 61       	ori	r24, 0x10	; 16
- 378:	83 83       	std	Z+3, r24	; 0x03
+ 3be:	83 81       	ldd	r24, Z+3	; 0x03
+ 3c0:	8f 7c       	andi	r24, 0xCF	; 207
+ 3c2:	80 61       	ori	r24, 0x10	; 16
+ 3c4:	83 83       	std	Z+3, r24	; 0x03
 	USART_Baudrate_Set(&USARTC0, 207 , 0);															//Set baudrate to 9600 with 32Mhz system clock
- 37a:	a0 ea       	ldi	r26, 0xA0	; 160
- 37c:	b8 e0       	ldi	r27, 0x08	; 8
- 37e:	8f ec       	ldi	r24, 0xCF	; 207
- 380:	16 96       	adiw	r26, 0x06	; 6
- 382:	8c 93       	st	X, r24
- 384:	16 97       	sbiw	r26, 0x06	; 6
- 386:	17 96       	adiw	r26, 0x07	; 7
- 388:	1c 92       	st	X, r1
+ 3c6:	a0 ea       	ldi	r26, 0xA0	; 160
+ 3c8:	b8 e0       	ldi	r27, 0x08	; 8
+ 3ca:	8f ec       	ldi	r24, 0xCF	; 207
+ 3cc:	16 96       	adiw	r26, 0x06	; 6
+ 3ce:	8c 93       	st	X, r24
+ 3d0:	16 97       	sbiw	r26, 0x06	; 6
+ 3d2:	17 96       	adiw	r26, 0x07	; 7
+ 3d4:	1c 92       	st	X, r1
 	USART_Rx_Enable(USART_PC_Data.usart);															//Enable receiving over serial
- 38a:	84 81       	ldd	r24, Z+4	; 0x04
- 38c:	80 61       	ori	r24, 0x10	; 16
- 38e:	84 83       	std	Z+4, r24	; 0x04
+ 3d6:	84 81       	ldd	r24, Z+4	; 0x04
+ 3d8:	80 61       	ori	r24, 0x10	; 16
+ 3da:	84 83       	std	Z+4, r24	; 0x04
 	USART_Tx_Enable(USART_PC_Data.usart);															//Enable transmitting over serial
- 390:	84 81       	ldd	r24, Z+4	; 0x04
- 392:	88 60       	ori	r24, 0x08	; 8
- 394:	84 83       	std	Z+4, r24	; 0x04
+ 3dc:	84 81       	ldd	r24, Z+4	; 0x04
+ 3de:	88 60       	ori	r24, 0x08	; 8
+ 3e0:	84 83       	std	Z+4, r24	; 0x04
 	PMIC.CTRL |= PMIC_LOLVLEX_bm;
- 396:	e0 ea       	ldi	r30, 0xA0	; 160
- 398:	f0 e0       	ldi	r31, 0x00	; 0
- 39a:	82 81       	ldd	r24, Z+2	; 0x02
- 39c:	81 60       	ori	r24, 0x01	; 1
- 39e:	82 83       	std	Z+2, r24	; 0x02
- 3a0:	08 95       	ret
+ 3e2:	e0 ea       	ldi	r30, 0xA0	; 160
+ 3e4:	f0 e0       	ldi	r31, 0x00	; 0
+ 3e6:	82 81       	ldd	r24, Z+2	; 0x02
+ 3e8:	81 60       	ori	r24, 0x01	; 1
+ 3ea:	82 83       	std	Z+2, r24	; 0x02
+ 3ec:	08 95       	ret
 
-000003a2 <_Z10timer_initv>:
+000003ee <_Z10timer_initv>:
 }
 
 //Initializes timers
 void timer_init(void){
 	TCC0.PER = 100;	//period for PWM
- 3a2:	e0 e0       	ldi	r30, 0x00	; 0
- 3a4:	f8 e0       	ldi	r31, 0x08	; 8
- 3a6:	24 e6       	ldi	r18, 0x64	; 100
- 3a8:	30 e0       	ldi	r19, 0x00	; 0
- 3aa:	26 a3       	std	Z+38, r18	; 0x26
- 3ac:	37 a3       	std	Z+39, r19	; 0x27
+ 3ee:	e0 e0       	ldi	r30, 0x00	; 0
+ 3f0:	f8 e0       	ldi	r31, 0x08	; 8
+ 3f2:	24 e6       	ldi	r18, 0x64	; 100
+ 3f4:	30 e0       	ldi	r19, 0x00	; 0
+ 3f6:	26 a3       	std	Z+38, r18	; 0x26
+ 3f8:	37 a3       	std	Z+39, r19	; 0x27
 	TCC0.CTRLA = TC_CLKSEL_DIV256_gc; //sets the PWM base frequency by 2000000/256
- 3ae:	66 e0       	ldi	r22, 0x06	; 6
- 3b0:	60 83       	st	Z, r22
+ 3fa:	66 e0       	ldi	r22, 0x06	; 6
+ 3fc:	60 83       	st	Z, r22
 	TCC0.CTRLB = TC_WGMODE_SINGLESLOPE_gc; //sets the wave generation mode to single slope
- 3b2:	53 e0       	ldi	r21, 0x03	; 3
- 3b4:	51 83       	std	Z+1, r21	; 0x01
+ 3fe:	53 e0       	ldi	r21, 0x03	; 3
+ 400:	51 83       	std	Z+1, r21	; 0x01
 	TCC0.CTRLB |= (0b00110000); //output pins on red and blue LED
- 3b6:	81 81       	ldd	r24, Z+1	; 0x01
- 3b8:	80 63       	ori	r24, 0x30	; 48
- 3ba:	81 83       	std	Z+1, r24	; 0x01
+ 402:	81 81       	ldd	r24, Z+1	; 0x01
+ 404:	80 63       	ori	r24, 0x30	; 48
+ 406:	81 83       	std	Z+1, r24	; 0x01
 	TCC0.INTCTRLA = TC_OVFINTLVL_LO_gc; //interrupt register
- 3bc:	41 e0       	ldi	r20, 0x01	; 1
- 3be:	46 83       	std	Z+6, r20	; 0x06
+ 408:	41 e0       	ldi	r20, 0x01	; 1
+ 40a:	46 83       	std	Z+6, r20	; 0x06
 	TCC0.CCB = 10; 
- 3c0:	8a e0       	ldi	r24, 0x0A	; 10
- 3c2:	90 e0       	ldi	r25, 0x00	; 0
- 3c4:	82 a7       	std	Z+42, r24	; 0x2a
- 3c6:	93 a7       	std	Z+43, r25	; 0x2b
+ 40c:	8a e0       	ldi	r24, 0x0A	; 10
+ 40e:	90 e0       	ldi	r25, 0x00	; 0
+ 410:	82 a7       	std	Z+42, r24	; 0x2a
+ 412:	93 a7       	std	Z+43, r25	; 0x2b
 	TCC0.CCA = 50; 
- 3c8:	82 e3       	ldi	r24, 0x32	; 50
- 3ca:	90 e0       	ldi	r25, 0x00	; 0
- 3cc:	80 a7       	std	Z+40, r24	; 0x28
- 3ce:	91 a7       	std	Z+41, r25	; 0x29
+ 414:	82 e3       	ldi	r24, 0x32	; 50
+ 416:	90 e0       	ldi	r25, 0x00	; 0
+ 418:	80 a7       	std	Z+40, r24	; 0x28
+ 41a:	91 a7       	std	Z+41, r25	; 0x29
 	
 	TCC1.PER = 100;
- 3d0:	e0 e4       	ldi	r30, 0x40	; 64
- 3d2:	f8 e0       	ldi	r31, 0x08	; 8
- 3d4:	26 a3       	std	Z+38, r18	; 0x26
- 3d6:	37 a3       	std	Z+39, r19	; 0x27
+ 41c:	e0 e4       	ldi	r30, 0x40	; 64
+ 41e:	f8 e0       	ldi	r31, 0x08	; 8
+ 420:	26 a3       	std	Z+38, r18	; 0x26
+ 422:	37 a3       	std	Z+39, r19	; 0x27
 	TCC1.CTRLA = TC_CLKSEL_DIV256_gc;
- 3d8:	60 83       	st	Z, r22
+ 424:	60 83       	st	Z, r22
 	TCC1.CTRLB = TC_WGMODE_SINGLESLOPE_gc;
- 3da:	51 83       	std	Z+1, r21	; 0x01
+ 426:	51 83       	std	Z+1, r21	; 0x01
 	TCC1.CTRLB |= (0b00010000); //output pins on green LED
- 3dc:	21 81       	ldd	r18, Z+1	; 0x01
- 3de:	20 61       	ori	r18, 0x10	; 16
- 3e0:	21 83       	std	Z+1, r18	; 0x01
+ 428:	21 81       	ldd	r18, Z+1	; 0x01
+ 42a:	20 61       	ori	r18, 0x10	; 16
+ 42c:	21 83       	std	Z+1, r18	; 0x01
 	TCC1.INTCTRLA = TC_OVFINTLVL_LO_gc;
- 3e2:	46 83       	std	Z+6, r20	; 0x06
+ 42e:	46 83       	std	Z+6, r20	; 0x06
 	TCC1.CCA = 50;
- 3e4:	80 a7       	std	Z+40, r24	; 0x28
- 3e6:	91 a7       	std	Z+41, r25	; 0x29
- 3e8:	08 95       	ret
+ 430:	80 a7       	std	Z+40, r24	; 0x28
+ 432:	91 a7       	std	Z+41, r25	; 0x29
+ 434:	08 95       	ret
 
-000003ea <_Z12SendStringPCPc>:
+00000436 <_Z12SendStringPCPc>:
 }
 
 //Sends a string to the computer
 void SendStringPC(char *stufftosend){
 	for(int i = 0 ; stufftosend[i] != '\0' ; i++){
- 3ea:	fc 01       	movw	r30, r24
- 3ec:	20 81       	ld	r18, Z
- 3ee:	22 23       	and	r18, r18
- 3f0:	59 f0       	breq	.+22     	; 0x408 <_Z12SendStringPCPc+0x1e>
- 3f2:	dc 01       	movw	r26, r24
- 3f4:	11 96       	adiw	r26, 0x01	; 1
+ 436:	fc 01       	movw	r30, r24
+ 438:	20 81       	ld	r18, Z
+ 43a:	22 23       	and	r18, r18
+ 43c:	59 f0       	breq	.+22     	; 0x454 <_Z12SendStringPCPc+0x1e>
+ 43e:	dc 01       	movw	r26, r24
+ 440:	11 96       	adiw	r26, 0x01	; 1
 		while(!USART_IsTXDataRegisterEmpty(&USARTC0));
- 3f6:	e0 ea       	ldi	r30, 0xA0	; 160
- 3f8:	f8 e0       	ldi	r31, 0x08	; 8
- 3fa:	81 81       	ldd	r24, Z+1	; 0x01
- 3fc:	85 ff       	sbrs	r24, 5
- 3fe:	fd cf       	rjmp	.-6      	; 0x3fa <_Z12SendStringPCPc+0x10>
+ 442:	e0 ea       	ldi	r30, 0xA0	; 160
+ 444:	f8 e0       	ldi	r31, 0x08	; 8
+ 446:	81 81       	ldd	r24, Z+1	; 0x01
+ 448:	85 ff       	sbrs	r24, 5
+ 44a:	fd cf       	rjmp	.-6      	; 0x446 <_Z12SendStringPCPc+0x10>
 		USART_PutChar(&USARTC0, stufftosend[i]);
- 400:	20 83       	st	Z, r18
+ 44c:	20 83       	st	Z, r18
 	TCC1.CCA = 50;
 }
 
 //Sends a string to the computer
 void SendStringPC(char *stufftosend){
 	for(int i = 0 ; stufftosend[i] != '\0' ; i++){
- 402:	2d 91       	ld	r18, X+
- 404:	21 11       	cpse	r18, r1
- 406:	f9 cf       	rjmp	.-14     	; 0x3fa <_Z12SendStringPCPc+0x10>
- 408:	08 95       	ret
+ 44e:	2d 91       	ld	r18, X+
+ 450:	21 11       	cpse	r18, r1
+ 452:	f9 cf       	rjmp	.-14     	; 0x446 <_Z12SendStringPCPc+0x10>
+ 454:	08 95       	ret
 
-0000040a <_Z9driveMainv>:
+00000456 <_Z9driveMainv>:
 This function exists inside a while(1) so it will loop itself forever
 
 */
 void driveMain(){
 	static char miscStr[10];
 	RGBSetColor(BLUE);
- 40a:	82 e0       	ldi	r24, 0x02	; 2
- 40c:	e4 d0       	rcall	.+456    	; 0x5d6 <_Z11RGBSetColor9RGBColors>
+ 456:	82 e0       	ldi	r24, 0x02	; 2
+ 458:	e4 d0       	rcall	.+456    	; 0x622 <_Z11RGBSetColor9RGBColors>
 	strcpy(miscStr,"Blue!\n\r");
- 40e:	88 e0       	ldi	r24, 0x08	; 8
- 410:	e0 e0       	ldi	r30, 0x00	; 0
- 412:	f0 e2       	ldi	r31, 0x20	; 32
- 414:	a6 e2       	ldi	r26, 0x26	; 38
- 416:	b0 e2       	ldi	r27, 0x20	; 32
- 418:	01 90       	ld	r0, Z+
- 41a:	0d 92       	st	X+, r0
- 41c:	8a 95       	dec	r24
- 41e:	e1 f7       	brne	.-8      	; 0x418 <_Z9driveMainv+0xe>
+ 45a:	88 e0       	ldi	r24, 0x08	; 8
+ 45c:	e0 e0       	ldi	r30, 0x00	; 0
+ 45e:	f0 e2       	ldi	r31, 0x20	; 32
+ 460:	a6 e2       	ldi	r26, 0x26	; 38
+ 462:	b0 e2       	ldi	r27, 0x20	; 32
+ 464:	01 90       	ld	r0, Z+
+ 466:	0d 92       	st	X+, r0
+ 468:	8a 95       	dec	r24
+ 46a:	e1 f7       	brne	.-8      	; 0x464 <_Z9driveMainv+0xe>
 	SendStringPC(miscStr);
- 420:	86 e2       	ldi	r24, 0x26	; 38
- 422:	90 e2       	ldi	r25, 0x20	; 32
- 424:	e2 df       	rcall	.-60     	; 0x3ea <_Z12SendStringPCPc>
+ 46c:	86 e2       	ldi	r24, 0x26	; 38
+ 46e:	90 e2       	ldi	r25, 0x20	; 32
+ 470:	e2 df       	rcall	.-60     	; 0x436 <_Z12SendStringPCPc>
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
- 426:	2f ef       	ldi	r18, 0xFF	; 255
- 428:	83 ed       	ldi	r24, 0xD3	; 211
- 42a:	90 e3       	ldi	r25, 0x30	; 48
- 42c:	21 50       	subi	r18, 0x01	; 1
- 42e:	80 40       	sbci	r24, 0x00	; 0
- 430:	90 40       	sbci	r25, 0x00	; 0
- 432:	e1 f7       	brne	.-8      	; 0x42c <_Z9driveMainv+0x22>
- 434:	00 c0       	rjmp	.+0      	; 0x436 <_Z9driveMainv+0x2c>
- 436:	00 00       	nop
+ 472:	2f ef       	ldi	r18, 0xFF	; 255
+ 474:	83 ed       	ldi	r24, 0xD3	; 211
+ 476:	90 e3       	ldi	r25, 0x30	; 48
+ 478:	21 50       	subi	r18, 0x01	; 1
+ 47a:	80 40       	sbci	r24, 0x00	; 0
+ 47c:	90 40       	sbci	r25, 0x00	; 0
+ 47e:	e1 f7       	brne	.-8      	; 0x478 <_Z9driveMainv+0x22>
+ 480:	00 c0       	rjmp	.+0      	; 0x482 <_Z9driveMainv+0x2c>
+ 482:	00 00       	nop
 	_delay_ms(500);
 	RGBSetColor(RED);
- 438:	80 e0       	ldi	r24, 0x00	; 0
- 43a:	cd d0       	rcall	.+410    	; 0x5d6 <_Z11RGBSetColor9RGBColors>
+ 484:	80 e0       	ldi	r24, 0x00	; 0
+ 486:	cd d0       	rcall	.+410    	; 0x622 <_Z11RGBSetColor9RGBColors>
 	strcpy(miscStr,"Red!\n\r");
- 43c:	87 e0       	ldi	r24, 0x07	; 7
- 43e:	e8 e0       	ldi	r30, 0x08	; 8
- 440:	f0 e2       	ldi	r31, 0x20	; 32
- 442:	a6 e2       	ldi	r26, 0x26	; 38
- 444:	b0 e2       	ldi	r27, 0x20	; 32
- 446:	01 90       	ld	r0, Z+
- 448:	0d 92       	st	X+, r0
- 44a:	8a 95       	dec	r24
- 44c:	e1 f7       	brne	.-8      	; 0x446 <_Z9driveMainv+0x3c>
+ 488:	87 e0       	ldi	r24, 0x07	; 7
+ 48a:	e8 e0       	ldi	r30, 0x08	; 8
+ 48c:	f0 e2       	ldi	r31, 0x20	; 32
+ 48e:	a6 e2       	ldi	r26, 0x26	; 38
+ 490:	b0 e2       	ldi	r27, 0x20	; 32
+ 492:	01 90       	ld	r0, Z+
+ 494:	0d 92       	st	X+, r0
+ 496:	8a 95       	dec	r24
+ 498:	e1 f7       	brne	.-8      	; 0x492 <_Z9driveMainv+0x3c>
 	SendStringPC(miscStr);
- 44e:	86 e2       	ldi	r24, 0x26	; 38
- 450:	90 e2       	ldi	r25, 0x20	; 32
- 452:	cb df       	rcall	.-106    	; 0x3ea <_Z12SendStringPCPc>
- 454:	2f ef       	ldi	r18, 0xFF	; 255
- 456:	83 ed       	ldi	r24, 0xD3	; 211
- 458:	90 e3       	ldi	r25, 0x30	; 48
- 45a:	21 50       	subi	r18, 0x01	; 1
- 45c:	80 40       	sbci	r24, 0x00	; 0
- 45e:	90 40       	sbci	r25, 0x00	; 0
- 460:	e1 f7       	brne	.-8      	; 0x45a <_Z9driveMainv+0x50>
- 462:	00 c0       	rjmp	.+0      	; 0x464 <_Z9driveMainv+0x5a>
- 464:	00 00       	nop
- 466:	08 95       	ret
+ 49a:	86 e2       	ldi	r24, 0x26	; 38
+ 49c:	90 e2       	ldi	r25, 0x20	; 32
+ 49e:	cb df       	rcall	.-106    	; 0x436 <_Z12SendStringPCPc>
+ 4a0:	2f ef       	ldi	r18, 0xFF	; 255
+ 4a2:	83 ed       	ldi	r24, 0xD3	; 211
+ 4a4:	90 e3       	ldi	r25, 0x30	; 48
+ 4a6:	21 50       	subi	r18, 0x01	; 1
+ 4a8:	80 40       	sbci	r24, 0x00	; 0
+ 4aa:	90 40       	sbci	r25, 0x00	; 0
+ 4ac:	e1 f7       	brne	.-8      	; 0x4a6 <_Z9driveMainv+0x50>
+ 4ae:	00 c0       	rjmp	.+0      	; 0x4b0 <_Z9driveMainv+0x5a>
+ 4b0:	00 00       	nop
+ 4b2:	08 95       	ret
 
-00000468 <_Z23SetXMEGA32MhzCalibratedv>:
+000004b4 <_Z23SetXMEGA32MhzCalibratedv>:
 	}
 }
 
 //Configures the XMEGA to run on it's 32Mhz internal? oscillator
 void SetXMEGA32MhzCalibrated(){
 	CCP = CCP_IOREG_gc;						//Disable register security for oscillator update
- 468:	88 ed       	ldi	r24, 0xD8	; 216
- 46a:	84 bf       	out	0x34, r24	; 52
+ 4b4:	88 ed       	ldi	r24, 0xD8	; 216
+ 4b6:	84 bf       	out	0x34, r24	; 52
 	OSC.CTRL = OSC_RC32MEN_bm;				//Enable 32MHz oscillator
- 46c:	82 e0       	ldi	r24, 0x02	; 2
- 46e:	80 93 50 00 	sts	0x0050, r24
+ 4b8:	82 e0       	ldi	r24, 0x02	; 2
+ 4ba:	80 93 50 00 	sts	0x0050, r24
 	while(!(OSC.STATUS & OSC_RC32MRDY_bm)); //Wait for oscillator to be ready
- 472:	e0 e5       	ldi	r30, 0x50	; 80
- 474:	f0 e0       	ldi	r31, 0x00	; 0
- 476:	81 81       	ldd	r24, Z+1	; 0x01
- 478:	81 ff       	sbrs	r24, 1
- 47a:	fd cf       	rjmp	.-6      	; 0x476 <_Z23SetXMEGA32MhzCalibratedv+0xe>
+ 4be:	e0 e5       	ldi	r30, 0x50	; 80
+ 4c0:	f0 e0       	ldi	r31, 0x00	; 0
+ 4c2:	81 81       	ldd	r24, Z+1	; 0x01
+ 4c4:	81 ff       	sbrs	r24, 1
+ 4c6:	fd cf       	rjmp	.-6      	; 0x4c2 <_Z23SetXMEGA32MhzCalibratedv+0xe>
 	CCP = CCP_IOREG_gc;						//Disable register security for clock update
- 47c:	88 ed       	ldi	r24, 0xD8	; 216
- 47e:	84 bf       	out	0x34, r24	; 52
+ 4c8:	88 ed       	ldi	r24, 0xD8	; 216
+ 4ca:	84 bf       	out	0x34, r24	; 52
 	CLK.CTRL = CLK_SCLKSEL_RC32M_gc;		//Switch to 32MHz clock
- 480:	91 e0       	ldi	r25, 0x01	; 1
- 482:	90 93 40 00 	sts	0x0040, r25
+ 4cc:	91 e0       	ldi	r25, 0x01	; 1
+ 4ce:	90 93 40 00 	sts	0x0040, r25
 
 
 	CCP = CCP_IOREG_gc;						//Disable register security for oscillator update
- 486:	84 bf       	out	0x34, r24	; 52
+ 4d2:	84 bf       	out	0x34, r24	; 52
 	OSC.CTRL |= OSC_RC32KEN_bm;				//Enable 32Khz oscillator
- 488:	e0 e5       	ldi	r30, 0x50	; 80
- 48a:	f0 e0       	ldi	r31, 0x00	; 0
- 48c:	80 81       	ld	r24, Z
- 48e:	84 60       	ori	r24, 0x04	; 4
- 490:	80 83       	st	Z, r24
+ 4d4:	e0 e5       	ldi	r30, 0x50	; 80
+ 4d6:	f0 e0       	ldi	r31, 0x00	; 0
+ 4d8:	80 81       	ld	r24, Z
+ 4da:	84 60       	ori	r24, 0x04	; 4
+ 4dc:	80 83       	st	Z, r24
 	while(!(OSC.STATUS & OSC_RC32KRDY_bm)); //Wait for oscillator to be ready
- 492:	81 81       	ldd	r24, Z+1	; 0x01
- 494:	82 ff       	sbrs	r24, 2
- 496:	fd cf       	rjmp	.-6      	; 0x492 <_Z23SetXMEGA32MhzCalibratedv+0x2a>
+ 4de:	81 81       	ldd	r24, Z+1	; 0x01
+ 4e0:	82 ff       	sbrs	r24, 2
+ 4e2:	fd cf       	rjmp	.-6      	; 0x4de <_Z23SetXMEGA32MhzCalibratedv+0x2a>
 	/*
 	OSC.DFLLCTRL &= ~OSC_RC32MCREF_bm;		//Set up calibration source to be 32Khz crystal
 	DFLLRC32M.CTRL |= DFLL_ENABLE_bm;		//Enable calibration of 32Mhz oscillator 
 	*/
 }
- 498:	08 95       	ret
+ 4e4:	08 95       	ret
 
-0000049a <main>:
+000004e6 <main>:
 			- Launch the 'main' function associated with the board
 				-INFINITE LOOP
 
 */
 int main(void)
 {
- 49a:	cf 93       	push	r28
- 49c:	df 93       	push	r29
- 49e:	cd b7       	in	r28, 0x3d	; 61
- 4a0:	de b7       	in	r29, 0x3e	; 62
- 4a2:	2c 97       	sbiw	r28, 0x0c	; 12
- 4a4:	cd bf       	out	0x3d, r28	; 61
- 4a6:	de bf       	out	0x3e, r29	; 62
+ 4e6:	cf 93       	push	r28
+ 4e8:	df 93       	push	r29
+ 4ea:	cd b7       	in	r28, 0x3d	; 61
+ 4ec:	de b7       	in	r29, 0x3e	; 62
+ 4ee:	2c 97       	sbiw	r28, 0x0c	; 12
+ 4f0:	cd bf       	out	0x3d, r28	; 61
+ 4f2:	de bf       	out	0x3e, r29	; 62
 	SetXMEGA32MhzCalibrated();
- 4a8:	df df       	rcall	.-66     	; 0x468 <_Z23SetXMEGA32MhzCalibratedv>
+ 4f4:	df df       	rcall	.-66     	; 0x4b4 <_Z23SetXMEGA32MhzCalibratedv>
 	//Main's Variable Declarations
 	char XmegaIDStr[11];
 	XMEGAID CurrentID;
 		
 	//Initialization Code
 	uart_init();
- 4aa:	51 df       	rcall	.-350    	; 0x34e <_Z9uart_initv>
+ 4f6:	51 df       	rcall	.-350    	; 0x39a <_Z9uart_initv>
 	initializeIO();
- 4ac:	09 d1       	rcall	.+530    	; 0x6c0 <_Z12initializeIOv>
+ 4f8:	09 d1       	rcall	.+530    	; 0x70c <_Z12initializeIOv>
 	determineID(XmegaIDStr, CurrentID);
- 4ae:	be 01       	movw	r22, r28
- 4b0:	64 5f       	subi	r22, 0xF4	; 244
- 4b2:	7f 4f       	sbci	r23, 0xFF	; 255
- 4b4:	ce 01       	movw	r24, r28
- 4b6:	01 96       	adiw	r24, 0x01	; 1
- 4b8:	0f d1       	rcall	.+542    	; 0x6d8 <_Z11determineIDPcR7XMEGAID>
+ 4fa:	be 01       	movw	r22, r28
+ 4fc:	64 5f       	subi	r22, 0xF4	; 244
+ 4fe:	7f 4f       	sbci	r23, 0xFF	; 255
+ 500:	ce 01       	movw	r24, r28
+ 502:	01 96       	adiw	r24, 0x01	; 1
+ 504:	0f d1       	rcall	.+542    	; 0x724 <_Z11determineIDPcR7XMEGAID>
 	timer_init();  //Initialize Timers
- 4ba:	73 df       	rcall	.-282    	; 0x3a2 <_Z10timer_initv>
+ 506:	73 df       	rcall	.-282    	; 0x3ee <_Z10timer_initv>
 	sei(); //Enable interrupts
- 4bc:	78 94       	sei
+ 508:	78 94       	sei
 	
 	PMIC.CTRL |= PMIC_LOLVLEN_bm; //draws current for ?
- 4be:	e0 ea       	ldi	r30, 0xA0	; 160
- 4c0:	f0 e0       	ldi	r31, 0x00	; 0
- 4c2:	82 81       	ldd	r24, Z+2	; 0x02
- 4c4:	81 60       	ori	r24, 0x01	; 1
- 4c6:	82 83       	std	Z+2, r24	; 0x02
+ 50a:	e0 ea       	ldi	r30, 0xA0	; 160
+ 50c:	f0 e0       	ldi	r31, 0x00	; 0
+ 50e:	82 81       	ldd	r24, Z+2	; 0x02
+ 510:	81 60       	ori	r24, 0x01	; 1
+ 512:	82 83       	std	Z+2, r24	; 0x02
 				RGBSetColor(YELLOW);
 				char recieveChar;
 				if(USART_RXBufferData_Available(&USART_PC_Data)){
 					recieveChar = USART_RXBuffer_GetByte(&USART_PC_Data);  //Read character off of buffer
 					if (recieveChar == 'r'){
 						CurrentState = MainProgram;
- 4c8:	02 e0       	ldi	r16, 0x02	; 2
+ 514:	02 e0       	ldi	r16, 0x02	; 2
 				RGBSetColor(RED);
 				if(USART_RXBufferData_Available(&USART_PC_Data)){
 					recieveChar = USART_RXBuffer_GetByte(&USART_PC_Data);  //Read character off of buffer
 					if (recieveChar == 'p'){
 						SendStringPC(XmegaIDStr); //Identify itself
 						CurrentState = WaitForReady;
- 4ca:	11 e0       	ldi	r17, 0x01	; 1
+ 516:	11 e0       	ldi	r17, 0x01	; 1
 
 	
     while(1)
     { 
 		
 		switch (CurrentState){
- 4cc:	80 91 40 20 	lds	r24, 0x2040
- 4d0:	81 30       	cpi	r24, 0x01	; 1
- 4d2:	c1 f0       	breq	.+48     	; 0x504 <main+0x6a>
- 4d4:	18 f0       	brcs	.+6      	; 0x4dc <main+0x42>
- 4d6:	82 30       	cpi	r24, 0x02	; 2
- 4d8:	21 f1       	breq	.+72     	; 0x522 <main+0x88>
- 4da:	fa cf       	rjmp	.-12     	; 0x4d0 <main+0x36>
+ 518:	80 91 40 20 	lds	r24, 0x2040
+ 51c:	81 30       	cpi	r24, 0x01	; 1
+ 51e:	c1 f0       	breq	.+48     	; 0x550 <main+0x6a>
+ 520:	18 f0       	brcs	.+6      	; 0x528 <main+0x42>
+ 522:	82 30       	cpi	r24, 0x02	; 2
+ 524:	21 f1       	breq	.+72     	; 0x56e <main+0x88>
+ 526:	fa cf       	rjmp	.-12     	; 0x51c <main+0x36>
 			case WaitForPing:
 				RGBSetColor(RED);
- 4dc:	80 e0       	ldi	r24, 0x00	; 0
- 4de:	7b d0       	rcall	.+246    	; 0x5d6 <_Z11RGBSetColor9RGBColors>
+ 528:	80 e0       	ldi	r24, 0x00	; 0
+ 52a:	7b d0       	rcall	.+246    	; 0x622 <_Z11RGBSetColor9RGBColors>
 				if(USART_RXBufferData_Available(&USART_PC_Data)){
- 4e0:	81 e3       	ldi	r24, 0x31	; 49
- 4e2:	90 e2       	ldi	r25, 0x20	; 32
- 4e4:	35 d0       	rcall	.+106    	; 0x550 <USART_RXBufferData_Available>
- 4e6:	88 23       	and	r24, r24
- 4e8:	89 f3       	breq	.-30     	; 0x4cc <main+0x32>
+ 52c:	81 e3       	ldi	r24, 0x31	; 49
+ 52e:	90 e2       	ldi	r25, 0x20	; 32
+ 530:	35 d0       	rcall	.+106    	; 0x59c <USART_RXBufferData_Available>
+ 532:	88 23       	and	r24, r24
+ 534:	89 f3       	breq	.-30     	; 0x518 <main+0x32>
 					recieveChar = USART_RXBuffer_GetByte(&USART_PC_Data);  //Read character off of buffer
- 4ea:	81 e3       	ldi	r24, 0x31	; 49
- 4ec:	90 e2       	ldi	r25, 0x20	; 32
- 4ee:	38 d0       	rcall	.+112    	; 0x560 <USART_RXBuffer_GetByte>
- 4f0:	80 93 30 20 	sts	0x2030, r24
+ 536:	81 e3       	ldi	r24, 0x31	; 49
+ 538:	90 e2       	ldi	r25, 0x20	; 32
+ 53a:	38 d0       	rcall	.+112    	; 0x5ac <USART_RXBuffer_GetByte>
+ 53c:	80 93 30 20 	sts	0x2030, r24
 					if (recieveChar == 'p'){
- 4f4:	80 37       	cpi	r24, 0x70	; 112
- 4f6:	51 f7       	brne	.-44     	; 0x4cc <main+0x32>
+ 540:	80 37       	cpi	r24, 0x70	; 112
+ 542:	51 f7       	brne	.-44     	; 0x518 <main+0x32>
 						SendStringPC(XmegaIDStr); //Identify itself
- 4f8:	ce 01       	movw	r24, r28
- 4fa:	01 96       	adiw	r24, 0x01	; 1
- 4fc:	76 df       	rcall	.-276    	; 0x3ea <_Z12SendStringPCPc>
+ 544:	ce 01       	movw	r24, r28
+ 546:	01 96       	adiw	r24, 0x01	; 1
+ 548:	76 df       	rcall	.-276    	; 0x436 <_Z12SendStringPCPc>
 						CurrentState = WaitForReady;
- 4fe:	10 93 40 20 	sts	0x2040, r17
- 502:	e4 cf       	rjmp	.-56     	; 0x4cc <main+0x32>
+ 54a:	10 93 40 20 	sts	0x2040, r17
+ 54e:	e4 cf       	rjmp	.-56     	; 0x518 <main+0x32>
 					}
 					//else, do nothing and wait for more chars
 				}
 				break;
 			case WaitForReady:
 				RGBSetColor(YELLOW);
- 504:	84 e0       	ldi	r24, 0x04	; 4
- 506:	67 d0       	rcall	.+206    	; 0x5d6 <_Z11RGBSetColor9RGBColors>
+ 550:	84 e0       	ldi	r24, 0x04	; 4
+ 552:	67 d0       	rcall	.+206    	; 0x622 <_Z11RGBSetColor9RGBColors>
 				char recieveChar;
 				if(USART_RXBufferData_Available(&USART_PC_Data)){
- 508:	81 e3       	ldi	r24, 0x31	; 49
- 50a:	90 e2       	ldi	r25, 0x20	; 32
- 50c:	21 d0       	rcall	.+66     	; 0x550 <USART_RXBufferData_Available>
- 50e:	88 23       	and	r24, r24
- 510:	e9 f2       	breq	.-70     	; 0x4cc <main+0x32>
+ 554:	81 e3       	ldi	r24, 0x31	; 49
+ 556:	90 e2       	ldi	r25, 0x20	; 32
+ 558:	21 d0       	rcall	.+66     	; 0x59c <USART_RXBufferData_Available>
+ 55a:	88 23       	and	r24, r24
+ 55c:	e9 f2       	breq	.-70     	; 0x518 <main+0x32>
 					recieveChar = USART_RXBuffer_GetByte(&USART_PC_Data);  //Read character off of buffer
- 512:	81 e3       	ldi	r24, 0x31	; 49
- 514:	90 e2       	ldi	r25, 0x20	; 32
- 516:	24 d0       	rcall	.+72     	; 0x560 <USART_RXBuffer_GetByte>
+ 55e:	81 e3       	ldi	r24, 0x31	; 49
+ 560:	90 e2       	ldi	r25, 0x20	; 32
+ 562:	24 d0       	rcall	.+72     	; 0x5ac <USART_RXBuffer_GetByte>
 					if (recieveChar == 'r'){
- 518:	82 37       	cpi	r24, 0x72	; 114
- 51a:	c1 f6       	brne	.-80     	; 0x4cc <main+0x32>
+ 564:	82 37       	cpi	r24, 0x72	; 114
+ 566:	c1 f6       	brne	.-80     	; 0x518 <main+0x32>
 						CurrentState = MainProgram;
- 51c:	00 93 40 20 	sts	0x2040, r16
- 520:	d5 cf       	rjmp	.-86     	; 0x4cc <main+0x32>
+ 568:	00 93 40 20 	sts	0x2040, r16
+ 56c:	d5 cf       	rjmp	.-86     	; 0x518 <main+0x32>
 					//else, do nothing and wait for more chars
 				}
 				break;
 			case MainProgram:
 				//RGBSetColor(GREEN);
 				switch (CurrentID) {
- 522:	8c 85       	ldd	r24, Y+12	; 0x0c
- 524:	81 30       	cpi	r24, 0x01	; 1
- 526:	41 f0       	breq	.+16     	; 0x538 <main+0x9e>
- 528:	28 f0       	brcs	.+10     	; 0x534 <main+0x9a>
- 52a:	82 30       	cpi	r24, 0x02	; 2
- 52c:	31 f0       	breq	.+12     	; 0x53a <main+0xa0>
- 52e:	83 30       	cpi	r24, 0x03	; 3
- 530:	29 f0       	breq	.+10     	; 0x53c <main+0xa2>
- 532:	cc cf       	rjmp	.-104    	; 0x4cc <main+0x32>
+ 56e:	8c 85       	ldd	r24, Y+12	; 0x0c
+ 570:	81 30       	cpi	r24, 0x01	; 1
+ 572:	41 f0       	breq	.+16     	; 0x584 <main+0x9e>
+ 574:	28 f0       	brcs	.+10     	; 0x580 <main+0x9a>
+ 576:	82 30       	cpi	r24, 0x02	; 2
+ 578:	31 f0       	breq	.+12     	; 0x586 <main+0xa0>
+ 57a:	83 30       	cpi	r24, 0x03	; 3
+ 57c:	29 f0       	breq	.+10     	; 0x588 <main+0xa2>
+ 57e:	cc cf       	rjmp	.-104    	; 0x518 <main+0x32>
 					case DRIVE:
 						while (1) {
 							driveMain();
- 534:	6a df       	rcall	.-300    	; 0x40a <_Z9driveMainv>
- 536:	fe cf       	rjmp	.-4      	; 0x534 <main+0x9a>
- 538:	ff cf       	rjmp	.-2      	; 0x538 <main+0x9e>
- 53a:	ff cf       	rjmp	.-2      	; 0x53a <main+0xa0>
- 53c:	ff cf       	rjmp	.-2      	; 0x53c <main+0xa2>
+ 580:	6a df       	rcall	.-300    	; 0x456 <_Z9driveMainv>
+ 582:	fe cf       	rjmp	.-4      	; 0x580 <main+0x9a>
+						}
+						break;
+					case ARM:
+						while (1) {
+							armMain();
+ 584:	f2 de       	rcall	.-540    	; 0x36a <_Z7armMainv>
+ 586:	ff cf       	rjmp	.-2      	; 0x586 <main+0xa0>
+ 588:	ff cf       	rjmp	.-2      	; 0x588 <main+0xa2>
 
-0000053e <USART_InterruptDriver_Initialize>:
+0000058a <USART_InterruptDriver_Initialize>:
 		tempCTRLA = usart_data->usart->CTRLA;
 		tempCTRLA = (tempCTRLA & ~USART_DREINTLVL_gm) | usart_data->dreIntLevel;
 		usart_data->usart->CTRLA = tempCTRLA;
 	}
 	return TXBuffer_FreeSpace;
 }
- 53e:	fc 01       	movw	r30, r24
- 540:	60 83       	st	Z, r22
- 542:	71 83       	std	Z+1, r23	; 0x01
- 544:	42 83       	std	Z+2, r20	; 0x02
- 546:	14 86       	std	Z+12, r1	; 0x0c
- 548:	13 86       	std	Z+11, r1	; 0x0b
- 54a:	16 86       	std	Z+14, r1	; 0x0e
- 54c:	15 86       	std	Z+13, r1	; 0x0d
- 54e:	08 95       	ret
+ 58a:	fc 01       	movw	r30, r24
+ 58c:	60 83       	st	Z, r22
+ 58e:	71 83       	std	Z+1, r23	; 0x01
+ 590:	42 83       	std	Z+2, r20	; 0x02
+ 592:	14 86       	std	Z+12, r1	; 0x0c
+ 594:	13 86       	std	Z+11, r1	; 0x0b
+ 596:	16 86       	std	Z+14, r1	; 0x0e
+ 598:	15 86       	std	Z+13, r1	; 0x0d
+ 59a:	08 95       	ret
 
-00000550 <USART_RXBufferData_Available>:
+0000059c <USART_RXBufferData_Available>:
  *  \retval false     The receive buffer is empty.
  */
 bool USART_RXBufferData_Available(USART_data_t * usart_data)
 {
 	/* Make copies to make sure that volatile access is specified. */
 	uint8_t tempHead = usart_data->buffer.RX_Head;
- 550:	fc 01       	movw	r30, r24
- 552:	23 85       	ldd	r18, Z+11	; 0x0b
+ 59c:	fc 01       	movw	r30, r24
+ 59e:	23 85       	ldd	r18, Z+11	; 0x0b
 	uint8_t tempTail = usart_data->buffer.RX_Tail;
- 554:	94 85       	ldd	r25, Z+12	; 0x0c
+ 5a0:	94 85       	ldd	r25, Z+12	; 0x0c
 
 	/* There are data left in the buffer unless Head and Tail are equal. */
 	return (tempHead != tempTail);
- 556:	81 e0       	ldi	r24, 0x01	; 1
- 558:	29 13       	cpse	r18, r25
- 55a:	01 c0       	rjmp	.+2      	; 0x55e <USART_RXBufferData_Available+0xe>
- 55c:	80 e0       	ldi	r24, 0x00	; 0
+ 5a2:	81 e0       	ldi	r24, 0x01	; 1
+ 5a4:	29 13       	cpse	r18, r25
+ 5a6:	01 c0       	rjmp	.+2      	; 0x5aa <USART_RXBufferData_Available+0xe>
+ 5a8:	80 e0       	ldi	r24, 0x00	; 0
 }
- 55e:	08 95       	ret
+ 5aa:	08 95       	ret
 
-00000560 <USART_RXBuffer_GetByte>:
+000005ac <USART_RXBuffer_GetByte>:
  *  \param usart_data       The USART_data_t struct instance.
  *
  *  \return         Received data.
  */
 uint8_t USART_RXBuffer_GetByte(USART_data_t * usart_data)
 {
- 560:	fc 01       	movw	r30, r24
+ 5ac:	fc 01       	movw	r30, r24
 	USART_Buffer_t * bufPtr;
 	uint8_t ans;
 
 	bufPtr = &usart_data->buffer;
 	ans = (bufPtr->RX[bufPtr->RX_Tail]);
- 562:	84 85       	ldd	r24, Z+12	; 0x0c
- 564:	df 01       	movw	r26, r30
- 566:	a8 0f       	add	r26, r24
- 568:	b1 1d       	adc	r27, r1
- 56a:	13 96       	adiw	r26, 0x03	; 3
- 56c:	8c 91       	ld	r24, X
+ 5ae:	84 85       	ldd	r24, Z+12	; 0x0c
+ 5b0:	df 01       	movw	r26, r30
+ 5b2:	a8 0f       	add	r26, r24
+ 5b4:	b1 1d       	adc	r27, r1
+ 5b6:	13 96       	adiw	r26, 0x03	; 3
+ 5b8:	8c 91       	ld	r24, X
 
 	/* Advance buffer tail. */
 	bufPtr->RX_Tail = (bufPtr->RX_Tail + 1) & USART_RX_BUFFER_MASK;
- 56e:	94 85       	ldd	r25, Z+12	; 0x0c
- 570:	9f 5f       	subi	r25, 0xFF	; 255
- 572:	93 70       	andi	r25, 0x03	; 3
- 574:	94 87       	std	Z+12, r25	; 0x0c
+ 5ba:	94 85       	ldd	r25, Z+12	; 0x0c
+ 5bc:	9f 5f       	subi	r25, 0xFF	; 255
+ 5be:	93 70       	andi	r25, 0x03	; 3
+ 5c0:	94 87       	std	Z+12, r25	; 0x0c
 
 	return ans;
 }
- 576:	08 95       	ret
+ 5c2:	08 95       	ret
 
-00000578 <USART_RXComplete>:
+000005c4 <USART_RXComplete>:
  *  Stores received data in RX software buffer.
  *
  *  \param usart_data      The USART_data_t struct instance.
  */
 bool USART_RXComplete(USART_data_t * usart_data)
 {
- 578:	fc 01       	movw	r30, r24
+ 5c4:	fc 01       	movw	r30, r24
 	USART_Buffer_t * bufPtr;
 	bool ans;
 
 	bufPtr = &usart_data->buffer;
 	/* Advance buffer head. */
 	uint8_t tempRX_Head = (bufPtr->RX_Head + 1) & USART_RX_BUFFER_MASK;
- 57a:	83 85       	ldd	r24, Z+11	; 0x0b
- 57c:	8f 5f       	subi	r24, 0xFF	; 255
- 57e:	83 70       	andi	r24, 0x03	; 3
+ 5c6:	83 85       	ldd	r24, Z+11	; 0x0b
+ 5c8:	8f 5f       	subi	r24, 0xFF	; 255
+ 5ca:	83 70       	andi	r24, 0x03	; 3
 
 	/* Check for overflow. */
 	uint8_t tempRX_Tail = bufPtr->RX_Tail;
- 580:	94 85       	ldd	r25, Z+12	; 0x0c
+ 5cc:	94 85       	ldd	r25, Z+12	; 0x0c
 	uint8_t data = usart_data->usart->DATA;
- 582:	a0 81       	ld	r26, Z
- 584:	b1 81       	ldd	r27, Z+1	; 0x01
- 586:	2c 91       	ld	r18, X
+ 5ce:	a0 81       	ld	r26, Z
+ 5d0:	b1 81       	ldd	r27, Z+1	; 0x01
+ 5d2:	2c 91       	ld	r18, X
 
 	if (tempRX_Head == tempRX_Tail) {
- 588:	89 17       	cp	r24, r25
- 58a:	49 f0       	breq	.+18     	; 0x59e <USART_RXComplete+0x26>
+ 5d4:	89 17       	cp	r24, r25
+ 5d6:	49 f0       	breq	.+18     	; 0x5ea <USART_RXComplete+0x26>
 	  	ans = false;
 	}else{
 		ans = true;
 		usart_data->buffer.RX[usart_data->buffer.RX_Head] = data;
- 58c:	93 85       	ldd	r25, Z+11	; 0x0b
- 58e:	df 01       	movw	r26, r30
- 590:	a9 0f       	add	r26, r25
- 592:	b1 1d       	adc	r27, r1
- 594:	13 96       	adiw	r26, 0x03	; 3
- 596:	2c 93       	st	X, r18
+ 5d8:	93 85       	ldd	r25, Z+11	; 0x0b
+ 5da:	df 01       	movw	r26, r30
+ 5dc:	a9 0f       	add	r26, r25
+ 5de:	b1 1d       	adc	r27, r1
+ 5e0:	13 96       	adiw	r26, 0x03	; 3
+ 5e2:	2c 93       	st	X, r18
 		usart_data->buffer.RX_Head = tempRX_Head;
- 598:	83 87       	std	Z+11, r24	; 0x0b
+ 5e4:	83 87       	std	Z+11, r24	; 0x0b
 	uint8_t data = usart_data->usart->DATA;
 
 	if (tempRX_Head == tempRX_Tail) {
 	  	ans = false;
 	}else{
 		ans = true;
- 59a:	81 e0       	ldi	r24, 0x01	; 1
- 59c:	08 95       	ret
+ 5e6:	81 e0       	ldi	r24, 0x01	; 1
+ 5e8:	08 95       	ret
 	/* Check for overflow. */
 	uint8_t tempRX_Tail = bufPtr->RX_Tail;
 	uint8_t data = usart_data->usart->DATA;
 
 	if (tempRX_Head == tempRX_Tail) {
 	  	ans = false;
- 59e:	80 e0       	ldi	r24, 0x00	; 0
+ 5ea:	80 e0       	ldi	r24, 0x00	; 0
 		ans = true;
 		usart_data->buffer.RX[usart_data->buffer.RX_Head] = data;
 		usart_data->buffer.RX_Head = tempRX_Head;
 	}
 	return ans;
 }
- 5a0:	08 95       	ret
+ 5ec:	08 95       	ret
 
-000005a2 <USART_DataRegEmpty>:
+000005ee <USART_DataRegEmpty>:
  *  is empty. Argument is pointer to USART (USART_data_t).
  *
  *  \param usart_data      The USART_data_t struct instance.
  */
 void USART_DataRegEmpty(USART_data_t * usart_data)
 {
- 5a2:	fc 01       	movw	r30, r24
+ 5ee:	fc 01       	movw	r30, r24
 	USART_Buffer_t * bufPtr;
 	bufPtr = &usart_data->buffer;
 
 	/* Check if all data is transmitted. */
 	uint8_t tempTX_Tail = usart_data->buffer.TX_Tail;
- 5a4:	86 85       	ldd	r24, Z+14	; 0x0e
+ 5f0:	86 85       	ldd	r24, Z+14	; 0x0e
 	if (bufPtr->TX_Head == tempTX_Tail){
- 5a6:	95 85       	ldd	r25, Z+13	; 0x0d
- 5a8:	98 13       	cpse	r25, r24
- 5aa:	07 c0       	rjmp	.+14     	; 0x5ba <USART_DataRegEmpty+0x18>
+ 5f2:	95 85       	ldd	r25, Z+13	; 0x0d
+ 5f4:	98 13       	cpse	r25, r24
+ 5f6:	07 c0       	rjmp	.+14     	; 0x606 <USART_DataRegEmpty+0x18>
 	    /* Disable DRE interrupts. */
 		uint8_t tempCTRLA = usart_data->usart->CTRLA;
- 5ac:	01 90       	ld	r0, Z+
- 5ae:	f0 81       	ld	r31, Z
- 5b0:	e0 2d       	mov	r30, r0
- 5b2:	83 81       	ldd	r24, Z+3	; 0x03
+ 5f8:	01 90       	ld	r0, Z+
+ 5fa:	f0 81       	ld	r31, Z
+ 5fc:	e0 2d       	mov	r30, r0
+ 5fe:	83 81       	ldd	r24, Z+3	; 0x03
 		tempCTRLA = (tempCTRLA & ~USART_DREINTLVL_gm) | USART_DREINTLVL_OFF_gc;
- 5b4:	8c 7f       	andi	r24, 0xFC	; 252
+ 600:	8c 7f       	andi	r24, 0xFC	; 252
 		usart_data->usart->CTRLA = tempCTRLA;
- 5b6:	83 83       	std	Z+3, r24	; 0x03
- 5b8:	08 95       	ret
+ 602:	83 83       	std	Z+3, r24	; 0x03
+ 604:	08 95       	ret
 
 	}else{
 		/* Start transmitting. */
 		uint8_t data = bufPtr->TX[usart_data->buffer.TX_Tail];
- 5ba:	86 85       	ldd	r24, Z+14	; 0x0e
- 5bc:	df 01       	movw	r26, r30
- 5be:	a8 0f       	add	r26, r24
- 5c0:	b1 1d       	adc	r27, r1
- 5c2:	17 96       	adiw	r26, 0x07	; 7
- 5c4:	8c 91       	ld	r24, X
+ 606:	86 85       	ldd	r24, Z+14	; 0x0e
+ 608:	df 01       	movw	r26, r30
+ 60a:	a8 0f       	add	r26, r24
+ 60c:	b1 1d       	adc	r27, r1
+ 60e:	17 96       	adiw	r26, 0x07	; 7
+ 610:	8c 91       	ld	r24, X
 		usart_data->usart->DATA = data;
- 5c6:	a0 81       	ld	r26, Z
- 5c8:	b1 81       	ldd	r27, Z+1	; 0x01
- 5ca:	8c 93       	st	X, r24
+ 612:	a0 81       	ld	r26, Z
+ 614:	b1 81       	ldd	r27, Z+1	; 0x01
+ 616:	8c 93       	st	X, r24
 
 		/* Advance buffer tail. */
 		bufPtr->TX_Tail = (bufPtr->TX_Tail + 1) & USART_TX_BUFFER_MASK;
- 5cc:	86 85       	ldd	r24, Z+14	; 0x0e
- 5ce:	8f 5f       	subi	r24, 0xFF	; 255
- 5d0:	83 70       	andi	r24, 0x03	; 3
- 5d2:	86 87       	std	Z+14, r24	; 0x0e
- 5d4:	08 95       	ret
+ 618:	86 85       	ldd	r24, Z+14	; 0x0e
+ 61a:	8f 5f       	subi	r24, 0xFF	; 255
+ 61c:	83 70       	andi	r24, 0x03	; 3
+ 61e:	86 87       	std	Z+14, r24	; 0x0e
+ 620:	08 95       	ret
 
-000005d6 <_Z11RGBSetColor9RGBColors>:
+00000622 <_Z11RGBSetColor9RGBColors>:
 #include <avr/io.h>
 
 //This function handles making colors on the RGB LED
-//Author: Nick M
+//Author: Nick McComb
 void RGBSetColor(RGBColors choice){
 	switch(choice){
- 5d6:	90 e0       	ldi	r25, 0x00	; 0
- 5d8:	87 30       	cpi	r24, 0x07	; 7
- 5da:	91 05       	cpc	r25, r1
- 5dc:	08 f0       	brcs	.+2      	; 0x5e0 <_Z11RGBSetColor9RGBColors+0xa>
- 5de:	63 c0       	rjmp	.+198    	; 0x6a6 <_Z11RGBSetColor9RGBColors+0xd0>
- 5e0:	fc 01       	movw	r30, r24
- 5e2:	e2 50       	subi	r30, 0x02	; 2
- 5e4:	ff 4f       	sbci	r31, 0xFF	; 255
- 5e6:	d5 c0       	rjmp	.+426    	; 0x792 <__tablejump2__>
+ 622:	90 e0       	ldi	r25, 0x00	; 0
+ 624:	87 30       	cpi	r24, 0x07	; 7
+ 626:	91 05       	cpc	r25, r1
+ 628:	08 f0       	brcs	.+2      	; 0x62c <_Z11RGBSetColor9RGBColors+0xa>
+ 62a:	63 c0       	rjmp	.+198    	; 0x6f2 <_Z11RGBSetColor9RGBColors+0xd0>
+ 62c:	fc 01       	movw	r30, r24
+ 62e:	e2 50       	subi	r30, 0x02	; 2
+ 630:	ff 4f       	sbci	r31, 0xFF	; 255
+ 632:	d5 c0       	rjmp	.+426    	; 0x7de <__tablejump2__>
 		case RED:
 			TCC0.CCA = 0;
- 5e8:	e0 e0       	ldi	r30, 0x00	; 0
- 5ea:	f8 e0       	ldi	r31, 0x08	; 8
- 5ec:	10 a6       	std	Z+40, r1	; 0x28
- 5ee:	11 a6       	std	Z+41, r1	; 0x29
+ 634:	e0 e0       	ldi	r30, 0x00	; 0
+ 636:	f8 e0       	ldi	r31, 0x08	; 8
+ 638:	10 a6       	std	Z+40, r1	; 0x28
+ 63a:	11 a6       	std	Z+41, r1	; 0x29
 			TCC0.CCB = COLOR_ON;
- 5f0:	82 e3       	ldi	r24, 0x32	; 50
- 5f2:	90 e0       	ldi	r25, 0x00	; 0
- 5f4:	82 a7       	std	Z+42, r24	; 0x2a
- 5f6:	93 a7       	std	Z+43, r25	; 0x2b
+ 63c:	82 e3       	ldi	r24, 0x32	; 50
+ 63e:	90 e0       	ldi	r25, 0x00	; 0
+ 640:	82 a7       	std	Z+42, r24	; 0x2a
+ 642:	93 a7       	std	Z+43, r25	; 0x2b
 			TCC1.CCA = 0;
- 5f8:	e0 e4       	ldi	r30, 0x40	; 64
- 5fa:	f8 e0       	ldi	r31, 0x08	; 8
- 5fc:	10 a6       	std	Z+40, r1	; 0x28
- 5fe:	11 a6       	std	Z+41, r1	; 0x29
+ 644:	e0 e4       	ldi	r30, 0x40	; 64
+ 646:	f8 e0       	ldi	r31, 0x08	; 8
+ 648:	10 a6       	std	Z+40, r1	; 0x28
+ 64a:	11 a6       	std	Z+41, r1	; 0x29
 			break;
- 600:	08 95       	ret
+ 64c:	08 95       	ret
 		case BLUE:
 			TCC0.CCA = COLOR_ON;
- 602:	e0 e0       	ldi	r30, 0x00	; 0
- 604:	f8 e0       	ldi	r31, 0x08	; 8
- 606:	82 e3       	ldi	r24, 0x32	; 50
- 608:	90 e0       	ldi	r25, 0x00	; 0
- 60a:	80 a7       	std	Z+40, r24	; 0x28
- 60c:	91 a7       	std	Z+41, r25	; 0x29
+ 64e:	e0 e0       	ldi	r30, 0x00	; 0
+ 650:	f8 e0       	ldi	r31, 0x08	; 8
+ 652:	82 e3       	ldi	r24, 0x32	; 50
+ 654:	90 e0       	ldi	r25, 0x00	; 0
+ 656:	80 a7       	std	Z+40, r24	; 0x28
+ 658:	91 a7       	std	Z+41, r25	; 0x29
 			TCC0.CCB = 0;
- 60e:	12 a6       	std	Z+42, r1	; 0x2a
- 610:	13 a6       	std	Z+43, r1	; 0x2b
+ 65a:	12 a6       	std	Z+42, r1	; 0x2a
+ 65c:	13 a6       	std	Z+43, r1	; 0x2b
 			TCC1.CCA = 0;
- 612:	e0 e4       	ldi	r30, 0x40	; 64
- 614:	f8 e0       	ldi	r31, 0x08	; 8
- 616:	10 a6       	std	Z+40, r1	; 0x28
- 618:	11 a6       	std	Z+41, r1	; 0x29
+ 65e:	e0 e4       	ldi	r30, 0x40	; 64
+ 660:	f8 e0       	ldi	r31, 0x08	; 8
+ 662:	10 a6       	std	Z+40, r1	; 0x28
+ 664:	11 a6       	std	Z+41, r1	; 0x29
 			break;
- 61a:	08 95       	ret
+ 666:	08 95       	ret
 		case GREEN:
 			TCC0.CCA = 0;
- 61c:	e0 e0       	ldi	r30, 0x00	; 0
- 61e:	f8 e0       	ldi	r31, 0x08	; 8
- 620:	10 a6       	std	Z+40, r1	; 0x28
- 622:	11 a6       	std	Z+41, r1	; 0x29
+ 668:	e0 e0       	ldi	r30, 0x00	; 0
+ 66a:	f8 e0       	ldi	r31, 0x08	; 8
+ 66c:	10 a6       	std	Z+40, r1	; 0x28
+ 66e:	11 a6       	std	Z+41, r1	; 0x29
 			TCC0.CCB = 0;
- 624:	12 a6       	std	Z+42, r1	; 0x2a
- 626:	13 a6       	std	Z+43, r1	; 0x2b
+ 670:	12 a6       	std	Z+42, r1	; 0x2a
+ 672:	13 a6       	std	Z+43, r1	; 0x2b
 			TCC1.CCA = COLOR_ON;
- 628:	82 e3       	ldi	r24, 0x32	; 50
- 62a:	90 e0       	ldi	r25, 0x00	; 0
- 62c:	e0 e4       	ldi	r30, 0x40	; 64
- 62e:	f8 e0       	ldi	r31, 0x08	; 8
- 630:	80 a7       	std	Z+40, r24	; 0x28
- 632:	91 a7       	std	Z+41, r25	; 0x29
+ 674:	82 e3       	ldi	r24, 0x32	; 50
+ 676:	90 e0       	ldi	r25, 0x00	; 0
+ 678:	e0 e4       	ldi	r30, 0x40	; 64
+ 67a:	f8 e0       	ldi	r31, 0x08	; 8
+ 67c:	80 a7       	std	Z+40, r24	; 0x28
+ 67e:	91 a7       	std	Z+41, r25	; 0x29
 			break;
- 634:	08 95       	ret
+ 680:	08 95       	ret
 		case PURPLE:
 			TCC0.CCA = COLOR_ON;
- 636:	e0 e0       	ldi	r30, 0x00	; 0
- 638:	f8 e0       	ldi	r31, 0x08	; 8
- 63a:	82 e3       	ldi	r24, 0x32	; 50
- 63c:	90 e0       	ldi	r25, 0x00	; 0
- 63e:	80 a7       	std	Z+40, r24	; 0x28
- 640:	91 a7       	std	Z+41, r25	; 0x29
+ 682:	e0 e0       	ldi	r30, 0x00	; 0
+ 684:	f8 e0       	ldi	r31, 0x08	; 8
+ 686:	82 e3       	ldi	r24, 0x32	; 50
+ 688:	90 e0       	ldi	r25, 0x00	; 0
+ 68a:	80 a7       	std	Z+40, r24	; 0x28
+ 68c:	91 a7       	std	Z+41, r25	; 0x29
 			TCC0.CCB = COLOR_ON;
- 642:	82 a7       	std	Z+42, r24	; 0x2a
- 644:	93 a7       	std	Z+43, r25	; 0x2b
+ 68e:	82 a7       	std	Z+42, r24	; 0x2a
+ 690:	93 a7       	std	Z+43, r25	; 0x2b
 			TCC1.CCA = 0;
- 646:	e0 e4       	ldi	r30, 0x40	; 64
- 648:	f8 e0       	ldi	r31, 0x08	; 8
- 64a:	10 a6       	std	Z+40, r1	; 0x28
- 64c:	11 a6       	std	Z+41, r1	; 0x29
+ 692:	e0 e4       	ldi	r30, 0x40	; 64
+ 694:	f8 e0       	ldi	r31, 0x08	; 8
+ 696:	10 a6       	std	Z+40, r1	; 0x28
+ 698:	11 a6       	std	Z+41, r1	; 0x29
 			break;
- 64e:	08 95       	ret
+ 69a:	08 95       	ret
 		case YELLOW:
 			TCC0.CCA = 0;
- 650:	e0 e0       	ldi	r30, 0x00	; 0
- 652:	f8 e0       	ldi	r31, 0x08	; 8
- 654:	10 a6       	std	Z+40, r1	; 0x28
- 656:	11 a6       	std	Z+41, r1	; 0x29
-			TCC0.CCB = COLOR_ON;
- 658:	82 e3       	ldi	r24, 0x32	; 50
- 65a:	90 e0       	ldi	r25, 0x00	; 0
- 65c:	82 a7       	std	Z+42, r24	; 0x2a
- 65e:	93 a7       	std	Z+43, r25	; 0x2b
-			TCC1.CCA = COLOR_ON;
- 660:	e0 e4       	ldi	r30, 0x40	; 64
- 662:	f8 e0       	ldi	r31, 0x08	; 8
- 664:	80 a7       	std	Z+40, r24	; 0x28
- 666:	91 a7       	std	Z+41, r25	; 0x29
-			break;
- 668:	08 95       	ret
-		case WHITE:
-			TCC0.CCA = COLOR_ON;
- 66a:	e0 e0       	ldi	r30, 0x00	; 0
- 66c:	f8 e0       	ldi	r31, 0x08	; 8
- 66e:	82 e3       	ldi	r24, 0x32	; 50
- 670:	90 e0       	ldi	r25, 0x00	; 0
- 672:	80 a7       	std	Z+40, r24	; 0x28
- 674:	91 a7       	std	Z+41, r25	; 0x29
-			TCC0.CCB = COLOR_ON;
- 676:	82 a7       	std	Z+42, r24	; 0x2a
- 678:	93 a7       	std	Z+43, r25	; 0x2b
-			TCC1.CCA = COLOR_ON;
- 67a:	e0 e4       	ldi	r30, 0x40	; 64
- 67c:	f8 e0       	ldi	r31, 0x08	; 8
- 67e:	80 a7       	std	Z+40, r24	; 0x28
- 680:	91 a7       	std	Z+41, r25	; 0x29
-			break;
- 682:	08 95       	ret
-		case ORANGE:
-			TCC0.CCB = COLOR_ON;      //Red
- 684:	e0 e0       	ldi	r30, 0x00	; 0
- 686:	f8 e0       	ldi	r31, 0x08	; 8
- 688:	82 e3       	ldi	r24, 0x32	; 50
- 68a:	90 e0       	ldi	r25, 0x00	; 0
- 68c:	82 a7       	std	Z+42, r24	; 0x2a
- 68e:	93 a7       	std	Z+43, r25	; 0x2b
-			TCC1.CCA = COLOR_ON / 2;  //Green
- 690:	89 e1       	ldi	r24, 0x19	; 25
- 692:	90 e0       	ldi	r25, 0x00	; 0
- 694:	a0 e4       	ldi	r26, 0x40	; 64
- 696:	b8 e0       	ldi	r27, 0x08	; 8
- 698:	98 96       	adiw	r26, 0x28	; 40
- 69a:	8d 93       	st	X+, r24
- 69c:	9c 93       	st	X, r25
- 69e:	99 97       	sbiw	r26, 0x29	; 41
-			TCC0.CCA = 0;             //Blue
+ 69c:	e0 e0       	ldi	r30, 0x00	; 0
+ 69e:	f8 e0       	ldi	r31, 0x08	; 8
  6a0:	10 a6       	std	Z+40, r1	; 0x28
  6a2:	11 a6       	std	Z+41, r1	; 0x29
+			TCC0.CCB = COLOR_ON;
+ 6a4:	82 e3       	ldi	r24, 0x32	; 50
+ 6a6:	90 e0       	ldi	r25, 0x00	; 0
+ 6a8:	82 a7       	std	Z+42, r24	; 0x2a
+ 6aa:	93 a7       	std	Z+43, r25	; 0x2b
+			TCC1.CCA = COLOR_ON;
+ 6ac:	e0 e4       	ldi	r30, 0x40	; 64
+ 6ae:	f8 e0       	ldi	r31, 0x08	; 8
+ 6b0:	80 a7       	std	Z+40, r24	; 0x28
+ 6b2:	91 a7       	std	Z+41, r25	; 0x29
 			break;
- 6a4:	08 95       	ret
+ 6b4:	08 95       	ret
+		case WHITE:
+			TCC0.CCA = COLOR_ON;
+ 6b6:	e0 e0       	ldi	r30, 0x00	; 0
+ 6b8:	f8 e0       	ldi	r31, 0x08	; 8
+ 6ba:	82 e3       	ldi	r24, 0x32	; 50
+ 6bc:	90 e0       	ldi	r25, 0x00	; 0
+ 6be:	80 a7       	std	Z+40, r24	; 0x28
+ 6c0:	91 a7       	std	Z+41, r25	; 0x29
+			TCC0.CCB = COLOR_ON;
+ 6c2:	82 a7       	std	Z+42, r24	; 0x2a
+ 6c4:	93 a7       	std	Z+43, r25	; 0x2b
+			TCC1.CCA = COLOR_ON;
+ 6c6:	e0 e4       	ldi	r30, 0x40	; 64
+ 6c8:	f8 e0       	ldi	r31, 0x08	; 8
+ 6ca:	80 a7       	std	Z+40, r24	; 0x28
+ 6cc:	91 a7       	std	Z+41, r25	; 0x29
+			break;
+ 6ce:	08 95       	ret
+		case ORANGE:
+			TCC0.CCB = COLOR_ON;      //Red
+ 6d0:	e0 e0       	ldi	r30, 0x00	; 0
+ 6d2:	f8 e0       	ldi	r31, 0x08	; 8
+ 6d4:	82 e3       	ldi	r24, 0x32	; 50
+ 6d6:	90 e0       	ldi	r25, 0x00	; 0
+ 6d8:	82 a7       	std	Z+42, r24	; 0x2a
+ 6da:	93 a7       	std	Z+43, r25	; 0x2b
+			TCC1.CCA = COLOR_ON / 2;  //Green
+ 6dc:	89 e1       	ldi	r24, 0x19	; 25
+ 6de:	90 e0       	ldi	r25, 0x00	; 0
+ 6e0:	a0 e4       	ldi	r26, 0x40	; 64
+ 6e2:	b8 e0       	ldi	r27, 0x08	; 8
+ 6e4:	98 96       	adiw	r26, 0x28	; 40
+ 6e6:	8d 93       	st	X+, r24
+ 6e8:	9c 93       	st	X, r25
+ 6ea:	99 97       	sbiw	r26, 0x29	; 41
+			TCC0.CCA = 0;             //Blue
+ 6ec:	10 a6       	std	Z+40, r1	; 0x28
+ 6ee:	11 a6       	std	Z+41, r1	; 0x29
+			break;
+ 6f0:	08 95       	ret
 		case OFF:
 		default:
 			TCC0.CCB = 0;  //Red
- 6a6:	e0 e0       	ldi	r30, 0x00	; 0
- 6a8:	f8 e0       	ldi	r31, 0x08	; 8
- 6aa:	12 a6       	std	Z+42, r1	; 0x2a
- 6ac:	13 a6       	std	Z+43, r1	; 0x2b
+ 6f2:	e0 e0       	ldi	r30, 0x00	; 0
+ 6f4:	f8 e0       	ldi	r31, 0x08	; 8
+ 6f6:	12 a6       	std	Z+42, r1	; 0x2a
+ 6f8:	13 a6       	std	Z+43, r1	; 0x2b
 			TCC1.CCA = 0;  //Green
- 6ae:	a0 e4       	ldi	r26, 0x40	; 64
- 6b0:	b8 e0       	ldi	r27, 0x08	; 8
- 6b2:	98 96       	adiw	r26, 0x28	; 40
- 6b4:	1d 92       	st	X+, r1
- 6b6:	1c 92       	st	X, r1
- 6b8:	99 97       	sbiw	r26, 0x29	; 41
+ 6fa:	a0 e4       	ldi	r26, 0x40	; 64
+ 6fc:	b8 e0       	ldi	r27, 0x08	; 8
+ 6fe:	98 96       	adiw	r26, 0x28	; 40
+ 700:	1d 92       	st	X+, r1
+ 702:	1c 92       	st	X, r1
+ 704:	99 97       	sbiw	r26, 0x29	; 41
 			TCC0.CCA = 0;  //Blue
- 6ba:	10 a6       	std	Z+40, r1	; 0x28
- 6bc:	11 a6       	std	Z+41, r1	; 0x29
- 6be:	08 95       	ret
+ 706:	10 a6       	std	Z+40, r1	; 0x28
+ 708:	11 a6       	std	Z+41, r1	; 0x29
+ 70a:	08 95       	ret
 
-000006c0 <_Z12initializeIOv>:
+0000070c <_Z12initializeIOv>:
 
 
 //Initializes all I/O for the board
 //Sets up DIR, and PULLUP/PULLDOWN Resistors, etc.
 void initializeIO(){
 	PORTC.DIRSET = (PIN5_bm); //Sets output LED (status/error)
- 6c0:	e0 e4       	ldi	r30, 0x40	; 64
- 6c2:	f6 e0       	ldi	r31, 0x06	; 6
- 6c4:	80 e2       	ldi	r24, 0x20	; 32
- 6c6:	81 83       	std	Z+1, r24	; 0x01
+ 70c:	e0 e4       	ldi	r30, 0x40	; 64
+ 70e:	f6 e0       	ldi	r31, 0x06	; 6
+ 710:	80 e2       	ldi	r24, 0x20	; 32
+ 712:	81 83       	std	Z+1, r24	; 0x01
 	PORTC.DIRSET = (PIN0_bm | PIN1_bm | PIN4_bm); //Set RGB Led outputs
- 6c8:	83 e1       	ldi	r24, 0x13	; 19
- 6ca:	81 83       	std	Z+1, r24	; 0x01
+ 714:	83 e1       	ldi	r24, 0x13	; 19
+ 716:	81 83       	std	Z+1, r24	; 0x01
 	
 	PORTC.DIRCLR = (PIN6_bm | PIN7_bm); //Sets DIP Switch Input
- 6cc:	80 ec       	ldi	r24, 0xC0	; 192
- 6ce:	82 83       	std	Z+2, r24	; 0x02
+ 718:	80 ec       	ldi	r24, 0xC0	; 192
+ 71a:	82 83       	std	Z+2, r24	; 0x02
 	PORTC.PIN6CTRL = PORT_OPC_PULLUP_gc;
- 6d0:	88 e1       	ldi	r24, 0x18	; 24
- 6d2:	86 8b       	std	Z+22, r24	; 0x16
+ 71c:	88 e1       	ldi	r24, 0x18	; 24
+ 71e:	86 8b       	std	Z+22, r24	; 0x16
 	PORTC.PIN7CTRL = PORT_OPC_PULLUP_gc;
- 6d4:	87 8b       	std	Z+23, r24	; 0x17
- 6d6:	08 95       	ret
+ 720:	87 8b       	std	Z+23, r24	; 0x17
+ 722:	08 95       	ret
 
-000006d8 <_Z11determineIDPcR7XMEGAID>:
+00000724 <_Z11determineIDPcR7XMEGAID>:
 
 //This function handles determining the ID of the board, and putting
 //the identification string in its variable
 //Author: Nick M
 void determineID(char * XmegaIDStr, XMEGAID & CurrentID){
 	if      (!CHECK_DIP_SW_1() && !CHECK_DIP_SW_2()){
- 6d8:	e0 e4       	ldi	r30, 0x40	; 64
- 6da:	f6 e0       	ldi	r31, 0x06	; 6
- 6dc:	20 85       	ldd	r18, Z+8	; 0x08
- 6de:	22 23       	and	r18, r18
- 6e0:	b4 f4       	brge	.+44     	; 0x70e <_Z11determineIDPcR7XMEGAID+0x36>
- 6e2:	20 85       	ldd	r18, Z+8	; 0x08
- 6e4:	26 fd       	sbrc	r18, 6
- 6e6:	19 c0       	rjmp	.+50     	; 0x71a <_Z11determineIDPcR7XMEGAID+0x42>
- 6e8:	12 c0       	rjmp	.+36     	; 0x70e <_Z11determineIDPcR7XMEGAID+0x36>
+ 724:	e0 e4       	ldi	r30, 0x40	; 64
+ 726:	f6 e0       	ldi	r31, 0x06	; 6
+ 728:	20 85       	ldd	r18, Z+8	; 0x08
+ 72a:	22 23       	and	r18, r18
+ 72c:	b4 f4       	brge	.+44     	; 0x75a <_Z11determineIDPcR7XMEGAID+0x36>
+ 72e:	20 85       	ldd	r18, Z+8	; 0x08
+ 730:	26 fd       	sbrc	r18, 6
+ 732:	19 c0       	rjmp	.+50     	; 0x766 <_Z11determineIDPcR7XMEGAID+0x42>
+ 734:	12 c0       	rjmp	.+36     	; 0x75a <_Z11determineIDPcR7XMEGAID+0x36>
 		CurrentID = DRIVE;
 		strcpy(XmegaIDStr, "DRIVE");
 	}
 	else if (!CHECK_DIP_SW_1() && CHECK_DIP_SW_2()) {
- 6ea:	e0 e4       	ldi	r30, 0x40	; 64
- 6ec:	f6 e0       	ldi	r31, 0x06	; 6
- 6ee:	20 85       	ldd	r18, Z+8	; 0x08
- 6f0:	26 ff       	sbrs	r18, 6
- 6f2:	1e c0       	rjmp	.+60     	; 0x730 <_Z11determineIDPcR7XMEGAID+0x58>
- 6f4:	2a c0       	rjmp	.+84     	; 0x74a <_Z11determineIDPcR7XMEGAID+0x72>
+ 736:	e0 e4       	ldi	r30, 0x40	; 64
+ 738:	f6 e0       	ldi	r31, 0x06	; 6
+ 73a:	20 85       	ldd	r18, Z+8	; 0x08
+ 73c:	26 ff       	sbrs	r18, 6
+ 73e:	1e c0       	rjmp	.+60     	; 0x77c <_Z11determineIDPcR7XMEGAID+0x58>
+ 740:	2a c0       	rjmp	.+84     	; 0x796 <_Z11determineIDPcR7XMEGAID+0x72>
 		CurrentID = ARM;
 		strcpy(XmegaIDStr, "ARM");
 	}
 	else if (CHECK_DIP_SW_1() && !CHECK_DIP_SW_2()){
- 6f6:	e0 e4       	ldi	r30, 0x40	; 64
- 6f8:	f6 e0       	ldi	r31, 0x06	; 6
- 6fa:	20 85       	ldd	r18, Z+8	; 0x08
- 6fc:	26 fd       	sbrc	r18, 6
- 6fe:	2b c0       	rjmp	.+86     	; 0x756 <_Z11determineIDPcR7XMEGAID+0x7e>
- 700:	36 c0       	rjmp	.+108    	; 0x76e <_Z11determineIDPcR7XMEGAID+0x96>
+ 742:	e0 e4       	ldi	r30, 0x40	; 64
+ 744:	f6 e0       	ldi	r31, 0x06	; 6
+ 746:	20 85       	ldd	r18, Z+8	; 0x08
+ 748:	26 fd       	sbrc	r18, 6
+ 74a:	2b c0       	rjmp	.+86     	; 0x7a2 <_Z11determineIDPcR7XMEGAID+0x7e>
+ 74c:	36 c0       	rjmp	.+108    	; 0x7ba <_Z11determineIDPcR7XMEGAID+0x96>
 		CurrentID = RADIO;
 		strcpy(XmegaIDStr, "RADIO");
 	}
 	else if (CHECK_DIP_SW_1() && CHECK_DIP_SW_2()){
- 702:	e0 e4       	ldi	r30, 0x40	; 64
- 704:	f6 e0       	ldi	r31, 0x06	; 6
- 706:	20 85       	ldd	r18, Z+8	; 0x08
- 708:	26 ff       	sbrs	r18, 6
- 70a:	37 c0       	rjmp	.+110    	; 0x77a <_Z11determineIDPcR7XMEGAID+0xa2>
- 70c:	08 95       	ret
+ 74e:	e0 e4       	ldi	r30, 0x40	; 64
+ 750:	f6 e0       	ldi	r31, 0x06	; 6
+ 752:	20 85       	ldd	r18, Z+8	; 0x08
+ 754:	26 ff       	sbrs	r18, 6
+ 756:	37 c0       	rjmp	.+110    	; 0x7c6 <_Z11determineIDPcR7XMEGAID+0xa2>
+ 758:	08 95       	ret
 void determineID(char * XmegaIDStr, XMEGAID & CurrentID){
 	if      (!CHECK_DIP_SW_1() && !CHECK_DIP_SW_2()){
 		CurrentID = DRIVE;
 		strcpy(XmegaIDStr, "DRIVE");
 	}
 	else if (!CHECK_DIP_SW_1() && CHECK_DIP_SW_2()) {
- 70e:	e0 e4       	ldi	r30, 0x40	; 64
- 710:	f6 e0       	ldi	r31, 0x06	; 6
- 712:	20 85       	ldd	r18, Z+8	; 0x08
- 714:	22 23       	and	r18, r18
- 716:	cc f4       	brge	.+50     	; 0x74a <_Z11determineIDPcR7XMEGAID+0x72>
- 718:	e8 cf       	rjmp	.-48     	; 0x6ea <_Z11determineIDPcR7XMEGAID+0x12>
+ 75a:	e0 e4       	ldi	r30, 0x40	; 64
+ 75c:	f6 e0       	ldi	r31, 0x06	; 6
+ 75e:	20 85       	ldd	r18, Z+8	; 0x08
+ 760:	22 23       	and	r18, r18
+ 762:	cc f4       	brge	.+50     	; 0x796 <_Z11determineIDPcR7XMEGAID+0x72>
+ 764:	e8 cf       	rjmp	.-48     	; 0x736 <_Z11determineIDPcR7XMEGAID+0x12>
 //This function handles determining the ID of the board, and putting
 //the identification string in its variable
 //Author: Nick M
 void determineID(char * XmegaIDStr, XMEGAID & CurrentID){
 	if      (!CHECK_DIP_SW_1() && !CHECK_DIP_SW_2()){
 		CurrentID = DRIVE;
- 71a:	fb 01       	movw	r30, r22
- 71c:	10 82       	st	Z, r1
+ 766:	fb 01       	movw	r30, r22
+ 768:	10 82       	st	Z, r1
 		strcpy(XmegaIDStr, "DRIVE");
- 71e:	26 e0       	ldi	r18, 0x06	; 6
- 720:	ef e0       	ldi	r30, 0x0F	; 15
- 722:	f0 e2       	ldi	r31, 0x20	; 32
- 724:	dc 01       	movw	r26, r24
- 726:	01 90       	ld	r0, Z+
- 728:	0d 92       	st	X+, r0
- 72a:	2a 95       	dec	r18
- 72c:	e1 f7       	brne	.-8      	; 0x726 <_Z11determineIDPcR7XMEGAID+0x4e>
- 72e:	08 95       	ret
+ 76a:	26 e0       	ldi	r18, 0x06	; 6
+ 76c:	ef e0       	ldi	r30, 0x0F	; 15
+ 76e:	f0 e2       	ldi	r31, 0x20	; 32
+ 770:	dc 01       	movw	r26, r24
+ 772:	01 90       	ld	r0, Z+
+ 774:	0d 92       	st	X+, r0
+ 776:	2a 95       	dec	r18
+ 778:	e1 f7       	brne	.-8      	; 0x772 <_Z11determineIDPcR7XMEGAID+0x4e>
+ 77a:	08 95       	ret
 	}
 	else if (!CHECK_DIP_SW_1() && CHECK_DIP_SW_2()) {
 		CurrentID = ARM;
- 730:	21 e0       	ldi	r18, 0x01	; 1
- 732:	fb 01       	movw	r30, r22
- 734:	20 83       	st	Z, r18
+ 77c:	21 e0       	ldi	r18, 0x01	; 1
+ 77e:	fb 01       	movw	r30, r22
+ 780:	20 83       	st	Z, r18
 		strcpy(XmegaIDStr, "ARM");
- 736:	41 e4       	ldi	r20, 0x41	; 65
- 738:	52 e5       	ldi	r21, 0x52	; 82
- 73a:	6d e4       	ldi	r22, 0x4D	; 77
- 73c:	70 e0       	ldi	r23, 0x00	; 0
- 73e:	fc 01       	movw	r30, r24
- 740:	40 83       	st	Z, r20
- 742:	51 83       	std	Z+1, r21	; 0x01
- 744:	62 83       	std	Z+2, r22	; 0x02
- 746:	73 83       	std	Z+3, r23	; 0x03
- 748:	08 95       	ret
+ 782:	41 e4       	ldi	r20, 0x41	; 65
+ 784:	52 e5       	ldi	r21, 0x52	; 82
+ 786:	6d e4       	ldi	r22, 0x4D	; 77
+ 788:	70 e0       	ldi	r23, 0x00	; 0
+ 78a:	fc 01       	movw	r30, r24
+ 78c:	40 83       	st	Z, r20
+ 78e:	51 83       	std	Z+1, r21	; 0x01
+ 790:	62 83       	std	Z+2, r22	; 0x02
+ 792:	73 83       	std	Z+3, r23	; 0x03
+ 794:	08 95       	ret
 	}
 	else if (CHECK_DIP_SW_1() && !CHECK_DIP_SW_2()){
- 74a:	e0 e4       	ldi	r30, 0x40	; 64
- 74c:	f6 e0       	ldi	r31, 0x06	; 6
- 74e:	20 85       	ldd	r18, Z+8	; 0x08
- 750:	22 23       	and	r18, r18
- 752:	8c f6       	brge	.-94     	; 0x6f6 <_Z11determineIDPcR7XMEGAID+0x1e>
- 754:	0c c0       	rjmp	.+24     	; 0x76e <_Z11determineIDPcR7XMEGAID+0x96>
+ 796:	e0 e4       	ldi	r30, 0x40	; 64
+ 798:	f6 e0       	ldi	r31, 0x06	; 6
+ 79a:	20 85       	ldd	r18, Z+8	; 0x08
+ 79c:	22 23       	and	r18, r18
+ 79e:	8c f6       	brge	.-94     	; 0x742 <_Z11determineIDPcR7XMEGAID+0x1e>
+ 7a0:	0c c0       	rjmp	.+24     	; 0x7ba <_Z11determineIDPcR7XMEGAID+0x96>
 		CurrentID = RADIO;
- 756:	22 e0       	ldi	r18, 0x02	; 2
- 758:	fb 01       	movw	r30, r22
- 75a:	20 83       	st	Z, r18
+ 7a2:	22 e0       	ldi	r18, 0x02	; 2
+ 7a4:	fb 01       	movw	r30, r22
+ 7a6:	20 83       	st	Z, r18
 		strcpy(XmegaIDStr, "RADIO");
- 75c:	26 e0       	ldi	r18, 0x06	; 6
- 75e:	e5 e1       	ldi	r30, 0x15	; 21
- 760:	f0 e2       	ldi	r31, 0x20	; 32
- 762:	dc 01       	movw	r26, r24
- 764:	01 90       	ld	r0, Z+
- 766:	0d 92       	st	X+, r0
- 768:	2a 95       	dec	r18
- 76a:	e1 f7       	brne	.-8      	; 0x764 <_Z11determineIDPcR7XMEGAID+0x8c>
- 76c:	08 95       	ret
+ 7a8:	26 e0       	ldi	r18, 0x06	; 6
+ 7aa:	e5 e1       	ldi	r30, 0x15	; 21
+ 7ac:	f0 e2       	ldi	r31, 0x20	; 32
+ 7ae:	dc 01       	movw	r26, r24
+ 7b0:	01 90       	ld	r0, Z+
+ 7b2:	0d 92       	st	X+, r0
+ 7b4:	2a 95       	dec	r18
+ 7b6:	e1 f7       	brne	.-8      	; 0x7b0 <_Z11determineIDPcR7XMEGAID+0x8c>
+ 7b8:	08 95       	ret
 	}
 	else if (CHECK_DIP_SW_1() && CHECK_DIP_SW_2()){
- 76e:	e0 e4       	ldi	r30, 0x40	; 64
- 770:	f6 e0       	ldi	r31, 0x06	; 6
- 772:	20 85       	ldd	r18, Z+8	; 0x08
- 774:	22 23       	and	r18, r18
- 776:	2c f6       	brge	.-118    	; 0x702 <_Z11determineIDPcR7XMEGAID+0x2a>
- 778:	08 95       	ret
+ 7ba:	e0 e4       	ldi	r30, 0x40	; 64
+ 7bc:	f6 e0       	ldi	r31, 0x06	; 6
+ 7be:	20 85       	ldd	r18, Z+8	; 0x08
+ 7c0:	22 23       	and	r18, r18
+ 7c2:	2c f6       	brge	.-118    	; 0x74e <_Z11determineIDPcR7XMEGAID+0x2a>
+ 7c4:	08 95       	ret
 		CurrentID = DEBUG_MODE;
- 77a:	23 e0       	ldi	r18, 0x03	; 3
- 77c:	fb 01       	movw	r30, r22
- 77e:	20 83       	st	Z, r18
+ 7c6:	23 e0       	ldi	r18, 0x03	; 3
+ 7c8:	fb 01       	movw	r30, r22
+ 7ca:	20 83       	st	Z, r18
 		strcpy(XmegaIDStr, "DEBUG_MODE");
- 780:	2b e0       	ldi	r18, 0x0B	; 11
- 782:	eb e1       	ldi	r30, 0x1B	; 27
- 784:	f0 e2       	ldi	r31, 0x20	; 32
- 786:	dc 01       	movw	r26, r24
- 788:	01 90       	ld	r0, Z+
- 78a:	0d 92       	st	X+, r0
- 78c:	2a 95       	dec	r18
- 78e:	e1 f7       	brne	.-8      	; 0x788 <_Z11determineIDPcR7XMEGAID+0xb0>
- 790:	08 95       	ret
+ 7cc:	2b e0       	ldi	r18, 0x0B	; 11
+ 7ce:	eb e1       	ldi	r30, 0x1B	; 27
+ 7d0:	f0 e2       	ldi	r31, 0x20	; 32
+ 7d2:	dc 01       	movw	r26, r24
+ 7d4:	01 90       	ld	r0, Z+
+ 7d6:	0d 92       	st	X+, r0
+ 7d8:	2a 95       	dec	r18
+ 7da:	e1 f7       	brne	.-8      	; 0x7d4 <_Z11determineIDPcR7XMEGAID+0xb0>
+ 7dc:	08 95       	ret
 
-00000792 <__tablejump2__>:
- 792:	ee 0f       	add	r30, r30
- 794:	ff 1f       	adc	r31, r31
+000007de <__tablejump2__>:
+ 7de:	ee 0f       	add	r30, r30
+ 7e0:	ff 1f       	adc	r31, r31
 
-00000796 <__tablejump__>:
- 796:	05 90       	lpm	r0, Z+
- 798:	f4 91       	lpm	r31, Z
- 79a:	e0 2d       	mov	r30, r0
- 79c:	19 94       	eijmp
+000007e2 <__tablejump__>:
+ 7e2:	05 90       	lpm	r0, Z+
+ 7e4:	f4 91       	lpm	r31, Z
+ 7e6:	e0 2d       	mov	r30, r0
+ 7e8:	19 94       	eijmp
 
-0000079e <_exit>:
- 79e:	f8 94       	cli
+000007ea <_exit>:
+ 7ea:	f8 94       	cli
 
-000007a0 <__stop_program>:
- 7a0:	ff cf       	rjmp	.-2      	; 0x7a0 <__stop_program>
+000007ec <__stop_program>:
+ 7ec:	ff cf       	rjmp	.-2      	; 0x7ec <__stop_program>

@@ -37,6 +37,7 @@
         </dependencies>
       </framework-data>
     </AsfFrameworkConfig>
+    <preserveEEPROM>true</preserveEEPROM>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
@@ -120,6 +121,12 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Arm.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Arm.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="avr_compiler.h">
       <SubType>compile</SubType>
     </Compile>

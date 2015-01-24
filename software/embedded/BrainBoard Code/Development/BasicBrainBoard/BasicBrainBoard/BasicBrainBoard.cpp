@@ -17,6 +17,8 @@
 #include <util/delay.h>
 #include "BrainBoard.h"
 #include "XMegaLib.h"
+#include "Arm.h"
+
 
 extern "C"{
 	#include "usart_driver.h"
@@ -176,7 +178,21 @@ This function exists inside a while(1) so it will loop itself forever
 
 */
 void armMain(){
+	armGPIOInit();
+	armInit();
 	
+	MD1_DIR_SET();
+	MD1_STEP_CLR();
+	
+	while (1) {  //Main executing loop
+		
+		_delay_ms(10);
+		
+		MD1_STEP_SET();
+		_delay_us(20);
+		MD1_STEP_CLR();
+		
+	}
 }
 
 /*

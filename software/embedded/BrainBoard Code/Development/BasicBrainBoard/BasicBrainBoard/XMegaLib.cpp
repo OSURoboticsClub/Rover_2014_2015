@@ -5,11 +5,14 @@
  *  Author: OSURC2
  */ 
 
+#ifndef XMEGALIB_H_
+#define XMEGALIB_H_
+
 #include "XMegaLib.h"
 #include <avr/io.h>
 
 //This function handles making colors on the RGB LED
-//Author: Nick M
+//Author: Nick McComb
 void RGBSetColor(RGBColors choice){
 	switch(choice){
 		case RED:
@@ -93,3 +96,4 @@ void determineID(char * XmegaIDStr, XMEGAID & CurrentID){
 }
 
 
+#endif
