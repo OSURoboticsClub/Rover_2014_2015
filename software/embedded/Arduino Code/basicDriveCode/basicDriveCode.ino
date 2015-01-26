@@ -27,6 +27,8 @@
 
 SoftwareSerial SWSerial(NOT_A_PIN, 12); // RX on no pin (unused), TX on pin 11 (to S1).
 Sabertooth RearST(128, SWSerial); // Address 128, and use SWSerial as the serial port.
+Sabertooth MidST(129, SWSerial);
+Sabertooth FrontST(130, SWSerial);
 
 void setup()
 {
@@ -41,6 +43,8 @@ void setup()
   
   SWSerial.begin(9600);
   RearST.autobaud();
+  MidST.autobaud();
+  FrontST.autobaud();
 }
 
 void loop()
@@ -69,15 +73,23 @@ void loop()
 		Serial.print("% ");
 		if(lChannel > 0){
 			Serial.print("forward  ");
-			RearST.command(1, constrain(((int)(lRatio * (float) 127)), 0, 127));
+			RearST.command(0, constrain(((int)(lRatio * (float) 127)), 0, 127));
+			MidST.command(0, constrain(((int)(lRatio * (float) 127)), 0, 127));
+			FrontST.command(0, constrain(((int)(lRatio * (float) 127)), 0, 127));
 		}
 		else {
 			Serial.print("backward ");
+			lRatio = fabs(lRatio);
+			RearST.command(1, constrain(((int)(lRatio * (float) 127)), 0, 127));
+			MidST.command(1, constrain(((int)(lRatio * (float) 127)), 0, 127));
+			FrontST.command(1, constrain(((int)(lRatio * (float) 127)), 0, 127));
 		}
 	  }
 	  else{  //Not moving case
 		  Serial.print("Stop            ");
 		  RearST.command(1, 0);   //Stop rear left motor
+		  MidST.command(1, 0);   //Stop rear left motor
+		  FrontST.command(1, 0);   //Stop rear left motor
 	  }
 	  
 	  
@@ -89,14 +101,22 @@ void loop()
 		if(rChannel > 0){  //Forward drive mode
 			Serial.println("forward");
 			RearST.command(4, constrain((int)(rRatio * (float) 127), 0, 127));
+			MidST.command(4, constrain((int)(rRatio * (float) 127), 0, 127));
+			FrontST.command(4, constrain((int)(rRatio * (float) 127), 0, 127));
 		}
 		else { //Backward Drive Mode
 			Serial.println("backward");
+			rRatio = fabs(rRatio);
+			RearST.command(5, constrain((int)(rRatio * (float) 127), 0, 127));
+			MidST.command(5, constrain((int)(rRatio * (float) 127), 0, 127));
+			FrontST.command(5, constrain((int)(rRatio * (float) 127), 0, 127));
 		}
 	  }
 	  else{  //Not moving case
 		  Serial.println("Stop");
 		  RearST.command(4, 0);  //Stop rear right motor
+		  MidST.command(4, 0);  //Stop rear right motor
+		  FrontST.command(4, 0);  //Stop rear right motor
 	  }
   }
   else {  //All motor stop
