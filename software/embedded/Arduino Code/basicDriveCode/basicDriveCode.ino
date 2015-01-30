@@ -1,9 +1,3 @@
-/*
-Arduino RC Drive code for the basic Rover chassis
-Author: Nick McComb
-Date: January 2015
-*/
-
 #include <SoftwareSerial.h>
 #include <Sabertooth.h>
 
@@ -77,6 +71,7 @@ void loop()
   if(enChannel > CH6_MAX){  //Motors are good to go to be operated in a normal fashion
 	  //Serial.println("MOTOR GO!");
 	  
+<<<<<<< HEAD
 	  char lCommand = 0;
 	  char lData = 0;
 	  
@@ -98,6 +93,8 @@ void loop()
 		  }
 	  }
 	  
+=======
+>>>>>>> parent of 236ed0f... Moved the command write out of the individual states
 	  Serial.print("Left:  ");
 	  if(abs(lChannel) > STOP_CONSTANT){  //Moving case
 		lRatio = constrain(((float)lChannel / (float)CH2_MAGNATUDE), -1, 1);
@@ -105,25 +102,37 @@ void loop()
 		Serial.print("% ");
 		if(lChannel > 0){
 			Serial.print("forward  ");
-			lCommand = 0;
-			lData = constrain(((int)(lRatio * (float) 127)), 0, 127);
+			RearST.command(0, constrain(((int)(lRatio * (float) 127)), 0, 127));
+			MidST.command(0, constrain(((int)(lRatio * (float) 127)), 0, 127));
+			FrontST.command(0, constrain(((int)(lRatio * (float) 127)), 0, 127));
 		}
 		else {
 			Serial.print("backward ");
+<<<<<<< HEAD
 			//lRatio *= -1;  //Make the ratio positive
 			lCommand = 1;
 			lData = constrain(((int)(-1.0 * lRatio * (float) 127)), 0, 127);
+=======
+			lRatio = fabs(lRatio);
+			RearST.command(1, constrain(((int)(lRatio * (float) 127)), 0, 127));
+			MidST.command(1, constrain(((int)(lRatio * (float) 127)), 0, 127));
+			FrontST.command(1, constrain(((int)(lRatio * (float) 127)), 0, 127));
+>>>>>>> parent of 236ed0f... Moved the command write out of the individual states
 		}
 	  }
 	  else{  //Not moving case
 		  Serial.print("Stop            ");
-		  lCommand = 1;
-		  lData = 0;
+		  RearST.command(1, 0);   //Stop rear left motor
+		  MidST.command(1, 0);   //Stop rear left motor
+		  FrontST.command(1, 0);   //Stop rear left motor
 	  }
 	  
+<<<<<<< HEAD
 	  FrontST.command(lCommand, (int) (lData * outsideModifier));
 	  MidST.command(lCommand, lData);
 	  RearST.command(lCommand, (int) (lData * outsideModifier));
+=======
+>>>>>>> parent of 236ed0f... Moved the command write out of the individual states
 	  
 	  Serial.print("Right: ");
 	  if(abs(rChannel) > STOP_CONSTANT){  //Moving case
@@ -132,27 +141,39 @@ void loop()
 		Serial.print("% ");
 		if(rChannel > 0){  //Forward drive mode
 			Serial.println("forward");
-			rCommand = 4;
-			rData = constrain((int)(rRatio * (float) 127), 0, 127);
+			RearST.command(4, constrain((int)(rRatio * (float) 127), 0, 127));
+			MidST.command(4, constrain((int)(rRatio * (float) 127), 0, 127));
+			FrontST.command(4, constrain((int)(rRatio * (float) 127), 0, 127));
 		}
 		else { //Backward Drive Mode
 			Serial.println("backward");
+<<<<<<< HEAD
 			//rRatio *= -1; //Make the ratio positive
 			rCommand = 5;
 			rData = constrain((int)(-1.0 * rRatio * (float) 127), 0, 127);
+=======
+			rRatio = fabs(rRatio);
+			RearST.command(5, constrain((int)(rRatio * (float) 127), 0, 127));
+			MidST.command(5, constrain((int)(rRatio * (float) 127), 0, 127));
+			FrontST.command(5, constrain((int)(rRatio * (float) 127), 0, 127));
+>>>>>>> parent of 236ed0f... Moved the command write out of the individual states
 		}
 	  }
 	  else{  //Not moving case
 		  Serial.println("Stop");
-		  rCommand = 4;
-		  rData = 0;
+		  RearST.command(4, 0);  //Stop rear right motor
+		  MidST.command(4, 0);  //Stop rear right motor
+		  FrontST.command(4, 0);  //Stop rear right motor
 	  }
+<<<<<<< HEAD
 
 	  FrontST.command(rCommand, (int) (rData * outsideModifier));
 	  MidST.command(rCommand, rData);
 	  RearST.command(rCommand, (int) (rData * outsideModifier));
 
 
+=======
+>>>>>>> parent of 236ed0f... Moved the command write out of the individual states
   }
   else {  //All motor stop
 	  Serial.println("NO MOTOR :(");
@@ -162,3 +183,4 @@ void loop()
 
   
 }
+
