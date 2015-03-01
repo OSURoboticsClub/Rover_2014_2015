@@ -26,6 +26,8 @@ extern "C"{
 };
 
 USART_data_t USART_PC_Data;
+USART_data_t SABER_UNO;
+
 
 //Misc. ISRs
 ISR(TCC1_OVF_vect){
@@ -39,6 +41,14 @@ ISR(USARTC0_RXC_vect){
 }
 ISR(USARTC0_DRE_vect){
 	USART_DataRegEmpty(&USART_PC_Data);
+}
+
+
+ISR(USARTE0_RXC_vect){
+	USART_RXComplete(&SABER_UNO);
+}
+ISR(USARTE0_DRE_vect){
+	USART_DataRegEmpty(&SABER_UNO);
 }
 
 char recieveChar;
@@ -111,7 +121,7 @@ int main(void)
 				}
 				break;
 			case MainProgram:
-				//RGBSetColor(GREEN);
+				RGBSetColor(GREEN);
 				switch (CurrentID) {
 					case DRIVE:
 						while (1) {
@@ -154,15 +164,39 @@ This function exists inside a while(1) so it will loop itself forever
 
 */
 void driveMain(){
-	static char miscStr[10];
-	RGBSetColor(BLUE);
-	strcpy(miscStr,"Blue!\n\r");
-	SendStringPC(miscStr);
-	_delay_ms(500);
-	RGBSetColor(RED);
-	strcpy(miscStr,"Red!\n\r");
-	SendStringPC(miscStr);
-	_delay_ms(500);
+	int check = 0;
+	Saber_init();
+	char cmmd[5] = {'D', ',' , 's'};
+	SendStringSABER("D,start\n");
+	//char speed[5] = {'0', '0', '0', '\n', '\0'};
+	
+	
+/*	while(1){
+		for(check = 0; check < 200; check++;){
+			cmmd[3] = (char)check;
+			SendStringSABER(cmmd);		
+			_delay_ms(500);
+		}
+		_delay_ms(500);
+		for(check, check < 0; check--;){
+			cmmd[3]= (char)check;
+			_delay_ms(500);
+		}
+	}
+	*/
+while(1){
+	SendStringSABER("D,s200\n");
+	SendStringPC("Sent to saber\n");
+}
+}
+
+
+void SendStringSABER(char *present){
+	for(int i = 0 ; present[i] != '\0' ; i++){
+		while(!USART_IsTXDataRegisterEmpty(&USARTE0));
+		USART_PutChar(&USARTE0, present[i]);
+	}
+	
 }
 
 /*
@@ -216,6 +250,21 @@ Description: General-Purpose debug function. No designated function, available
 for all who program the board.
 */
 void debugMain(){
+	
+}
+
+void Saber_init(){
+	PORTE.DIRSET = PIN3_bm;																			//Sets TX Pin as output
+	PORTE.DIRCLR = PIN2_bm;																			//Sets RX pin as input
+	
+	USART_InterruptDriver_Initialize(&SABER_UNO, &USARTE0, USART_DREINTLVL_LO_gc);				//Initialize USARTE0 as interrupt driven serial and clear it's buffers
+	USART_Format_Set(SABER_UNO.usart, USART_CHSIZE_8BIT_gc, USART_PMODE_DISABLED_gc, false);	//Set the data format of 8 bits, no parity, 1 stop bit
+	USART_RxdInterruptLevel_Set(SABER_UNO.usart, USART_RXCINTLVL_LO_gc);						//Enable the receive interrupt
+	USART_Baudrate_Set(&USARTE0, 207 , 0);															//Set baudrate to 9600 with 32Mhz system clock
+	USART_Rx_Enable(SABER_UNO.usart);															//Enable receiving over serial
+	USART_Tx_Enable(SABER_UNO.usart);															//Enable transmitting over serial
+	
+	//Is last line redundant due to other init function? Not sure if it is directly affecting PORTC USART or not, may be for the entire board
 	
 }
 

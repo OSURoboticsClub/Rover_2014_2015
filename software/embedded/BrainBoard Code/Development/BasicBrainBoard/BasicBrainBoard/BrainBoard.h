@@ -20,7 +20,8 @@ void armMain();    //Contains the arm code
 void radioMain();  //Contains the radio code
 void debugMain();  //Contains misc. debug code. No specific purpose
 
-
+void Saber_init(void);
+void SendStringSABER(char *present);
 
 
 enum XMegaStates{
