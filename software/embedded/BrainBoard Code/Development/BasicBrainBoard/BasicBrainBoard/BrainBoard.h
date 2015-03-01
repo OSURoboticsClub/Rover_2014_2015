@@ -20,8 +20,20 @@ void armMain();    //Contains the arm code
 void radioMain();  //Contains the radio code
 void debugMain();  //Contains misc. debug code. No specific purpose
 
-void Saber_init(void);
-void SendStringSABER(char *present);
+void Saber_init_uno(void);		//Drive stuff start
+void Saber_init_dos(void);
+void Saber_init_tres(void);
+
+void SendStringSABER_UNO(char *present);
+void SendStringSABER_DOS(char *present);
+void SendStringSaber_TRES(char *present);
+//Drive stuff end
+
+void ARM_INIT(void); //This is for......arm
+void SendStringArm(char *present); //Sends arm usart string
+
+void GIM_BAL_INIT(void); //initialization for the gimbal
+void SendStringGim(char *present); //Sends usart char string for gimbal pins
 
 
 enum XMegaStates{
