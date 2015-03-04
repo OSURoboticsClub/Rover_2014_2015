@@ -6,6 +6,10 @@ Arm.cpp
 
 BasicBrainBoard.cpp
 
+Drive.cpp
+
+Radio.cpp
+
 usart_driver.c
 
 XMegaLib.cpp

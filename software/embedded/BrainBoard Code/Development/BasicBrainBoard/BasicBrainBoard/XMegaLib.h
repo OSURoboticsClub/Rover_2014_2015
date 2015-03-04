@@ -6,7 +6,25 @@
  * This file contains functions that are general to the entire Xmega platform
  */ 
 
+#ifndef XMEGALIB_H
+#define XMEGALIB_H
+
+#define F_CPU 32000000UL
+
 #include <string.h>
+#include <avr/io.h>
+#include <avr/interrupt.h>
+#include <util/delay.h>
+//These need to be included before anything that attempts to setup a USART
+extern "C"{
+	#include "usart_driver.h"
+	#include "avr_compiler.h"
+};
+
+#include "BrainBoard.h"
+#include "SharedFunctions.h"
+
+
 
 //Error and Status LED outputs
 
@@ -57,3 +75,7 @@ void RGBSetColor(RGBColors choice);
 void initializeIO(void);  //Sets up all of the IO and associated settings
 //void determineID(void);
 void determineID(char * XmegaIDStr, XMEGAID & CurrentID);
+
+
+
+#endif /* XMEGALIB_H */

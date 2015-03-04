@@ -136,6 +136,21 @@
     <Compile Include="BrainBoard.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Drive.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Drive.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Radio.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Radio.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="SharedFunctions.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="usart_driver.c">
       <SubType>compile</SubType>
     </Compile>

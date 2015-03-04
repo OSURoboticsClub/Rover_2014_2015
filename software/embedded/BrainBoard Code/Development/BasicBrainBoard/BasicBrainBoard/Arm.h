@@ -2,12 +2,14 @@
  * Arm.h
  *
  * Created: 1/23/2015 7:20:11 PM
- *  Author: nrpic_000
+ *  Author: Brian Sia, Nick Ames
  */ 
 
 
 #ifndef ARM_H_
 #define ARM_H_
+
+#include "XMegaLib.h"
 
 //Macros
 #define MD1_STEP_SET(void) (PORTE.OUTSET = PIN4_bm);
@@ -21,7 +23,6 @@
 
 //Arm Prototypes
 void armGPIOInit(void);
-void armInit();
 
 
 #endif /* ARM_H_ */
