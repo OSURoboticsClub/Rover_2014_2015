@@ -136,6 +136,18 @@
     <Compile Include="BrainBoard.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="ComputerInterface.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ComputerInterface.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Debug.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Debug.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Drive.cpp">
       <SubType>compile</SubType>
     </Compile>

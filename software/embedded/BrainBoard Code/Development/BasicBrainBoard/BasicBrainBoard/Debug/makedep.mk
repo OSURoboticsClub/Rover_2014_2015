@@ -6,6 +6,10 @@ Arm.cpp
 
 BasicBrainBoard.cpp
 
+ComputerInterface.cpp
+
+Debug.cpp
+
 Drive.cpp
 
 Radio.cpp
