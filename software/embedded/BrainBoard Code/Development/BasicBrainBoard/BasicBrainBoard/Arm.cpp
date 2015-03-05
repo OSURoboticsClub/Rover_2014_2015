@@ -6,10 +6,6 @@
  */ 
 
 #include "Arm.h"
-//#include "XMegaLib.h"
-//#include <avr/io.h>
-
-
 
 /*
 Description: This function holds all of the code for the arm firmware for the BB
