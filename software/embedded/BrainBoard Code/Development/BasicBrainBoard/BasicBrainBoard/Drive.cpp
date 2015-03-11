@@ -23,21 +23,22 @@ This function exists inside a while(1) so it will loop itself forever
 */
 //DO NOT Connect to motor at this point without figuring out units and encoder, see comment below
 void driveMain(){
+	/*
 	int check = 0;
 	Saber_init_uno();
-	char cmmd[5] = {'D', ',' , 's'};
-	SendStringSABER_UNO("D,start\n");
+	char cmmd[5] = {'1', ',' , 's'};
+	SendStringSABER_UNO("1,start\n");
 	char speed[5] = {'0', '0', '0', '\n', '\0'};
 	int i = 0;
 	int rem = check;
 	while(1){
-	//SendStringSABER_UNO("D,units 180 degrees = ") //Incomplete need to know more info on encoder to set units
-	}
-	/*while(1){
+	SendStringSABER_UNO("1,units 1 rotation = 2000 lines\n "); 
+	} 
+	while(1){
 		i = 0;
 		check = 0;
 		rem = check;
-		for(check = 0; check < 200; check++){
+		for(check = 0; check < 15; check++){
 			rem = check;
 			while(check){//converting int into the array
 				speed[i++] = check % 10; //last digit
@@ -47,11 +48,11 @@ void driveMain(){
 			}
 			check = rem;
 			i = 0;
-			//SendStringSABER_UNO(cmmd);
+			SendStringSABER_UNO(cmmd);
 			SendStringSABER_UNO(speed);		
-		//	_delay_ms(500);
+			_delay_ms(2000);
 		}
-		_delay_ms(500);
+		_delay_ms(2000);
 		for(check; check < 0; check--){
 			rem = check;
 			while(check){//converting int into the array
@@ -62,17 +63,28 @@ void driveMain(){
 			}
 			check = rem;
 			i = 0;
-			//SendStringSABER_UNO(cmmd);
+			SendStringSABER_UNO(cmmd);
 			SendStringSABER_UNO(speed);
-			//_delay_ms(500);
+			_delay_ms(2000);
 		}
 	}*/
 	
-	while(1){
-		SendStringSABER_UNO("D,s010\n");
-		SendStringPC("Sent to saber\n");
-	}
-
+	//while(1){
+		//SendStringSABER_UNO("1,s10\n");
+	//	SendStringPC("Sent to saber\n");
+	//}
+	Saber_init_uno();
+	
+	_delay_ms(1000);
+	SendStringSABER_UNO("1,start \n");
+	_delay_ms(1000);
+	SendStringSABER_UNO("1,units ");
+	SendStringSABER_UNO(("1 rotation = 2000 "));
+	SendStringSABER_UNO("lines \n");
+	_delay_ms(1000);
+	SendStringSABER_UNO("1,s10 \n");
+	
+	while(1);
 }
 
 
