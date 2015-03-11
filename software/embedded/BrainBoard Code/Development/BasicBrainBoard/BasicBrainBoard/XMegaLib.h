@@ -24,6 +24,15 @@ extern "C"{
 #include "BrainBoard.h"
 #include "SharedFunctions.h"
 
+//Global Variables Catch (used to define global variables)
+#ifdef XMEGALIB_GLOBALS
+#define EXTERN
+#else
+#define EXTERN extern
+#endif
+
+//Global Variables
+EXTERN USART_data_t USART_PC_Data;
 
 
 //Error and Status LED outputs

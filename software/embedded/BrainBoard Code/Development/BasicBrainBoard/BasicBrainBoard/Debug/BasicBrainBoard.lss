@@ -11,21 +11,21 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
   3 .comment      00000030  00000000  00000000  00000bfe  2**0
                   CONTENTS, READONLY
-  4 .debug_aranges 00000250  00000000  00000000  00000c2e  2**0
+  4 .debug_aranges 00000238  00000000  00000000  00000c2e  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   00003948  00000000  00000000  00000e7e  2**0
+  5 .debug_info   00003aad  00000000  00000000  00000e66  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 000009e9  00000000  00000000  000047c6  2**0
+  6 .debug_abbrev 00000ab6  00000000  00000000  00004913  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   00001111  00000000  00000000  000051af  2**0
+  7 .debug_line   0000121d  00000000  00000000  000053c9  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  00000750  00000000  00000000  000062c0  2**2
+  8 .debug_frame  00000764  00000000  00000000  000065e8  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    00001415  00000000  00000000  00006a10  2**0
+  9 .debug_str    00001409  00000000  00000000  00006d4c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    00001169  00000000  00000000  00007e25  2**0
+ 10 .debug_loc    00001169  00000000  00000000  00008155  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 000001d8  00000000  00000000  00008f8e  2**0
+ 11 .debug_ranges 000001e0  00000000  00000000  000092be  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -81,9 +81,9 @@ Disassembly of section .text:
   5e:	00 00       	nop
   60:	f3 c0       	rjmp	.+486    	; 0x248 <__bad_interrupt>
   62:	00 00       	nop
-  64:	47 c1       	rjmp	.+654    	; 0x2f4 <__vector_25>
+  64:	40 c2       	rjmp	.+1152   	; 0x4e6 <__vector_25>
   66:	00 00       	nop
-  68:	6e c1       	rjmp	.+732    	; 0x346 <__vector_26>
+  68:	45 c1       	rjmp	.+650    	; 0x2f4 <__vector_26>
   6a:	00 00       	nop
   6c:	ed c0       	rjmp	.+474    	; 0x248 <__bad_interrupt>
   6e:	00 00       	nop
@@ -331,7 +331,7 @@ Disassembly of section .text:
  23e:	ac 37       	cpi	r26, 0x7C	; 124
  240:	b2 07       	cpc	r27, r18
  242:	e1 f7       	brne	.-8      	; 0x23c <.do_clear_bss_loop>
- 244:	20 d1       	rcall	.+576    	; 0x486 <main>
+ 244:	f7 d0       	rcall	.+494    	; 0x434 <main>
  246:	7f c4       	rjmp	.+2302   	; 0xb46 <_exit>
 
 00000248 <__bad_interrupt>:
@@ -479,7 +479,7 @@ void debugMain(){
  2f0:	1f 90       	pop	r1
  2f2:	18 95       	reti
 
-000002f4 <__vector_25>:
+000002f4 <__vector_26>:
  2f4:	1f 92       	push	r1
  2f6:	0f 92       	push	r0
  2f8:	0f b6       	in	r0, 0x3f	; 63
@@ -501,7 +501,7 @@ void debugMain(){
  318:	ff 93       	push	r31
  31a:	82 e2       	ldi	r24, 0x22	; 34
  31c:	90 e2       	ldi	r25, 0x20	; 32
- 31e:	00 d3       	rcall	.+1536   	; 0x920 <USART_RXComplete>
+ 31e:	15 d3       	rcall	.+1578   	; 0x94a <USART_DataRegEmpty>
  320:	ff 91       	pop	r31
  322:	ef 91       	pop	r30
  324:	bf 91       	pop	r27
@@ -522,402 +522,409 @@ void debugMain(){
  342:	1f 90       	pop	r1
  344:	18 95       	reti
 
-00000346 <__vector_26>:
- 346:	1f 92       	push	r1
- 348:	0f 92       	push	r0
- 34a:	0f b6       	in	r0, 0x3f	; 63
- 34c:	0f 92       	push	r0
- 34e:	11 24       	eor	r1, r1
- 350:	0b b6       	in	r0, 0x3b	; 59
- 352:	0f 92       	push	r0
- 354:	2f 93       	push	r18
- 356:	3f 93       	push	r19
- 358:	4f 93       	push	r20
- 35a:	5f 93       	push	r21
- 35c:	6f 93       	push	r22
- 35e:	7f 93       	push	r23
- 360:	8f 93       	push	r24
- 362:	9f 93       	push	r25
- 364:	af 93       	push	r26
- 366:	bf 93       	push	r27
- 368:	ef 93       	push	r30
- 36a:	ff 93       	push	r31
- 36c:	82 e2       	ldi	r24, 0x22	; 34
- 36e:	90 e2       	ldi	r25, 0x20	; 32
- 370:	ec d2       	rcall	.+1496   	; 0x94a <USART_DataRegEmpty>
- 372:	ff 91       	pop	r31
- 374:	ef 91       	pop	r30
- 376:	bf 91       	pop	r27
- 378:	af 91       	pop	r26
- 37a:	9f 91       	pop	r25
- 37c:	8f 91       	pop	r24
- 37e:	7f 91       	pop	r23
- 380:	6f 91       	pop	r22
- 382:	5f 91       	pop	r21
- 384:	4f 91       	pop	r20
- 386:	3f 91       	pop	r19
- 388:	2f 91       	pop	r18
- 38a:	0f 90       	pop	r0
- 38c:	0b be       	out	0x3b, r0	; 59
- 38e:	0f 90       	pop	r0
- 390:	0f be       	out	0x3f, r0	; 63
- 392:	0f 90       	pop	r0
- 394:	1f 90       	pop	r1
- 396:	18 95       	reti
-
-00000398 <_Z9uart_initv>:
+00000346 <_Z9uart_initv>:
 
 
 
 //Inits the UART for the board
 void uart_init(void){
 	PORTC.DIRSET = PIN3_bm;																			//Sets TX Pin as output
- 398:	e0 e4       	ldi	r30, 0x40	; 64
- 39a:	f6 e0       	ldi	r31, 0x06	; 6
- 39c:	88 e0       	ldi	r24, 0x08	; 8
- 39e:	81 83       	std	Z+1, r24	; 0x01
+ 346:	e0 e4       	ldi	r30, 0x40	; 64
+ 348:	f6 e0       	ldi	r31, 0x06	; 6
+ 34a:	88 e0       	ldi	r24, 0x08	; 8
+ 34c:	81 83       	std	Z+1, r24	; 0x01
 	PORTC.DIRCLR = PIN2_bm;																			//Sets RX pin as input
- 3a0:	84 e0       	ldi	r24, 0x04	; 4
- 3a2:	82 83       	std	Z+2, r24	; 0x02
+ 34e:	84 e0       	ldi	r24, 0x04	; 4
+ 350:	82 83       	std	Z+2, r24	; 0x02
 	
 	USART_InterruptDriver_Initialize(&USART_PC_Data, &USARTC0, USART_DREINTLVL_LO_gc);				//Initialize USARTC0 as interrupt driven serial and clear it's buffers
- 3a4:	41 e0       	ldi	r20, 0x01	; 1
- 3a6:	60 ea       	ldi	r22, 0xA0	; 160
- 3a8:	78 e0       	ldi	r23, 0x08	; 8
- 3aa:	82 e2       	ldi	r24, 0x22	; 34
- 3ac:	90 e2       	ldi	r25, 0x20	; 32
- 3ae:	9b d2       	rcall	.+1334   	; 0x8e6 <USART_InterruptDriver_Initialize>
+ 352:	41 e0       	ldi	r20, 0x01	; 1
+ 354:	60 ea       	ldi	r22, 0xA0	; 160
+ 356:	78 e0       	ldi	r23, 0x08	; 8
+ 358:	82 e2       	ldi	r24, 0x22	; 34
+ 35a:	90 e2       	ldi	r25, 0x20	; 32
+ 35c:	c4 d2       	rcall	.+1416   	; 0x8e6 <USART_InterruptDriver_Initialize>
 	USART_Format_Set(USART_PC_Data.usart, USART_CHSIZE_8BIT_gc, USART_PMODE_DISABLED_gc, false);	//Set the data format of 8 bits, no parity, 1 stop bit
- 3b0:	e0 91 22 20 	lds	r30, 0x2022
- 3b4:	f0 91 23 20 	lds	r31, 0x2023
- 3b8:	83 e0       	ldi	r24, 0x03	; 3
- 3ba:	85 83       	std	Z+5, r24	; 0x05
+ 35e:	e0 91 22 20 	lds	r30, 0x2022
+ 362:	f0 91 23 20 	lds	r31, 0x2023
+ 366:	83 e0       	ldi	r24, 0x03	; 3
+ 368:	85 83       	std	Z+5, r24	; 0x05
 	USART_RxdInterruptLevel_Set(USART_PC_Data.usart, USART_RXCINTLVL_LO_gc);						//Enable the receive interrupt
- 3bc:	83 81       	ldd	r24, Z+3	; 0x03
- 3be:	8f 7c       	andi	r24, 0xCF	; 207
- 3c0:	80 61       	ori	r24, 0x10	; 16
- 3c2:	83 83       	std	Z+3, r24	; 0x03
+ 36a:	83 81       	ldd	r24, Z+3	; 0x03
+ 36c:	8f 7c       	andi	r24, 0xCF	; 207
+ 36e:	80 61       	ori	r24, 0x10	; 16
+ 370:	83 83       	std	Z+3, r24	; 0x03
 	USART_Baudrate_Set(&USARTC0, 207 , 0);															//Set baudrate to 9600 with 32Mhz system clock
- 3c4:	a0 ea       	ldi	r26, 0xA0	; 160
- 3c6:	b8 e0       	ldi	r27, 0x08	; 8
- 3c8:	8f ec       	ldi	r24, 0xCF	; 207
- 3ca:	16 96       	adiw	r26, 0x06	; 6
- 3cc:	8c 93       	st	X, r24
- 3ce:	16 97       	sbiw	r26, 0x06	; 6
- 3d0:	17 96       	adiw	r26, 0x07	; 7
- 3d2:	1c 92       	st	X, r1
+ 372:	a0 ea       	ldi	r26, 0xA0	; 160
+ 374:	b8 e0       	ldi	r27, 0x08	; 8
+ 376:	8f ec       	ldi	r24, 0xCF	; 207
+ 378:	16 96       	adiw	r26, 0x06	; 6
+ 37a:	8c 93       	st	X, r24
+ 37c:	16 97       	sbiw	r26, 0x06	; 6
+ 37e:	17 96       	adiw	r26, 0x07	; 7
+ 380:	1c 92       	st	X, r1
 	USART_Rx_Enable(USART_PC_Data.usart);															//Enable receiving over serial
- 3d4:	84 81       	ldd	r24, Z+4	; 0x04
- 3d6:	80 61       	ori	r24, 0x10	; 16
- 3d8:	84 83       	std	Z+4, r24	; 0x04
+ 382:	84 81       	ldd	r24, Z+4	; 0x04
+ 384:	80 61       	ori	r24, 0x10	; 16
+ 386:	84 83       	std	Z+4, r24	; 0x04
 	USART_Tx_Enable(USART_PC_Data.usart);															//Enable transmitting over serial
- 3da:	84 81       	ldd	r24, Z+4	; 0x04
- 3dc:	88 60       	ori	r24, 0x08	; 8
- 3de:	84 83       	std	Z+4, r24	; 0x04
+ 388:	84 81       	ldd	r24, Z+4	; 0x04
+ 38a:	88 60       	ori	r24, 0x08	; 8
+ 38c:	84 83       	std	Z+4, r24	; 0x04
 	PMIC.CTRL |= PMIC_LOLVLEX_bm;
- 3e0:	e0 ea       	ldi	r30, 0xA0	; 160
- 3e2:	f0 e0       	ldi	r31, 0x00	; 0
- 3e4:	82 81       	ldd	r24, Z+2	; 0x02
- 3e6:	81 60       	ori	r24, 0x01	; 1
- 3e8:	82 83       	std	Z+2, r24	; 0x02
- 3ea:	08 95       	ret
+ 38e:	e0 ea       	ldi	r30, 0xA0	; 160
+ 390:	f0 e0       	ldi	r31, 0x00	; 0
+ 392:	82 81       	ldd	r24, Z+2	; 0x02
+ 394:	81 60       	ori	r24, 0x01	; 1
+ 396:	82 83       	std	Z+2, r24	; 0x02
+ 398:	08 95       	ret
 
-000003ec <_Z10timer_initv>:
+0000039a <_Z10timer_initv>:
 }
 
 //Initializes timers
 void timer_init(void){
 	TCC0.PER = 100;	//period for PWM
- 3ec:	e0 e0       	ldi	r30, 0x00	; 0
- 3ee:	f8 e0       	ldi	r31, 0x08	; 8
- 3f0:	24 e6       	ldi	r18, 0x64	; 100
- 3f2:	30 e0       	ldi	r19, 0x00	; 0
- 3f4:	26 a3       	std	Z+38, r18	; 0x26
- 3f6:	37 a3       	std	Z+39, r19	; 0x27
+ 39a:	e0 e0       	ldi	r30, 0x00	; 0
+ 39c:	f8 e0       	ldi	r31, 0x08	; 8
+ 39e:	24 e6       	ldi	r18, 0x64	; 100
+ 3a0:	30 e0       	ldi	r19, 0x00	; 0
+ 3a2:	26 a3       	std	Z+38, r18	; 0x26
+ 3a4:	37 a3       	std	Z+39, r19	; 0x27
 	TCC0.CTRLA = TC_CLKSEL_DIV256_gc; //sets the PWM base frequency by 2000000/256
- 3f8:	66 e0       	ldi	r22, 0x06	; 6
- 3fa:	60 83       	st	Z, r22
+ 3a6:	66 e0       	ldi	r22, 0x06	; 6
+ 3a8:	60 83       	st	Z, r22
 	TCC0.CTRLB = TC_WGMODE_SINGLESLOPE_gc; //sets the wave generation mode to single slope
- 3fc:	53 e0       	ldi	r21, 0x03	; 3
- 3fe:	51 83       	std	Z+1, r21	; 0x01
+ 3aa:	53 e0       	ldi	r21, 0x03	; 3
+ 3ac:	51 83       	std	Z+1, r21	; 0x01
 	TCC0.CTRLB |= (0b00110000); //output pins on red and blue LED
- 400:	81 81       	ldd	r24, Z+1	; 0x01
- 402:	80 63       	ori	r24, 0x30	; 48
- 404:	81 83       	std	Z+1, r24	; 0x01
+ 3ae:	81 81       	ldd	r24, Z+1	; 0x01
+ 3b0:	80 63       	ori	r24, 0x30	; 48
+ 3b2:	81 83       	std	Z+1, r24	; 0x01
 	TCC0.INTCTRLA = TC_OVFINTLVL_LO_gc; //interrupt register
- 406:	41 e0       	ldi	r20, 0x01	; 1
- 408:	46 83       	std	Z+6, r20	; 0x06
+ 3b4:	41 e0       	ldi	r20, 0x01	; 1
+ 3b6:	46 83       	std	Z+6, r20	; 0x06
 	TCC0.CCB = 10; 
- 40a:	8a e0       	ldi	r24, 0x0A	; 10
- 40c:	90 e0       	ldi	r25, 0x00	; 0
- 40e:	82 a7       	std	Z+42, r24	; 0x2a
- 410:	93 a7       	std	Z+43, r25	; 0x2b
+ 3b8:	8a e0       	ldi	r24, 0x0A	; 10
+ 3ba:	90 e0       	ldi	r25, 0x00	; 0
+ 3bc:	82 a7       	std	Z+42, r24	; 0x2a
+ 3be:	93 a7       	std	Z+43, r25	; 0x2b
 	TCC0.CCA = 50; 
- 412:	82 e3       	ldi	r24, 0x32	; 50
- 414:	90 e0       	ldi	r25, 0x00	; 0
- 416:	80 a7       	std	Z+40, r24	; 0x28
- 418:	91 a7       	std	Z+41, r25	; 0x29
+ 3c0:	82 e3       	ldi	r24, 0x32	; 50
+ 3c2:	90 e0       	ldi	r25, 0x00	; 0
+ 3c4:	80 a7       	std	Z+40, r24	; 0x28
+ 3c6:	91 a7       	std	Z+41, r25	; 0x29
 	
 	TCC1.PER = 100;
- 41a:	e0 e4       	ldi	r30, 0x40	; 64
- 41c:	f8 e0       	ldi	r31, 0x08	; 8
- 41e:	26 a3       	std	Z+38, r18	; 0x26
- 420:	37 a3       	std	Z+39, r19	; 0x27
+ 3c8:	e0 e4       	ldi	r30, 0x40	; 64
+ 3ca:	f8 e0       	ldi	r31, 0x08	; 8
+ 3cc:	26 a3       	std	Z+38, r18	; 0x26
+ 3ce:	37 a3       	std	Z+39, r19	; 0x27
 	TCC1.CTRLA = TC_CLKSEL_DIV256_gc;
- 422:	60 83       	st	Z, r22
+ 3d0:	60 83       	st	Z, r22
 	TCC1.CTRLB = TC_WGMODE_SINGLESLOPE_gc;
- 424:	51 83       	std	Z+1, r21	; 0x01
+ 3d2:	51 83       	std	Z+1, r21	; 0x01
 	TCC1.CTRLB |= (0b00010000); //output pins on green LED
- 426:	21 81       	ldd	r18, Z+1	; 0x01
- 428:	20 61       	ori	r18, 0x10	; 16
- 42a:	21 83       	std	Z+1, r18	; 0x01
+ 3d4:	21 81       	ldd	r18, Z+1	; 0x01
+ 3d6:	20 61       	ori	r18, 0x10	; 16
+ 3d8:	21 83       	std	Z+1, r18	; 0x01
 	TCC1.INTCTRLA = TC_OVFINTLVL_LO_gc;
- 42c:	46 83       	std	Z+6, r20	; 0x06
+ 3da:	46 83       	std	Z+6, r20	; 0x06
 	TCC1.CCA = 50;
- 42e:	80 a7       	std	Z+40, r24	; 0x28
- 430:	91 a7       	std	Z+41, r25	; 0x29
- 432:	08 95       	ret
+ 3dc:	80 a7       	std	Z+40, r24	; 0x28
+ 3de:	91 a7       	std	Z+41, r25	; 0x29
+ 3e0:	08 95       	ret
 
-00000434 <_Z12SendStringPCPc>:
+000003e2 <_Z12SendStringPCPc>:
 }
 
 //Sends a string to the computer
 void SendStringPC(char *stufftosend){
 	for(int i = 0 ; stufftosend[i] != '\0' ; i++){
- 434:	fc 01       	movw	r30, r24
- 436:	20 81       	ld	r18, Z
- 438:	22 23       	and	r18, r18
- 43a:	59 f0       	breq	.+22     	; 0x452 <_Z12SendStringPCPc+0x1e>
- 43c:	dc 01       	movw	r26, r24
- 43e:	11 96       	adiw	r26, 0x01	; 1
+ 3e2:	fc 01       	movw	r30, r24
+ 3e4:	20 81       	ld	r18, Z
+ 3e6:	22 23       	and	r18, r18
+ 3e8:	59 f0       	breq	.+22     	; 0x400 <_Z12SendStringPCPc+0x1e>
+ 3ea:	dc 01       	movw	r26, r24
+ 3ec:	11 96       	adiw	r26, 0x01	; 1
 		while(!USART_IsTXDataRegisterEmpty(&USARTC0));
- 440:	e0 ea       	ldi	r30, 0xA0	; 160
- 442:	f8 e0       	ldi	r31, 0x08	; 8
- 444:	81 81       	ldd	r24, Z+1	; 0x01
- 446:	85 ff       	sbrs	r24, 5
- 448:	fd cf       	rjmp	.-6      	; 0x444 <_Z12SendStringPCPc+0x10>
+ 3ee:	e0 ea       	ldi	r30, 0xA0	; 160
+ 3f0:	f8 e0       	ldi	r31, 0x08	; 8
+ 3f2:	81 81       	ldd	r24, Z+1	; 0x01
+ 3f4:	85 ff       	sbrs	r24, 5
+ 3f6:	fd cf       	rjmp	.-6      	; 0x3f2 <_Z12SendStringPCPc+0x10>
 		USART_PutChar(&USARTC0, stufftosend[i]);
- 44a:	20 83       	st	Z, r18
+ 3f8:	20 83       	st	Z, r18
 	TCC1.CCA = 50;
 }
 
 //Sends a string to the computer
 void SendStringPC(char *stufftosend){
 	for(int i = 0 ; stufftosend[i] != '\0' ; i++){
- 44c:	2d 91       	ld	r18, X+
- 44e:	21 11       	cpse	r18, r1
- 450:	f9 cf       	rjmp	.-14     	; 0x444 <_Z12SendStringPCPc+0x10>
- 452:	08 95       	ret
+ 3fa:	2d 91       	ld	r18, X+
+ 3fc:	21 11       	cpse	r18, r1
+ 3fe:	f9 cf       	rjmp	.-14     	; 0x3f2 <_Z12SendStringPCPc+0x10>
+ 400:	08 95       	ret
 
-00000454 <_Z23SetXMEGA32MhzCalibratedv>:
+00000402 <_Z23SetXMEGA32MhzCalibratedv>:
 	}
 }
 
 //Configures the XMEGA to run on it's 32Mhz internal? oscillator
 void SetXMEGA32MhzCalibrated(){
 	CCP = CCP_IOREG_gc;						//Disable register security for oscillator update
- 454:	88 ed       	ldi	r24, 0xD8	; 216
- 456:	84 bf       	out	0x34, r24	; 52
+ 402:	88 ed       	ldi	r24, 0xD8	; 216
+ 404:	84 bf       	out	0x34, r24	; 52
 	OSC.CTRL = OSC_RC32MEN_bm;				//Enable 32MHz oscillator
- 458:	82 e0       	ldi	r24, 0x02	; 2
- 45a:	80 93 50 00 	sts	0x0050, r24
+ 406:	82 e0       	ldi	r24, 0x02	; 2
+ 408:	80 93 50 00 	sts	0x0050, r24
 	while(!(OSC.STATUS & OSC_RC32MRDY_bm)); //Wait for oscillator to be ready
- 45e:	e0 e5       	ldi	r30, 0x50	; 80
- 460:	f0 e0       	ldi	r31, 0x00	; 0
- 462:	81 81       	ldd	r24, Z+1	; 0x01
- 464:	81 ff       	sbrs	r24, 1
- 466:	fd cf       	rjmp	.-6      	; 0x462 <_Z23SetXMEGA32MhzCalibratedv+0xe>
+ 40c:	e0 e5       	ldi	r30, 0x50	; 80
+ 40e:	f0 e0       	ldi	r31, 0x00	; 0
+ 410:	81 81       	ldd	r24, Z+1	; 0x01
+ 412:	81 ff       	sbrs	r24, 1
+ 414:	fd cf       	rjmp	.-6      	; 0x410 <_Z23SetXMEGA32MhzCalibratedv+0xe>
 	CCP = CCP_IOREG_gc;						//Disable register security for clock update
- 468:	88 ed       	ldi	r24, 0xD8	; 216
- 46a:	84 bf       	out	0x34, r24	; 52
+ 416:	88 ed       	ldi	r24, 0xD8	; 216
+ 418:	84 bf       	out	0x34, r24	; 52
 	CLK.CTRL = CLK_SCLKSEL_RC32M_gc;		//Switch to 32MHz clock
- 46c:	91 e0       	ldi	r25, 0x01	; 1
- 46e:	90 93 40 00 	sts	0x0040, r25
+ 41a:	91 e0       	ldi	r25, 0x01	; 1
+ 41c:	90 93 40 00 	sts	0x0040, r25
 
 
 	CCP = CCP_IOREG_gc;						//Disable register security for oscillator update
- 472:	84 bf       	out	0x34, r24	; 52
+ 420:	84 bf       	out	0x34, r24	; 52
 	OSC.CTRL |= OSC_RC32KEN_bm;				//Enable 32Khz oscillator
- 474:	e0 e5       	ldi	r30, 0x50	; 80
- 476:	f0 e0       	ldi	r31, 0x00	; 0
- 478:	80 81       	ld	r24, Z
- 47a:	84 60       	ori	r24, 0x04	; 4
- 47c:	80 83       	st	Z, r24
+ 422:	e0 e5       	ldi	r30, 0x50	; 80
+ 424:	f0 e0       	ldi	r31, 0x00	; 0
+ 426:	80 81       	ld	r24, Z
+ 428:	84 60       	ori	r24, 0x04	; 4
+ 42a:	80 83       	st	Z, r24
 	while(!(OSC.STATUS & OSC_RC32KRDY_bm)); //Wait for oscillator to be ready
- 47e:	81 81       	ldd	r24, Z+1	; 0x01
- 480:	82 ff       	sbrs	r24, 2
- 482:	fd cf       	rjmp	.-6      	; 0x47e <_Z23SetXMEGA32MhzCalibratedv+0x2a>
+ 42c:	81 81       	ldd	r24, Z+1	; 0x01
+ 42e:	82 ff       	sbrs	r24, 2
+ 430:	fd cf       	rjmp	.-6      	; 0x42c <_Z23SetXMEGA32MhzCalibratedv+0x2a>
 	/*
 	OSC.DFLLCTRL &= ~OSC_RC32MCREF_bm;		//Set up calibration source to be 32Khz crystal
 	DFLLRC32M.CTRL |= DFLL_ENABLE_bm;		//Enable calibration of 32Mhz oscillator 
 	*/
 }
- 484:	08 95       	ret
+ 432:	08 95       	ret
 
-00000486 <main>:
+00000434 <main>:
 			- Launch the 'main' function associated with the board
 				-INFINITE LOOP
 
 */
 int main(void)
 {
- 486:	cf 93       	push	r28
- 488:	df 93       	push	r29
- 48a:	cd b7       	in	r28, 0x3d	; 61
- 48c:	de b7       	in	r29, 0x3e	; 62
- 48e:	2c 97       	sbiw	r28, 0x0c	; 12
- 490:	cd bf       	out	0x3d, r28	; 61
- 492:	de bf       	out	0x3e, r29	; 62
+ 434:	cf 93       	push	r28
+ 436:	df 93       	push	r29
+ 438:	cd b7       	in	r28, 0x3d	; 61
+ 43a:	de b7       	in	r29, 0x3e	; 62
+ 43c:	2c 97       	sbiw	r28, 0x0c	; 12
+ 43e:	cd bf       	out	0x3d, r28	; 61
+ 440:	de bf       	out	0x3e, r29	; 62
 	SetXMEGA32MhzCalibrated();
- 494:	df df       	rcall	.-66     	; 0x454 <_Z23SetXMEGA32MhzCalibratedv>
+ 442:	df df       	rcall	.-66     	; 0x402 <_Z23SetXMEGA32MhzCalibratedv>
 	//Main's Variable Declarations
 	char XmegaIDStr[11];
 	XMEGAID CurrentID;
 		
 	//Initialization Code
 	uart_init();
- 496:	80 df       	rcall	.-256    	; 0x398 <_Z9uart_initv>
+ 444:	80 df       	rcall	.-256    	; 0x346 <_Z9uart_initv>
 	initializeIO();
- 498:	e7 d2       	rcall	.+1486   	; 0xa68 <_Z12initializeIOv>
+ 446:	10 d3       	rcall	.+1568   	; 0xa68 <_Z12initializeIOv>
 	determineID(XmegaIDStr, CurrentID);
- 49a:	be 01       	movw	r22, r28
- 49c:	64 5f       	subi	r22, 0xF4	; 244
- 49e:	7f 4f       	sbci	r23, 0xFF	; 255
- 4a0:	ce 01       	movw	r24, r28
- 4a2:	01 96       	adiw	r24, 0x01	; 1
- 4a4:	ed d2       	rcall	.+1498   	; 0xa80 <_Z11determineIDPcR7XMEGAID>
+ 448:	be 01       	movw	r22, r28
+ 44a:	64 5f       	subi	r22, 0xF4	; 244
+ 44c:	7f 4f       	sbci	r23, 0xFF	; 255
+ 44e:	ce 01       	movw	r24, r28
+ 450:	01 96       	adiw	r24, 0x01	; 1
+ 452:	16 d3       	rcall	.+1580   	; 0xa80 <_Z11determineIDPcR7XMEGAID>
 	timer_init();  //Initialize Timers
- 4a6:	a2 df       	rcall	.-188    	; 0x3ec <_Z10timer_initv>
+ 454:	a2 df       	rcall	.-188    	; 0x39a <_Z10timer_initv>
 	sei(); //Enable interrupts
- 4a8:	78 94       	sei
+ 456:	78 94       	sei
 	
 	PMIC.CTRL |= PMIC_LOLVLEN_bm; //draws current for ?
- 4aa:	e0 ea       	ldi	r30, 0xA0	; 160
- 4ac:	f0 e0       	ldi	r31, 0x00	; 0
- 4ae:	82 81       	ldd	r24, Z+2	; 0x02
- 4b0:	81 60       	ori	r24, 0x01	; 1
- 4b2:	82 83       	std	Z+2, r24	; 0x02
+ 458:	e0 ea       	ldi	r30, 0xA0	; 160
+ 45a:	f0 e0       	ldi	r31, 0x00	; 0
+ 45c:	82 81       	ldd	r24, Z+2	; 0x02
+ 45e:	81 60       	ori	r24, 0x01	; 1
+ 460:	82 83       	std	Z+2, r24	; 0x02
 				RGBSetColor(YELLOW);
 				char recieveChar;
 				if(USART_RXBufferData_Available(&USART_PC_Data)){
 					recieveChar = USART_RXBuffer_GetByte(&USART_PC_Data);  //Read character off of buffer
 					if (recieveChar == 'r'){
 						CurrentState = MainProgram;
- 4b4:	02 e0       	ldi	r16, 0x02	; 2
+ 462:	02 e0       	ldi	r16, 0x02	; 2
 				RGBSetColor(RED);
 				if(USART_RXBufferData_Available(&USART_PC_Data)){
 					recieveChar = USART_RXBuffer_GetByte(&USART_PC_Data);  //Read character off of buffer
 					if (recieveChar == 'p'){
 						SendStringPC(XmegaIDStr); //Identify itself
 						CurrentState = WaitForReady;
- 4b6:	11 e0       	ldi	r17, 0x01	; 1
+ 464:	11 e0       	ldi	r17, 0x01	; 1
 
 	
     while(1)
     { 
 		
 		switch (CurrentState){
- 4b8:	90 91 20 20 	lds	r25, 0x2020
- 4bc:	91 30       	cpi	r25, 0x01	; 1
- 4be:	c1 f0       	breq	.+48     	; 0x4f0 <main+0x6a>
- 4c0:	18 f0       	brcs	.+6      	; 0x4c8 <main+0x42>
- 4c2:	92 30       	cpi	r25, 0x02	; 2
- 4c4:	21 f1       	breq	.+72     	; 0x50e <main+0x88>
- 4c6:	fa cf       	rjmp	.-12     	; 0x4bc <main+0x36>
+ 466:	90 91 20 20 	lds	r25, 0x2020
+ 46a:	91 30       	cpi	r25, 0x01	; 1
+ 46c:	c1 f0       	breq	.+48     	; 0x49e <main+0x6a>
+ 46e:	18 f0       	brcs	.+6      	; 0x476 <main+0x42>
+ 470:	92 30       	cpi	r25, 0x02	; 2
+ 472:	21 f1       	breq	.+72     	; 0x4bc <main+0x88>
+ 474:	fa cf       	rjmp	.-12     	; 0x46a <main+0x36>
 			case WaitForPing:
 				RGBSetColor(RED);
- 4c8:	80 e0       	ldi	r24, 0x00	; 0
- 4ca:	59 d2       	rcall	.+1202   	; 0x97e <_Z11RGBSetColor9RGBColors>
+ 476:	80 e0       	ldi	r24, 0x00	; 0
+ 478:	82 d2       	rcall	.+1284   	; 0x97e <_Z11RGBSetColor9RGBColors>
 				if(USART_RXBufferData_Available(&USART_PC_Data)){
- 4cc:	82 e2       	ldi	r24, 0x22	; 34
- 4ce:	90 e2       	ldi	r25, 0x20	; 32
- 4d0:	13 d2       	rcall	.+1062   	; 0x8f8 <USART_RXBufferData_Available>
- 4d2:	88 23       	and	r24, r24
- 4d4:	89 f3       	breq	.-30     	; 0x4b8 <main+0x32>
+ 47a:	82 e2       	ldi	r24, 0x22	; 34
+ 47c:	90 e2       	ldi	r25, 0x20	; 32
+ 47e:	3c d2       	rcall	.+1144   	; 0x8f8 <USART_RXBufferData_Available>
+ 480:	88 23       	and	r24, r24
+ 482:	89 f3       	breq	.-30     	; 0x466 <main+0x32>
 					recieveChar = USART_RXBuffer_GetByte(&USART_PC_Data);  //Read character off of buffer
- 4d6:	82 e2       	ldi	r24, 0x22	; 34
- 4d8:	90 e2       	ldi	r25, 0x20	; 32
- 4da:	16 d2       	rcall	.+1068   	; 0x908 <USART_RXBuffer_GetByte>
- 4dc:	80 93 21 20 	sts	0x2021, r24
+ 484:	82 e2       	ldi	r24, 0x22	; 34
+ 486:	90 e2       	ldi	r25, 0x20	; 32
+ 488:	3f d2       	rcall	.+1150   	; 0x908 <USART_RXBuffer_GetByte>
+ 48a:	80 93 21 20 	sts	0x2021, r24
 					if (recieveChar == 'p'){
- 4e0:	80 37       	cpi	r24, 0x70	; 112
- 4e2:	51 f7       	brne	.-44     	; 0x4b8 <main+0x32>
+ 48e:	80 37       	cpi	r24, 0x70	; 112
+ 490:	51 f7       	brne	.-44     	; 0x466 <main+0x32>
 						SendStringPC(XmegaIDStr); //Identify itself
- 4e4:	ce 01       	movw	r24, r28
- 4e6:	01 96       	adiw	r24, 0x01	; 1
- 4e8:	a5 df       	rcall	.-182    	; 0x434 <_Z12SendStringPCPc>
+ 492:	ce 01       	movw	r24, r28
+ 494:	01 96       	adiw	r24, 0x01	; 1
+ 496:	a5 df       	rcall	.-182    	; 0x3e2 <_Z12SendStringPCPc>
 						CurrentState = WaitForReady;
- 4ea:	10 93 20 20 	sts	0x2020, r17
- 4ee:	e4 cf       	rjmp	.-56     	; 0x4b8 <main+0x32>
+ 498:	10 93 20 20 	sts	0x2020, r17
+ 49c:	e4 cf       	rjmp	.-56     	; 0x466 <main+0x32>
 					}
 					//else, do nothing and wait for more chars
 				}
 				break;
 			case WaitForReady:
 				RGBSetColor(YELLOW);
- 4f0:	84 e0       	ldi	r24, 0x04	; 4
- 4f2:	45 d2       	rcall	.+1162   	; 0x97e <_Z11RGBSetColor9RGBColors>
+ 49e:	84 e0       	ldi	r24, 0x04	; 4
+ 4a0:	6e d2       	rcall	.+1244   	; 0x97e <_Z11RGBSetColor9RGBColors>
 				char recieveChar;
 				if(USART_RXBufferData_Available(&USART_PC_Data)){
- 4f4:	82 e2       	ldi	r24, 0x22	; 34
- 4f6:	90 e2       	ldi	r25, 0x20	; 32
- 4f8:	ff d1       	rcall	.+1022   	; 0x8f8 <USART_RXBufferData_Available>
- 4fa:	88 23       	and	r24, r24
- 4fc:	e9 f2       	breq	.-70     	; 0x4b8 <main+0x32>
+ 4a2:	82 e2       	ldi	r24, 0x22	; 34
+ 4a4:	90 e2       	ldi	r25, 0x20	; 32
+ 4a6:	28 d2       	rcall	.+1104   	; 0x8f8 <USART_RXBufferData_Available>
+ 4a8:	88 23       	and	r24, r24
+ 4aa:	e9 f2       	breq	.-70     	; 0x466 <main+0x32>
 					recieveChar = USART_RXBuffer_GetByte(&USART_PC_Data);  //Read character off of buffer
- 4fe:	82 e2       	ldi	r24, 0x22	; 34
- 500:	90 e2       	ldi	r25, 0x20	; 32
- 502:	02 d2       	rcall	.+1028   	; 0x908 <USART_RXBuffer_GetByte>
+ 4ac:	82 e2       	ldi	r24, 0x22	; 34
+ 4ae:	90 e2       	ldi	r25, 0x20	; 32
+ 4b0:	2b d2       	rcall	.+1110   	; 0x908 <USART_RXBuffer_GetByte>
 					if (recieveChar == 'r'){
- 504:	82 37       	cpi	r24, 0x72	; 114
- 506:	c1 f6       	brne	.-80     	; 0x4b8 <main+0x32>
+ 4b2:	82 37       	cpi	r24, 0x72	; 114
+ 4b4:	c1 f6       	brne	.-80     	; 0x466 <main+0x32>
 						CurrentState = MainProgram;
- 508:	00 93 20 20 	sts	0x2020, r16
- 50c:	d5 cf       	rjmp	.-86     	; 0x4b8 <main+0x32>
+ 4b6:	00 93 20 20 	sts	0x2020, r16
+ 4ba:	d5 cf       	rjmp	.-86     	; 0x466 <main+0x32>
 					}
 					//else, do nothing and wait for more chars
 				}
 				break;
 			case MainProgram:
 				RGBSetColor(GREEN);
- 50e:	81 2f       	mov	r24, r17
- 510:	36 d2       	rcall	.+1132   	; 0x97e <_Z11RGBSetColor9RGBColors>
+ 4bc:	81 2f       	mov	r24, r17
+ 4be:	5f d2       	rcall	.+1214   	; 0x97e <_Z11RGBSetColor9RGBColors>
 				switch (CurrentID) {
- 512:	9c 85       	ldd	r25, Y+12	; 0x0c
- 514:	91 30       	cpi	r25, 0x01	; 1
- 516:	49 f0       	breq	.+18     	; 0x52a <main+0xa4>
- 518:	28 f0       	brcs	.+10     	; 0x524 <main+0x9e>
- 51a:	92 30       	cpi	r25, 0x02	; 2
- 51c:	49 f0       	breq	.+18     	; 0x530 <main+0xaa>
- 51e:	93 30       	cpi	r25, 0x03	; 3
- 520:	51 f0       	breq	.+20     	; 0x536 <main+0xb0>
- 522:	ca cf       	rjmp	.-108    	; 0x4b8 <main+0x32>
+ 4c0:	9c 85       	ldd	r25, Y+12	; 0x0c
+ 4c2:	91 30       	cpi	r25, 0x01	; 1
+ 4c4:	49 f0       	breq	.+18     	; 0x4d8 <main+0xa4>
+ 4c6:	28 f0       	brcs	.+10     	; 0x4d2 <main+0x9e>
+ 4c8:	92 30       	cpi	r25, 0x02	; 2
+ 4ca:	49 f0       	breq	.+18     	; 0x4de <main+0xaa>
+ 4cc:	93 30       	cpi	r25, 0x03	; 3
+ 4ce:	51 f0       	breq	.+20     	; 0x4e4 <main+0xb0>
+ 4d0:	ca cf       	rjmp	.-108    	; 0x466 <main+0x32>
 					case DRIVE:
 						driveInit();
- 524:	a3 d1       	rcall	.+838    	; 0x86c <_Z9driveInitv>
+ 4d2:	cc d1       	rcall	.+920    	; 0x86c <_Z9driveInitv>
 						while (1) {
 							driveMain();
- 526:	d8 d1       	rcall	.+944    	; 0x8d8 <_Z9driveMainv>
- 528:	fe cf       	rjmp	.-4      	; 0x526 <main+0xa0>
+ 4d4:	01 d2       	rcall	.+1026   	; 0x8d8 <_Z9driveMainv>
+ 4d6:	fe cf       	rjmp	.-4      	; 0x4d4 <main+0xa0>
 						}
 						break;
 					case ARM:
 						armInit();
- 52a:	ae de       	rcall	.-676    	; 0x288 <_Z7armInitv>
+ 4d8:	d7 de       	rcall	.-594    	; 0x288 <_Z7armInitv>
 						while (1) {
 							armMain();
- 52c:	8e de       	rcall	.-740    	; 0x24a <_Z7armMainv>
- 52e:	fe cf       	rjmp	.-4      	; 0x52c <main+0xa6>
+ 4da:	b7 de       	rcall	.-658    	; 0x24a <_Z7armMainv>
+ 4dc:	fe cf       	rjmp	.-4      	; 0x4da <main+0xa6>
 						}
 						break;
 					case RADIO:
 						radioInit();
- 530:	d9 d1       	rcall	.+946    	; 0x8e4 <_Z9radioInitv>
+ 4de:	02 d2       	rcall	.+1028   	; 0x8e4 <_Z9radioInitv>
 						while (1) {
 							radioMain();
- 532:	d7 d1       	rcall	.+942    	; 0x8e2 <_Z9radioMainv>
- 534:	fe cf       	rjmp	.-4      	; 0x532 <main+0xac>
- 536:	ff cf       	rjmp	.-2      	; 0x536 <main+0xb0>
+ 4e0:	00 d2       	rcall	.+1024   	; 0x8e2 <_Z9radioMainv>
+ 4e2:	fe cf       	rjmp	.-4      	; 0x4e0 <main+0xac>
+ 4e4:	ff cf       	rjmp	.-2      	; 0x4e4 <main+0xb0>
+
+000004e6 <__vector_25>:
+ */ 
+
+#include "ComputerInterface.h"
+
+//Interrupt when anything is recieved
+ISR(USARTC0_RXC_vect){
+ 4e6:	1f 92       	push	r1
+ 4e8:	0f 92       	push	r0
+ 4ea:	0f b6       	in	r0, 0x3f	; 63
+ 4ec:	0f 92       	push	r0
+ 4ee:	11 24       	eor	r1, r1
+ 4f0:	0b b6       	in	r0, 0x3b	; 59
+ 4f2:	0f 92       	push	r0
+ 4f4:	2f 93       	push	r18
+ 4f6:	3f 93       	push	r19
+ 4f8:	4f 93       	push	r20
+ 4fa:	5f 93       	push	r21
+ 4fc:	6f 93       	push	r22
+ 4fe:	7f 93       	push	r23
+ 500:	8f 93       	push	r24
+ 502:	9f 93       	push	r25
+ 504:	af 93       	push	r26
+ 506:	bf 93       	push	r27
+ 508:	ef 93       	push	r30
+ 50a:	ff 93       	push	r31
+	USART_RXComplete(&USART_PC_Data);
+ 50c:	82 e2       	ldi	r24, 0x22	; 34
+ 50e:	90 e2       	ldi	r25, 0x20	; 32
+ 510:	07 d2       	rcall	.+1038   	; 0x920 <USART_RXComplete>
+ 512:	ff 91       	pop	r31
+ 514:	ef 91       	pop	r30
+ 516:	bf 91       	pop	r27
+ 518:	af 91       	pop	r26
+ 51a:	9f 91       	pop	r25
+ 51c:	8f 91       	pop	r24
+ 51e:	7f 91       	pop	r23
+ 520:	6f 91       	pop	r22
+ 522:	5f 91       	pop	r21
+ 524:	4f 91       	pop	r20
+ 526:	3f 91       	pop	r19
+ 528:	2f 91       	pop	r18
+ 52a:	0f 90       	pop	r0
+ 52c:	0b be       	out	0x3b, r0	; 59
+ 52e:	0f 90       	pop	r0
+ 530:	0f be       	out	0x3f, r0	; 63
+ 532:	0f 90       	pop	r0
+ 534:	1f 90       	pop	r1
+ 536:	18 95       	reti
 
 00000538 <__vector_58>:
 		while(!USART_IsTXDataRegisterEmpty(&USARTE1));

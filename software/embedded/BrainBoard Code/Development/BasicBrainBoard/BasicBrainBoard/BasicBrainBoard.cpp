@@ -10,16 +10,12 @@
  *  Authors: Nick McComb, Brain Sia, Cameron Stuart
  */ 
 
-
-
-
 //#include "BrainBoard.h"
+#define XMEGALIB_GLOBALS //Used to declare program-wide globals
 #include "XMegaLib.h"  //Needs to be included pre-USART
 
 //#include "Arm.h"
 //#include "Drive.h"
-
-USART_data_t USART_PC_Data;
 
 //Misc. ISRs
 ISR(TCC1_OVF_vect){
@@ -28,9 +24,7 @@ ISR(TCC1_OVF_vect){
 ISR(TCC0_OVF_vect){
 	TCC0.INTFLAGS = TC0_OVFIF_bm;
 }
-ISR(USARTC0_RXC_vect){
-	USART_RXComplete(&USART_PC_Data);
-}
+
 ISR(USARTC0_DRE_vect){
 	USART_DataRegEmpty(&USART_PC_Data);
 }
