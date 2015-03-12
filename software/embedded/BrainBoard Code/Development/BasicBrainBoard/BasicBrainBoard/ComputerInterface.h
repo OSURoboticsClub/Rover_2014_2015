@@ -11,6 +11,17 @@
 
 #include "XMegaLib.h"
 
+//Settings
+#define DRIVE_PACKET_SIZE 10
+#define ARM_PACKET_SIZE 10
+#define RADIO_PACKET_SIZE 10
+
+//Global Variables
+volatile unsigned char bufferIndex;            //Used for indexing the receive buffer
+volatile char recieveBuffer[MAX_PACKET_SIZE];  //Used for recieving from the computer
+volatile char sendBuffer[100];                 //Used for sending to the computer
+
+//Function prototypes
 
 
 #endif /* COMPUTERINTERFACE_H_ */

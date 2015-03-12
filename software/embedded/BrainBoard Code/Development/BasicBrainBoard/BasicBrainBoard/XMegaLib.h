@@ -24,19 +24,11 @@ extern "C"{
 #include "BrainBoard.h"
 #include "SharedFunctions.h"
 
-//Global Variables Catch (used to define global variables)
-#ifdef XMEGALIB_GLOBALS
-#define EXTERN
-#else
-#define EXTERN extern
-#endif
-
-//Global Variables
-EXTERN USART_data_t USART_PC_Data;
-
+/* Rover Settings */
+#define MAX_PACKET_SIZE 15 //Guessing here?
+#define SEND_BUFFER_SIZE 100
 
 //Error and Status LED outputs
-
 #define STATUS1_SET(void) (PORTC.OUTSET = PIN5_bm)
 #define STATUS1_CLR(void) (PORTC.OUTCLR = PIN5_bm)
 
@@ -77,14 +69,108 @@ enum XMEGAID{
 	DEBUG_MODE
 };
 
+enum ZAXISMODE {
+	NEUTRAL,
+	MODE1,
+	MODE2, 
+	MODE3,
+	ERROR
+};
+
+enum GRIPSTATUS {
+	NO_ATTEMPT,
+	SUCCESS,
+	FAIL
+};
+
+/* Classes */
+//PC Interface Objects
+
+class armInfoObj {
+	public:
+		armInfoObj();  //Constructor
+		//Arm Interface Functions (to be used in Arm.cpp)
+			/* Reading Functions */
+			uint8_t getXAxisValue(void);
+			uint8_t getYAxisValue(void);
+			ZAXISMODE getZAxisMode(void);
+			bool needToInit(void);           //Returns a true if the 
+			/* Writing Functions */
+			void setGripSuccess(bool status);      //Pass true if sucessful grip, false otherwise (only call if grip is requested)
+			void setActionsComplete(bool status);  //Pass true if done, false if error {According action To Be Defined}
+			//void sendPacket(void);  //Call when ready to send packet (TBI)
+			
+		//ComputerInterface Interface  (not to be used in Arm.cpp)
+			volatile void setXYAxes(uint8_t xAxisInput, uint8_t yAxisInput);
+			volatile void setZMode(uint8_t modeInput);
+			volatile void setInitMode(bool init);		
+		
+	private:
+		//General Functions
+		inline void readData();			  //Called whenever any information-reading members are called
+		inline void setData(); 			  //Called whenever any information-setting members are called
+		//General Class Information Variables
+		bool newInformation;		  //Contains whether the information is new
+										//This is false whenever information has been
+										//read
+		//Data recieved from the computer
+		volatile uint8_t xAxisValue;  //Value of the X-Axis [3mm increments]
+		volatile uint8_t yAxisValue;  //Value of the Y-Axis [3mm increments]
+		volatile uint8_t zAxisMode;   //Mode of the Z-Axis
+										// 0 - Neutral Position
+										// 1 - Position 1 {TBD}
+										// 2 - Position 2 {TBD}
+										// 3 - Position 3 {TBD}
+		volatile uint8_t initRobot;   //Run init / calibrate routine?
+										// 0 - Don't init
+										// 1 - Init now
+		
+		//Data sent to the computer
+		GRIPSTATUS gripSuccessStatus;      //Holds value of whether the grip was successful / attempted 
+											// NO_ATTEMPT - no grip was attempted
+											// SUCCESS - grip was successful
+											// FAIL - grip failed
+		uint8_t actionsCompleteStatus;  //Holds value of whether requested actions were completed
+											// 0 - No data to send
+											// 1 - Actions Complete
+											// 2 - Error
+	
+};
+
+class driveData {
+	uint8_t leftSpeed;  //Base value of left speed [decimeter / second]
+	uint8_t rightSpeed; //Base value of right speed [decimeter / second]
+	
+	//More to be added (Gimbal, etc)
+	
+};
+
+
 //Define for the PWM cycle for an "ON" led. Used to adjust brightness
 #define COLOR_ON 50
 
+//Function Prototypes
 void RGBSetColor(RGBColors choice);
 void initializeIO(void);  //Sets up all of the IO and associated settings
 //void determineID(void);
 void determineID(char * XmegaIDStr, XMEGAID & CurrentID);
+void FlushSerialBuffer(USART_data_t *UsartBuffer);
+//might not be used
+void initializePacketProcessing(void);  //Sets up the packet processing
 
 
+//Global Variables Catch (used to define global variables)
+#ifdef XMEGALIB_GLOBALS
+#define EXTERN
+#else
+#define EXTERN extern
+#endif
+
+//Global Variables (related to operation of the Rover, not the XMEGA)
+//They are placed here because they are required by more than one of the files
+EXTERN USART_data_t USART_PC_Data;
+EXTERN volatile bool processPackets;
+EXTERN XMEGAID CurrentID;
+EXTERN char currentPacketSize;
 
 #endif /* XMEGALIB_H */

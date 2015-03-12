@@ -10,4 +10,139 @@
 //Interrupt when anything is recieved
 ISR(USARTC0_RXC_vect){
 	USART_RXComplete(&USART_PC_Data);
+	
+	if(processPackets){ //We should process packets, otherwise do nothing
+		if(USART_RXBufferData_Available(&USART_PC_Data)){  //If data is available
+			//Put byte into buffer, increment buffer index
+			recieveBuffer[bufferIndex++] = USART_RXBuffer_GetByte(&USART_PC_Data);
+		}
+	}
+	
+	if(bufferIndex == currentPacketSize){
+		FlushSerialBuffer(&USART_PC_Data);  //Clear the buffer incase something else has piled up
+		
+		//Process packet here
+	}
 }
+
+
+void initializePacketProcessing(void){
+	//Setup the packet size to test for
+	switch(CurrentID){
+		case DRIVE:
+			currentPacketSize = DRIVE_PACKET_SIZE;
+			break;
+		case ARM:
+			currentPacketSize = ARM_PACKET_SIZE;
+			break;	
+		case RADIO:    
+			currentPacketSize = RADIO_PACKET_SIZE;
+			break;
+		default:  //To follow standard
+			break;
+	}
+	
+	
+}
+
+
+/*** Begin PC Interface Objects ***/
+
+
+/** Begin Arm Interface Object **/
+
+/* Public Functions */
+
+//Constructor
+armInfoObj::armInfoObj(void){
+	newInformation = false;
+	
+	gripSuccessStatus = NO_ATTEMPT;  //Init the value as no attempt
+}
+
+//Returns the xAxisValue
+uint8_t armInfoObj::getXAxisValue(void){
+	readData();
+	
+	return xAxisValue;
+}
+
+uint8_t armInfoObj::getYAxisValue(void){
+	readData();
+	
+	return yAxisValue;
+}
+
+//Should never return error, :D
+ZAXISMODE armInfoObj::getZAxisMode(void) {
+	readData();
+	
+	//Switches based on the number stored in the variable
+	switch (zAxisMode) {
+		case 0:
+			return NEUTRAL;
+			break;
+		case 1:
+			return MODE1;
+			break;
+		case 2:
+			return MODE2;
+			break;
+		case 3:
+			return MODE3;
+			break;
+		default:
+			return ERROR;
+	}
+}
+
+void armInfoObj::setGripSuccess(bool status){
+	//TODO: Add flag to this
+	if(status){
+		gripSuccessStatus = SUCCESS;
+	}
+	else {
+		gripSuccessStatus = FAIL;
+	}
+}
+
+void armInfoObj::setActionsComplete(bool status){
+	//TODO: Add flag to this 
+	//TODO: Init this value as 0 after a packet was received
+	if(status == true)
+		actionsCompleteStatus = 1;
+	else if (status == false)
+		actionsCompleteStatus = 2;
+}
+
+//Interface Functions
+volatile void armInfoObj::setXYAxes(uint8_t xAxisInput, uint8_t yAxisInput) {
+	setData();
+	xAxisValue = xAxisInput;
+	yAxisValue = yAxisInput;
+}
+
+volatile void armInfoObj::setZMode(uint8_t modeInput) {
+	setData();
+	zAxisMode = modeInput;
+}
+
+volatile void armInfoObj::setInitMode(bool init){
+	setData();
+	if(init)
+		initRobot = 1;
+	else 
+		initRobot = 0;
+}
+
+/* Private Functions */
+
+inline void armInfoObj::readData(){
+	newInformation = false;
+}
+
+inline void armInfoObj::setData(){
+	newInformation = true;
+}
+
+

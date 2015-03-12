@@ -7,7 +7,7 @@
  *  
  *  This board is designed to preform 3 main functions: Drive, Arm, and Radio.
  *
- *  Authors: Nick McComb, Brain Sia, Cameron Stuart
+ *  Authors: Nick McComb, Brain Sia	, Cameron Stuart
  */ 
 
 //#include "BrainBoard.h"
@@ -61,7 +61,7 @@ int main(void)
 	
 	//Main's Variable Declarations
 	char XmegaIDStr[11];
-	XMEGAID CurrentID;
+	//XMEGAID CurrentID;
 		
 	//Initialization Code
 	uart_init();
@@ -70,9 +70,12 @@ int main(void)
 	timer_init();  //Initialize Timers
 	sei(); //Enable interrupts
 	
-	PMIC.CTRL |= PMIC_LOLVLEN_bm; //draws current for ?
-
+	initializePacketProcessing(); //Needs to be ran _after_ determineID()
+	processPackets = false;       //Not ready to receive packets just yet
 	
+	//TODO: Is the following line needed?
+	PMIC.CTRL |= PMIC_LOLVLEN_bm;   //draws current for ?
+
     while(1)
     { 
 		
@@ -101,6 +104,7 @@ int main(void)
 				break;
 			case MainProgram:
 				RGBSetColor(GREEN);
+				processPackets = true;
 				switch (CurrentID) {
 					case DRIVE:
 						driveInit();

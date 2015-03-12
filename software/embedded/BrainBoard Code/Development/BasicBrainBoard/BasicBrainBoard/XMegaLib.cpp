@@ -95,5 +95,11 @@ void determineID(char * XmegaIDStr, XMEGAID & CurrentID){
 	
 }
 
+//Flushes the serial buffer that is passed into it
+void FlushSerialBuffer(USART_data_t *UsartBuffer){
+	while(USART_RXBufferData_Available(UsartBuffer)){
+		USART_RXBuffer_GetByte(UsartBuffer);
+	}
+}
 
 #endif
