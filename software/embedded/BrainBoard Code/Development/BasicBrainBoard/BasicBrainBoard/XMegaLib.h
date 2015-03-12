@@ -91,14 +91,16 @@ class armInfoObj {
 		armInfoObj();  //Constructor
 		//Arm Interface Functions (to be used in Arm.cpp)
 			/* Reading Functions */
-			uint8_t getXAxisValue(void);
-			uint8_t getYAxisValue(void);
-			ZAXISMODE getZAxisMode(void);
+			bool checkIfNewDataAvailable();  //Returns true if there is 'fresh' data (false once anything has been read)
+			uint8_t getXAxisValue(void);     //Returns the desired X-Axis value
+			uint8_t getYAxisValue(void);     //Returns the desired Y-Axis value
+			ZAXISMODE getZAxisMode(void);    //Returns an enum with the current mode configuration
 			bool needToInit(void);           //Returns a true if the 
 			/* Writing Functions */
-			void setGripSuccess(bool status);      //Pass true if sucessful grip, false otherwise (only call if grip is requested)
+			void setGripSuccess(bool status);      //Pass true if successful grip, false otherwise (only call if grip is requested)
 			void setActionsComplete(bool status);  //Pass true if done, false if error {According action To Be Defined}
-			//void sendPacket(void);  //Call when ready to send packet (TBI)
+
+			
 			
 		//ComputerInterface Interface  (not to be used in Arm.cpp)
 			volatile void setXYAxes(uint8_t xAxisInput, uint8_t yAxisInput);
@@ -107,26 +109,30 @@ class armInfoObj {
 		
 	private:
 		//General Functions
-		inline void readData();			  //Called whenever any information-reading members are called
-		inline void setData(); 			  //Called whenever any information-setting members are called
+		inline void readData(void);		//Called whenever any information-reading members are called
+		inline void setData(void); 		//Called whenever any information-setting members are called
+		inline void resetData(void);    //Resets all of the information into a neutral state
+		void sendPacket(void);  //Call when ready to send packet (TBImpleneted)
+		
 		//General Class Information Variables
-		bool newInformation;		  //Contains whether the information is new
-										//This is false whenever information has been
-										//read
+		bool newInformation;		    //Contains whether the information is 'fresh'
+										  //This is false whenever information has been
+										  //read (eg, 'stale')
 		//Data recieved from the computer
 		volatile uint8_t xAxisValue;  //Value of the X-Axis [3mm increments]
 		volatile uint8_t yAxisValue;  //Value of the Y-Axis [3mm increments]
-		volatile uint8_t zAxisMode;   //Mode of the Z-Axis
-										// 0 - Neutral Position
-										// 1 - Position 1 {TBD}
-										// 2 - Position 2 {TBD}
-										// 3 - Position 3 {TBD}
+		ZAXISMODE zAxisMode;  //Mode of the Z-Axis
+										// NEUTRAL - Neutral Position (Retracted)
+										// MODE1   - Position 1  {To be defined}
+										// MODE2   - Position 2  {To be defined}
+										// MODE3   - Position 3  {To be defined}
+										// ERROR   - Error state {To be defined}
 		volatile uint8_t initRobot;   //Run init / calibrate routine?
 										// 0 - Don't init
 										// 1 - Init now
 		
 		//Data sent to the computer
-		GRIPSTATUS gripSuccessStatus;      //Holds value of whether the grip was successful / attempted 
+		GRIPSTATUS gripSuccessStatus;    //Holds value of whether the grip was successful / attempted 
 											// NO_ATTEMPT - no grip was attempted
 											// SUCCESS - grip was successful
 											// FAIL - grip failed

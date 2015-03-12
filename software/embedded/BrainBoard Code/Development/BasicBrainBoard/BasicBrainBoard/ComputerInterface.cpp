@@ -55,9 +55,20 @@ void initializePacketProcessing(void){
 
 //Constructor
 armInfoObj::armInfoObj(void){
+	resetData();   //Init the data
+}
+
+void armInfoObj::resetData(){
 	newInformation = false;
-	
-	gripSuccessStatus = NO_ATTEMPT;  //Init the value as no attempt
+	gripSuccessStatus = NO_ATTEMPT; //Init the value as no attempt
+	actionsCompleteStatus = 0;      //No data to send
+}
+
+//Checks if the data is 'fresh'
+//This function will return false if data has been read out of the 
+	//object
+bool armInfoObj::checkIfNewDataAvailable(){
+	return newInformation;
 }
 
 //Returns the xAxisValue
@@ -77,8 +88,10 @@ uint8_t armInfoObj::getYAxisValue(void){
 ZAXISMODE armInfoObj::getZAxisMode(void) {
 	readData();
 	
+	return zAxisMode;
+	/*
 	//Switches based on the number stored in the variable
-	switch (zAxisMode) {
+	switch (ZAXISMODE) {
 		case 0:
 			return NEUTRAL;
 			break;
@@ -94,6 +107,7 @@ ZAXISMODE armInfoObj::getZAxisMode(void) {
 		default:
 			return ERROR;
 	}
+	*/
 }
 
 void armInfoObj::setGripSuccess(bool status){
@@ -113,20 +127,52 @@ void armInfoObj::setActionsComplete(bool status){
 		actionsCompleteStatus = 1;
 	else if (status == false)
 		actionsCompleteStatus = 2;
+		
+	sendPacket(); //Sends the packet to the computer
 }
 
-//Interface Functions
+/* End 'public' functions */
+
+/* Begin serial interface functions */
+
 volatile void armInfoObj::setXYAxes(uint8_t xAxisInput, uint8_t yAxisInput) {
 	setData();
 	xAxisValue = xAxisInput;
 	yAxisValue = yAxisInput;
 }
 
+
+//Takes in an uint8_t, parses it into the xAxisMode enum
+	// 0 - NEUTRAL - Neutral Position (Retracted)
+	// 1 - MODE1   - Position 1  {To be defined}
+	// 2 - MODE2   - Position 2  {To be defined}
+	// 3 - MODE3   - Position 3  {To be defined}
+	// 4 - ERROR   - Error state {To be defined}
 volatile void armInfoObj::setZMode(uint8_t modeInput) {
 	setData();
-	zAxisMode = modeInput;
+	
+	switch (modeInput) {
+		case 0:
+			zAxisMode = NEUTRAL;
+			break;
+		case 1:
+			zAxisMode = MODE1;
+			break;
+		case 2:
+			zAxisMode = MODE2;
+			break;
+		case 3:
+			zAxisMode = MODE3;
+			break;
+		default:
+			zAxisMode = ERROR;
+			break;
+	}
+	
 }
 
+// true  - init bit is set
+// false - init bit is not set
 volatile void armInfoObj::setInitMode(bool init){
 	setData();
 	if(init)
@@ -137,6 +183,8 @@ volatile void armInfoObj::setInitMode(bool init){
 
 /* Private Functions */
 
+//Flag that data has been read and there is no longer new data
+
 inline void armInfoObj::readData(){
 	newInformation = false;
 }
@@ -145,4 +193,4 @@ inline void armInfoObj::setData(){
 	newInformation = true;
 }
 
-
+/* End Private Functions */

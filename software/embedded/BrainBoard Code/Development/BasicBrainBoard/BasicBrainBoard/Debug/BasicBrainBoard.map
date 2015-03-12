@@ -27,21 +27,23 @@ Discarded input sections
  .data          0x00000000        0x0 ComputerInterface.o
  .bss           0x00000000        0x0 ComputerInterface.o
  .text._ZN10armInfoObjC2Ev
-                0x00000000        0x8 ComputerInterface.o
+                0x00000000        0xa ComputerInterface.o
+ .text._ZN10armInfoObj23checkIfNewDataAvailableEv
+                0x00000000        0x6 ComputerInterface.o
  .text._ZN10armInfoObj13getXAxisValueEv
                 0x00000000        0x8 ComputerInterface.o
  .text._ZN10armInfoObj13getYAxisValueEv
                 0x00000000        0x8 ComputerInterface.o
  .text._ZN10armInfoObj12getZAxisModeEv
-                0x00000000       0x2a ComputerInterface.o
+                0x00000000        0x8 ComputerInterface.o
  .text._ZN10armInfoObj14setGripSuccessEb
                 0x00000000       0x14 ComputerInterface.o
  .text._ZN10armInfoObj18setActionsCompleteEb
-                0x00000000       0x14 ComputerInterface.o
+                0x00000000       0x18 ComputerInterface.o
  .text._ZN10armInfoObj9setXYAxesEhh
                 0x00000000        0xc ComputerInterface.o
  .text._ZN10armInfoObj8setZModeEh
-                0x00000000        0xa ComputerInterface.o
+                0x00000000       0x3c ComputerInterface.o
  .text._ZN10armInfoObj11setInitModeEb
                 0x00000000       0x14 ComputerInterface.o
  .bss.sendBuffer
@@ -730,90 +732,90 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000      0x290
+.debug_aranges  0x00000000      0x298
  *(.debug_aranges)
  .debug_aranges
                 0x00000000       0x30 Arm.o
  .debug_aranges
                 0x00000030       0x68 BasicBrainBoard.o
  .debug_aranges
-                0x00000098       0x70 ComputerInterface.o
+                0x00000098       0x78 ComputerInterface.o
  .debug_aranges
-                0x00000108       0xc0 Drive.o
+                0x00000110       0xc0 Drive.o
  .debug_aranges
-                0x000001c8       0x28 Radio.o
+                0x000001d0       0x28 Radio.o
  .debug_aranges
-                0x000001f0       0x68 usart_driver.o
+                0x000001f8       0x68 usart_driver.o
  .debug_aranges
-                0x00000258       0x38 XMegaLib.o
+                0x00000260       0x38 XMegaLib.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x4365
+.debug_info     0x00000000     0x442a
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x386 Arm.o
  .debug_info    0x00000386     0x1704 BasicBrainBoard.o
- .debug_info    0x00001a8a      0x8a9 ComputerInterface.o
- .debug_info    0x00002333      0x9e4 Drive.o
- .debug_info    0x00002d17       0xa2 Radio.o
- .debug_info    0x00002db9      0x586 usart_driver.o
- .debug_info    0x0000333f     0x1026 XMegaLib.o
+ .debug_info    0x00001a8a      0x96e ComputerInterface.o
+ .debug_info    0x000023f8      0x9e4 Drive.o
+ .debug_info    0x00002ddc       0xa2 Radio.o
+ .debug_info    0x00002e7e      0x586 usart_driver.o
+ .debug_info    0x00003404     0x1026 XMegaLib.o
 
-.debug_abbrev   0x00000000      0xcfd
+.debug_abbrev   0x00000000      0xcf6
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x16e Arm.o
  .debug_abbrev  0x0000016e      0x29a BasicBrainBoard.o
- .debug_abbrev  0x00000408      0x2b7 ComputerInterface.o
- .debug_abbrev  0x000006bf      0x1f4 Drive.o
- .debug_abbrev  0x000008b3       0x45 Radio.o
- .debug_abbrev  0x000008f8      0x203 usart_driver.o
- .debug_abbrev  0x00000afb      0x202 XMegaLib.o
+ .debug_abbrev  0x00000408      0x2b0 ComputerInterface.o
+ .debug_abbrev  0x000006b8      0x1f4 Drive.o
+ .debug_abbrev  0x000008ac       0x45 Radio.o
+ .debug_abbrev  0x000008f1      0x203 usart_driver.o
+ .debug_abbrev  0x00000af4      0x202 XMegaLib.o
 
-.debug_line     0x00000000     0x142d
+.debug_line     0x00000000     0x1464
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x216 Arm.o
  .debug_line    0x00000216      0x40c BasicBrainBoard.o
- .debug_line    0x00000622      0x31c ComputerInterface.o
- .debug_line    0x0000093e      0x4a8 Drive.o
- .debug_line    0x00000de6       0x4c Radio.o
- .debug_line    0x00000e32      0x314 usart_driver.o
- .debug_line    0x00001146      0x2e7 XMegaLib.o
+ .debug_line    0x00000622      0x353 ComputerInterface.o
+ .debug_line    0x00000975      0x4a8 Drive.o
+ .debug_line    0x00000e1d       0x4c Radio.o
+ .debug_line    0x00000e69      0x314 usart_driver.o
+ .debug_line    0x0000117d      0x2e7 XMegaLib.o
 
-.debug_frame    0x00000000      0x828
+.debug_frame    0x00000000      0x838
  *(.debug_frame)
  .debug_frame   0x00000000       0x44 Arm.o
  .debug_frame   0x00000044      0x144 BasicBrainBoard.o
- .debug_frame   0x00000188      0x114 ComputerInterface.o
- .debug_frame   0x0000029c      0x434 Drive.o
- .debug_frame   0x000006d0       0x34 Radio.o
- .debug_frame   0x00000704       0xc4 usart_driver.o
- .debug_frame   0x000007c8       0x60 XMegaLib.o
+ .debug_frame   0x00000188      0x124 ComputerInterface.o
+ .debug_frame   0x000002ac      0x434 Drive.o
+ .debug_frame   0x000006e0       0x34 Radio.o
+ .debug_frame   0x00000714       0xc4 usart_driver.o
+ .debug_frame   0x000007d8       0x60 XMegaLib.o
 
-.debug_str      0x00000000     0x1787
+.debug_str      0x00000000     0x1811
  *(.debug_str)
  .debug_str     0x00000000      0x314 Arm.o
                                 0x348 (size before relaxing)
  .debug_str     0x00000314      0xc7e BasicBrainBoard.o
                                 0xfa9 (size before relaxing)
- .debug_str     0x00000f92      0x366 ComputerInterface.o
-                                0x757 (size before relaxing)
- .debug_str     0x000012f8      0x1ff Drive.o
+ .debug_str     0x00000f92      0x3f0 ComputerInterface.o
+                                0x7e9 (size before relaxing)
+ .debug_str     0x00001382      0x1ff Drive.o
                                 0x7bf (size before relaxing)
- .debug_str     0x000014f7        0xf Radio.o
+ .debug_str     0x00001581        0xf Radio.o
                                 0x1fd (size before relaxing)
- .debug_str     0x00001506      0x1a4 usart_driver.o
+ .debug_str     0x00001590      0x1a4 usart_driver.o
                                 0x494 (size before relaxing)
- .debug_str     0x000016aa       0xdd XMegaLib.o
+ .debug_str     0x00001734       0xdd XMegaLib.o
                                 0x8f4 (size before relaxing)
 
-.debug_loc      0x00000000     0x12b0
+.debug_loc      0x00000000     0x131f
  *(.debug_loc)
  .debug_loc     0x00000000      0x28b BasicBrainBoard.o
- .debug_loc     0x0000028b      0x1ad ComputerInterface.o
- .debug_loc     0x00000438      0x962 Drive.o
- .debug_loc     0x00000d9a      0x3ef usart_driver.o
- .debug_loc     0x00001189      0x127 XMegaLib.o
+ .debug_loc     0x0000028b      0x21c ComputerInterface.o
+ .debug_loc     0x000004a7      0x962 Drive.o
+ .debug_loc     0x00000e09      0x3ef usart_driver.o
+ .debug_loc     0x000011f8      0x127 XMegaLib.o
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -833,15 +835,15 @@ END GROUP
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x00000000      0x238
+.debug_ranges   0x00000000      0x240
  *(.debug_ranges)
  .debug_ranges  0x00000000       0x20 Arm.o
  .debug_ranges  0x00000020       0x70 BasicBrainBoard.o
- .debug_ranges  0x00000090       0x60 ComputerInterface.o
- .debug_ranges  0x000000f0       0xb0 Drive.o
- .debug_ranges  0x000001a0       0x18 Radio.o
- .debug_ranges  0x000001b8       0x58 usart_driver.o
- .debug_ranges  0x00000210       0x28 XMegaLib.o
+ .debug_ranges  0x00000090       0x68 ComputerInterface.o
+ .debug_ranges  0x000000f8       0xb0 Drive.o
+ .debug_ranges  0x000001a8       0x18 Radio.o
+ .debug_ranges  0x000001c0       0x58 usart_driver.o
+ .debug_ranges  0x00000218       0x28 XMegaLib.o
 
 .debug_macro
  *(.debug_macro)
