@@ -89,26 +89,28 @@ enum GRIPSTATUS {
 class armInfoObj {
 	public:
 		armInfoObj();  //Constructor
-		//Arm Interface Functions (to be used in Arm.cpp)
+		/** Arm Interface Functions (to be used in Arm.cpp) **/
+			
 			/* Reading Functions */
 			bool checkIfNewDataAvailable();  //Returns true if there is 'fresh' data (false once anything has been read)
 			uint8_t getXAxisValue(void);     //Returns the desired X-Axis value
 			uint8_t getYAxisValue(void);     //Returns the desired Y-Axis value
 			ZAXISMODE getZAxisMode(void);    //Returns an enum with the current mode configuration
-			bool needToInit(void);           //Returns a true if the 
+			bool needToInit(void);           //Returns a true if the recent packet has an init request
+			
 			/* Writing Functions */
 			void setGripSuccess(bool status);      //Pass true if successful grip, false otherwise (only call if grip is requested)
 			void setActionsComplete(bool status);  //Pass true if done, false if error {According action To Be Defined}
+													 //This should be the last func called, as it calles sendPacket(), and sends
+													 //a packet to the computer
 
-			
-			
-		//ComputerInterface Interface  (not to be used in Arm.cpp)
+		/** ComputerInterface Interface  (not to be used in Arm.cpp) **/
 			volatile void setXYAxes(uint8_t xAxisInput, uint8_t yAxisInput);
 			volatile void setZMode(uint8_t modeInput);
 			volatile void setInitMode(bool init);		
 		
 	private:
-		//General Functions
+		//General Private Functions
 		inline void readData(void);		//Called whenever any information-reading members are called
 		inline void setData(void); 		//Called whenever any information-setting members are called
 		inline void resetData(void);    //Resets all of the information into a neutral state
