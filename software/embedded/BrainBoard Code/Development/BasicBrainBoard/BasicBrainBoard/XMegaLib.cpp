@@ -60,7 +60,7 @@ void RGBSetColor(RGBColors choice){
 }
 
 
-//Initializes all I/O for the board
+//Initializes all I/O for the BrainBoard
 //Sets up DIR, and PULLUP/PULLDOWN Resistors, etc.
 void initializeIO(){
 	PORTC.DIRSET = (PIN5_bm); //Sets output LED (status/error)
@@ -138,25 +138,6 @@ ZAXISMODE armInfoObj::getZAxisMode(void) {
 	readData();
 	
 	return zAxisMode;
-	/*
-	//Switches based on the number stored in the variable
-	switch (ZAXISMODE) {
-		case 0:
-			return NEUTRAL;
-			break;
-		case 1:
-			return MODE1;
-			break;
-		case 2:
-			return MODE2;
-			break;
-		case 3:
-			return MODE3;
-			break;
-		default:
-			return ERROR;
-	}
-	*/
 }
 
 void armInfoObj::setGripSuccess(bool status){
@@ -232,7 +213,7 @@ volatile void armInfoObj::setInitMode(bool init){
 
 /* Private Functions */
 
-//Flag that data has been read and there is no longer new data
+//Flag that data has been read and there is no longer 'fresh' (new) data
 
 inline void armInfoObj::readData(){
 	newInformation = false;
@@ -243,8 +224,9 @@ inline void armInfoObj::setData(){
 }
 
 //Resets information that should be in a neutral state for every new packet
+	//This function is called by the constructor and at the end of sendPacket()
 void armInfoObj::resetData(){
-	newInformation = false;
+	newInformation = false;         //Initially there is no new information
 	gripSuccessStatus = NO_ATTEMPT; //Init the value as no attempt
 	actionsCompleteStatus = 0;      //No data to send
 }
@@ -252,9 +234,12 @@ void armInfoObj::resetData(){
 //Function that handles actually sending the packet information
 void armInfoObj::sendPacket(){
 	//Handles sending the packet to the computer
+	
+	resetData();
 }
 /* End Private Functions */
 
+/** End Arm Interface Object **/
 
 
 #endif

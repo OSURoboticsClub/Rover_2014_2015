@@ -100,7 +100,7 @@ class armInfoObj {
 			
 			/* Writing Functions */
 			void setGripSuccess(bool status);      //Pass true if successful grip, false otherwise (only call if grip is requested)
-			void setActionsComplete(bool status);  //Pass true if done, false if error {According action To Be Defined}
+			void setActionsComplete(bool status = true);  //Pass true if done, false if error {According action To Be Defined}
 													 //This should be the last func called, as it calles sendPacket(), and sends
 													 //a packet to the computer
 
