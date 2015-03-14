@@ -78,7 +78,7 @@ void initializeIO(){
 void determineID(char * XmegaIDStr, XMEGAID & CurrentID){
 	if      (!CHECK_DIP_SW_1() && !CHECK_DIP_SW_2()){
 		CurrentID = DRIVE;
-		strcpy(XmegaIDStr, "DRIVE");
+		strcpy(XmegaIDStr, "DRIVE_CAP");
 	}
 	else if (!CHECK_DIP_SW_1() && CHECK_DIP_SW_2()) {
 		CurrentID = ARM;
