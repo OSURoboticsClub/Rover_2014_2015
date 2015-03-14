@@ -23,50 +23,42 @@ This function exists inside a while(1) so it will loop itself forever
 */
 //DO NOT Connect to motor at this point without figuring out units and encoder, see comment below
 void driveMain(){
-	/*
+	
 	int check = 0;
-	Saber_init_uno();
-	char cmmd[5] = {'1', ',' , 's'};
-	SendStringSABER_UNO("1,start\n");
-	char speed[5] = {'0', '0', '0', '\n', '\0'};
+	//Saber_init_uno();
+	char cmmd[7] = {'1', ',' , 's','\0'};
+	//SendStringSABER_UNO("1,start\n");
+	char speed[4] = {'0', '0', '0', '\0'};
+	char back[2] = {'/n', '\0'};
 	int i = 0;
 	int rem = check;
-	while(1){
-	SendStringSABER_UNO("1,units 1 rotation = 2000 lines\n "); 
-	} 
-	while(1){
-		i = 0;
-		check = 0;
-		rem = check;
-		for(check = 0; check < 15; check++){
-			rem = check;
-			while(check){//converting int into the array
-				speed[i++] = check % 10; //last digit
-				check /= 10; //move number to the right
-				if(i == 3)
-					break;
-			}
-			check = rem;
-			i = 0;
+	
+	//SendStringSABER_UNO("1,units 1 rotation = 2000 lines\n "); 
+	/*
+	while(1){//For ramping!
+		for(i = 0; i < 15; i++){
+			convert(i,speed);
+			_delay_ms(500);
 			SendStringSABER_UNO(cmmd);
-			SendStringSABER_UNO(speed);		
-			_delay_ms(2000);
+			_delay_ms(500);
+			SendStringSABER_UNO(speed);
+			_delay_ms(500);
+			SendStringSABER_UNO(back);
+			_delay_ms(500);
 		}
 		_delay_ms(2000);
-		for(check; check < 0; check--){
-			rem = check;
-			while(check){//converting int into the array
-				speed[i++] = check % 10; //last digit
-				check /= 10; //move number to the right
-				if(i == 3)
-				break;
-			}
-			check = rem;
-			i = 0;
+		for(i; i == 0; i--){
+			convert(i,speed);
+			_delay_ms(500);
 			SendStringSABER_UNO(cmmd);
+			_delay_ms(500);
 			SendStringSABER_UNO(speed);
-			_delay_ms(2000);
+			_delay_ms(500);
+			SendStringSABER_UNO(back);
+			_delay_ms(500);
 		}
+		
+		
 	}*/
 	
 	//while(1){
@@ -85,12 +77,18 @@ void driveMain(){
 	SendStringSABER_UNO("1,s10 \n");
 	
 	while(1);
+	
 }
 
 
 void driveInit() {
 	//This code is ran once before driveMain is run forever
 }
+
+void convert(int num, char* box){
+	sprintf(box,"%d",num);	
+}
+
 
 //Drive saber send functions start
 void SendStringSABER_UNO(char *present){

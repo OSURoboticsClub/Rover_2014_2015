@@ -82,7 +82,7 @@ void SendStringSABER_UNO(char *present);
 void SendStringSABER_DOS(char *present);
 void SendStringSaber_TRES(char *present);
 
-
+void convert(int num, char* box);
 
 /**** END Function Prototypes ****/
 

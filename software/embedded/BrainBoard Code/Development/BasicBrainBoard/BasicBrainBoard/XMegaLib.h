@@ -19,6 +19,7 @@
 extern "C"{
 	#include "usart_driver.h"
 	#include "avr_compiler.h"
+	#include <stdio.h>
 };
 
 #include "BrainBoard.h"

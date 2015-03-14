@@ -5,27 +5,27 @@ Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
   0 .text         00000b98  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         0000004e  00802000  00000b98  00000c2c  2**0
+  1 .data         00000050  00802000  00000b98  00000c2c  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .bss          0000005c  0080204e  0080204e  00000c7a  2**0
+  2 .bss          0000005c  00802050  00802050  00000c7c  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  00000c7a  2**0
+  3 .comment      0000005c  00000000  00000000  00000c7c  2**0
                   CONTENTS, READONLY
-  4 .debug_aranges 00000250  00000000  00000000  00000caa  2**0
+  4 .debug_aranges 00000258  00000000  00000000  00000cd8  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   00003c28  00000000  00000000  00000efa  2**0
+  5 .debug_info   00003d5f  00000000  00000000  00000f30  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 00000b23  00000000  00000000  00004b22  2**0
+  6 .debug_abbrev 00000b86  00000000  00000000  00004c8f  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   000012e8  00000000  00000000  00005645  2**0
+  7 .debug_line   0000130c  00000000  00000000  00005815  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  00000764  00000000  00000000  00006930  2**2
+  8 .debug_frame  0000078c  00000000  00000000  00006b24  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    00001404  00000000  00000000  00007094  2**0
+  9 .debug_str    00001438  00000000  00000000  000072b0  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    00001169  00000000  00000000  00008498  2**0
+ 10 .debug_loc    00001225  00000000  00000000  000086e8  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 000001e0  00000000  00000000  00009601  2**0
+ 11 .debug_ranges 000001e8  00000000  00000000  0000990d  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -314,13 +314,13 @@ Disassembly of section .text:
  228:	02 c0       	rjmp	.+4      	; 0x22e <__do_copy_data+0x14>
  22a:	07 90       	elpm	r0, Z+
  22c:	0d 92       	st	X+, r0
- 22e:	ae 34       	cpi	r26, 0x4E	; 78
+ 22e:	a0 35       	cpi	r26, 0x50	; 80
  230:	b1 07       	cpc	r27, r17
  232:	d9 f7       	brne	.-10     	; 0x22a <__do_copy_data+0x10>
 
 00000234 <__do_clear_bss>:
  234:	20 e2       	ldi	r18, 0x20	; 32
- 236:	ae e4       	ldi	r26, 0x4E	; 78
+ 236:	a0 e5       	ldi	r26, 0x50	; 80
  238:	b0 e2       	ldi	r27, 0x20	; 32
  23a:	01 c0       	rjmp	.+2      	; 0x23e <.do_clear_bss_start>
 
@@ -328,7 +328,7 @@ Disassembly of section .text:
  23c:	1d 92       	st	X+, r1
 
 0000023e <.do_clear_bss_start>:
- 23e:	aa 3a       	cpi	r26, 0xAA	; 170
+ 23e:	ac 3a       	cpi	r26, 0xAC	; 172
  240:	b2 07       	cpc	r27, r18
  242:	e1 f7       	brne	.-8      	; 0x23c <.do_clear_bss_loop>
  244:	f7 d0       	rcall	.+494    	; 0x434 <main>
@@ -499,7 +499,7 @@ void debugMain(){
  314:	bf 93       	push	r27
  316:	ef 93       	push	r30
  318:	ff 93       	push	r31
- 31a:	80 e5       	ldi	r24, 0x50	; 80
+ 31a:	82 e5       	ldi	r24, 0x52	; 82
  31c:	90 e2       	ldi	r25, 0x20	; 32
  31e:	3c d3       	rcall	.+1656   	; 0x998 <USART_DataRegEmpty>
  320:	ff 91       	pop	r31
@@ -541,12 +541,12 @@ void uart_init(void){
  352:	41 e0       	ldi	r20, 0x01	; 1
  354:	60 ea       	ldi	r22, 0xA0	; 160
  356:	78 e0       	ldi	r23, 0x08	; 8
- 358:	80 e5       	ldi	r24, 0x50	; 80
+ 358:	82 e5       	ldi	r24, 0x52	; 82
  35a:	90 e2       	ldi	r25, 0x20	; 32
  35c:	eb d2       	rcall	.+1494   	; 0x934 <USART_InterruptDriver_Initialize>
 	USART_Format_Set(USART_PC_Data.usart, USART_CHSIZE_8BIT_gc, USART_PMODE_DISABLED_gc, false);	//Set the data format of 8 bits, no parity, 1 stop bit
- 35e:	e0 91 50 20 	lds	r30, 0x2050
- 362:	f0 91 51 20 	lds	r31, 0x2051
+ 35e:	e0 91 52 20 	lds	r30, 0x2052
+ 362:	f0 91 53 20 	lds	r31, 0x2053
  366:	83 e0       	ldi	r24, 0x03	; 3
  368:	85 83       	std	Z+5, r24	; 0x05
 	USART_RxdInterruptLevel_Set(USART_PC_Data.usart, USART_RXCINTLVL_LO_gc);						//Enable the receive interrupt
@@ -774,7 +774,7 @@ int main(void)
     { 
 		
 		switch (CurrentState){
- 466:	90 91 4e 20 	lds	r25, 0x204E
+ 466:	90 91 50 20 	lds	r25, 0x2050
  46a:	91 30       	cpi	r25, 0x01	; 1
  46c:	c1 f0       	breq	.+48     	; 0x49e <main+0x6a>
  46e:	18 f0       	brcs	.+6      	; 0x476 <main+0x42>
@@ -786,16 +786,16 @@ int main(void)
  476:	80 e0       	ldi	r24, 0x00	; 0
  478:	a9 d2       	rcall	.+1362   	; 0x9cc <_Z11RGBSetColor9RGBColors>
 				if(USART_RXBufferData_Available(&USART_PC_Data)){
- 47a:	80 e5       	ldi	r24, 0x50	; 80
+ 47a:	82 e5       	ldi	r24, 0x52	; 82
  47c:	90 e2       	ldi	r25, 0x20	; 32
  47e:	63 d2       	rcall	.+1222   	; 0x946 <USART_RXBufferData_Available>
  480:	88 23       	and	r24, r24
  482:	89 f3       	breq	.-30     	; 0x466 <main+0x32>
 					recieveChar = USART_RXBuffer_GetByte(&USART_PC_Data);  //Read character off of buffer
- 484:	80 e5       	ldi	r24, 0x50	; 80
+ 484:	82 e5       	ldi	r24, 0x52	; 82
  486:	90 e2       	ldi	r25, 0x20	; 32
  488:	66 d2       	rcall	.+1228   	; 0x956 <USART_RXBuffer_GetByte>
- 48a:	80 93 4f 20 	sts	0x204F, r24
+ 48a:	80 93 51 20 	sts	0x2051, r24
 					if (recieveChar == 'p'){
  48e:	80 37       	cpi	r24, 0x70	; 112
  490:	51 f7       	brne	.-44     	; 0x466 <main+0x32>
@@ -804,7 +804,7 @@ int main(void)
  494:	01 96       	adiw	r24, 0x01	; 1
  496:	a5 df       	rcall	.-182    	; 0x3e2 <_Z12SendStringPCPc>
 						CurrentState = WaitForReady;
- 498:	10 93 4e 20 	sts	0x204E, r17
+ 498:	10 93 50 20 	sts	0x2050, r17
  49c:	e4 cf       	rjmp	.-56     	; 0x466 <main+0x32>
 					}
 					//else, do nothing and wait for more chars
@@ -816,20 +816,20 @@ int main(void)
  4a0:	95 d2       	rcall	.+1322   	; 0x9cc <_Z11RGBSetColor9RGBColors>
 				char recieveChar;
 				if(USART_RXBufferData_Available(&USART_PC_Data)){
- 4a2:	80 e5       	ldi	r24, 0x50	; 80
+ 4a2:	82 e5       	ldi	r24, 0x52	; 82
  4a4:	90 e2       	ldi	r25, 0x20	; 32
  4a6:	4f d2       	rcall	.+1182   	; 0x946 <USART_RXBufferData_Available>
  4a8:	88 23       	and	r24, r24
  4aa:	e9 f2       	breq	.-70     	; 0x466 <main+0x32>
 					recieveChar = USART_RXBuffer_GetByte(&USART_PC_Data);  //Read character off of buffer
- 4ac:	80 e5       	ldi	r24, 0x50	; 80
+ 4ac:	82 e5       	ldi	r24, 0x52	; 82
  4ae:	90 e2       	ldi	r25, 0x20	; 32
  4b0:	52 d2       	rcall	.+1188   	; 0x956 <USART_RXBuffer_GetByte>
 					if (recieveChar == 'r'){
  4b2:	82 37       	cpi	r24, 0x72	; 114
  4b4:	c1 f6       	brne	.-80     	; 0x466 <main+0x32>
 						CurrentState = MainProgram;
- 4b6:	00 93 4e 20 	sts	0x204E, r16
+ 4b6:	00 93 50 20 	sts	0x2050, r16
  4ba:	d5 cf       	rjmp	.-86     	; 0x466 <main+0x32>
 					}
 					//else, do nothing and wait for more chars
@@ -903,7 +903,7 @@ ISR(USARTC0_RXC_vect){
  508:	ef 93       	push	r30
  50a:	ff 93       	push	r31
 	USART_RXComplete(&USART_PC_Data);
- 50c:	80 e5       	ldi	r24, 0x50	; 80
+ 50c:	82 e5       	ldi	r24, 0x52	; 82
  50e:	90 e2       	ldi	r25, 0x20	; 32
  510:	2e d2       	rcall	.+1116   	; 0x96e <USART_RXComplete>
  512:	ff 91       	pop	r31
@@ -952,7 +952,7 @@ void SendStringSABER_TRES(char *present){
  558:	bf 93       	push	r27
  55a:	ef 93       	push	r30
  55c:	ff 93       	push	r31
- 55e:	8b e9       	ldi	r24, 0x9B	; 155
+ 55e:	8d e9       	ldi	r24, 0x9D	; 157
  560:	90 e2       	ldi	r25, 0x20	; 32
  562:	05 d2       	rcall	.+1034   	; 0x96e <USART_RXComplete>
  564:	ff 91       	pop	r31
@@ -995,7 +995,7 @@ void SendStringSABER_TRES(char *present){
  5aa:	bf 93       	push	r27
  5ac:	ef 93       	push	r30
  5ae:	ff 93       	push	r31
- 5b0:	8b e9       	ldi	r24, 0x9B	; 155
+ 5b0:	8d e9       	ldi	r24, 0x9D	; 157
  5b2:	90 e2       	ldi	r25, 0x20	; 32
  5b4:	f1 d1       	rcall	.+994    	; 0x998 <USART_DataRegEmpty>
  5b6:	ff 91       	pop	r31
@@ -1038,7 +1038,7 @@ void SendStringSABER_TRES(char *present){
  5fc:	bf 93       	push	r27
  5fe:	ef 93       	push	r30
  600:	ff 93       	push	r31
- 602:	8c e8       	ldi	r24, 0x8C	; 140
+ 602:	8e e8       	ldi	r24, 0x8E	; 142
  604:	90 e2       	ldi	r25, 0x20	; 32
  606:	b3 d1       	rcall	.+870    	; 0x96e <USART_RXComplete>
  608:	ff 91       	pop	r31
@@ -1081,7 +1081,7 @@ void SendStringSABER_TRES(char *present){
  64e:	bf 93       	push	r27
  650:	ef 93       	push	r30
  652:	ff 93       	push	r31
- 654:	8c e8       	ldi	r24, 0x8C	; 140
+ 654:	8e e8       	ldi	r24, 0x8E	; 142
  656:	90 e2       	ldi	r25, 0x20	; 32
  658:	9f d1       	rcall	.+830    	; 0x998 <USART_DataRegEmpty>
  65a:	ff 91       	pop	r31
@@ -1124,7 +1124,7 @@ void SendStringSABER_TRES(char *present){
  6a0:	bf 93       	push	r27
  6a2:	ef 93       	push	r30
  6a4:	ff 93       	push	r31
- 6a6:	8d e7       	ldi	r24, 0x7D	; 125
+ 6a6:	8f e7       	ldi	r24, 0x7F	; 127
  6a8:	90 e2       	ldi	r25, 0x20	; 32
  6aa:	61 d1       	rcall	.+706    	; 0x96e <USART_RXComplete>
  6ac:	ff 91       	pop	r31
@@ -1167,7 +1167,7 @@ void SendStringSABER_TRES(char *present){
  6f2:	bf 93       	push	r27
  6f4:	ef 93       	push	r30
  6f6:	ff 93       	push	r31
- 6f8:	8d e7       	ldi	r24, 0x7D	; 125
+ 6f8:	8f e7       	ldi	r24, 0x7F	; 127
  6fa:	90 e2       	ldi	r25, 0x20	; 32
  6fc:	4d d1       	rcall	.+666    	; 0x998 <USART_DataRegEmpty>
  6fe:	ff 91       	pop	r31
@@ -1210,7 +1210,7 @@ void SendStringSABER_TRES(char *present){
  744:	bf 93       	push	r27
  746:	ef 93       	push	r30
  748:	ff 93       	push	r31
- 74a:	8e e6       	ldi	r24, 0x6E	; 110
+ 74a:	80 e7       	ldi	r24, 0x70	; 112
  74c:	90 e2       	ldi	r25, 0x20	; 32
  74e:	0f d1       	rcall	.+542    	; 0x96e <USART_RXComplete>
  750:	ff 91       	pop	r31
@@ -1253,7 +1253,7 @@ void SendStringSABER_TRES(char *present){
  796:	bf 93       	push	r27
  798:	ef 93       	push	r30
  79a:	ff 93       	push	r31
- 79c:	8e e6       	ldi	r24, 0x6E	; 110
+ 79c:	80 e7       	ldi	r24, 0x70	; 112
  79e:	90 e2       	ldi	r25, 0x20	; 32
  7a0:	fb d0       	rcall	.+502    	; 0x998 <USART_DataRegEmpty>
  7a2:	ff 91       	pop	r31
@@ -1296,7 +1296,7 @@ void SendStringSABER_TRES(char *present){
  7e8:	bf 93       	push	r27
  7ea:	ef 93       	push	r30
  7ec:	ff 93       	push	r31
- 7ee:	8f e5       	ldi	r24, 0x5F	; 95
+ 7ee:	81 e6       	ldi	r24, 0x61	; 97
  7f0:	90 e2       	ldi	r25, 0x20	; 32
  7f2:	bd d0       	rcall	.+378    	; 0x96e <USART_RXComplete>
  7f4:	ff 91       	pop	r31
@@ -1339,7 +1339,7 @@ void SendStringSABER_TRES(char *present){
  83a:	bf 93       	push	r27
  83c:	ef 93       	push	r30
  83e:	ff 93       	push	r31
- 840:	8f e5       	ldi	r24, 0x5F	; 95
+ 840:	81 e6       	ldi	r24, 0x61	; 97
  842:	90 e2       	ldi	r25, 0x20	; 32
  844:	a9 d0       	rcall	.+338    	; 0x998 <USART_DataRegEmpty>
  846:	ff 91       	pop	r31
@@ -1402,12 +1402,12 @@ void Saber_init_uno(){	//USARTE0
  89a:	41 e0       	ldi	r20, 0x01	; 1
  89c:	60 ea       	ldi	r22, 0xA0	; 160
  89e:	7a e0       	ldi	r23, 0x0A	; 10
- 8a0:	8b e9       	ldi	r24, 0x9B	; 155
+ 8a0:	8d e9       	ldi	r24, 0x9D	; 157
  8a2:	90 e2       	ldi	r25, 0x20	; 32
  8a4:	47 d0       	rcall	.+142    	; 0x934 <USART_InterruptDriver_Initialize>
 	USART_Format_Set(SABER_UNO.usart, USART_CHSIZE_8BIT_gc, USART_PMODE_DISABLED_gc, false);	//Set the data format of 8 bits, no parity, 1 stop bit
- 8a6:	e0 91 9b 20 	lds	r30, 0x209B
- 8aa:	f0 91 9c 20 	lds	r31, 0x209C
+ 8a6:	e0 91 9d 20 	lds	r30, 0x209D
+ 8aa:	f0 91 9e 20 	lds	r31, 0x209E
  8ae:	83 e0       	ldi	r24, 0x03	; 3
  8b0:	85 83       	std	Z+5, r24	; 0x05
 	USART_RxdInterruptLevel_Set(SABER_UNO.usart, USART_RXCINTLVL_LO_gc);						//Enable the receive interrupt
@@ -1457,10 +1457,10 @@ void Saber_init_uno(){	//USARTE0
  8e6:	e1 f7       	brne	.-8      	; 0x8e0 <_Z9driveMainv+0x8>
  8e8:	00 c0       	rjmp	.+0      	; 0x8ea <_Z9driveMainv+0x12>
  8ea:	00 00       	nop
-	
+	//super useless comment
 	_delay_ms(1000);
 	SendStringSABER_UNO("1,start \n");
- 8ec:	80 e0       	ldi	r24, 0x00	; 0
+ 8ec:	83 e0       	ldi	r24, 0x03	; 3
  8ee:	90 e2       	ldi	r25, 0x20	; 32
  8f0:	be df       	rcall	.-132    	; 0x86e <_Z19SendStringSABER_UNOPc>
  8f2:	2f ef       	ldi	r18, 0xFF	; 255
@@ -1474,15 +1474,15 @@ void Saber_init_uno(){	//USARTE0
  902:	00 00       	nop
 	_delay_ms(1000);
 	SendStringSABER_UNO("1,units ");
- 904:	8a e0       	ldi	r24, 0x0A	; 10
+ 904:	8d e0       	ldi	r24, 0x0D	; 13
  906:	90 e2       	ldi	r25, 0x20	; 32
  908:	b2 df       	rcall	.-156    	; 0x86e <_Z19SendStringSABER_UNOPc>
 	SendStringSABER_UNO(("1 rotation = 2000 "));
- 90a:	83 e1       	ldi	r24, 0x13	; 19
+ 90a:	86 e1       	ldi	r24, 0x16	; 22
  90c:	90 e2       	ldi	r25, 0x20	; 32
  90e:	af df       	rcall	.-162    	; 0x86e <_Z19SendStringSABER_UNOPc>
 	SendStringSABER_UNO("lines \n");
- 910:	86 e2       	ldi	r24, 0x26	; 38
+ 910:	89 e2       	ldi	r24, 0x29	; 41
  912:	90 e2       	ldi	r25, 0x20	; 32
  914:	ac df       	rcall	.-168    	; 0x86e <_Z19SendStringSABER_UNOPc>
  916:	2f ef       	ldi	r18, 0xFF	; 255
@@ -1496,7 +1496,7 @@ void Saber_init_uno(){	//USARTE0
  926:	00 00       	nop
 	_delay_ms(1000);
 	SendStringSABER_UNO("1,s10 \n");
- 928:	8e e2       	ldi	r24, 0x2E	; 46
+ 928:	81 e3       	ldi	r24, 0x31	; 49
  92a:	90 e2       	ldi	r25, 0x20	; 32
  92c:	a0 df       	rcall	.-192    	; 0x86e <_Z19SendStringSABER_UNOPc>
  92e:	ff cf       	rjmp	.-2      	; 0x92e <_Z9driveMainv+0x56>
@@ -1961,7 +1961,7 @@ void determineID(char * XmegaIDStr, XMEGAID & CurrentID){
  b12:	10 82       	st	Z, r1
 		strcpy(XmegaIDStr, "DRIVE");
  b14:	26 e0       	ldi	r18, 0x06	; 6
- b16:	e6 e3       	ldi	r30, 0x36	; 54
+ b16:	e9 e3       	ldi	r30, 0x39	; 57
  b18:	f0 e2       	ldi	r31, 0x20	; 32
  b1a:	dc 01       	movw	r26, r24
  b1c:	01 90       	ld	r0, Z+
@@ -2000,7 +2000,7 @@ void determineID(char * XmegaIDStr, XMEGAID & CurrentID){
  b50:	20 83       	st	Z, r18
 		strcpy(XmegaIDStr, "RADIO");
  b52:	26 e0       	ldi	r18, 0x06	; 6
- b54:	ec e3       	ldi	r30, 0x3C	; 60
+ b54:	ef e3       	ldi	r30, 0x3F	; 63
  b56:	f0 e2       	ldi	r31, 0x20	; 32
  b58:	dc 01       	movw	r26, r24
  b5a:	01 90       	ld	r0, Z+
@@ -2022,7 +2022,7 @@ void determineID(char * XmegaIDStr, XMEGAID & CurrentID){
  b74:	20 83       	st	Z, r18
 		strcpy(XmegaIDStr, "DEBUG_MODE");
  b76:	2b e0       	ldi	r18, 0x0B	; 11
- b78:	e2 e4       	ldi	r30, 0x42	; 66
+ b78:	e5 e4       	ldi	r30, 0x45	; 69
  b7a:	f0 e2       	ldi	r31, 0x20	; 32
  b7c:	dc 01       	movw	r26, r24
  b7e:	01 90       	ld	r0, Z+

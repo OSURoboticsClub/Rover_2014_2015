@@ -8,6 +8,18 @@ c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-t
                               Drive.o (__do_copy_data)
 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_clear_bss.o)
                               BasicBrainBoard.o (__do_clear_bss)
+c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6\libc.a(sprintf.o)
+                              Drive.o (sprintf)
+c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6\libc.a(vfprintf_std.o)
+                              c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6\libc.a(sprintf.o) (vfprintf)
+c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6\libc.a(strnlen_P.o)
+                              c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6\libc.a(vfprintf_std.o) (strnlen_P)
+c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6\libc.a(strnlen.o)
+                              c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6\libc.a(vfprintf_std.o) (strnlen)
+c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6\libc.a(fputc.o)
+                              c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6\libc.a(vfprintf_std.o) (fputc)
+c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6\libc.a(ultoa_invert.o)
+                              c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6\libc.a(vfprintf_std.o) (__ultoa_invert)
 
 Discarded input sections
 
@@ -26,6 +38,8 @@ Discarded input sections
  .bss           0x00000000        0x0 Debug.o
  .text          0x00000000        0x0 Drive.o
  .bss           0x00000000        0x0 Drive.o
+ .text._Z7convertiPc
+                0x00000000       0x22 Drive.o
  .text._Z19SendStringSABER_DOSPc
                 0x00000000       0x20 Drive.o
  .text._Z20SendStringSABER_TRESPc
@@ -115,6 +129,30 @@ Discarded input sections
                 0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_clear_bss.o)
  .text.libgcc.fixed
                 0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_clear_bss.o)
+ .text          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6\libc.a(sprintf.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6\libc.a(sprintf.o)
+ .text.avr-libc
+                0x00000000       0x52 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6\libc.a(sprintf.o)
+ .text          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6\libc.a(vfprintf_std.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6\libc.a(vfprintf_std.o)
+ .text.avr-libc
+                0x00000000      0x3ea c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6\libc.a(vfprintf_std.o)
+ .text          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6\libc.a(strnlen_P.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6\libc.a(strnlen_P.o)
+ .text.avr-libc
+                0x00000000       0x16 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6\libc.a(strnlen_P.o)
+ .text          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6\libc.a(strnlen.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6\libc.a(strnlen.o)
+ .text.avr-libc
+                0x00000000       0x16 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6\libc.a(strnlen.o)
+ .text          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6\libc.a(fputc.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6\libc.a(fputc.o)
+ .text.avr-libc
+                0x00000000       0x64 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6\libc.a(fputc.o)
+ .text          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6\libc.a(ultoa_invert.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6\libc.a(ultoa_invert.o)
+ .text.avr-libc
+                0x00000000       0xbc c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6\libc.a(ultoa_invert.o)
 
 Memory Configuration
 
@@ -551,7 +589,7 @@ END GROUP
  *(.fini0)
                 0x00000b98                _etext = .
 
-.data           0x00802000       0x4e load address 0x00000b98
+.data           0x00802000       0x50 load address 0x00000b98
                 0x00802000                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00802000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6/crtx128a3u.o
@@ -567,58 +605,63 @@ END GROUP
  .data          0x00802000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_tablejump.o)
  .data          0x00802000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_copy_data.o)
  .data          0x00802000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avrxmega6\libgcc.a(_clear_bss.o)
+ .data          0x00802000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6\libc.a(sprintf.o)
+ .data          0x00802000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6\libc.a(vfprintf_std.o)
+ .data          0x00802000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6\libc.a(strnlen_P.o)
+ .data          0x00802000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6\libc.a(strnlen.o)
+ .data          0x00802000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6\libc.a(fputc.o)
+ .data          0x00802000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6\libc.a(ultoa_invert.o)
  *(.data*)
  *(.rodata)
  *(.rodata*)
  .rodata.str1.1
-                0x00802000       0x36 Drive.o
+                0x00802000       0x39 Drive.o
  .rodata.str1.1
-                0x00802036       0x17 XMegaLib.o
+                0x00802039       0x17 XMegaLib.o
  *(.gnu.linkonce.d*)
-                0x0080204e                . = ALIGN (0x2)
- *fill*         0x0080204d        0x1 
-                0x0080204e                _edata = .
-                0x0080204e                PROVIDE (__data_end, .)
+                0x00802050                . = ALIGN (0x2)
+                0x00802050                _edata = .
+                0x00802050                PROVIDE (__data_end, .)
 
-.bss            0x0080204e       0x5c
-                0x0080204e                PROVIDE (__bss_start, .)
+.bss            0x00802050       0x5c
+                0x00802050                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
  .bss.CurrentState
-                0x0080204e        0x1 BasicBrainBoard.o
-                0x0080204e                CurrentState
+                0x00802050        0x1 BasicBrainBoard.o
+                0x00802050                CurrentState
  .bss.recieveChar
-                0x0080204f        0x1 BasicBrainBoard.o
-                0x0080204f                recieveChar
+                0x00802051        0x1 BasicBrainBoard.o
+                0x00802051                recieveChar
  .bss.USART_PC_Data
-                0x00802050        0xf BasicBrainBoard.o
-                0x00802050                USART_PC_Data
+                0x00802052        0xf BasicBrainBoard.o
+                0x00802052                USART_PC_Data
  .bss.GIMBAL_USART
-                0x0080205f        0xf Drive.o
-                0x0080205f                GIMBAL_USART
+                0x00802061        0xf Drive.o
+                0x00802061                GIMBAL_USART
  .bss.ARM_USART
-                0x0080206e        0xf Drive.o
-                0x0080206e                ARM_USART
+                0x00802070        0xf Drive.o
+                0x00802070                ARM_USART
  .bss.SABER_TRES
-                0x0080207d        0xf Drive.o
-                0x0080207d                SABER_TRES
+                0x0080207f        0xf Drive.o
+                0x0080207f                SABER_TRES
  .bss.SABER_DOS
-                0x0080208c        0xf Drive.o
-                0x0080208c                SABER_DOS
+                0x0080208e        0xf Drive.o
+                0x0080208e                SABER_DOS
  .bss.SABER_UNO
-                0x0080209b        0xf Drive.o
-                0x0080209b                SABER_UNO
+                0x0080209d        0xf Drive.o
+                0x0080209d                SABER_UNO
  *(COMMON)
-                0x008020aa                PROVIDE (__bss_end, .)
+                0x008020ac                PROVIDE (__bss_end, .)
                 0x00000b98                __data_load_start = LOADADDR (.data)
-                0x00000be6                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x00000be8                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x008020aa        0x0
-                0x008020aa                PROVIDE (__noinit_start, .)
+.noinit         0x008020ac        0x0
+                0x008020ac                PROVIDE (__noinit_start, .)
  *(.noinit*)
-                0x008020aa                PROVIDE (__noinit_end, .)
-                0x008020aa                _end = .
-                0x008020aa                PROVIDE (__heap_start, .)
+                0x008020ac                PROVIDE (__noinit_end, .)
+                0x008020ac                _end = .
+                0x008020ac                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
  *(.eeprom*)
@@ -657,7 +700,7 @@ END GROUP
 .stab.indexstr
  *(.stab.indexstr)
 
-.comment        0x00000000       0x30
+.comment        0x00000000       0x5c
  *(.comment)
  .comment       0x00000000       0x30 Arm.o
                                  0x31 (size before relaxing)
@@ -668,6 +711,10 @@ END GROUP
  .comment       0x00000000       0x31 Radio.o
  .comment       0x00000000       0x31 usart_driver.o
  .comment       0x00000000       0x31 XMegaLib.o
+ .comment       0x00000000       0x31 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6\libc.a(sprintf.o)
+ .comment       0x00000030       0x2c c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6\libc.a(vfprintf_std.o)
+                                 0x2d (size before relaxing)
+ .comment       0x00000000       0x31 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avrxmega6\libc.a(fputc.o)
 
 .note.gnu.build-id
  *(.note.gnu.build-id)
@@ -684,7 +731,7 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000      0x250
+.debug_aranges  0x00000000      0x258
  *(.debug_aranges)
  .debug_aranges
                 0x00000000       0x30 Arm.o
@@ -695,86 +742,86 @@ END GROUP
  .debug_aranges
                 0x000000b8       0x18 Debug.o
  .debug_aranges
-                0x000000d0       0xc0 Drive.o
+                0x000000d0       0xc8 Drive.o
  .debug_aranges
-                0x00000190       0x28 Radio.o
+                0x00000198       0x28 Radio.o
  .debug_aranges
-                0x000001b8       0x68 usart_driver.o
+                0x000001c0       0x68 usart_driver.o
  .debug_aranges
-                0x00000220       0x30 XMegaLib.o
+                0x00000228       0x30 XMegaLib.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x3c28
+.debug_info     0x00000000     0x3d5f
  *(.debug_info .gnu.linkonce.wi.*)
- .debug_info    0x00000000      0x37f Arm.o
- .debug_info    0x0000037f     0x16be BasicBrainBoard.o
- .debug_info    0x00001a3d      0x269 ComputerInterface.o
- .debug_info    0x00001ca6       0x5d Debug.o
- .debug_info    0x00001d03      0xb02 Drive.o
- .debug_info    0x00002805       0x9b Radio.o
- .debug_info    0x000028a0      0x586 usart_driver.o
- .debug_info    0x00002e26      0xe02 XMegaLib.o
+ .debug_info    0x00000000      0x386 Arm.o
+ .debug_info    0x00000386     0x16be BasicBrainBoard.o
+ .debug_info    0x00001a44      0x270 ComputerInterface.o
+ .debug_info    0x00001cb4       0x64 Debug.o
+ .debug_info    0x00001d18      0xc1d Drive.o
+ .debug_info    0x00002935       0xa2 Radio.o
+ .debug_info    0x000029d7      0x586 usart_driver.o
+ .debug_info    0x00002f5d      0xe02 XMegaLib.o
 
-.debug_abbrev   0x00000000      0xb23
+.debug_abbrev   0x00000000      0xb86
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x16e Arm.o
  .debug_abbrev  0x0000016e      0x29a BasicBrainBoard.o
  .debug_abbrev  0x00000408      0x119 ComputerInterface.o
  .debug_abbrev  0x00000521       0x26 Debug.o
- .debug_abbrev  0x00000547      0x23b Drive.o
- .debug_abbrev  0x00000782       0x45 Radio.o
- .debug_abbrev  0x000007c7      0x203 usart_driver.o
- .debug_abbrev  0x000009ca      0x159 XMegaLib.o
+ .debug_abbrev  0x00000547      0x29e Drive.o
+ .debug_abbrev  0x000007e5       0x45 Radio.o
+ .debug_abbrev  0x0000082a      0x203 usart_driver.o
+ .debug_abbrev  0x00000a2d      0x159 XMegaLib.o
 
-.debug_line     0x00000000     0x12e8
+.debug_line     0x00000000     0x130c
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x216 Arm.o
  .debug_line    0x00000216      0x3fa BasicBrainBoard.o
  .debug_line    0x00000610      0x15d ComputerInterface.o
  .debug_line    0x0000076d       0x1a Debug.o
- .debug_line    0x00000787      0x559 Drive.o
- .debug_line    0x00000ce0       0x4c Radio.o
- .debug_line    0x00000d2c      0x314 usart_driver.o
- .debug_line    0x00001040      0x2a8 XMegaLib.o
+ .debug_line    0x00000787      0x57d Drive.o
+ .debug_line    0x00000d04       0x4c Radio.o
+ .debug_line    0x00000d50      0x314 usart_driver.o
+ .debug_line    0x00001064      0x2a8 XMegaLib.o
 
-.debug_frame    0x00000000      0x764
+.debug_frame    0x00000000      0x78c
  *(.debug_frame)
  .debug_frame   0x00000000       0x44 Arm.o
  .debug_frame   0x00000044      0x144 BasicBrainBoard.o
  .debug_frame   0x00000188       0x6c ComputerInterface.o
- .debug_frame   0x000001f4      0x434 Drive.o
- .debug_frame   0x00000628       0x34 Radio.o
- .debug_frame   0x0000065c       0xc4 usart_driver.o
- .debug_frame   0x00000720       0x44 XMegaLib.o
+ .debug_frame   0x000001f4      0x45c Drive.o
+ .debug_frame   0x00000650       0x34 Radio.o
+ .debug_frame   0x00000684       0xc4 usart_driver.o
+ .debug_frame   0x00000748       0x44 XMegaLib.o
 
-.debug_str      0x00000000     0x1404
+.debug_str      0x00000000     0x1438
  *(.debug_str)
  .debug_str     0x00000000      0x30c Arm.o
-                                0x340 (size before relaxing)
+                                0x345 (size before relaxing)
  .debug_str     0x0000030c      0xc3f BasicBrainBoard.o
                                 0xf4a (size before relaxing)
  .debug_str     0x00000f4b       0x38 ComputerInterface.o
-                                0x35e (size before relaxing)
+                                0x363 (size before relaxing)
  .debug_str     0x00000f83        0xf Debug.o
-                                0x1c5 (size before relaxing)
- .debug_str     0x00000f92      0x1ee Drive.o
-                                0x7f6 (size before relaxing)
- .debug_str     0x00001180        0xf Radio.o
-                                0x1f5 (size before relaxing)
- .debug_str     0x0000118f      0x1a4 usart_driver.o
+                                0x1ca (size before relaxing)
+ .debug_str     0x00000f92      0x222 Drive.o
+                                0x82a (size before relaxing)
+ .debug_str     0x000011b4        0xf Radio.o
+                                0x1fa (size before relaxing)
+ .debug_str     0x000011c3      0x1a4 usart_driver.o
                                 0x491 (size before relaxing)
- .debug_str     0x00001333       0xd1 XMegaLib.o
+ .debug_str     0x00001367       0xd1 XMegaLib.o
                                 0x73a (size before relaxing)
 
-.debug_loc      0x00000000     0x1169
+.debug_loc      0x00000000     0x1225
  *(.debug_loc)
  .debug_loc     0x00000000      0x28b BasicBrainBoard.o
  .debug_loc     0x0000028b       0xcb ComputerInterface.o
- .debug_loc     0x00000356      0x962 Drive.o
- .debug_loc     0x00000cb8      0x3ef usart_driver.o
- .debug_loc     0x000010a7       0xc2 XMegaLib.o
+ .debug_loc     0x00000356      0xa1e Drive.o
+ .debug_loc     0x00000d74      0x3ef usart_driver.o
+ .debug_loc     0x00001163       0xc2 XMegaLib.o
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -794,15 +841,15 @@ END GROUP
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x00000000      0x1e0
+.debug_ranges   0x00000000      0x1e8
  *(.debug_ranges)
  .debug_ranges  0x00000000       0x20 Arm.o
  .debug_ranges  0x00000020       0x70 BasicBrainBoard.o
  .debug_ranges  0x00000090       0x10 ComputerInterface.o
- .debug_ranges  0x000000a0       0xb0 Drive.o
- .debug_ranges  0x00000150       0x18 Radio.o
- .debug_ranges  0x00000168       0x58 usart_driver.o
- .debug_ranges  0x000001c0       0x20 XMegaLib.o
+ .debug_ranges  0x000000a0       0xb8 Drive.o
+ .debug_ranges  0x00000158       0x18 Radio.o
+ .debug_ranges  0x00000170       0x58 usart_driver.o
+ .debug_ranges  0x000001c8       0x20 XMegaLib.o
 
 .debug_macro
  *(.debug_macro)
