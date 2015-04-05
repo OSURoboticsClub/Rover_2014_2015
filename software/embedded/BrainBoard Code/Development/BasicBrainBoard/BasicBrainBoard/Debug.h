@@ -9,6 +9,11 @@
 
 #include "XMegaLib.h"
 
+/* Max length of debugging messages.
+ * Calling functions don't need to worry about respecting
+ * this limit, as longer messages will be truncated automatically. */
+#define DEBUG_MAX_LEN 64
+
 /* Debug message functions. When called, the resulting string
  * is sent up the wire to the control computer, where it will
  * (hopefully) be logged in a text file.
