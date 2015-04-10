@@ -16,35 +16,9 @@ void armInit();
 /* Operate the arm board. */
 void armMain();
 
-/*** Configuration ***/
-/* Data used to control step generation.
- * The resulting variable is a five element array, with each element
- * corresponding to the axis having the same index in arm_axis_t. */
-volatile struct {
-	int32_t current; /* Current position, in steps. */
-	int32_t target; /* Target position, in steps. */
-	/* Axis speed.
-	 * NOTE: This number is the period of each step,
-	 * in units of 32us (1/32kHz). Lower number indicate
-	 * higher speeds.
-	 *   period [32us units] = 1/(32e-6 * speed[steps/s]) */
-	uint16_t step_period;
-	/* Positive (away from limit) DIR pin value. */
-	uint8_t pos_dir;
-} 
-
-
-#define ARM_X_SP 32
-#define ARM_Y_SP 32
-#define ARM_Z_SP 32
-#define ARM_ROTATE_SP 32
-#define ARM_GRIP_SP 32
-
-/* Positive (away from limit) DIR value. */
-#define 
-
-
-
+/* Configuration
+ * NOTE: Due to the way the code is designed, configuration
+ * occurs in Arm.c, not here. */
 
 /*** Internal arm functions. ***/
 

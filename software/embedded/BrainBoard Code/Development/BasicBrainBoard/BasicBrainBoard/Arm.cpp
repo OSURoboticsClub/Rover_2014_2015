@@ -31,6 +31,22 @@
  * all movement will cease.
  */
 
+/* Data used to control step generation.
+ * The resulting variable is a five element array, with each element
+ * corresponding to the axis having the same index in arm_axis_t. */
+static volatile struct {
+	int32_t current; /* Current position, in steps. */
+	int32_t target; /* Target position, in steps. */
+	/* Axis speed.
+	 * NOTE: This number is the period of each step,
+	 * in units of 32us (1/32kHz). Lower number indicate
+	 * higher speeds.
+	 *   period [32us units] = 1/(32e-6 * speed[steps/s]) */
+	uint16_t step_period;
+	/* Positive (away from limit) DIR pin value. */
+	uint8_t pos_dir;
+} AxisData[5];
+
 /* Setup the ADC to digitize the flex sensors. */
 void init_flex(){
 	
@@ -49,10 +65,10 @@ void init_steppers(){
 	PORTB.DIRCLR = PIN3_bm; /* nFAULT */
 	PORTB.PIN3CTRL = PORT_OPC_PULLUP_gc; /* nFAULT pull-up */
 	
-	PORTE.DIRSET = PIN_4_bm | PIN_7_bm | PIN_5_bm; /* X: Step, Dir, nEN. */
-	PORTE.DIRSET = PIN_3_bm | PIN_2_bm | PIN_0_bm; /* Y: Step, Dir, nEN. */
-	PORTD.DIRSET = PIN_6_bm | PIN_7_bm; /* Z: Step, nEN. */
-	PORTE.DIRSET = PIN_1_bm; /* Z: Dir. */
+	PORTE.DIRSET = PIN4_bm | PIN7_bm | PIN5_bm; /* X: Step, Dir, nEN. */
+	PORTE.DIRSET = PIN3_bm | PIN2_bm | PIN0_bm; /* Y: Step, Dir, nEN. */
+	PORTD.DIRSET = PIN6_bm | PIN7_bm; /* Z: Step, nEN. */
+	PORTE.DIRSET = PIN1_bm; /* Z: Dir. */
 	PORTD.DIRSET = PIN5_bm | PIN4_bm | PIN2_bm; /* A: Step, Dir, nEN. */
 	PORTD.DIRSET = PIN1_bm | PIN0_bm | PIN3_bm; /* B: Step, Dir, nEN. */
 }
