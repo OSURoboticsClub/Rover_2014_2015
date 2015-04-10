@@ -39,7 +39,22 @@ void init_flex(){
 /* Setup the stepper driver control pins, limit 
  * switch pins, and step generation interrupts. */
 void init_steppers(){
+	/* Setup limit switch pins. */
+	/* Axises:         X       Y         Z         A         B */
+	PORTF.DIRCLR = PIN6_bm | PIN7_bm | PIN4_bm | PIN0_bm | PIN1_bm;
+	PORTCFG.MPCMASK  = PIN6_bm | PIN7_bm | PIN4_bm | PIN0_bm | PIN1_bm;
+	PORTF.PIN6CTRL = PORT_OPC_PULLUP_gc;
 	
+	/* Setup stepper driver control pins. */
+	PORTB.DIRCLR = PIN3_bm; /* nFAULT */
+	PORTB.PIN3CTRL = PORT_OPC_PULLUP_gc; /* nFAULT pull-up */
+	
+	PORTE.DIRSET = PIN_4_bm | PIN_7_bm | PIN_5_bm; /* X: Step, Dir, nEN. */
+	PORTE.DIRSET = PIN_3_bm | PIN_2_bm | PIN_0_bm; /* Y: Step, Dir, nEN. */
+	PORTD.DIRSET = PIN_6_bm | PIN_7_bm; /* Z: Step, nEN. */
+	PORTE.DIRSET = PIN_1_bm; /* Z: Dir. */
+	PORTD.DIRSET = PIN5_bm | PIN4_bm | PIN2_bm; /* A: Step, Dir, nEN. */
+	PORTD.DIRSET = PIN1_bm | PIN0_bm | PIN3_bm; /* B: Step, Dir, nEN. */
 }
 
 /* Initialize pins and peripherals needed by the arm board. */
