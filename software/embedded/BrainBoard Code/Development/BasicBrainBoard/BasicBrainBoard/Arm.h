@@ -39,12 +39,12 @@ typedef enum {ARM_X, ARM_Y, ARM_Z, ARM_ROTATE, ARM_GRIP} arm_axis_t;
 /* Set the desired position of the axis, in steps.
  * The step positions start at 0 at the limit
  * switch and increase from there. */
-void set_target(arm_axis_t axis, uint32_t position);
+void set_target(arm_axis_t axis, int32_t position);
 
 /* Return the current position of the axis, in steps.
  * The step positions start at 0 at the limit
  * switch and increase from there. */
-uint32_t get_position(arm_axis_t axis);
+int32_t get_position(arm_axis_t axis);
 
 /* Set the current position of the axis to be 0.
  * This function should only be called when an
@@ -62,11 +62,11 @@ bool limit_pressed(arm_axis_t axis);
 bool stepper_fault();
 
 /* Enable all stepper drivers. */
-void stepper_enable();
+void enable_steppers();
 
 /* Disable all stepper drivers.
  * NOTE: This only disables the drivers, it doesn't stop
  * step generation. Don't call during normal operation. */
-void stepper_disable();
+void disable_steppers();
 
 #endif /* ARM_H_ */
