@@ -38,15 +38,15 @@
  * steps.
  * 
  * TCE0 and TCE1 are configured to count upward at 31.250 kHz,
- * overflowing to 0 when then reach the 16 bit MAX of 65535.
+ * overflowing to 0 when they reach the 16 bit MAX of 65535.
  * Compare channels are used to run interrupts when the timer
  * reaches a certain value. generate_step() sets the
  * CC to the current timer value plus the step period, thus
  * timing the steps.
  * 
  * Because the stepper drivers step on a rising edge, the
- * step line must be reset to low after each step. In order
- * to accomplish this, generate_step() runs twice for each
+ * step line must be reset to low after each step.
+ * To accomplish this, generate_step() runs twice for each
  * step generated, toggling the step line each time. As a
  * result, the values of current and target are twice that
  * true values commanded by the application, but this
@@ -77,25 +77,27 @@ static volatile struct {
 	const uint8_t nen_pin; /* nEN pin bit mask. */
 	PORT_t * const limit_port; /* Port containing limit switch. */
 	const uint8_t limit_pin; /* Limit pin bit mask. */
+	
+	register8_t * const cnt_l; /* CNTL for this axis. */
+	register8_t * const cc_buf_l; /* CCxBUFL for this axis. */
+	register8_t * const int_ctrl; /* CC interrupt register for this axis. */
+	const uint8_t int_bm; /* Interrupt bit mask for this axis. */
 	//TODO: timer interrupt bits
-} ArmAxis[5] { /*       Step      |      Dir       |      nEN       |     Limit      */
-	{0,0,32,true, &PORTE, PIN4_bm, &PORTE, PIN7_bm, &PORTE, PIN5_bm, &PORTF, PIN6_bm}, /* X axis */
-	{0,0,32,true, &PORTE, PIN3_bm, &PORTE, PIN2_bm, &PORTE, PIN0_bm, &PORTF, PIN7_bm}, /* Y axis */
-	{0,0,32,true, &PORTD, PIN6_bm, &PORTE, PIN1_bm, &PORTD, PIN7_bm, &PORTF, PIN4_bm}, /* Z axis */
-	{0,0,32,true, &PORTD, PIN5_bm, &PORTD, PIN4_bm, &PORTD, PIN2_bm, &PORTF, PIN0_bm}, /* Rotation */
-	{0,0,32,true, &PORTD, PIN1_bm, &PORTD, PIN0_bm, &PORTD, PIN3_bm, &PORTF, PIN1_bm} /* Grip */
+} ArmAxis[5] { /*            Step      |      Dir       |      nEN       |     Limit      |    CNTL     |   CCxBUFL      |     INTCTRLB    | Interrupt bit mask */
+	{0,0, 32, true, &PORTE, PIN4_bm, &PORTE, PIN7_bm, &PORTE, PIN5_bm, &PORTF, PIN6_bm, &(TCE0.CNTL), &(TCE0.CCABUFL), &(TCE0.INTCTRLB), TC0_CCAINTLVL1_bm}, /* X axis */
+	{0,0, 32, true, &PORTE, PIN3_bm, &PORTE, PIN2_bm, &PORTE, PIN0_bm, &PORTF, PIN7_bm, &(TCE0.CNTL), &(TCE0.CCBBUFL), &(TCE0.INTCTRLB), TC0_CCBINTLVL1_bm}, /* Y axis */
+	{0,0, 32, true, &PORTD, PIN6_bm, &PORTE, PIN1_bm, &PORTD, PIN7_bm, &PORTF, PIN4_bm, &(TCE0.CNTL), &(TCE0.CCCBUFL), &(TCE0.INTCTRLB), TC0_CCCINTLVL1_bm}, /* Z axis */
+	{0,0, 32, true, &PORTD, PIN5_bm, &PORTD, PIN4_bm, &PORTD, PIN2_bm, &PORTF, PIN0_bm, &(TCE0.CNTL), &(TCE0.CCDBUFL), &(TCE0.INTCTRLB), TC0_CCDINTLVL1_bm}, /* Rotation */
+	{0,0, 32, true, &PORTD, PIN1_bm, &PORTD, PIN0_bm, &PORTD, PIN3_bm, &PORTF, PIN1_bm, &(TCE1.CNTL), &(TCE1.CCABUFL), &(TCE1.INTCTRLB), TC1_CCAINTLVL1_bm} /* Grip */
 };
-
-
-//ISRs
-
 
 /* Generate a step on the given axis and schedule to
  * run again if necessary. */
 void generate_step(arm_axis_t axis){
 	int32_t diff = ArmAxis[axis].target - ArmAxis[axis].current;
 	if(0 == diff){
-		//TODO: clear interrupt
+		/* Clear interrupt. */
+		*(ArmAxis[axis].int_ctrl) &= ~ArmAxis[axis].int_bm;
 		return;
 	} else if(diff > 0){
 		if(ArmAxis[axis].pos_dir){
@@ -115,14 +117,40 @@ void generate_step(arm_axis_t axis){
 		ArmAxis[axis].current--;
 	}
 	
-	//Do interrupt stuff
-	//TODO: Don't forget to sent an UPDATE command after setting CC register.
+	/* Set counter compare buffer register */
+	uint16_t new_cc;
+	new_cc = *(ArmAxis[axis].cnt_l);
+	new_cc = *(ArmAxis[axis].cnt_l + 1) << 8;
+	new_cc += ArmAxis[axis].step_period;
+	*(ArmAxis[axis].cc_buf_l) = 0xFF & new_cc;
+	*(ArmAxis[axis].cc_buf_l + 1) =  new_cc >> 8;
+	
+	/* Force CC register update. */
+	TCE0.CTRLFSET = TC_CMD_UPDATE_gc;
+	TCE1.CTRLFSET = TC_CMD_UPDATE_gc;
+	
+	/* Enable interrupt. */
+	*(ArmAxis[axis].int_ctrl) |= ArmAxis[axis].int_bm;
 }
-	
 
-/* Setup the ADC to digitize the flex sensors. */
-void init_flex(){
-	
+ISR(TCE0_CCA_vect){
+	generate_step(ARM_X);
+}
+
+ISR(TCE0_CCB_vect){
+	generate_step(ARM_Y);
+}
+
+ISR(TCE0_CCC_vect){
+	generate_step(ARM_Z);
+}
+
+ISR(TCE0_CCD_vect){
+	generate_step(ARM_ROTATE);
+}
+
+ISR(TCE1_CCA_vect){
+	generate_step(ARM_GRIP);
 }
 
 /* Setup the stepper driver control pins, limit 
@@ -144,8 +172,22 @@ void init_steppers(){
 	}
 	enable_steppers();
 	
-	/* Setup timers stuff. */
+	/* Setup timers. */
+	TCE0.CTRLB = TC_WGMODE_NORMAL_gc | TC0_CCDEN_bm | TC0_CCCEN_bm | TC0_CCBEN_bm | TC0_CCAEN_bm;
+	TCE1.CTRLB = TC_WGMODE_NORMAL_gc | TC1_CCAEN_bm;
+	TCE0.PERL = 0xFF;
+	TCE0.PERH = 0xFF;
+	TCE0.CTRLFSET = TC_CMD_UPDATE_gc;
+	TCE1.CTRLFSET = TC_CMD_UPDATE_gc;
+	TCE0.CTRLA = TC_CLKSEL_DIV1024_gc;
+	TCE1.CTRLA = TC_CLKSEL_DIV1024_gc;
 }
+
+/* Setup the ADC to digitize the flex sensors. */
+void init_flex(){
+	
+}
+
 
 /* Initialize pins and peripherals needed by the arm board. */
 void armInit(){
@@ -165,6 +207,7 @@ void set_target(arm_axis_t axis, int32_t position){
 	cli();
 	ArmAxis[axis].target = position * 2;
 	sei();
+	generate_step(axis);
 }
 
 /* Return the current position of the axis, in steps.
