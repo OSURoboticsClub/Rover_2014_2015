@@ -6,6 +6,8 @@
  */ 
 #include "XMegaLib.h"
 #include "Arm.h"
+#include <avr/pgmspace.h>
+#include <stddef.h>
 
 /* This source file controls the Arm Daughterboard,
  * which moves the sample pickup arm. 
@@ -120,7 +122,7 @@ void generate_step(arm_axis_t axis){
 	/* Set counter compare buffer register */
 	uint16_t new_cc;
 	new_cc = *(ArmAxis[axis].cnt_l);
-	new_cc = *(ArmAxis[axis].cnt_l + 1) << 8;
+	new_cc |= *(ArmAxis[axis].cnt_l + 1) << 8;
 	new_cc += ArmAxis[axis].step_period;
 	*(ArmAxis[axis].cc_buf_l) = 0xFF & new_cc;
 	*(ArmAxis[axis].cc_buf_l + 1) =  new_cc >> 8;
@@ -183,9 +185,74 @@ void init_steppers(){
 	TCE1.CTRLA = TC_CLKSEL_DIV1024_gc;
 }
 
+/* Read NVM signature. From http://www.avrfreaks.net/forum/xmega-production-signature-row */
+static uint8_t ReadCalibrationByte( uint8_t index ){
+	uint8_t result;
+
+	/* Load the NVM Command register to read the calibration row. */
+	NVM_CMD = NVM_CMD_READ_CALIB_ROW_gc;
+	result = pgm_read_byte(index);
+
+	/* Clean up NVM Command register. */
+	NVM_CMD = NVM_CMD_NO_OPERATION_gc;
+
+	return( result );
+} 
+
 /* Setup the ADC to digitize the flex sensors. */
 void init_flex(){
-	
+	//1 = ADCA3
+	//2 = ADCA2
+	//3 = ADCA4
+	//4 = ADCA5
+	//use signed mode
+	//use either AREFA or AREFB
+	//use CLK/256
+	ADCA.CTRLB = ADC_FREERUN_bm;
+	ADCA.REFCTRL = ADC_REFSEL1_bm;
+	ADCA.PRESCALER = ADC_PRESCALER2_bm | ADC_PRESCALER1_bm;
+	ADCA.CALL = ReadCalibrationByte(offsetof(NVM_PROD_SIGNATURES_t, ADCACAL0));
+	ADCA.CALH = ReadCalibrationByte(offsetof(NVM_PROD_SIGNATURES_t, ADCACAL1));
+	ADCA.CH0.CTRL = ADC_CH_INPUTMODE_SINGLEENDED_gc;
+	ADCA.CH0.MUXCTRL = ADC_CH_MUXPOS_PIN3_gc;
+	ADCA.CH1.CTRL = ADC_CH_INPUTMODE_SINGLEENDED_gc;
+	ADCA.CH1.MUXCTRL = ADC_CH_MUXPOS_PIN2_gc;
+	ADCA.CH2.CTRL = ADC_CH_INPUTMODE_SINGLEENDED_gc;
+	ADCA.CH2.MUXCTRL = ADC_CH_MUXPOS_PIN4_gc;
+	ADCA.CH3.CTRL = ADC_CH_INPUTMODE_SINGLEENDED_gc;
+	ADCA.CH3.MUXCTRL = ADC_CH_MUXPOS_PIN5_gc;
+	ADCA.CTRLA = ADC_ENABLE_bm | ADC_CH3START_bm | ADC_CH2START_bm | ADC_CH1START_bm | ADC_CH0START_bm;
+}
+
+
+
+/* Return the voltage (in millivolts, from 0-2048)
+ * of the given flex channel (1-4). */
+int16_t flex_voltage(uint8_t channel){
+	int16_t result;
+	switch(channel){
+		case 1:
+			result = ADCA.CH0.RESL;
+			result |= ADCA.CH0.RESH << 8;
+			break;
+		case 2:
+			result = ADCA.CH1.RESL;
+			result |= ADCA.CH1.RESH << 8;
+			break;
+		case 3:
+			result = ADCA.CH2.RESL;
+			result |= ADCA.CH2.RESH << 8;
+			break;
+		case 4:
+			result = ADCA.CH3.RESL;
+			result |= ADCA.CH3.RESH << 8;
+			break;
+		
+		default:
+			result = 0;
+	}
+	if(result < 0) result = 0;
+	return result;
 }
 
 

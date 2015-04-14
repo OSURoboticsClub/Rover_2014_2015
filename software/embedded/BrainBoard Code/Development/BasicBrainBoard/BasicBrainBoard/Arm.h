@@ -31,7 +31,7 @@ void init_steppers();
 
 /* Return the voltage (in millivolts, from 0-2048)
  * of the given flex channel (1-4). */
-int flex_voltage(int8_t channel);
+int16_t flex_voltage(uint8_t channel);
 
 /* Arm axises. */
 typedef enum {ARM_X, ARM_Y, ARM_Z, ARM_ROTATE, ARM_GRIP} arm_axis_t;
