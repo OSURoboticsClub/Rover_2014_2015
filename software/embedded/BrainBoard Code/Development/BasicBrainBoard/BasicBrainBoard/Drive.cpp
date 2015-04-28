@@ -23,58 +23,29 @@ This function exists inside a while(1) so it will loop itself forever
 */
 //DO NOT Connect to motor at this point without figuring out units and encoder, see comment below
 void driveMain(){
-	
+	//Imaginary function from comp for speed is char compspeed();
 	int check = 0;
 	//Saber_init_uno();
-	char cmmd[7] = {'1', ',' , 's','\0'};
-	//SendStringSABER_UNO("1,start\n");
-	char speed[4] = {'0', '0', '0', '\0'};
-	char back[2] = {'/n', '\0'};
+	//char cmmd[7] = {'1', ',' , 's','\0'};
+	stringS cmmd = "1,s"; //atmel can't find string library?
+	string cap = "\0";
+	string speed;
+	string all;
+	
 	int i = 0;
 	int rem = check;
 	
-	//SendStringSABER_UNO("1,units 1 rotation = 2000 lines\n "); 
-	/*
-	while(1){//For ramping!
-		for(i = 0; i < 15; i++){
-			convert(i,speed);
-			_delay_ms(500);
-			SendStringSABER_UNO(cmmd);
-			_delay_ms(500);
-			SendStringSABER_UNO(speed);
-			_delay_ms(500);
-			SendStringSABER_UNO(back);
-			_delay_ms(500);
-		}
-		_delay_ms(2000);
-		for(i; i == 0; i--){
-			convert(i,speed);
-			_delay_ms(500);
-			SendStringSABER_UNO(cmmd);
-			_delay_ms(500);
-			SendStringSABER_UNO(speed);
-			_delay_ms(500);
-			SendStringSABER_UNO(back);
-			_delay_ms(500);
-		}
-		
-		
-	}*/
-	
-	//while(1){
-		//SendStringSABER_UNO("1,s10\n");
-	//	SendStringPC("Sent to saber\n");
-	//}
 	Saber_init_uno();
-	//super useless comment
+	SendStringSABER_UNO("1,start\n");
 	_delay_ms(1000);
-	SendStringSABER_UNO("1,start \n");
-	_delay_ms(1000);
-	SendStringSABER_UNO("1,units ");
+	SendStringSABER_UNO("1,units "); //check out exact values
 	SendStringSABER_UNO(("1 rotation = 2000 "));
 	SendStringSABER_UNO("lines \n");
 	_delay_ms(1000);
-	SendStringSABER_UNO("1,s10 \n");
+	
+	//ALGORITHM after exact functions are available a while loop will iterate through and at each start will call for a speed from RC or comp (or both?) and put that value in the speed string
+	//After that all the strings (cmmd,speed,cap) are put into all (ex all = cmmd+speed+cap) then SendString is called on all.c_str (returns a c string version that the SendString function
+	//can use
 	
 	while(1);
 	
@@ -85,9 +56,6 @@ void driveInit() {
 	//This code is ran once before driveMain is run forever
 }
 
-void convert(int num, char* box){
-	sprintf(box,"%d",num);	
-}
 
 
 //Drive saber send functions start
@@ -188,3 +156,122 @@ void GIM_BAL_INIT(){//USARTD0
 	USART_Rx_Enable(GIMBAL_USART.usart);															//Enable receiving over serial
 	USART_Tx_Enable(GIMBAL_USART.usart);
 }//end of gimbal usart init, may want to double check as well
+
+
+
+
+
+void RC_init(){	//Sets correct RC pins as inputs and sets up a timer
+	PORTB.DIRCLR = PIN3_bm;																			//Sets RX pin as input CH1
+	PORTB.DIRCLR = PIN2_bm;																			//Sets RX pin as input CH2
+	PORTB.DIRCLR = PIN1_bm;																			//Sets RX pin as input CH3
+	
+	PORTA.DIRCLR = PIN7_bm;																			//Sets RX pin as input CH4
+	PORTA.DIRCLR = PIN6_bm;																			//Sets RX pin as input CH7
+	PORTA.DIRCLR = PIN5_bm;																			//Sets RX pin as input Ch8
+	
+	/*
+	DDRB &= ~(1<<PB3); //PB3 as input, CH1
+	DDRB &= ~(1<<PB2); //PB2 as input, CH2
+	DDRB &= ~(1<<PB1); //PB1 as input, CH 3
+	
+	DDRA &= ~(1<<PA7); //PA7 as input, CH4
+	DDRA &= ~(1<<PA6); //PA6 as input, CH 7
+	DDRA &= ~(1<<PA5); //PA5 as input, CH 8
+	*/
+	/*PORTB |= (1<<PB3);//These lines enable pull up resistors on the pins, NOT NEEDED!
+	PORTB |= (1<<PB2);
+	PORTB |= (1<<PB1);
+	
+	PORTA |= (1<<PA7);
+	PORTA |= (1<<PA6);
+	PORTA |= (1<<PA5); */
+}
+
+unsigned long cyclesto_ms(unsigned long cycles){
+	unsigned long cycle_period= (unsigned long)pow(3.125, -5);
+	return(cycles*cycle_period);
+}
+
+unsigned long read(int ch){
+	unsigned long width = 0;
+	unsigned long numloops = 0;
+	unsigned long maxloops = 100000; //May need to come up with a better number for this
+	
+	if(ch = 2){
+		while((!(PORTB.IN & PIN3_bm))){
+			if(numloops++ == maxloops)
+			return 0;
+			width++;
+		}
+		return (cyclesto_ms(width *21 + 16)); //the 21 and 16 have to do with 20 clock cycles and 16 clocks between edge and start of loop, unsure of reasoning
+	}
+	
+	else if(ch = 3){
+		while( !(PORTB.IN & PIN1_bm )){
+			if(numloops++ == maxloops)
+			return 0;
+			width++;
+		}
+		
+		return (cyclesto_ms(width *21 + 16)); //the 21 and 16 have to do with 20 clock cycles and 16 clocks between edge and start of loop, unsure of reasoning
+	}
+	
+	else if(ch = 7){
+		while( !(PORTA.IN & PIN6_bm)){
+			if(numloops++ == maxloops)
+			return 0;
+			width++;
+		}
+		
+		return (cyclesto_ms(width *21 + 16)); //the 21 and 16 have to do with 20 clock cycles and 16 clocks between edge and start of loop, unsure of reasoning
+		
+	}
+	
+	
+}
+
+char RCSpeed(int ch){ //Does work on RC signal to determine speed value to send to the kangaroo
+	char command = 0;
+	float ratio;
+	if(ch = 2){
+		short channel = read(2);
+		channel -= CH2_STOP;
+		ratio = ((float)channel / (float)CH2_MAGNATUDE);
+		if(ratio < -1)
+		ratio = -1;
+		else if(ratio > 1)
+		ratio = 1;
+		ratio = abs(ratio) *100;
+		
+		return((char) ratio);
+		
+	}
+	else if(ch = 3){
+		short channel = read(3);
+		channel -= CH3_STOP;
+		ratio = ((float)channel / (float)CH3_MAGNATUDE);
+		if(ratio < -1)
+		ratio = -1;
+		else if(ratio > 1)
+		ratio = 1;
+		ratio = abs(ratio) *100;
+		
+		return((char) ratio);
+		
+	}
+	else if(ch = 6){
+		short channel = read(6);
+		return((char)channel);
+	}
+	
+	else{
+		return 0;
+	}
+	
+	
+	
+}
+
+
+
