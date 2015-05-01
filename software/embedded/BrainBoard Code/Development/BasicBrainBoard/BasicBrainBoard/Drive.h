@@ -1,15 +1,38 @@
-/*
- * Drive.h
- *
- * Created: 3/3/2015 11:26:19 PM
- *  Author: nrpic_000
- */ 
-
 
 #ifndef DRIVE_H_
 #define DRIVE_H_
 
-#include "XMegaLib.h"
+
+#define CHANNEL2 2  //Vertical Left Stick
+#define CHANNEL3 3  //Vertical Right Stick
+#define CHANNEL5 5  //Speed control
+#define CHANNEL6 6  //Enable
+
+#define CH2_MIN 927
+#define CH2_MAX 1654
+#define CH2_STOP ((CH2_MAX-CH2_MIN)/2 + CH2_MIN)
+#define CH2_MAGNATUDE ((CH2_MAX - CH2_MIN) / 2)
+
+#define CH3_MIN 919
+#define CH3_MAX 1644
+#define CH3_STOP ((CH3_MAX-CH3_MIN)/2 + CH3_MIN)
+#define CH3_MAGNATUDE ((CH3_MAX - CH3_MIN) / 2)
+
+#define CH5_MIN 918
+#define CH5_MAX 1648
+#define CH5_RANGE (CH5_MAX - CH5_MIN)
+
+#define CH6_MIN 950   //Higher than actual, use < statement
+#define CH6_MAX 1630  //Lower than actual, use > statement
+
+#define STOP_CONSTANT 50  //Originally 20
+
+//#include "XMegaLib.h"
+#include "math.h"
+#include "string.h"
+#include "stdio.h" //library for c string fuctions?
+
+
 
 /**** USART types ****/
 
@@ -82,7 +105,15 @@ void SendStringSABER_UNO(char *present);
 void SendStringSABER_DOS(char *present);
 void SendStringSaber_TRES(char *present);
 
-void convert(int num, char* box);
+//Below are functions for RC control (Need hardware testing)
+void RC_init();
+unsigned long cyclesto_ms(unsigned long cycles);
+unsigned long read(int ch);
+int RCSpeed(int ch); //Does work on RC signal values to determine speed value to send to the kangaroo
+
+
+char * i_to_st(int value);
+char * add_st(char *st1, char *st2); //puts st2 at the end of st1
 
 /**** END Function Prototypes ****/
 
