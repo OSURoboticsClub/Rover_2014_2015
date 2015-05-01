@@ -1,10 +1,3 @@
-/*
- * Drive.h
- *
- * Created: 3/3/2015 11:26:19 PM
- *  Author: nrpic_000
- */ 
-
 
 #ifndef DRIVE_H_
 #define DRIVE_H_
@@ -34,10 +27,10 @@
 
 #define STOP_CONSTANT 50  //Originally 20
 
-#include "XMegaLib.h"
+//#include "XMegaLib.h"
 #include "math.h"
 #include "string.h"
-
+#include "stdio.h" //library for c string fuctions?
 
 
 
@@ -116,10 +109,11 @@ void SendStringSaber_TRES(char *present);
 void RC_init();
 unsigned long cyclesto_ms(unsigned long cycles);
 unsigned long read(int ch);
-char RCSpeed(int ch); //Does work on RC signal values to determine speed value to send to the kangaroo
+int RCSpeed(int ch); //Does work on RC signal values to determine speed value to send to the kangaroo
 
 
-
+char * i_to_st(int value);
+char * add_st(char *st1, char *st2); //puts st2 at the end of st1
 
 /**** END Function Prototypes ****/
 
