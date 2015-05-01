@@ -1,9 +1,3 @@
-/*
- * Drive.cpp
- *
- * Created: 3/3/2015 11:36:19 PM
- *  Author: nrpic_000
- */ 
 
 //#include "BrainBoard.h"
 //#include "XMegaLib.h"
@@ -12,25 +6,22 @@
 /*
 Description: This function holds all of the code for the drive firmware for the BB
 Author: Cameron Stuart
-
 Pseudocode (algorithm):
 - Makes the Rover Drive
 - Expand this portion
-
 Usage Notes:
 This function exists inside a while(1) so it will loop itself forever
-
 */
 //DO NOT Connect to motor at this point without figuring out units and encoder, see comment below
 void driveMain(){
 	//Imaginary function from comp for speed is char compspeed();
 	int check = 0;
 	//Saber_init_uno();
-	//char cmmd[7] = {'1', ',' , 's','\0'};
-	stringS cmmd = "1,s"; //atmel can't find string library?
-	string cap = "\0";
-	string speed;
-	string all;
+	char cmmd[3] = "1,s";
+	char cap = '\0';
+	char *speed; //call function i_to_st(int value) to turn the speed int into a c-string 
+	char *all; //use add_st(char*, char*) a couple times to put all the strings together for a solid one to send to the kangaroo; that functions puts st2 at the end of st1
+	
 	
 	int i = 0;
 	int rem = check;
@@ -231,7 +222,7 @@ unsigned long read(int ch){
 	
 }
 
-char RCSpeed(int ch){ //Does work on RC signal to determine speed value to send to the kangaroo
+int RCSpeed(int ch){ //Does work on RC signal to determine speed value to send to the kangaroo
 	char command = 0;
 	float ratio;
 	if(ch = 2){
@@ -244,7 +235,7 @@ char RCSpeed(int ch){ //Does work on RC signal to determine speed value to send 
 		ratio = 1;
 		ratio = abs(ratio) *100;
 		
-		return((char) ratio);
+		return((int) ratio);
 		
 	}
 	else if(ch = 3){
@@ -257,12 +248,12 @@ char RCSpeed(int ch){ //Does work on RC signal to determine speed value to send 
 		ratio = 1;
 		ratio = abs(ratio) *100;
 		
-		return((char) ratio);
+		return((int) ratio);
 		
 	}
 	else if(ch = 6){
 		short channel = read(6);
-		return((char)channel);
+		return((int)channel);
 	}
 	
 	else{
@@ -275,3 +266,40 @@ char RCSpeed(int ch){ //Does work on RC signal to determine speed value to send 
 
 
 
+
+char * i_to_st(int value){
+int digits = 0;
+int val, nw;
+char *num = NULL;
+val = 0;
+nw = value;
+
+while(nw != 0){
+	nw = nw/10;
+	digits++;
+}
+nw = value;
+num = (char*) malloc(digits+1);
+for(int i = 0; i < digits; i++){
+	num[i] = nw%10;
+	nw = nw/10; 
+}		
+}
+
+char * add_st(char *st1, char *st2){
+	int len1, len2,big;
+	char *nw;
+	len1 = strlen(st1);
+	len2 = strlen(st2);
+	big = len1+len2;
+	nw = (char *) malloc(big+1);
+	for(int i = 0; i < len1; i++){
+		nw[i] = st1[i];
+	}
+	for(int i = len1; i < big; i++){
+		nw[i] = st2[i];
+	}
+	
+	
+	
+}
