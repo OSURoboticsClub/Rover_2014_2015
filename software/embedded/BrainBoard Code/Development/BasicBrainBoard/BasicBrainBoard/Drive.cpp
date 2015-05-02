@@ -29,14 +29,16 @@ void driveMain(){
 	Saber_init_uno();
 	SendStringSABER_UNO("1,start\n");
 	_delay_ms(1000);
-	SendStringSABER_UNO("1,units "); //check out exact values
-	SendStringSABER_UNO(("1 rotation = 2000 "));
-	SendStringSABER_UNO("lines \n");
+	SendStringSABER_UNO("1,"); //check out exact values
+	SendStringSABER_UNO(("UNITS 917 cm = 270000 lines"));
+	//SendStringSABER_UNO("lines \n");
 	_delay_ms(1000);
 	
-	//ALGORITHM after exact functions are available a while loop will iterate through and at each start will call for a speed from RC or comp (or both?) and put that value in the speed string
-	//After that all the strings (cmmd,speed,cap) are put into all (ex all = cmmd+speed+cap) then SendString is called on all.c_str (returns a c string version that the SendString function
-	//can use
+	//ALGORITHM after exact functions are available a while loop will iterate through and at each start
+	//will call for a speed from RC or comp (or both?) and put that value in the speed string
+	//After that all the strings (cmmd,speed,cap) are put into all (ex all = cmmd+speed+cap) then
+	//SendString is called on all.c_str (returns a c string version that the SendString function can use
+
 	
 	while(1);
 	
@@ -147,9 +149,6 @@ void GIM_BAL_INIT(){//USARTD0
 	USART_Rx_Enable(GIMBAL_USART.usart);															//Enable receiving over serial
 	USART_Tx_Enable(GIMBAL_USART.usart);
 }//end of gimbal usart init, may want to double check as well
-
-
-
 
 
 void RC_init(){	//Sets correct RC pins as inputs and sets up a timer
@@ -263,8 +262,6 @@ int RCSpeed(int ch){ //Does work on RC signal to determine speed value to send t
 	
 	
 }
-
-
 
 
 char * i_to_st(int value){
