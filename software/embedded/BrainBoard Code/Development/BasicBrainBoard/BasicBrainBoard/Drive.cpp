@@ -43,7 +43,7 @@ void driveMain(){
 	}
 	*/
 	
-	_delay_ms(2000);
+	_delay_ms(1000);
 	
 	SendStringSABER_UNO("2,start\n");
 	//SendStringSABER_UNO("2,start\n");
