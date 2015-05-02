@@ -78,6 +78,10 @@ int main(void)
 	//TODO: Is the following line needed?
 	//PMIC.CTRL |= PMIC_LOLVLEN_bm;   //draws current for ?
 
+	//TODO TODO TODO Remove
+	
+	//CurrentState = MainProgram;
+
     while(1)
     { 
 		

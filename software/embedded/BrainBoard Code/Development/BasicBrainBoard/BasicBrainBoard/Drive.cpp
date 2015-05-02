@@ -26,20 +26,64 @@ void driveMain(){
 	int i = 0;
 	int rem = check;
 	
+	//Sabertooth_UNO is the middle one
+
 	Saber_init_uno();
+	
+	char recieveChar;
+	
+	/*
+	while(1){
+		if(USART_RXBufferData_Available(&USART_PC_Data)){
+			recieveChar = USART_RXBuffer_GetByte(&USART_PC_Data);
+			
+			while(!USART_IsTXDataRegisterEmpty(&USARTE0));
+				USART_PutChar(&USARTE0, recieveChar);
+		}
+	}
+	*/
+		
 	SendStringSABER_UNO("1,start\n");
+	SendStringSABER_UNO("2,start\n");
+	SendStringPC("1,start\r\n");
 	_delay_ms(1000);
-	SendStringSABER_UNO("1,"); //check out exact values
-	SendStringSABER_UNO(("UNITS 917 cm = 270000 lines"));
-	//SendStringSABER_UNO("lines \n");
+
+	//Set the units for the encoder. The values entered are rough and might
+	//need to be tuned. Calculated from the website. 
+	SendStringSABER_UNO("1, UNITS 917 cm = 270000 lines\n"); //check out exact values
+	_delay_ms(10);
+	SendStringSABER_UNO("2, UNITS 917 cm = 270000 lines\n"); //check out exact values
+	
+	SendStringPC("1, UNITS 917 cm = 270000 lines\r\n");
+	
+	//SendStringSABER_UNO("UNITS 917 cm = 270000 lines\n");
+	//SendStringSABER_UNO("lines \n");z
+
 	_delay_ms(1000);
 	
+	while (1)
+	{
+		SendStringSABER_UNO("1, s50\n");  //Set the speed to 50 cm/s
+		SendStringPC("1, s50\r\n");
+		_delay_ms(10);
+	}
+	
+	
+
+	while(1){
+		if(USART_RXBufferData_Available(&SABER_UNO)){
+			recieveChar = USART_RXBuffer_GetByte(&USART_PC_Data);
+			char txByte[2] = { recieveChar , '\0' };
+			SendStringPC(&recieveChar);
+		}
+	}
+	
+
 	//ALGORITHM after exact functions are available a while loop will iterate through and at each start
 	//will call for a speed from RC or comp (or both?) and put that value in the speed string
 	//After that all the strings (cmmd,speed,cap) are put into all (ex all = cmmd+speed+cap) then
-	//SendString is called on all.c_str (returns a c string version that the SendString function can use
+	//SendString is called on all.c_str (returns a c string version that the SendString function can use\
 
-	
 	while(1);
 	
 }
@@ -56,6 +100,7 @@ void SendStringSABER_UNO(char *present){
 	for(int i = 0 ; present[i] != '\0' ; i++){
 		while(!USART_IsTXDataRegisterEmpty(&USARTE0));
 		USART_PutChar(&USARTE0, present[i]);
+		_delay_us(50);  //DEGBUGGING
 	}
 }
 
