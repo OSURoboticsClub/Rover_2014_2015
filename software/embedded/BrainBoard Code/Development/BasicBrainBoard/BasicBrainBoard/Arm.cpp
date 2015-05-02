@@ -85,12 +85,12 @@ static volatile struct {
 	register8_t * const int_ctrl; /* CC interrupt register for this axis. */
 	const uint8_t int_bm; /* Interrupt bit mask for this axis. */
 	//TODO: timer interrupt bits
-} ArmAxis[5] { /*            Step      |      Dir       |      nEN       |     Limit      |    CNTL     |   CCxBUFL      |     INTCTRLB    | Interrupt bit mask */
-	{0,0, 32, true, &PORTE, PIN4_bm, &PORTE, PIN7_bm, &PORTE, PIN5_bm, &PORTF, PIN6_bm, &(TCE0.CNTL), &(TCE0.CCABUFL), &(TCE0.INTCTRLB), TC0_CCAINTLVL1_bm}, /* X axis */
-	{0,0, 32, true, &PORTE, PIN3_bm, &PORTE, PIN2_bm, &PORTE, PIN0_bm, &PORTF, PIN7_bm, &(TCE0.CNTL), &(TCE0.CCBBUFL), &(TCE0.INTCTRLB), TC0_CCBINTLVL1_bm}, /* Y axis */
-	{0,0, 32, true, &PORTD, PIN6_bm, &PORTE, PIN1_bm, &PORTD, PIN7_bm, &PORTF, PIN4_bm, &(TCE0.CNTL), &(TCE0.CCCBUFL), &(TCE0.INTCTRLB), TC0_CCCINTLVL1_bm}, /* Z axis */
-	{0,0, 32, true, &PORTD, PIN5_bm, &PORTD, PIN4_bm, &PORTD, PIN2_bm, &PORTF, PIN0_bm, &(TCE0.CNTL), &(TCE0.CCDBUFL), &(TCE0.INTCTRLB), TC0_CCDINTLVL1_bm}, /* Rotation */
-	{0,0, 32, true, &PORTD, PIN1_bm, &PORTD, PIN0_bm, &PORTD, PIN3_bm, &PORTF, PIN1_bm, &(TCE1.CNTL), &(TCE1.CCABUFL), &(TCE1.INTCTRLB), TC1_CCAINTLVL1_bm} /* Grip */
+} ArmAxis[5] { /*              Step      |      Dir       |      nEN       |     Limit      |    CNTL     |   CCxBUFL      |     INTCTRLB    | Interrupt bit mask */
+	{0,0, 1000, true, &PORTE, PIN4_bm, &PORTE, PIN7_bm, &PORTE, PIN5_bm, &PORTF, PIN6_bm, &(TCE0.CNTL), &(TCE0.CCABUFL), &(TCE0.INTCTRLB), TC0_CCAINTLVL1_bm}, /* X axis */
+	{0,0, 1000, true, &PORTE, PIN3_bm, &PORTE, PIN2_bm, &PORTE, PIN0_bm, &PORTF, PIN7_bm, &(TCE0.CNTL), &(TCE0.CCBBUFL), &(TCE0.INTCTRLB), TC0_CCBINTLVL1_bm}, /* Y axis */
+	{0,0, 1000, true, &PORTD, PIN6_bm, &PORTE, PIN1_bm, &PORTD, PIN7_bm, &PORTF, PIN4_bm, &(TCE0.CNTL), &(TCE0.CCCBUFL), &(TCE0.INTCTRLB), TC0_CCCINTLVL1_bm}, /* Z axis */
+	{0,0, 1000, true, &PORTD, PIN5_bm, &PORTD, PIN4_bm, &PORTD, PIN2_bm, &PORTF, PIN0_bm, &(TCE0.CNTL), &(TCE0.CCDBUFL), &(TCE0.INTCTRLB), TC0_CCDINTLVL1_bm}, /* Rotation */
+	{0,0, 1000, true, &PORTD, PIN1_bm, &PORTD, PIN0_bm, &PORTD, PIN3_bm, &PORTF, PIN1_bm, &(TCE1.CNTL), &(TCE1.CCABUFL), &(TCE1.INTCTRLB), TC1_CCAINTLVL1_bm} /* Grip */
 };
 
 /* Generate a step on the given axis and schedule to
@@ -183,6 +183,9 @@ void init_steppers(){
 	TCE1.CTRLFSET = TC_CMD_UPDATE_gc;
 	TCE0.CTRLA = TC_CLKSEL_DIV1024_gc;
 	TCE1.CTRLA = TC_CLKSEL_DIV1024_gc;
+	
+	/* Enable medium level interrupts. */
+	PMIC.CTRL |= MEDLVLEN_bm;
 }
 
 /* Read NVM signature. From http://www.avrfreaks.net/forum/xmega-production-signature-row */
@@ -264,7 +267,14 @@ void armInit(){
 
 /* Operate the arm board. */
 void armMain(){
-	
+	RGBSetColor(BLUE);
+	_delay_ms(1000);
+	set_target(ARM_X, 50);
+	while(1){
+		generate_step(ARM_X);
+		_delay_ms(50);
+	}
+	while(1);
 }
 
 /* Set the desired position of the axis, in steps.
