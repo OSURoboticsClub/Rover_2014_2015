@@ -267,12 +267,13 @@ void armInit(){
 /* Operate the arm board. */
 void armMain(){
 	RGBSetColor(PURPLE);
-	_delay_ms(1000);
-	set_target(ARM_X, 1000);
-	RGBSetColor(BLUE);
-	_delay_ms(5000);
-	RGBSetColor(GREEN);
-	set_target(ARM_X, -1000);
+	while(1){
+		if(limit_pressed(ARM_Z)){
+			RGBSetColor(RED);
+			_delay_ms(1000);
+			RGBSetColor(PURPLE);
+		}
+	}
 	while(1);
 }
 
