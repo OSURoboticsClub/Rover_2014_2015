@@ -1,6 +1,6 @@
 
 //#include "BrainBoard.h"
-//#include "XMegaLib.h"
+#include "XMegaLib.h"
 #include "Drive.h"
 
 /*
@@ -17,7 +17,7 @@ void driveMain(){
 	//Imaginary function from comp for speed is char compspeed();
 	int check = 0;
 	//Saber_init_uno();
-	char cmmd[3] = "1,s";
+	char cmmd[4] = "1,s";
 	char cap = '\0';
 	char *speed; //call function i_to_st(int value) to turn the speed int into a c-string 
 	char *all; //use add_st(char*, char*) a couple times to put all the strings together for a solid one to send to the kangaroo; that functions puts st2 at the end of st1
