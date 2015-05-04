@@ -1,0 +1,8 @@
+<launch>
+    <group ns="motors">
+	<node pkg="motor_controller" name="motor_low_level" type="motor.py" />
+	<node pkg="motor_controller" name="motor_states" type="motor_states.py" />
+	<node pkg="motor_controller" name="motor_queue_proc" type="motor_queue_proc.py" />
+    </group>
+
+</launch>
