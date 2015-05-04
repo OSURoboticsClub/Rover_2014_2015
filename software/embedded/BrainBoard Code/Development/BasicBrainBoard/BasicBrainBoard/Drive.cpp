@@ -26,9 +26,11 @@ void driveMain(){
 	int i = 0;
 	int rem = check;
 	
-	//Sabertooth_UNO is the middle one
+	//Sabertooth_UNO is the mid motors
+	//Sabertooth_DOS is the rear motors
 
 	Saber_init_uno();
+	Saber_init_dos();
 	
 	char recieveChar;
 	
@@ -46,21 +48,28 @@ void driveMain(){
 	_delay_ms(1000);
 	
 	SendStringSABER_UNO("2,start\n");
+	SendStringSABER_DOS("2,start\n");
 	SendStringPC("2,start\r\n");
 	
+	/*
 	SendStringSABER_UNO("1,start\n");
 	SendStringPC("1,start\r\n");
+	*/
+	
 	_delay_ms(1000);
 
 	//Set the units for the encoder. The values entered are rough and might
 	//need to be tuned. Calculated from the website. 
 	SendStringSABER_UNO("2, UNITS 917 cm = 270000 lines\n"); //check out exact values
-	_delay_ms(10);
+	SendStringSABER_DOS("2, UNITS 917 cm = 270000 lines\n"); //check out exact values
 	SendStringPC("2, UNITS 917 cm = 270000 lines\r\n");
+	_delay_ms(10);
 	
+	/*
 	SendStringSABER_UNO("1, UNITS 917 cm = 270000 lines\n"); //check out exact values
 	_delay_ms(10);
 	SendStringPC("1, UNITS 917 cm = 270000 lines\r\n");
+	*/
 	
 	//SendStringSABER_UNO("UNITS 917 cm = 270000 lines\n");
 	//SendStringSABER_UNO("lines \n");
@@ -70,9 +79,10 @@ void driveMain(){
 	while (1)
 	{
 		SendStringSABER_UNO("2, s50\n");  //Set the speed to 50 cm/s
+		SendStringSABER_DOS("2, s50\n");  //Set the speed to 50 cm/s
 		SendStringPC("2, s50\r\n");
-		SendStringSABER_UNO("1, s50\n");  //Set the speed to 50 cm/s
-		SendStringPC("1, s50\r\n");
+		//SendStringSABER_UNO("1, s50\n");  //Set the speed to 50 cm/s
+		//SendStringPC("1, s50\r\n");
 		_delay_ms(100);
 	}
 	
@@ -116,6 +126,7 @@ void SendStringSABER_DOS(char *present){
 	for(int i = 0 ; present[i] != '\0' ; i++){
 		while(!USART_IsTXDataRegisterEmpty(&USARTE1));
 		USART_PutChar(&USARTE1, present[i]);
+		_delay_us(500);  //DEGBUGGING
 	}
 }
 void SendStringSABER_TRES(char *present){
