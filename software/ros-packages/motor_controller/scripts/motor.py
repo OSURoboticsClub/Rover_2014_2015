@@ -102,9 +102,9 @@ class MotorController(object):
         self.cur_right = 0
         self.cur_left = 0
         self.step = 1
-        self.cycle_size = .02
+        self.cycle_size = .01
         #ros vars
-        self.topic = "motor_raw"
+        self.topic = "/motor/motor_raw"
     
     def change_speed(self, left, right):
         if 0 > left > 255:
@@ -149,9 +149,8 @@ class MotorController(object):
         args = ["".join(x) for _, x in itertools.groupby(data.data, key=str.isdigit)]
         i = 0;
         while len(args) > i:
-            action = args[i]
+            action = args[i].strip()
             speed = int(args[i+1])
-            print "chaning:", action, "to:", speed
             if action == "r":
                 self.change_speed(self.left, speed)
             elif action == "l":
