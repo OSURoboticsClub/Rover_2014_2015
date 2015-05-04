@@ -34,6 +34,28 @@ void driveMain(){
 	
 	char recieveChar;
 	
+	while(1){
+		SendDriveCommand_SaberOne(6, 90);
+		SendDriveCommand_SaberOne(7, 90);
+		SendDriveCommand_SaberTwo(6, 90);
+		SendDriveCommand_SaberTwo(7, 90);
+		SendDriveCommand_SaberThree(6, 90);
+		SendDriveCommand_SaberThree(7, 90);
+		/*
+		for(int i = 10; i < 150; ++i){
+			SendDriveCommand_SaberTwo(6, i);
+			SendDriveCo=-mmand_SaberTwo(7, i);
+			_delay_ms(50);
+		}
+		for(int i = 150; i > 10; --i){
+			SendDriveCommand_SaberTwo(6, i);
+			SendDriveCommand_SaberTwo(7, i);
+			_delay_ms(50);
+		}
+		*/
+		_delay_ms(100);
+	}
+	
 	/*
 	while(1){
 		if(USART_RXBufferData_Available(&USART_PC_Data)){
@@ -47,56 +69,6 @@ void driveMain(){
 	
 	_delay_ms(1000);
 	
-	SendStringSABER_UNO("2,start\n");
-	SendStringSABER_DOS("2,start\n");
-	SendStringPC("2,start\r\n");
-	
-	/*
-	SendStringSABER_UNO("1,start\n");
-	SendStringPC("1,start\r\n");
-	*/
-	
-	_delay_ms(1000);
-
-	//Set the units for the encoder. The values entered are rough and might
-	//need to be tuned. Calculated from the website. 
-	SendStringSABER_UNO("2, UNITS 917 cm = 270000 lines\n"); //check out exact values
-	SendStringSABER_DOS("2, UNITS 917 cm = 270000 lines\n"); //check out exact values
-	SendStringPC("2, UNITS 917 cm = 270000 lines\r\n");
-	_delay_ms(10);
-	
-	/*
-	SendStringSABER_UNO("1, UNITS 917 cm = 270000 lines\n"); //check out exact values
-	_delay_ms(10);
-	SendStringPC("1, UNITS 917 cm = 270000 lines\r\n");
-	*/
-	
-	//SendStringSABER_UNO("UNITS 917 cm = 270000 lines\n");
-	//SendStringSABER_UNO("lines \n");
-
-	_delay_ms(1000);
-	
-	while (1)
-	{
-		SendStringSABER_UNO("2, s50\n");  //Set the speed to 50 cm/s
-		SendStringSABER_DOS("2, s50\n");  //Set the speed to 50 cm/s
-		SendStringPC("2, s50\r\n");
-		//SendStringSABER_UNO("1, s50\n");  //Set the speed to 50 cm/s
-		//SendStringPC("1, s50\r\n");
-		_delay_ms(100);
-	}
-	
-	
-
-	while(1){
-		if(USART_RXBufferData_Available(&SABER_UNO)){
-			recieveChar = USART_RXBuffer_GetByte(&USART_PC_Data);
-			char txByte[2] = { recieveChar , '\0' };
-			SendStringPC(&recieveChar);
-		}
-	}
-	
-
 	//ALGORITHM after exact functions are available a while loop will iterate through and at each start
 	//will call for a speed from RC or comp (or both?) and put that value in the speed string
 	//After that all the strings (cmmd,speed,cap) are put into all (ex all = cmmd+speed+cap) then
@@ -112,6 +84,60 @@ void driveInit() {
 }
 
 
+void SendDriveCommand_SaberOne(unsigned char command, unsigned char value){
+	//&USARTE1 is the USART for Saber two
+	
+	while(!USART_IsTXDataRegisterEmpty(&USARTE0));  //Necessary to make sure we don't overwrite data in the buffer
+	USART_PutChar(&USARTE0, SABERTOOTHADDRESS);
+	
+	while(!USART_IsTXDataRegisterEmpty(&USARTE0));
+	USART_PutChar(&USARTE0, command);  //Sends the command
+	
+	while(!USART_IsTXDataRegisterEmpty(&USARTE0));
+	USART_PutChar(&USARTE0, value);		//Sends the value or speed to the sabertooth
+	
+	while(!USART_IsTXDataRegisterEmpty(&USARTE0));
+	USART_PutChar(&USARTE0, SaberChecksum(command, value));				//Send the checksum of all these values to the sabertooth
+}
+
+void SendDriveCommand_SaberTwo(unsigned char command, unsigned char value){
+	//&USARTE1 is the USART for Saber two
+	
+	while(!USART_IsTXDataRegisterEmpty(&USARTE1));  //Necessary to make sure we don't overwrite data in the buffer
+	USART_PutChar(&USARTE1, SABERTOOTHADDRESS);
+	
+	while(!USART_IsTXDataRegisterEmpty(&USARTE1));
+	USART_PutChar(&USARTE1, command);  //Sends the command
+	
+	while(!USART_IsTXDataRegisterEmpty(&USARTE1));
+	USART_PutChar(&USARTE1, value);		//Sends the value or speed to the sabertooth
+	
+	while(!USART_IsTXDataRegisterEmpty(&USARTE1));
+	USART_PutChar(&USARTE1, SaberChecksum(command, value));				//Send the checksum of all these values to the sabertooth
+}
+
+void SendDriveCommand_SaberThree(unsigned char command, unsigned char value){
+	//&USARTF0 is the USART for saber three
+	
+	while(!USART_IsTXDataRegisterEmpty(&USARTF0));  //Necessary to make sure we don't overwrite data in the buffer
+	USART_PutChar(&USARTF0, SABERTOOTHADDRESS);
+	
+	while(!USART_IsTXDataRegisterEmpty(&USARTF0));
+	USART_PutChar(&USARTF0, command);  //Sends the command
+	
+	while(!USART_IsTXDataRegisterEmpty(&USARTF0));
+	USART_PutChar(&USARTF0, value);		//Sends the value or speed to the sabertooth
+	
+	while(!USART_IsTXDataRegisterEmpty(&USARTF0));
+	USART_PutChar(&USARTF0, SaberChecksum(command, value));				//Send the checksum of all these values to the sabertooth
+}
+
+
+unsigned char SaberChecksum(unsigned char command, unsigned char value){
+	return ((SABERTOOTHADDRESS+command+value) & 127);
+}
+
+
 
 //Drive saber send functions start
 void SendStringSABER_UNO(char *present){
@@ -121,7 +147,6 @@ void SendStringSABER_UNO(char *present){
 		_delay_us(500);  //DEGBUGGING
 	}
 }
-
 void SendStringSABER_DOS(char *present){
 	for(int i = 0 ; present[i] != '\0' ; i++){
 		while(!USART_IsTXDataRegisterEmpty(&USARTE1));
@@ -150,11 +175,11 @@ void Saber_init_uno(){	//USARTE0
 	USART_Rx_Enable(SABER_UNO.usart);															//Enable receiving over serial
 	USART_Tx_Enable(SABER_UNO.usart);															//Enable transmitting over serial
 	
-	
-	
+	_delay_ms(100); //Delay -- allowing things to settle
+	USART_PutChar(&USARTE0, AUTOBAUD_BYTE);
 }
 
-
+//Two has been verified to work
 void Saber_init_dos(){ //USARTE1
 	PORTE.DIRSET = PIN7_bm;																			//Sets TX Pin as output
 	PORTE.DIRCLR = PIN6_bm;																			//Sets RX pin as input
@@ -165,11 +190,18 @@ void Saber_init_dos(){ //USARTE1
 	USART_Baudrate_Set(&USARTE1, 207 , 0);															//Set baudrate to 9600 with 32Mhz system clock
 	USART_Rx_Enable(SABER_DOS.usart);															//Enable receiving over serial
 	USART_Tx_Enable(SABER_DOS.usart);
+	
+	
+	//Sabertooth autobaud byte
+	
+	_delay_ms(100); //Delay -- allowing things to settle
+	USART_PutChar(&USARTE1, AUTOBAUD_BYTE);
 }
 
+
 void Saber_init_tres(){ //USARTF0
-	PORTE.DIRSET = PIN3_bm;																			//Sets TX Pin as output
-	PORTE.DIRCLR = PIN2_bm;																			//Sets RX pin as input
+	PORTF.DIRSET = PIN3_bm;																			//Sets TX Pin as output
+	PORTF.DIRCLR = PIN2_bm;																			//Sets RX pin as input
 	
 	USART_InterruptDriver_Initialize(&SABER_TRES, &USARTF0, USART_DREINTLVL_LO_gc);				//Initialize USARTF0 as interrupt driven serial and clear it's buffers
 	USART_Format_Set(SABER_TRES.usart, USART_CHSIZE_8BIT_gc, USART_PMODE_DISABLED_gc, false);	//Set the data format of 8 bits, no parity, 1 stop bit
@@ -177,7 +209,13 @@ void Saber_init_tres(){ //USARTF0
 	USART_Baudrate_Set(&USARTF0, 207 , 0);															//Set baudrate to 9600 with 32Mhz system clock
 	USART_Rx_Enable(SABER_TRES.usart);															//Enable receiving over serial
 	USART_Tx_Enable(SABER_TRES.usart);
+	
+	_delay_ms(100); //Delay -- allowing things to settle
+	USART_PutChar(&USARTF0, AUTOBAUD_BYTE);
 } //End drive inits
+
+
+
 
 
 //Gimbal send string function, its all by itself with its init so far

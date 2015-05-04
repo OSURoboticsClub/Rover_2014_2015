@@ -27,6 +27,11 @@
 
 #define STOP_CONSTANT 50  //Originally 20
 
+//Saberteeth defines
+#define AUTOBAUD_BYTE 170
+#define SABERTOOTHADDRESS 128  //We are setting all of the addresses to 128 because they are on individual UARTS
+
+
 //#include "XMegaLib.h"
 #include "math.h"
 #include "string.h"
@@ -104,6 +109,12 @@ void Saber_init_tres(void);
 void SendStringSABER_UNO(char *present);
 void SendStringSABER_DOS(char *present);
 void SendStringSaber_TRES(char *present);
+
+void SendDriveCommand_SaberOne(unsigned char command, unsigned char value);
+void SendDriveCommand_SaberTwo(unsigned char command, unsigned char value);
+void SendDriveCommand_SaberThree(unsigned char command, unsigned char value);
+unsigned char SaberChecksum(unsigned char command, unsigned char value);
+
 
 //Below are functions for RC control (Need hardware testing)
 void RC_init();
