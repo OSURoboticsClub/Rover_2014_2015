@@ -34,12 +34,17 @@ void driveMain(){
 	
 	char recieveChar;
 	
+	//Main executing loop
 	while(1){
-		SendDriveCommand_SaberOne(6, 90);
+		//if(USART_RXBufferData_Available(&USART_PC_Data)){ //If there is information available
+			
+		//}
+		
+		//SendDriveCommand_SaberOne(6, 90);
 		SendDriveCommand_SaberOne(7, 90);
-		SendDriveCommand_SaberTwo(6, 90);
+		//SendDriveCommand_SaberTwo(6, 90);
 		SendDriveCommand_SaberTwo(7, 90);
-		SendDriveCommand_SaberThree(6, 90);
+		//SendDriveCommand_SaberThree(6, 90);
 		SendDriveCommand_SaberThree(7, 90);
 		/*
 		for(int i = 10; i < 150; ++i){
@@ -110,7 +115,7 @@ void SendDriveCommand_SaberTwo(unsigned char command, unsigned char value){
 	USART_PutChar(&USARTE1, command);  //Sends the command
 	
 	while(!USART_IsTXDataRegisterEmpty(&USARTE1));
-	USART_PutChar(&USARTE1, value);		//Sends the value or speed to the sabertooth
+	USART_PutChar(&USARTE1, value);		//Sends the value or speed to the Sabertooth
 	
 	while(!USART_IsTXDataRegisterEmpty(&USARTE1));
 	USART_PutChar(&USARTE1, SaberChecksum(command, value));				//Send the checksum of all these values to the sabertooth
@@ -129,7 +134,7 @@ void SendDriveCommand_SaberThree(unsigned char command, unsigned char value){
 	USART_PutChar(&USARTF0, value);		//Sends the value or speed to the sabertooth
 	
 	while(!USART_IsTXDataRegisterEmpty(&USARTF0));
-	USART_PutChar(&USARTF0, SaberChecksum(command, value));				//Send the checksum of all these values to the sabertooth
+	USART_PutChar(&USARTF0, SaberChecksum(command, value));				//Send the checksum of all these values to the Sabertooth
 }
 
 
@@ -171,7 +176,7 @@ void Saber_init_uno(){	//USARTE0
 	USART_InterruptDriver_Initialize(&SABER_UNO, &USARTE0, USART_DREINTLVL_LO_gc);				//Initialize USARTE0 as interrupt driven serial and clear it's buffers
 	USART_Format_Set(SABER_UNO.usart, USART_CHSIZE_8BIT_gc, USART_PMODE_DISABLED_gc, false);	//Set the data format of 8 bits, no parity, 1 stop bit
 	USART_RxdInterruptLevel_Set(SABER_UNO.usart, USART_RXCINTLVL_LO_gc);						//Enable the receive interrupt
-	USART_Baudrate_Set(&USARTE0, 207 , 0);															//Set baudrate to 9600 with 32Mhz system clock
+	USART_Baudrate_Set(&USARTE0, 207 , 0);														//Set baudrate to 9600 with 32Mhz system clock
 	USART_Rx_Enable(SABER_UNO.usart);															//Enable receiving over serial
 	USART_Tx_Enable(SABER_UNO.usart);															//Enable transmitting over serial
 	
@@ -206,15 +211,13 @@ void Saber_init_tres(){ //USARTF0
 	USART_InterruptDriver_Initialize(&SABER_TRES, &USARTF0, USART_DREINTLVL_LO_gc);				//Initialize USARTF0 as interrupt driven serial and clear it's buffers
 	USART_Format_Set(SABER_TRES.usart, USART_CHSIZE_8BIT_gc, USART_PMODE_DISABLED_gc, false);	//Set the data format of 8 bits, no parity, 1 stop bit
 	USART_RxdInterruptLevel_Set(SABER_TRES.usart, USART_RXCINTLVL_LO_gc);						//Enable the receive interrupt
-	USART_Baudrate_Set(&USARTF0, 207 , 0);															//Set baudrate to 9600 with 32Mhz system clock
+	USART_Baudrate_Set(&USARTF0, 207 , 0);														//Set baudrate to 9600 with 32Mhz system clock
 	USART_Rx_Enable(SABER_TRES.usart);															//Enable receiving over serial
 	USART_Tx_Enable(SABER_TRES.usart);
 	
 	_delay_ms(100); //Delay -- allowing things to settle
 	USART_PutChar(&USARTF0, AUTOBAUD_BYTE);
 } //End drive inits
-
-
 
 
 
@@ -225,8 +228,6 @@ void SendStringGim(char *present){
 		USART_PutChar(&USARTD0, present[i]);
 	}
 } //End gimbal send string functions, USARTD0
-
-
 
 void ARM_INIT(){ //USARTD1
 	PORTD.DIRSET = PIN7_bm;																			//Sets TX Pin as output
@@ -251,7 +252,6 @@ void GIM_BAL_INIT(){//USARTD0
 	USART_Rx_Enable(GIMBAL_USART.usart);															//Enable receiving over serial
 	USART_Tx_Enable(GIMBAL_USART.usart);
 }//end of gimbal usart init, may want to double check as well
-
 
 void RC_init(){	//Sets correct RC pins as inputs and sets up a timer
 	PORTB.DIRCLR = PIN3_bm;																			//Sets RX pin as input CH1
@@ -364,7 +364,6 @@ int RCSpeed(int ch){ //Does work on RC signal to determine speed value to send t
 	
 	
 }
-
 
 char * i_to_st(int value){
 int digits = 0;

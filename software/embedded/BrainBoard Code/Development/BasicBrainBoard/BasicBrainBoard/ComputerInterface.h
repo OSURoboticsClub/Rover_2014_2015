@@ -11,6 +11,6 @@
 
 #include "XMegaLib.h"
 
-
+void initPCInterface(XMEGAID InputCurrentID);
 
 #endif /* COMPUTERINTERFACE_H_ */

@@ -67,6 +67,7 @@ int main(void)
 	uart_init();
 	initializeIO();
 	determineID(XmegaIDStr, CurrentID);
+	initPCInterface(CurrentID);
 	timer_init();  //Initialize Timers
 	sei(); //Enable interrupts
 	
@@ -110,7 +111,7 @@ int main(void)
 				break;
 			case MainProgram:
 				RGBSetColor(GREEN);
-				//processPackets = true;
+				processPackets = true;
 				switch (CurrentID) {
 					case DRIVE:
 						driveInit();

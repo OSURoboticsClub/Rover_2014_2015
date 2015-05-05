@@ -84,8 +84,61 @@ enum XMEGAID{
 void RGBSetColor(RGBColors choice);
 void initializeIO(void);  //Sets up all of the IO and associated settings
 //void determineID(void);
+
 void determineID(char * XmegaIDStr, XMEGAID & CurrentID);
 
+//Communication Variables
+EXTERN char volatile freshData;           //Set high if new data was processed
+EXTERN char volatile packetIndex;
+EXTERN XMEGAID volatile GlobalCurrentID;
+EXTERN char volatile targetPacketLength;  //This is set based on GlobalCurrentID in initPCInterface()
+EXTERN bool volatile processPackets;     //Should we be waiting for computer packets?
+EXTERN char recievedData[20];            //Holds the recieved data as its parsed
+
+#define DRIVE_PACKET_LENGTH 8
+#define ARM_PACKET_LENGTH 6
+
+//DRIVE_PACKET_FROM_COMP
+enum DRIVE_PACKET_FROM_COMP {
+	DRIVE_HEAD = 0,
+	LEFT_SPEED = 1,
+	RIGHT_SPEED = 2,
+	GIMBAL_PITCH = 3,
+	GIMBAL_ROLL = 4, 
+	GIMBAL_YAW = 5,
+	DRIVE_CHECKSUM = 6,
+	DRIVE_FOOTER = 7
+	};
+
+//Holds the infromation from the computer
+struct DRIVE_DATA {
+	char leftSpeed;
+	char rightSpeed;
+	char gimbalPitch;
+	char gimbalRoll;
+	char gimbalYaw;
+	};
+
+enum DRIVE_PACKET_TO_COMP {
+	DRIVE_RESPONSE_HEAD, 
+	IS_PAUSED_BYTE,
+	LEFT_ABS_POSITION,
+	RIGHT_ABS_POSITION,
+	CHECKSUM,
+	DRIVE_RESPONSE_FOOTER
+	};
+	
+struct DRIVE_RESPONSE {
+	char isPaused;
+	char leftAbsPosition;
+	char rigtAbsPosition;
+	};
+
+//Need to place in a Union with Arm data
+EXTERN volatile DRIVE_DATA driveData;
+
+
+void initPCInterface(XMEGAID InputCurrentID);
 
 
 #endif /* XMEGALIB_H */
