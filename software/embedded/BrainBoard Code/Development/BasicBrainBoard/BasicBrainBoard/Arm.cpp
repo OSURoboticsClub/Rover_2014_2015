@@ -70,7 +70,9 @@ static volatile struct {
 	 *   period [32us units] = 1/(32e-6 * speed[steps/s]) */
 	const uint16_t step_period;
 	const bool pos_dir; /* Positive (away from limit) DIR pin value. */
-	
+	const uint32_t steps_per; /* Steps per axis increment. For X&Y, this is steps per 3mm.
+	                       * TODO: Define for other axises. */
+
 	PORT_t * const step_port; /* Port containing step pin. */
 	const uint8_t step_pin; /* Step pin bit mask. */
 	PORT_t * const dir_port; /* Port containing dir pin. */
@@ -84,12 +86,12 @@ static volatile struct {
 	register8_t * const cc_buf_l; /* CCxBUFL for this axis. */
 	register8_t * const int_ctrl; /* CC interrupt register for this axis. */
 	const uint8_t int_bm; /* Interrupt bit mask for this axis. */
-} ArmAxis[5] { /*              Step      |      Dir       |      nEN       |     Limit      |    CNTL     |   CCxBUFL      |     INTCTRLB    | Interrupt bit mask */
-	{0,0, 100, true, &PORTE, PIN4_bm, &PORTE, PIN7_bm, &PORTE, PIN5_bm, &PORTF, PIN6_bm, &(TCE0.CNTL), &(TCE0.CCABUFL), &(TCE0.INTCTRLB), TC0_CCAINTLVL1_bm}, /* X axis */
-	{0,0, 1000, true, &PORTE, PIN3_bm, &PORTE, PIN2_bm, &PORTE, PIN0_bm, &PORTF, PIN7_bm, &(TCE0.CNTL), &(TCE0.CCBBUFL), &(TCE0.INTCTRLB), TC0_CCBINTLVL1_bm}, /* Y axis */
-	{0,0, 100, true, &PORTD, PIN6_bm, &PORTE, PIN1_bm, &PORTD, PIN7_bm, &PORTF, PIN4_bm, &(TCE0.CNTL), &(TCE0.CCCBUFL), &(TCE0.INTCTRLB), TC0_CCCINTLVL1_bm}, /* Z axis */
-	{0,0, 1000, true, &PORTD, PIN5_bm, &PORTD, PIN4_bm, &PORTD, PIN2_bm, &PORTF, PIN0_bm, &(TCE0.CNTL), &(TCE0.CCDBUFL), &(TCE0.INTCTRLB), TC0_CCDINTLVL1_bm}, /* Rotation */
-	{0,0, 1000, true, &PORTD, PIN1_bm, &PORTD, PIN0_bm, &PORTD, PIN3_bm, &PORTF, PIN1_bm, &(TCE1.CNTL), &(TCE1.CCABUFL), &(TCE1.INTCTRLB), TC1_CCAINTLVL1_bm} /* Grip */
+} ArmAxis[5] { /*                Step      |      Dir       |      nEN       |     Limit      |    CNTL     |   CCxBUFL      |     INTCTRLB    | Interrupt bit mask */
+	{0,0, 100, true, 3, &PORTE, PIN4_bm, &PORTE, PIN7_bm, &PORTE, PIN5_bm, &PORTF, PIN6_bm, &(TCE0.CNTL), &(TCE0.CCABUFL), &(TCE0.INTCTRLB), TC0_CCAINTLVL1_bm}, /* X axis */
+	{0,0, 100, true, 3, &PORTE, PIN3_bm, &PORTE, PIN2_bm, &PORTE, PIN0_bm, &PORTF, PIN7_bm, &(TCE0.CNTL), &(TCE0.CCBBUFL), &(TCE0.INTCTRLB), TC0_CCBINTLVL1_bm}, /* Y axis */
+	{0,0, 100, true, 3, &PORTD, PIN6_bm, &PORTE, PIN1_bm, &PORTD, PIN7_bm, &PORTF, PIN4_bm, &(TCE0.CNTL), &(TCE0.CCCBUFL), &(TCE0.INTCTRLB), TC0_CCCINTLVL1_bm}, /* Z axis */
+	{0,0, 100, true, 3, &PORTD, PIN5_bm, &PORTD, PIN4_bm, &PORTD, PIN2_bm, &PORTF, PIN0_bm, &(TCE0.CNTL), &(TCE0.CCDBUFL), &(TCE0.INTCTRLB), TC0_CCDINTLVL1_bm}, /* Rotation */
+	{0,0, 100, true, 3, &PORTD, PIN1_bm, &PORTD, PIN0_bm, &PORTD, PIN3_bm, &PORTF, PIN1_bm, &(TCE1.CNTL), &(TCE1.CCABUFL), &(TCE1.INTCTRLB), TC1_CCAINTLVL1_bm} /* Grip */
 };
 
 /* Generate a step on the given axis and schedule to
@@ -199,7 +201,79 @@ static uint8_t ReadCalibrationByte( uint8_t index ){
 	NVM_CMD = NVM_CMD_NO_OPERATION_gc;
 
 	return( result );
-} 
+}
+
+
+/* Set the desired position of the axis, in steps.
+ * The step positions start at 0 at the limit
+ * switch and increase from there. */
+void set_target(arm_axis_t axis, int32_t position){
+	cli();
+	ArmAxis[axis].target = position * 2;
+	sei();
+	generate_step(axis);
+}
+
+/* Return the current position of the axis, in steps.
+ * The step positions start at 0 at the limit
+ * switch and increase from there. */
+int32_t get_position(arm_axis_t axis){
+	int32_t value;
+	cli();
+	value = ArmAxis[axis].current / 2;
+	sei();
+	return value;
+}
+
+/* Set the current position of the axis to be 0.
+ * This function should only be called when an
+ * axis is pressing its limit switch. */
+void set_zero(arm_axis_t axis){
+	cli();
+	ArmAxis[axis].current = 0;
+	sei();
+};
+
+/* Return true if the given limit switch is pressed,
+ * false if it is not. Due to electrical noise issues,
+ * this function should only be relied on for
+ * unpressed->pressed transitions. */
+bool limit_pressed(arm_axis_t axis){
+	return ArmAxis[axis].limit_port->IN & ArmAxis[axis].limit_pin;
+}
+
+/* If true, the nFAULT line is being pulled low by one of the
+ * stepper drivers, indicating a fault condition. */
+bool stepper_fault(){
+	return !(PORTB.IN & PIN3_bm);
+}
+
+/* Enable all stepper drivers. */
+void enable_steppers(){
+	for(int i=0; i < 5; i++){
+		ArmAxis[i].nen_port->OUTCLR = ArmAxis[i].nen_pin;
+	}
+}
+
+/* Disable all stepper drivers and set target positions
+ * to current positions, to stop step generation. */
+void disable_steppers(){
+	cli();
+	for(int i=0; i < 5; i++){
+		ArmAxis[i].target = ArmAxis[i].current;
+		ArmAxis[i].nen_port->OUTSET = ArmAxis[i].nen_pin;
+	}
+	sei();
+}
+
+/* Returns true if any axises are in motion. */
+bool arm_moving(){
+	return ArmAxis[0].current != ArmAxis[0].target ||
+	       ArmAxis[1].current != ArmAxis[1].target ||
+	       ArmAxis[2].current != ArmAxis[2].target ||
+	       ArmAxis[3].current != ArmAxis[3].target ||
+	       ArmAxis[4].current != ArmAxis[4].target;
+}
 
 /* Setup the ADC to digitize the flex sensors. */
 void init_flex(){
@@ -266,68 +340,42 @@ void armInit(){
 
 /* Operate the arm board. */
 void armMain(){
-	RGBSetColor(PURPLE);
-	//set_target(ARM_X, 1000);
-	set_target(ARM_Z, -500);
-	while(1);
-}
-
-/* Set the desired position of the axis, in steps.
- * The step positions start at 0 at the limit
- * switch and increase from there. */
-void set_target(arm_axis_t axis, int32_t position){
-	cli();
-	ArmAxis[axis].target = position * 2;
-	sei();
-	generate_step(axis);
-}
-
-/* Return the current position of the axis, in steps.
- * The step positions start at 0 at the limit
- * switch and increase from there. */
-int32_t get_position(arm_axis_t axis){
-	int32_t value;
-	cli();
-	value = ArmAxis[axis].current / 2;
-	sei();
-	return value;
-}
-
-/* Set the current position of the axis to be 0.
- * This function should only be called when an
- * axis is pressing its limit switch. */
-void set_zero(arm_axis_t axis){
-	cli();
-	ArmAxis[axis].current = 0;
-	sei();
-};
-
-/* Return true if the given limit switch is pressed,
- * false if it is not. Due to electrical noise issues,
- * this function should only be relied on for
- * unpressed->pressed transitions. */
-bool limit_pressed(arm_axis_t axis){
-	return ArmAxis[axis].limit_port->IN & ArmAxis[axis].limit_pin;
-}
-
-/* If true, the nFAULT line is being pulled low by one of the
- * stepper drivers, indicating a fault condition. */
-bool stepper_fault(){
-	return !(PORTB.IN & PIN3_bm);
-}
-
-/* Enable all stepper drivers. */
-void enable_steppers(){
-	for(int i=0; i < 5; i++){
-		ArmAxis[i].nen_port->OUTCLR = ArmAxis[i].nen_pin;
-	}
-}
-
-/* Disable all stepper drivers.
- * NOTE: This only disables the drivers, it doesn't stop
- * step generation. Don't call during normal operation. */
-void disable_steppers(){
-	for(int i=0; i < 5; i++){
-		ArmAxis[i].nen_port->OUTSET = ArmAxis[i].nen_pin;
-	}
+// 	bool homed = false; /* If true, all axises have been homed,
+// 	                     * allowing them to be moved safely. */
+// 	bool completion_reported = false;
+// 	while(1){
+// 		while(!checkIfNewDataAvailable()){
+// 			//TODO: Ensure that setActionsComplete just sets a flag, and
+// 			//      doesn't transmit anything, because it's going to get called a lot
+// 			if(!arm_moving() && !completion_reported){
+// 				setActionsComplete(true);
+// 				completion_reported = true;
+// 			}
+// 		}
+// 		
+// 		setActionsComplete(false);
+// 		completion_reported = false;
+// 		
+// 		if(homed){
+// 			set_target(ARM_X, ArmAxis[ARM_X].steps_per * getXAxisValue());
+// 			set_target(ARM_Y, ArmAxis[ARM_Y].steps_per * getYAxisValue());
+// 			//TODO: Z-axis; manage decisions about which way to turn
+// 			//TODO: Z-axis heat issues
+// 			set_target(ARM_ROTATE, ArmAxis[ARM_ROTATE].steps_per * getGripperRotation());
+// 		}
+// 		if(powerdown()){
+// 			disable_steppers();
+// 			homed = false; //TODO: Will the actuator be safely parked?
+// 		}
+// 		if(shouldGrip()){
+// 			//TODO: Grip routine.
+// 			//TODO: Release routine.
+// 		}
+// 		if(initRobot()){
+// 			//TODO: Homing routine (figure out safest order).
+// 			homed = true;
+// 		}
+// 		
+// 	}
+		
 }

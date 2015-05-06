@@ -64,9 +64,11 @@ bool stepper_fault();
 /* Enable all stepper drivers. */
 void enable_steppers();
 
-/* Disable all stepper drivers.
- * NOTE: This only disables the drivers, it doesn't stop
- * step generation. Don't call during normal operation. */
+/* Disable all stepper drivers and set target positions
+ * to current positions, to stop step generation. */
 void disable_steppers();
+
+/* Returns true if any axises are in motion. */
+bool arm_moving();
 
 #endif /* ARM_H_ */
