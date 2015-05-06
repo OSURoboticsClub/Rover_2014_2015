@@ -21,13 +21,11 @@ ISR(USARTC0_RXC_vect){
 			freshData = 1;     //There is new data to process
 			
 			//Process packets
-			
-			RGBSetColor(BLUE); //Read packet color
+			//RGBSetColor(BLUE); //Read packet color
 			
 			switch(GlobalCurrentID){
 				case DRIVE: //Parse drive packet
 					//LoL, ignore checksum
-					//SendStringPC("Received Drive Packet. \r\n");
 					if(recievedData[DRIVE_HEAD] == 255 && recievedData[DRIVE_FOOTER] == 255){ //basic verification, TODO: Add checksum verification
 						//SendStringPC("Valid Drive Packet. \r\n");
 						RGBSetColor(ORANGE);
@@ -38,11 +36,20 @@ ISR(USARTC0_RXC_vect){
 						driveData.gimbalYaw = recievedData[GIMBAL_YAW];
 					}
 					else {
-						//flush buffer?
+						RGBSetColor(RED); //Something went pretty wrong...
+						//flush buffer? Nah, this shouldn't be necessary because it will have just the right amount of stuffz in the array
 					}
 					break;
 				case ARM:  //Parse arm packet
-					
+					//Lol, ignore checksum
+					if(recievedData[ARM_HEAD] == 255 && recievedData[ARM_FOOTER] == 255){
+						RGBSetColor(ORANGE);
+						armData.commandByte = recievedData[COMMAND];
+						armData.xAxisValue = recievedData[X_AXIS_VALUE];
+						armData.yAxisValue = recievedData[Y_AXIS_VALUE];
+						armData.zAxisValue = recievedData[Z_AXIS_VALUE];
+						armData.gripperRotation = recievedData[GRIPPER_ROTATION];
+					}
 					break;
 			}
 		}
@@ -83,7 +90,7 @@ void sendDriveResponse(const DRIVE_RESPONSE & input){
 	stagingArray[RIGHT_ABS_POSITION_B1] = input.rightAbsPosition && 0x0000FF;
 	stagingArray[RIGHT_ABS_POSITION_B2] = (input.rightAbsPosition && 0x00FF00) >> 2;
 	stagingArray[RIGHT_ABS_POSITION_B3] = (input.rightAbsPosition && 0xFF0000) >> 4;
-	stagingArray[CHECKSUM] = 0x76;    //Set by specification
+	stagingArray[DRIVE_RESPONSE_CHECKSUM] = 0x76;    //Set by specification
 	stagingArray[DRIVE_RESPONSE_FOOTER] = 255;
 
 	//Actually 	

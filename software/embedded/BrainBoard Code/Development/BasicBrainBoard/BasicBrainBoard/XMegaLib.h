@@ -102,14 +102,14 @@ EXTERN char recievedData[20];            //Holds the recieved data as its parsed
 
 //DRIVE_PACKET_FROM_COMP
 enum DRIVE_PACKET_FROM_COMP {
-	DRIVE_HEAD = 0,
-	LEFT_SPEED = 1,
-	RIGHT_SPEED = 2,
-	GIMBAL_PITCH = 3,
-	GIMBAL_ROLL = 4, 
-	GIMBAL_YAW = 5,
-	DRIVE_CHECKSUM = 6,
-	DRIVE_FOOTER = 7
+	DRIVE_HEAD,
+	LEFT_SPEED,
+	RIGHT_SPEED,
+	GIMBAL_PITCH,
+	GIMBAL_ROLL, 
+	GIMBAL_YAW,
+	DRIVE_CHECKSUM,
+	DRIVE_FOOTER
 	};
 
 //Holds the infromation from the computer
@@ -130,7 +130,7 @@ enum DRIVE_PACKET_TO_COMP {
 	RIGHT_ABS_POSITION_B1,
 	RIGHT_ABS_POSITION_B2,
 	RIGHT_ABS_POSITION_B3,
-	CHECKSUM,
+	DRIVE_RESPONSE_CHECKSUM,
 	DRIVE_RESPONSE_FOOTER
 	};
 	
@@ -143,6 +143,31 @@ struct DRIVE_RESPONSE {
 //Need to place in a Union with Arm data
 EXTERN volatile DRIVE_DATA driveData;
 
+enum ARM_PACKET_TO_COMP {
+	ARM_HEAD,
+	COMMAND,
+	X_AXIS_VALUE,
+	Y_AXIS_VALUE,
+	Z_AXIS_VALUE,
+	GRIPPER_ROTATION,
+	ARM_CHECKSUM,
+	ARM_FOOTER
+};
+
+struct ARM_DATA {
+	char commandByte;
+	char shouldGrip;
+	char powerdown;
+	char initRobot;
+	char xAxisValue;
+	char yAxisValue;
+	char zAxisValue;
+	char gripperRotation;
+	};
+
+EXTERN volatile ARM_DATA armData;
+
+//Misc communication-related functions
 void FlushSerialBuffer(USART_data_t *UsartBuffer);
 void initPCInterface(XMEGAID InputCurrentID);
 

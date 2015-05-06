@@ -33,6 +33,11 @@ void driveMain(){
 	Saber_init_dos();
 	Saber_init_tres();
 	
+	//Safety saberteeth configutation settings
+	SendDriveCommand_SaberOne(14, 10); //Set a 1000ms serial timeout delay
+	SendDriveCommand_SaberTwo(14, 10); //Set a 1000ms serial timeout delay
+	SendDriveCommand_SaberThree(14, 10); //Set a 1000ms serial timeout delay
+	
 	char recieveChar;
 	
 	//Main executing loop
@@ -44,7 +49,7 @@ void driveMain(){
 		if(freshData){
 			freshData = 0;  //Marking the data as read
 			
-			parsePacket(driveData.leftSpeed / 2, driveData.rightSpeed / 2, 0, 0, 0);
+			parsePacket(driveData.leftSpeed, driveData.rightSpeed, 0, 0, 0);
 			if(driveData.leftSpeed > 120 && driveData.leftSpeed < 130){
 				//RGBSetColor(BLUE);
 			}
@@ -113,6 +118,17 @@ void parsePacket(char left, char right, char gimbalPitch, char gimbalRoll, char 
 	6 (drive motor 1) is the left motors
 	7 (drive motor 2) is the right motors
 	*/
+	
+	/*
+	
+	left is a number between 0 and 255, 0 signifying full reverse, 255 signifying full forward
+	
+	One option is to use the separate forward and backwards commands, but it's unlikely that we need that accuracy.
+	
+	*/
+	
+	left = left / 2;
+	right = right / 2;
 	
 	SendDriveCommand_SaberOne(6, left);
 	SendDriveCommand_SaberTwo(6, left);
