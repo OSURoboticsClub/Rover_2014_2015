@@ -110,7 +110,7 @@ class MotorController(object):
             raise str(right)+"(right speed) not in range [0, 255]"
         self.left = left
         self.right = right
-	self.debugStr += str(self.serial.write_packet(10,10, 0, 0, 0))
+	self.debugStr += str(self.serial.write_packet(40,60, 0, 0, 0))
 #        self.debugStr += "7"
         print(self.debugStr)  #Added by Nick
     
