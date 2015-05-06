@@ -20,11 +20,15 @@ ISR(USARTC0_RXC_vect){
 			freshData = 1;     //There is new data to process
 			
 			//Process packets
+			
 			RGBSetColor(BLUE); //Read packet color
+			
 			switch(GlobalCurrentID){
 				case DRIVE: //Parse drive packet
 					//LoL, ignore checksum
+					SendStringPC("Recieved Drive Packet. \r\n");
 					if(recievedData[DRIVE_HEAD] == 255 && recievedData[DRIVE_FOOTER] == 255){ //basic verification, TODO: Add checksum verification
+						SendStringPC("Valid Drive Packet. \r\n");
 						driveData.leftSpeed = recievedData[LEFT_SPEED];
 						driveData.rightSpeed = recievedData[RIGHT_SPEED];
 						driveData.gimbalPitch = recievedData[GIMBAL_PITCH];

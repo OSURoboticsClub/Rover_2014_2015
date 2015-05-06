@@ -31,6 +31,7 @@ void driveMain(){
 
 	Saber_init_uno();
 	Saber_init_dos();
+	Saber_init_tres();
 	
 	char recieveChar;
 	
@@ -40,12 +41,22 @@ void driveMain(){
 			
 		//}
 		
-		//SendDriveCommand_SaberOne(6, 90);
+		/*
+		
+		6 (drive motor 1) is the left motors
+		7 (drive motor 2) is the right motors
+		
+		*/
+		
+		SendStringPC("Welcome to the drive loop, baby. ");
+		
+		SendDriveCommand_SaberOne(6, 90);
 		SendDriveCommand_SaberOne(7, 90);
-		//SendDriveCommand_SaberTwo(6, 90);
+		SendDriveCommand_SaberTwo(6, 90);
 		SendDriveCommand_SaberTwo(7, 90);
-		//SendDriveCommand_SaberThree(6, 90);
+		SendDriveCommand_SaberThree(6, 90);
 		SendDriveCommand_SaberThree(7, 90);
+		
 		/*
 		for(int i = 10; i < 150; ++i){
 			SendDriveCommand_SaberTwo(6, i);
