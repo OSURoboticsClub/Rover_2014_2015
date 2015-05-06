@@ -96,7 +96,7 @@ class MotorController(object):
         self.cur_left = 0
         self.step = 1
         self.cycle_size = .02
-	self.debugStr = "Debug String: " #Added by Nick
+#        self.debugStr = "Debug String: " #Added by Nick
     
     
     def change_speed(self, left, right):
@@ -107,7 +107,7 @@ class MotorController(object):
             raise str(right)+"(right speed) not in range [0, 255]"
         self.left = left
         self.right = right
-        print(self.debugStr)  #Added by Nick
+#        print(self.debugStr)  #Added by Nick
     
     #
     # Loop to be constantly executed to keep sending packets and to perform
@@ -123,7 +123,7 @@ class MotorController(object):
         
         self.serial.write_packet(self.cur_left, self.cur_right, 0, 0, 0)
         time.sleep(self.cycle_size)
-        self.debugStr += self.serial.debug_read()
+#        self.debugStr += self.serial.debug_read()
     
 
 if __name__ == '__main__':
