@@ -44,6 +44,7 @@ void driveMain(){
 		if(freshData){
 			freshData = 0;  //Marking the data as read
 			
+			parsePacket(driveData.leftSpeed / 2, driveData.rightSpeed / 2, 0, 0, 0);
 			if(driveData.leftSpeed > 120 && driveData.leftSpeed < 130){
 				//RGBSetColor(BLUE);
 			}
