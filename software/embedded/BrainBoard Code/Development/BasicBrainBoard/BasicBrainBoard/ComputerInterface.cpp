@@ -16,6 +16,7 @@ ISR(USARTC0_RXC_vect){
 		recievedData[packetIndex] = USART_RXBuffer_GetByte(&USART_PC_Data);  //Read character off of buffer
 		
 		if(packetIndex == targetPacketLength){
+			FlushSerialBuffer(&USART_PC_Data);
 			packetIndex = 0;   //Reset the packet index
 			freshData = 1;     //There is new data to process
 			
@@ -26,14 +27,18 @@ ISR(USARTC0_RXC_vect){
 			switch(GlobalCurrentID){
 				case DRIVE: //Parse drive packet
 					//LoL, ignore checksum
-					SendStringPC("Recieved Drive Packet. \r\n");
+					//SendStringPC("Received Drive Packet. \r\n");
 					if(recievedData[DRIVE_HEAD] == 255 && recievedData[DRIVE_FOOTER] == 255){ //basic verification, TODO: Add checksum verification
-						SendStringPC("Valid Drive Packet. \r\n");
+						//SendStringPC("Valid Drive Packet. \r\n");
+						RGBSetColor(ORANGE);
 						driveData.leftSpeed = recievedData[LEFT_SPEED];
 						driveData.rightSpeed = recievedData[RIGHT_SPEED];
 						driveData.gimbalPitch = recievedData[GIMBAL_PITCH];
 						driveData.gimbalRoll = recievedData[GIMBAL_ROLL];
 						driveData.gimbalYaw = recievedData[GIMBAL_YAW];
+					}
+					else {
+						//flush buffer?
 					}
 					break;
 				case ARM:  //Parse arm packet

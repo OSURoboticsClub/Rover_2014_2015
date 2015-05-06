@@ -115,6 +115,8 @@ void SendDriveCommand_SaberTwo(unsigned char command, unsigned char value);
 void SendDriveCommand_SaberThree(unsigned char command, unsigned char value);
 unsigned char SaberChecksum(unsigned char command, unsigned char value);
 
+void parsePacket(char left, char right, char gimbalPitch, char gimbalRoll, char gimbalYaw);
+
 
 //Below are functions for RC control (Need hardware testing)
 void RC_init();

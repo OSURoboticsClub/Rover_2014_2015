@@ -143,7 +143,7 @@ struct DRIVE_RESPONSE {
 //Need to place in a Union with Arm data
 EXTERN volatile DRIVE_DATA driveData;
 
-
+void FlushSerialBuffer(USART_data_t *UsartBuffer);
 void initPCInterface(XMEGAID InputCurrentID);
 
 

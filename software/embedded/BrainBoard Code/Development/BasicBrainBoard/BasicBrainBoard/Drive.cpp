@@ -37,25 +37,36 @@ void driveMain(){
 	
 	//Main executing loop
 	while(1){
-		//if(USART_RXBufferData_Available(&USART_PC_Data)){ //If there is information available
+		
+		//SendStringPC("Welcome to the drive loop, baby. ");
+		
+		
+		if(freshData){
+			freshData = 0;  //Marking the data as read
 			
-		//}
+			if(driveData.leftSpeed > 120 && driveData.leftSpeed < 130){
+				//RGBSetColor(BLUE);
+			}
+			else {
+				//RGBSetColor(GREEN);
+			}
+			freshData = 0;  //Marking the data as read
+		}
+		
+		
+		
+		//parsePacket(90, 90, 0, 0, 0);
+		
+		
 		
 		/*
-		
-		6 (drive motor 1) is the left motors
-		7 (drive motor 2) is the right motors
-		
-		*/
-		
-		SendStringPC("Welcome to the drive loop, baby. ");
-		
 		SendDriveCommand_SaberOne(6, 90);
 		SendDriveCommand_SaberOne(7, 90);
 		SendDriveCommand_SaberTwo(6, 90);
 		SendDriveCommand_SaberTwo(7, 90);
 		SendDriveCommand_SaberThree(6, 90);
 		SendDriveCommand_SaberThree(7, 90);
+		*/
 		
 		/*
 		for(int i = 10; i < 150; ++i){
@@ -69,7 +80,7 @@ void driveMain(){
 			_delay_ms(50);
 		}
 		*/
-		_delay_ms(100);
+		//_delay_ms(100);
 	}
 	
 	/*
@@ -94,6 +105,24 @@ void driveMain(){
 	
 }
 
+void parsePacket(char left, char right, char gimbalPitch, char gimbalRoll, char gimbalYaw){
+	//Current setup is not changing the speeds
+	
+	/*
+	6 (drive motor 1) is the left motors
+	7 (drive motor 2) is the right motors
+	*/
+	
+	SendDriveCommand_SaberOne(6, left);
+	SendDriveCommand_SaberTwo(6, left);
+	SendDriveCommand_SaberThree(6, left);
+	
+	SendDriveCommand_SaberOne(7, right);
+	SendDriveCommand_SaberTwo(7, right);
+	SendDriveCommand_SaberThree(7, right);
+
+	/* Gimbal to be implemented */
+}
 
 void driveInit() {
 	//This code is ran once before driveMain is run forever
