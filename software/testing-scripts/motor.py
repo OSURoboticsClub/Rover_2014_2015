@@ -19,14 +19,14 @@ class SerialBoard(object):
     #
     # Automaticlly find and connect to a port
     #
-    def find_port(self):
+     def find_port(self):
         for port in list(serial.tools.list_ports.comports()):
             try:
                 s = serial.Serial(port[0], self.baud, timeout=self.timeout);
                 s.write('p')
                 device_id = s.readline()
                 if device_id.strip() == self.id_str.strip():
-                    s.write("r")
+                    s.write('r')
                     self.serial = s
                     return "test"
             except (OSError, serial.SerialException):
@@ -35,12 +35,12 @@ class SerialBoard(object):
     def write_packet(self):
         pass
     
-    def debug_read(self):
-        if (serial.inWaiting > 0):
-	    raise "Recieved something from the BB"
-            return serial.read()
-        else:
-	    return ""
+#    def debug_read(self):
+#        if (serial.inWaiting > 0):
+#            raise "Recieved something from the BB"
+#            return serial.read()
+#        else:
+#            return ""
     
 class MotorSerial(SerialBoard):
     def __init__(self):   
@@ -54,7 +54,7 @@ class MotorSerial(SerialBoard):
         self.pitch = 0;
         self.roll = 0;
         self.yaw = 0;
-#	self.debugStr = "" #Added by Nick
+        self.debugStr = "" #Added by Nick
         
     def write_packet(self, left=0, right=0, pitch=0, roll=0, yaw=0):
         if left == 0:
@@ -83,6 +83,8 @@ class MotorSerial(SerialBoard):
             self.yaw = yaw
         packet = struct.pack(self.packet_struct, chr(0xff), chr(left), chr(right), chr(pitch), chr(roll), chr(yaw), chr(~(left ^(right/2)) & 0xff), chr(0xff))
         self.serial.write(packet)
+#        debugStr += '7'
+#        debugStr += char(self.serial.write(packet))
         
 class MotorController(object):
     
@@ -107,6 +109,7 @@ class MotorController(object):
             raise str(right)+"(right speed) not in range [0, 255]"
         self.left = left
         self.right = right
+#        debugStr += "7"
         print(self.debugStr)  #Added by Nick
     
     #
@@ -123,7 +126,7 @@ class MotorController(object):
         
         self.serial.write_packet(self.cur_left, self.cur_right, 0, 0, 0)
         time.sleep(self.cycle_size)
-#        self.debugStr += self.serial.debug_read() #Added by Nick
+  	print("REACHED POINT ************************************************** REACHED POINT")
     
 
 if __name__ == '__main__':
@@ -141,7 +144,7 @@ if __name__ == '__main__':
     
     left = int((MyJoystick.get_axis(1)* -127) + 127)
     right = int((MyJoystick.get_axis(3)* -127) + 127)
-    os.system('clear')
+#    os.system('clear')
     print "Left Value: " + str(left)
     print "Right Value: " + str(right)
     motor.change_speed(left, right)
