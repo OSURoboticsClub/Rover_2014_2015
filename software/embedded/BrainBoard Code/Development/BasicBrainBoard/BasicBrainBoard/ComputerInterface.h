@@ -12,5 +12,6 @@
 #include "XMegaLib.h"
 
 void initPCInterface(XMEGAID InputCurrentID);
+void sendDriveResponse(DRIVE_RESPONSE input);
 
 #endif /* COMPUTERINTERFACE_H_ */

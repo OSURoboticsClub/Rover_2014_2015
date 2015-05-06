@@ -96,7 +96,9 @@ EXTERN bool volatile processPackets;     //Should we be waiting for computer pac
 EXTERN char recievedData[20];            //Holds the recieved data as its parsed
 
 #define DRIVE_PACKET_LENGTH 8
+#define DRIVE_RESPONSE_PACKET_LENGTH 10
 #define ARM_PACKET_LENGTH 6
+#define ARM_RESPONSE_PACKET_LENGTH 4
 
 //DRIVE_PACKET_FROM_COMP
 enum DRIVE_PACKET_FROM_COMP {
@@ -122,16 +124,20 @@ struct DRIVE_DATA {
 enum DRIVE_PACKET_TO_COMP {
 	DRIVE_RESPONSE_HEAD, 
 	IS_PAUSED_BYTE,
-	LEFT_ABS_POSITION,
-	RIGHT_ABS_POSITION,
+	LEFT_ABS_POSITION_B1,
+	LEFT_ABS_POSITION_B2,
+	LEFT_ABS_POSITION_B3,
+	RIGHT_ABS_POSITION_B1,
+	RIGHT_ABS_POSITION_B2,
+	RIGHT_ABS_POSITION_B3,
 	CHECKSUM,
 	DRIVE_RESPONSE_FOOTER
 	};
 	
 struct DRIVE_RESPONSE {
 	char isPaused;
-	char leftAbsPosition;
-	char rigtAbsPosition;
+	long leftAbsPosition;
+	long rightAbsPosition;
 	};
 
 //Need to place in a Union with Arm data

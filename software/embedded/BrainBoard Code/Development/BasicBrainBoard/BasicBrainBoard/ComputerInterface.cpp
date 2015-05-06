@@ -15,8 +15,6 @@ ISR(USARTC0_RXC_vect){
 		
 		recievedData[packetIndex] = USART_RXBuffer_GetByte(&USART_PC_Data);  //Read character off of buffer
 		
-		++packetIndex;
-		
 		if(packetIndex == targetPacketLength){
 			packetIndex = 0;   //Reset the packet index
 			freshData = 1;     //There is new data to process
@@ -39,6 +37,11 @@ ISR(USARTC0_RXC_vect){
 					break;
 			}
 		}
+		else {  //We only want to increase the packet index if it hasn't just been set to 0
+				//by the reset functionality.
+			++packetIndex;
+		}
+		
 	}
 	
 	
@@ -58,4 +61,26 @@ void initPCInterface(XMEGAID InputCurrentID){
 	freshData = 0;
 	packetIndex = 0;
 	processPackets = false;
+}
+
+void sendDriveResponse(const DRIVE_RESPONSE & input){
+	char stagingArray[DRIVE_RESPONSE_PACKET_LENGTH];
+	
+	stagingArray[DRIVE_RESPONSE_HEAD] = 255;
+	stagingArray[IS_PAUSED_BYTE] = input.isPaused;
+	stagingArray[LEFT_ABS_POSITION_B1] = input.leftAbsPosition && 0x0000FF;
+	stagingArray[LEFT_ABS_POSITION_B2] = (input.leftAbsPosition && 0x00FF00) >> 2;
+	stagingArray[LEFT_ABS_POSITION_B3] = (input.leftAbsPosition && 0xFF0000) >> 4;
+	stagingArray[RIGHT_ABS_POSITION_B1] = input.rightAbsPosition && 0x0000FF;
+	stagingArray[RIGHT_ABS_POSITION_B2] = (input.rightAbsPosition && 0x00FF00) >> 2;
+	stagingArray[RIGHT_ABS_POSITION_B3] = (input.rightAbsPosition && 0xFF0000) >> 4;
+	stagingArray[CHECKSUM] = 0x76;    //Set by specification
+	stagingArray[DRIVE_RESPONSE_FOOTER] = 255;
+
+	//Actually 	
+	for(int i = 0; i <= DRIVE_RESPONSE_HEAD; ++i){
+		while(!USART_IsTXDataRegisterEmpty(&USARTC0));
+		USART_PutChar(&USARTC0, stagingArray[i]);
+	}
+	
 }
