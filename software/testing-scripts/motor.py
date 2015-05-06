@@ -27,12 +27,14 @@ class SerialBoard(object):
                 device_id = s.readline()
                 print(device_id)
                 if device_id.strip() == self.id_str.strip():
+                    print("## Matched ID ##")
                     s.write('r')
                     self.serial = s
                     return "test"
             except (OSError, serial.SerialException):
                 pass
-    
+        print ("##! Failed to find match !##")
+
     def write_packet(self):
         pass
     
@@ -83,7 +85,7 @@ class MotorSerial(SerialBoard):
         else:
             self.yaw = yaw
         packet = struct.pack(self.packet_struct, chr(0xff), chr(left), chr(right), chr(pitch), chr(roll), chr(yaw), chr(~(left ^(right/2)) & 0xff), chr(0xff))
-        self.serial.write(packet)
+        self.debugStr += str(self.serial.write(packet))
         
 class MotorController(object):
     
@@ -108,7 +110,8 @@ class MotorController(object):
             raise str(right)+"(right speed) not in range [0, 255]"
         self.left = left
         self.right = right
-#        debugStr += "7"
+	self.debugStr += str(self.serial.write_packet(10,10, 0, 0, 0))
+#        self.debugStr += "7"
         print(self.debugStr)  #Added by Nick
     
     #
@@ -123,7 +126,7 @@ class MotorController(object):
             else:
                 self.cur_left -= self.step
         
-        self.serial.write_packet(self.cur_left, self.cur_right, 0, 0, 0)
+#        self.serial.write_packet(self.cur_left, self.cur_right, 0, 0, 0)
         time.sleep(self.cycle_size)
     
 
