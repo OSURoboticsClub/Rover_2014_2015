@@ -19,12 +19,13 @@ class SerialBoard(object):
     #
     # Automaticlly find and connect to a port
     #
-     def find_port(self):
+    def find_port(self):
         for port in list(serial.tools.list_ports.comports()):
             try:
                 s = serial.Serial(port[0], self.baud, timeout=self.timeout);
                 s.write('p')
                 device_id = s.readline()
+                print(device_id)
                 if device_id.strip() == self.id_str.strip():
                     s.write('r')
                     self.serial = s
@@ -61,7 +62,7 @@ class MotorSerial(SerialBoard):
             left = self.left
         else:
             self.left = left
-    
+         
         if right == 0:
             right = self.right
         else:
@@ -83,8 +84,6 @@ class MotorSerial(SerialBoard):
             self.yaw = yaw
         packet = struct.pack(self.packet_struct, chr(0xff), chr(left), chr(right), chr(pitch), chr(roll), chr(yaw), chr(~(left ^(right/2)) & 0xff), chr(0xff))
         self.serial.write(packet)
-#        debugStr += '7'
-#        debugStr += char(self.serial.write(packet))
         
 class MotorController(object):
     
@@ -126,7 +125,6 @@ class MotorController(object):
         
         self.serial.write_packet(self.cur_left, self.cur_right, 0, 0, 0)
         time.sleep(self.cycle_size)
-  	print("REACHED POINT ************************************************** REACHED POINT")
     
 
 if __name__ == '__main__':
@@ -144,7 +142,7 @@ if __name__ == '__main__':
     
     left = int((MyJoystick.get_axis(1)* -127) + 127)
     right = int((MyJoystick.get_axis(3)* -127) + 127)
-#    os.system('clear')
+    os.system('clear')
     print "Left Value: " + str(left)
     print "Right Value: " + str(right)
     motor.change_speed(left, right)
