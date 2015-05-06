@@ -85,7 +85,7 @@ class MotorSerial(SerialBoard):
         else:
             self.yaw = yaw
         packet = struct.pack(self.packet_struct, chr(0xff), chr(left), chr(right), chr(pitch), chr(roll), chr(yaw), chr(~(left ^(right/2)) & 0xff), chr(0xff))
-        self.debugStr += str(self.serial.write(packet))
+        return self.serial.write(packet)
         
 class MotorController(object):
     
@@ -110,7 +110,9 @@ class MotorController(object):
             raise str(right)+"(right speed) not in range [0, 255]"
         self.left = left
         self.right = right
-	self.debugStr += str(self.serial.write_packet(40,60, 0, 0, 0))
+	self.serial.write_packet(self.left, self.right, 0, 0, 0)
+#        self.debugStr += str(self.serial.write_packet(self.left, self.right, 0, 0, 0))
+#        self.debugStr += str(self.left)
 #        self.debugStr += "7"
         print(self.debugStr)  #Added by Nick
     
@@ -149,5 +151,6 @@ if __name__ == '__main__':
     print "Left Value: " + str(left)
     print "Right Value: " + str(right)
     motor.change_speed(left, right)
+    time.sleep(.005)
  
  
