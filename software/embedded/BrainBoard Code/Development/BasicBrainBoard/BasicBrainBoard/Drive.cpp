@@ -30,13 +30,13 @@ void driveMain(){
 	//Sabertooth_UNO is the mid motors
 	//Sabertooth_DOS is the rear motors
 	
-	_delay_ms(2000);
+	_delay_ms(2000);  //TODO, determine why this might be necessary?
 
 	Saber_init_uno();
 	Saber_init_dos();
 	Saber_init_tres();
 	
-	//Safety saberteeth configutation settings
+	//Safety saberteeth configuration settings
 	SendDriveCommand_SaberOne(14, 10); //Set a 1000ms serial timeout delay
 	SendDriveCommand_SaberTwo(14, 10); //Set a 1000ms serial timeout delay
 	SendDriveCommand_SaberThree(14, 10); //Set a 1000ms serial timeout delay
@@ -46,41 +46,10 @@ void driveMain(){
 	//Main executing loop
 	while(1){
 		
-		//SendStringPC("Welcome to the drive loop, baby. ");
 		
-		//Hardcoded movement
+
+		//Packet interpreting
 		
-		/*
-		while(1){
-			parsePacket(200, 200, 0, 0, 0);
-			_delay_ms(1);
-		}
-		*/
-		
-		_delay_ms(50000);
-		
-		for (int i = 0; i < 1000; ++i){
-			//SendStringPC("Sending packet to Saberteeth. \r\n");
-			parsePacket(200, 200, 0, 0, 0);
-			_delay_ms(1);
-		}
-		
-		PORTE.OUTSET = PIN5_bm;
-		
-		for (int i = 0; i < 5000; ++i){
-			parsePacket(127, 127, 0, 0, 0);
-			_delay_ms(1);
-		}
-		//_delay_ms(70000);
-		
-		for (int i = 0; i < 900; ++i){
-			parsePacket(55, 55, 0, 0, 0);
-			_delay_ms(1);
-		}
-		
-		while(1);
-		
-		/*
 		if(freshData){
 			freshData = 0;  //Marking the data as read
 			
@@ -93,12 +62,6 @@ void driveMain(){
 			}
 			freshData = 0;  //Marking the data as read
 		}
-		*/
-		
-		
-		//parsePacket(90, 90, 0, 0, 0);
-		
-		
 		
 		/*
 		SendDriveCommand_SaberOne(6, 90);
@@ -495,3 +458,38 @@ char * add_st(char *st1, char *st2){
 	
 	
 }
+
+
+
+
+/* 
+
+RECYCLE BIN
+
+
+
+		_delay_ms(50000);
+		
+		for (int i = 0; i < 1000; ++i){
+			//SendStringPC("Sending packet to Saberteeth. \r\n");
+			parsePacket(200, 200, 0, 0, 0);
+			_delay_ms(1);
+		}
+		
+		PORTE.OUTSET = PIN5_bm;
+		
+		for (int i = 0; i < 5000; ++i){
+			parsePacket(127, 127, 0, 0, 0);
+			_delay_ms(1);
+		}
+		//_delay_ms(70000);
+		
+		for (int i = 0; i < 900; ++i){
+			parsePacket(55, 55, 0, 0, 0);
+			_delay_ms(1);
+		}
+		
+		while(1);
+
+
+*/
