@@ -81,7 +81,7 @@ int main(void)
 
 	//TODO TODO TODO Remove
 	
-	CurrentState = MainProgram;
+	//CurrentState = MainProgram;
 
     while(1)
     { 
