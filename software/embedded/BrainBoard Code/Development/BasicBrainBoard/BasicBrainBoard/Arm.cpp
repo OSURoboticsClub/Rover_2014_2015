@@ -87,9 +87,9 @@ static volatile struct {
 	register8_t * const int_ctrl; /* CC interrupt register for this axis. */
 	const uint8_t int_bm; /* Interrupt bit mask for this axis. */
 } ArmAxis[5] { /*                Step      |      Dir       |      nEN       |     Limit      |    CNTL     |   CCxBUFL      |     INTCTRLB    | Interrupt bit mask */
-	{0,0, 100, true, 3, &PORTE, PIN4_bm, &PORTE, PIN7_bm, &PORTE, PIN5_bm, &PORTF, PIN6_bm, &(TCE0.CNTL), &(TCE0.CCABUFL), &(TCE0.INTCTRLB), TC0_CCAINTLVL1_bm}, /* X axis */
-	{0,0, 100, true, 3, &PORTE, PIN3_bm, &PORTE, PIN2_bm, &PORTE, PIN0_bm, &PORTF, PIN7_bm, &(TCE0.CNTL), &(TCE0.CCBBUFL), &(TCE0.INTCTRLB), TC0_CCBINTLVL1_bm}, /* Y axis */
-	{0,0, 100, true, 3, &PORTD, PIN6_bm, &PORTE, PIN1_bm, &PORTD, PIN7_bm, &PORTF, PIN4_bm, &(TCE0.CNTL), &(TCE0.CCCBUFL), &(TCE0.INTCTRLB), TC0_CCCINTLVL1_bm}, /* Z axis */
+	{0,0, 10, true, 3, &PORTE, PIN4_bm, &PORTE, PIN7_bm, &PORTE, PIN5_bm, &PORTF, PIN6_bm, &(TCE0.CNTL), &(TCE0.CCABUFL), &(TCE0.INTCTRLB), TC0_CCAINTLVL1_bm}, /* X axis */
+	{0,0, 30, false, 3, &PORTE, PIN3_bm, &PORTE, PIN2_bm, &PORTE, PIN0_bm, &PORTF, PIN7_bm, &(TCE0.CNTL), &(TCE0.CCBBUFL), &(TCE0.INTCTRLB), TC0_CCBINTLVL1_bm}, /* Y axis */
+	{0,0, 50, true, 3, &PORTD, PIN6_bm, &PORTE, PIN1_bm, &PORTD, PIN7_bm, &PORTF, PIN4_bm, &(TCE0.CNTL), &(TCE0.CCCBUFL), &(TCE0.INTCTRLB), TC0_CCCINTLVL1_bm}, /* Z axis */
 	{0,0, 100, true, 3, &PORTD, PIN5_bm, &PORTD, PIN4_bm, &PORTD, PIN2_bm, &PORTF, PIN0_bm, &(TCE0.CNTL), &(TCE0.CCDBUFL), &(TCE0.INTCTRLB), TC0_CCDINTLVL1_bm}, /* Rotation */
 	{0,0, 100, true, 3, &PORTD, PIN1_bm, &PORTD, PIN0_bm, &PORTD, PIN3_bm, &PORTF, PIN1_bm, &(TCE1.CNTL), &(TCE1.CCABUFL), &(TCE1.INTCTRLB), TC1_CCAINTLVL1_bm} /* Grip */
 };
@@ -174,6 +174,8 @@ void init_steppers(){
 		ArmAxis[i].nen_port->DIRSET = ArmAxis[i].nen_pin;
 	}
 	enable_steppers();
+	//TODO: Sort out z-axis overheating more thoroughly.
+	disable_axis(ARM_Z);
 	
 	/* Setup timers. */
 	TCE0.CTRLB = TC_WGMODE_NORMAL_gc | TC0_CCDEN_bm | TC0_CCCEN_bm | TC0_CCBEN_bm | TC0_CCAEN_bm;
@@ -231,6 +233,7 @@ int32_t get_position(arm_axis_t axis){
 void set_zero(arm_axis_t axis){
 	cli();
 	ArmAxis[axis].current = 0;
+	ArmAxis[axis].target = 0;
 	sei();
 };
 
@@ -267,12 +270,17 @@ void disable_steppers(){
 }
 
 /* Returns true if any axises are in motion. */
-bool arm_moving(){
+bool any_moving(){
 	return ArmAxis[0].current != ArmAxis[0].target ||
 	       ArmAxis[1].current != ArmAxis[1].target ||
 	       ArmAxis[2].current != ArmAxis[2].target ||
 	       ArmAxis[3].current != ArmAxis[3].target ||
 	       ArmAxis[4].current != ArmAxis[4].target;
+}
+
+/* Returns true if a given axis is moving. */
+bool axis_moving(arm_axis_t axis){
+	return ArmAxis[axis].current != ArmAxis[axis].target;
 }
 
 /* Stop a given axis by setting its target to its current position. */
@@ -297,7 +305,7 @@ void enable_axis(arm_axis_t axis){
 }
 
 void disable_axis(arm_axis_t axis){
-	ArmAxis[axis].nen_port->OUTCLR = ArmAxis[axis].nen_pin;
+	ArmAxis[axis].nen_port->OUTSET = ArmAxis[axis].nen_pin;
 }
 
 /* Setup the ADC to digitize the flex sensors. */
@@ -363,14 +371,126 @@ void armInit(){
 	init_steppers();
 }
 
-/* Operate the arm board. */
+/* Run the homing routine.
+ * When complete, each axis's zero position will be set to its limit switch.
+ * The arm should be positioned roughly in the middle of its volume,
+ * and the z-axis should be raised up with its arm folding to the left
+ * side of the robot. */
+/* TODO: Home grip axis. */
+void home_all(){
+	bool homed[5];
+	homed[0] = false;
+	homed[1] = false;
+	homed[2] = false;
+	
+	//TODO: home these axises
+	homed[4] = true;
+	homed[3] = true;
+	
+	/* Configuration Point: Homing directions and max. distances.
+	 * These should really be in the main struct for consistency,
+	 * but I don't care very much at this point. */
+	
+	/* Home Z first. */
+	//TODO: Deal with Z axis more elegantly
+	enable_axis(ARM_Z);
+	set_target(ARM_Z, 4000);
+	while(!limit_pressed(ARM_Z)){
+		/* Wait for Z to hit limit. */
+	}
+	stop_axis(ARM_Z);
+	set_zero(ARM_Z);
+	homed[(int) ARM_Z] = true;
+	set_target(ARM_Z, -3300);
+	//TODO: Deal with Z axis more elegantly
+	while(axis_moving(ARM_Z)){
+		/* Wait for Z axis to finish moving to its high position. */
+	}
+	disable_axis(ARM_Z);
+	
+	set_target(ARM_X, -5000);
+	set_target(ARM_Y, -5000);
+	//TODO: Home other axises.
+	
+	while(!(homed[0] && homed[1] && homed[2] && homed[3] && homed[4])){
+		for(int i=0;i<5;i++){
+			if(limit_pressed((arm_axis_t) i)){
+				stop_axis((arm_axis_t) i);
+				set_zero((arm_axis_t) i);
+				homed[i] = true;
+				
+				//TODO: Deal with Z more elegantly
+				if(ARM_Z == i){
+					set_target(ARM_Z, 0); //TODO: Find high point
+				}
+			}
+		}
+	}
+}
+
+/* Wait until all motion has stopped. */
+void wait_until_stopped(){
+	while(any_moving()){
+		/* Wait */
+	}
+}
+
+/* Demo mode */
 void armMain(){
+	RGBSetColor(PURPLE);
+	_delay_ms(1000);
+	RGBSetColor(YELLOW);
+	home_all();
+	wait_until_stopped();
+	set_target(ARM_X, 1000); /* Go to parking area */
+	set_target(ARM_Y, 3700);
+	wait_until_stopped();
+	
+	enable_axis(ARM_Z);  /* Park. */
+	set_target(ARM_Z, 970);
+	wait_until_stopped();
+	disable_axis(ARM_Z);
+	
+	/* Wait for signal from drive board. */
+	
+	enable_axis(ARM_Z);  /* Unpark. */
+	set_target(ARM_Z, 600);
+	wait_until_stopped();
+	
+	set_target(ARM_X, 2000); /* Move to pickup point. */
+	set_target(ARM_Y, 1000);
+	wait_until_stopped();
+	
+	set_target(ARM_Z, 1500); /* Move down. */
+	wait_until_stopped();
+	
+	set_target(ARM_X, 2300); /* Engage hook. */
+	wait_until_stopped();
+	
+	set_target(ARM_Z, -1000); /* Pick Up. */
+	wait_until_stopped();
+	
+	set_target(ARM_X, 2300); /* Go to sample area */
+	set_target(ARM_Y, 3700);
+	wait_until_stopped();
+	
+	set_target(ARM_Z, 300); /* Drop Sample */
+	disable_axis(ARM_Z);
+	wait_until_stopped();
+	
+	
+	while(1);
+}
+
+
+/* Operate the arm board. */
+// void armMain(){
 // 	bool homed = false; /* If true, all axises have been homed,
 // 	                     * allowing them to be moved safely. */
 // 	bool completion_reported = false;
 // 	while(1){
 // 		while(!checkIfNewDataAvailable()){
-// 			if(!arm_moving() && !completion_reported){
+// 			if(!any_moving() && !completion_reported){
 // 				setActionsComplete(true);
 // 				completion_reported = true;
 // 			}
@@ -400,4 +520,4 @@ void armMain(){
 // 		}
 // 		
 // 	}
-}
+// }

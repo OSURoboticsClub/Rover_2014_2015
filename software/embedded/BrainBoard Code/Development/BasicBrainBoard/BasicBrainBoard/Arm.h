@@ -73,7 +73,10 @@ void enable_axis(arm_axis_t axis);
 void disable_axis(arm_axis_t axis);
 
 /* Returns true if any axises are in motion. */
-bool arm_moving();
+bool any_moving();
+
+/* Returns true if a given axis is moving. */
+bool axis_moving(arm_axis_t axis);
 
 /* Stop a given axis by setting its target to its current position. */
 void stop_axis(arm_axis_t axis);
