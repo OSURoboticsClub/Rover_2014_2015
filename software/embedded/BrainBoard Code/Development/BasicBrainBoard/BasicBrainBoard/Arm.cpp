@@ -451,7 +451,7 @@ void armMain(){
 	wait_until_stopped();
 	disable_axis(ARM_Z);
 	
-	while(!(PORTF.IN & PIN6_bm)){
+	while(!(PORTF.IN & PIN5_bm)){
 		/* Wait for high signal from Drive Daughterboard,
 		 * indicating that we should proceed. */
 	}
@@ -460,11 +460,11 @@ void armMain(){
 	set_target(ARM_Z, 600);
 	wait_until_stopped();
 	
-	set_target(ARM_X, 2000); /* Move to pickup point. */
+	set_target(ARM_X, 1700); /* Move to pickup point. */
 	set_target(ARM_Y, 1000);
 	wait_until_stopped();
 	
-	set_target(ARM_Z, 1500); /* Move down. */
+	set_target(ARM_Z, 1875); /* Move down. */
 	wait_until_stopped();
 	
 	set_target(ARM_X, 2300); /* Engage hook. */
@@ -474,13 +474,12 @@ void armMain(){
 	wait_until_stopped();
 	
 	set_target(ARM_X, 2300); /* Go to sample area */
-	set_target(ARM_Y, 3700);
+	set_target(ARM_Y, 4150);
 	wait_until_stopped();
 	
-	set_target(ARM_Z, 300); /* Drop Sample */
+	set_target(ARM_Z, 400); /* Drop Sample */
+	wait_until_stopped();
 	disable_axis(ARM_Z);
-	wait_until_stopped();
-	
 	
 	while(1);
 }
