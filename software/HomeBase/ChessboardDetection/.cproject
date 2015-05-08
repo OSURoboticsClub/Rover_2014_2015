@@ -259,10 +259,10 @@
 		<scannerConfigBuildInfo instanceId="com.nvidia.cuda.ide.configuration.release.2085460977.1155206040.1649363211.2065613848;com.nvidia.cuda.ide.configuration.release.2085460977.1155206040.1649363211.2065613848.;nvcc.compiler.base.551233757;nvcc.compiler.input.c.169842886">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.nvidia.cuda.ide.build.NVCCPerProjectProfile"/>
 		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="com.nvidia.cuda.ide.configuration.release.2085460977.1155206040.1649363211.2065613848;com.nvidia.cuda.ide.configuration.release.2085460977.1155206040.1649363211.2065613848.;nvcc.compiler.base.551233757;nvcc.compiler.input.cpp.2083109804">
+		<scannerConfigBuildInfo instanceId="com.nvidia.cuda.ide.configuration.debug.1156639417;com.nvidia.cuda.ide.configuration.debug.1156639417.;nvcc.compiler.base.67173217;nvcc.compiler.input.cpp.2106931426">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.nvidia.cuda.ide.build.NVCCPerProjectProfile"/>
 		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="com.nvidia.cuda.ide.configuration.debug.1156639417;com.nvidia.cuda.ide.configuration.debug.1156639417.;nvcc.compiler.base.67173217;nvcc.compiler.input.cpp.2106931426">
+		<scannerConfigBuildInfo instanceId="com.nvidia.cuda.ide.configuration.release.2085460977.1155206040.1649363211.2065613848;com.nvidia.cuda.ide.configuration.release.2085460977.1155206040.1649363211.2065613848.;nvcc.compiler.base.551233757;nvcc.compiler.input.cpp.2083109804">
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.nvidia.cuda.ide.build.NVCCPerProjectProfile"/>
 		</scannerConfigBuildInfo>
 	</storageModule>

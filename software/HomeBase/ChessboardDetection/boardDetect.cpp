@@ -72,8 +72,8 @@ float computeDistance(vector<float> pixDist, vector<float> focal){
 vector<float> trainDistance(Size boardSize){
 	Mat image;
 
-	image = imread("/home/scott/Rover/Rover2015/software/HomeBase/ChessboardDetection/bw_cal.jpg"); //read in trained image file
-
+	//image = imread("/home/scott/Rover/Rover2015/software/HomeBase/ChessboardDetection/bw_cal.jpg"); //read in trained image file
+	image = imread("/home/ubuntu/Rover/ChessboardDetection/bw_cal.jpg"); //read in trained image file
 	vector<vector<Point2f> > imagePoints(1);
 	bool found = findChessboardCorners(image, boardSize, imagePoints[0]);
 
