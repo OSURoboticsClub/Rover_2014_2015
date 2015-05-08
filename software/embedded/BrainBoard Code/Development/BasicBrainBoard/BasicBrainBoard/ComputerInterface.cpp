@@ -7,7 +7,24 @@
 
 #include "ComputerInterface.h"
 
-//Interrupt when anything is received
+//Workaround to make current ID Global and initializes the PC Interface variables
+void initPCInterface(XMEGAID InputCurrentID){
+	GlobalCurrentID = InputCurrentID;
+	
+	if (InputCurrentID == DRIVE) {
+		targetPacketLength = DRIVE_PACKET_LENGTH;
+	}
+	else if (InputCurrentID == ARM) {
+		targetPacketLength = ARM_PACKET_LENGTH;
+	}
+	
+	freshData = 0;
+	packetIndex = 0;
+	invalidPacketCount = 0;
+	processPackets = false;
+}
+
+//Interrupt when anything is received (handles all of the packet interpreting)
 ISR(USARTC0_RXC_vect){
 	USART_RXComplete(&USART_PC_Data);
 	
@@ -36,8 +53,10 @@ ISR(USARTC0_RXC_vect){
 						driveData.gimbalYaw = recievedData[GIMBAL_YAW];
 					}
 					else {
-						RGBSetColor(RED); //Something went pretty wrong...
-						//flush buffer? Nah, this shouldn't be necessary because it will have just the right amount of stuffz in the array
+						//++invalidPacketCount;
+						RGBSetColor(BLUE); //Something went pretty wrong...
+						//flush buffer? Nah, this shouldn't be necessary because it will have just the right amount of
+						//stuffz in the array when we get to this point
 					}
 					break;
 				case ARM:  //Parse arm packet
@@ -63,21 +82,7 @@ ISR(USARTC0_RXC_vect){
 	
 }
 
-//Workaround to make current ID Global
-void initPCInterface(XMEGAID InputCurrentID){	
-	GlobalCurrentID = InputCurrentID;
-	
-	if (InputCurrentID == DRIVE) {
-		targetPacketLength = DRIVE_PACKET_LENGTH;
-	}
-	else if (InputCurrentID == ARM) {
-		targetPacketLength = ARM_PACKET_LENGTH;
-	}
-	
-	freshData = 0;
-	packetIndex = 0;
-	processPackets = false;
-}
+
 
 void sendDriveResponse(const DRIVE_RESPONSE & input){
 	char stagingArray[DRIVE_RESPONSE_PACKET_LENGTH];

@@ -94,6 +94,7 @@ EXTERN XMEGAID volatile GlobalCurrentID;
 EXTERN char volatile targetPacketLength;  //This is set based on GlobalCurrentID in initPCInterface()
 EXTERN bool volatile processPackets;     //Should we be waiting for computer packets?
 EXTERN char recievedData[20];            //Holds the recieved data as its parsed
+EXTERN int volatile invalidPacketCount;
 
 #define DRIVE_PACKET_LENGTH 8
 #define DRIVE_RESPONSE_PACKET_LENGTH 10
@@ -140,8 +141,8 @@ struct DRIVE_RESPONSE {
 	long rightAbsPosition;
 	};
 
-//Need to place in a Union with Arm data
-EXTERN volatile DRIVE_DATA driveData;
+//TODO Need to place in a Union with Arm data
+EXTERN volatile DRIVE_DATA driveData;  //Contains the information received from the computer
 
 enum ARM_PACKET_TO_COMP {
 	ARM_HEAD,
@@ -165,7 +166,7 @@ struct ARM_DATA {
 	char gripperRotation;
 	};
 
-EXTERN volatile ARM_DATA armData;
+EXTERN volatile ARM_DATA armData;  //Contains the information received from the computer
 
 //Misc communication-related functions
 void FlushSerialBuffer(USART_data_t *UsartBuffer);

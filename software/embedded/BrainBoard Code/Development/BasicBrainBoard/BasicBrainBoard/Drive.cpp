@@ -46,6 +46,10 @@ void driveMain(){
 		//SendStringPC("Welcome to the drive loop, baby. ");
 		
 		
+		//if(invalidPacketCount > 100){
+		//	RGBSetColor(BLUE);
+		//}
+		
 		if(freshData){
 			freshData = 0;  //Marking the data as read
 			
@@ -87,6 +91,7 @@ void driveMain(){
 		}
 		*/
 		//_delay_ms(100);
+		
 	}
 	
 	/*
