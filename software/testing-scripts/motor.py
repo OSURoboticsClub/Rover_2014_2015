@@ -85,7 +85,8 @@ class MotorSerial(SerialBoard):
         else:
             self.yaw = yaw
         packet = struct.pack(self.packet_struct, chr(0xff), chr(left), chr(right), chr(pitch), chr(roll), chr(yaw), chr(~(left ^(right/2)) & 0xff), chr(0xff))
-        return self.serial.write(packet)
+        self.serial.write(packet)
+        return self.serial.read(10)
         
 class MotorController(object):
     
