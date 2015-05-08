@@ -451,7 +451,10 @@ void armMain(){
 	wait_until_stopped();
 	disable_axis(ARM_Z);
 	
-	/* Wait for signal from drive board. */
+	while(!(PORTF.IN & PIN6_bm)){
+		/* Wait for high signal from Drive Daughterboard,
+		 * indicating that we should proceed. */
+	}
 	
 	enable_axis(ARM_Z);  /* Unpark. */
 	set_target(ARM_Z, 600);
