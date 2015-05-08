@@ -64,9 +64,28 @@ bool stepper_fault();
 /* Enable all stepper drivers. */
 void enable_steppers();
 
-/* Disable all stepper drivers.
- * NOTE: This only disables the drivers, it doesn't stop
- * step generation. Don't call during normal operation. */
+/* Disable all stepper drivers and set target positions
+ * to current positions, to stop step generation. */
 void disable_steppers();
+
+/* Enable or disable a given axis. */
+void enable_axis(arm_axis_t axis);
+void disable_axis(arm_axis_t axis);
+
+/* Returns true if any axises are in motion. */
+bool arm_moving();
+
+/* Stop a given axis by setting its target to its current position. */
+void stop_axis(arm_axis_t axis);
+
+/* Stop all axises. */
+void stop_all();
+
+/* Run the homing routine.
+ * When complete, each axis's zero position will be set to its limit switch.
+ * The arm should be positioned roughly in the middle of its volume,
+ * and the z-axis should be raised up with its arm folding to the left
+ * side of the robot. */
+void home_all();
 
 #endif /* ARM_H_ */
