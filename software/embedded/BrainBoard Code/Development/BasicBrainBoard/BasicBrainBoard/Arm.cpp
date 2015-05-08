@@ -275,6 +275,31 @@ bool arm_moving(){
 	       ArmAxis[4].current != ArmAxis[4].target;
 }
 
+/* Stop a given axis by setting its target to its current position. */
+void stop_axis(arm_axis_t axis){
+	cli();
+	ArmAxis[axis].target = ArmAxis[axis].current;
+	sei();
+}
+
+/* Stop all axises. */
+void stop_all(){
+	cli();
+	for(int i=0; i < 5; i++){
+		ArmAxis[i].target = ArmAxis[i].current;
+	}
+	sei();
+}
+
+/* Enable or disable a given axis. */
+void enable_axis(arm_axis_t axis){
+	ArmAxis[axis].nen_port->OUTCLR = ArmAxis[axis].nen_pin;
+}
+
+void disable_axis(arm_axis_t axis){
+	ArmAxis[axis].nen_port->OUTCLR = ArmAxis[axis].nen_pin;
+}
+
 /* Setup the ADC to digitize the flex sensors. */
 void init_flex(){
 	//1 = ADCA3
@@ -345,8 +370,6 @@ void armMain(){
 // 	bool completion_reported = false;
 // 	while(1){
 // 		while(!checkIfNewDataAvailable()){
-// 			//TODO: Ensure that setActionsComplete just sets a flag, and
-// 			//      doesn't transmit anything, because it's going to get called a lot
 // 			if(!arm_moving() && !completion_reported){
 // 				setActionsComplete(true);
 // 				completion_reported = true;
@@ -377,5 +400,4 @@ void armMain(){
 // 		}
 // 		
 // 	}
-		
 }
