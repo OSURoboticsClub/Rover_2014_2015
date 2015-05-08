@@ -14,6 +14,7 @@ This function exists inside a while(1) so it will loop itself forever
 */
 //DO NOT Connect to motor at this point without figuring out units and encoder, see comment below
 void driveMain(){
+	SendStringPC("Reached driveMain() ");
 	//Imaginary function from comp for speed is char compspeed();
 	int check = 0;
 	//Saber_init_uno();
@@ -28,6 +29,8 @@ void driveMain(){
 	
 	//Sabertooth_UNO is the mid motors
 	//Sabertooth_DOS is the rear motors
+	
+	_delay_ms(2000);
 
 	Saber_init_uno();
 	Saber_init_dos();
@@ -45,11 +48,39 @@ void driveMain(){
 		
 		//SendStringPC("Welcome to the drive loop, baby. ");
 		
+		//Hardcoded movement
 		
-		//if(invalidPacketCount > 100){
-		//	RGBSetColor(BLUE);
-		//}
+		/*
+		while(1){
+			parsePacket(200, 200, 0, 0, 0);
+			_delay_ms(1);
+		}
+		*/
 		
+		_delay_ms(50000);
+		
+		for (int i = 0; i < 1000; ++i){
+			//SendStringPC("Sending packet to Saberteeth. \r\n");
+			parsePacket(200, 200, 0, 0, 0);
+			_delay_ms(1);
+		}
+		
+		PORTE.OUTSET = PIN5_bm;
+		
+		for (int i = 0; i < 5000; ++i){
+			parsePacket(127, 127, 0, 0, 0);
+			_delay_ms(1);
+		}
+		//_delay_ms(70000);
+		
+		for (int i = 0; i < 900; ++i){
+			parsePacket(55, 55, 0, 0, 0);
+			_delay_ms(1);
+		}
+		
+		while(1);
+		
+		/*
 		if(freshData){
 			freshData = 0;  //Marking the data as read
 			
@@ -62,7 +93,7 @@ void driveMain(){
 			}
 			freshData = 0;  //Marking the data as read
 		}
-		
+		*/
 		
 		
 		//parsePacket(90, 90, 0, 0, 0);
@@ -146,10 +177,11 @@ void parsePacket(char left, char right, char gimbalPitch, char gimbalRoll, char 
 	/* Gimbal to be implemented */
 }
 
-void driveInit() {
-	//This code is ran once before driveMain is run forever
-}
 
+void driveInit() {
+	PORTE.DIRSET = (PIN5_bm); //Sets output LED (status/error)
+	PORTE.OUTCLR = PIN5_bm; //Iniitalize pause at a low state, TODO, UPDATE TO ACTUAL SPECIFICATION
+}
 
 void SendDriveCommand_SaberOne(unsigned char command, unsigned char value){
 	//&USARTE1 is the USART for Saber two

@@ -102,6 +102,8 @@ ISR(USARTD0_DRE_vect){
 
 /**** Function Prototypes ****/
 
+//void initializeDriveIO(void);  //Not implemented, used driveInit instead
+
 void Saber_init_uno(void);
 void Saber_init_dos(void);
 void Saber_init_tres(void);
@@ -116,6 +118,12 @@ void SendDriveCommand_SaberThree(unsigned char command, unsigned char value);
 unsigned char SaberChecksum(unsigned char command, unsigned char value);
 
 void parsePacket(char left, char right, char gimbalPitch, char gimbalRoll, char gimbalYaw);
+
+
+//Functions for Pause processing
+	
+#define DRIVE_PAUSE_ASSERT (void) (PORTE.OUTCLR = PIN5_bm)
+#define DRIVE_PAUSE_nASSERT (void) (PORTE.OUTSET = PIN5_bm)
 
 
 //Below are functions for RC control (Need hardware testing)
