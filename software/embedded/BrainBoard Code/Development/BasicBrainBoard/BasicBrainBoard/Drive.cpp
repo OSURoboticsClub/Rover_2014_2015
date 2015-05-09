@@ -149,9 +149,8 @@ void RovingLight_Flashing(){
 	 * at 2 Hz (resulting in a 1Hz flash rate). */
 	TCE1.CTRLB = TC_WGMODE_NORMAL_gc | TC1_CCBEN_bm;
 	TCE1.CTRLFSET = TC_CMD_UPDATE_gc;
-	TCE1.CTRLA = TC_CLKSEL_DIV1024_gc;
-	TCE1.PERL = 0xFF;
-	TCE1.PERH = 0xFF;
+	TCE1.CTRLA = TC_CLKSEL_DIV256_gc;
+	/* For some reason setting the compare level has no effect. */
 	TCE1.CCBBUFL = 4096 & 0xFF;
 	TCE1.CCBBUFH = 4096 >> 8;
 	PMIC.CTRL |= PMIC_MEDLVLEN_bm;
