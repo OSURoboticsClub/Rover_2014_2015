@@ -119,6 +119,9 @@ unsigned char SaberChecksum(unsigned char command, unsigned char value);
 
 void parsePacket(char left, char right, char gimbalPitch, char gimbalRoll, char gimbalYaw);
 
+//Functions for roving light
+void RovingLight_Flashing();
+void RovingLight_Solid();
 
 //Functions for Pause processing
 	

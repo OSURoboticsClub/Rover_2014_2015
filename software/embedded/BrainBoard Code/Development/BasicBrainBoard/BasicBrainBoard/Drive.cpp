@@ -140,10 +140,24 @@ void parsePacket(char left, char right, char gimbalPitch, char gimbalRoll, char 
 	/* Gimbal to be implemented */
 }
 
+//Functions for roving light
+void RovingLight_Flashing(){
+	//Roving Light in on PA3. A low level turns it on.
+	
+}
+
+void RovingLight_Solid(){
+	//Roving Light in on PA3. A low level turns it on.
+	//TODO: Disable timer.
+	PORTA.DIRSET = PIN3_bm;
+	PORTA.OUTCLR = PIN3_bm;
+}
 
 void driveInit() {
 	PORTE.DIRSET = (PIN5_bm); //Sets output LED (status/error)
 	PORTE.OUTCLR = PIN5_bm; //Iniitalize pause at a low state, TODO, UPDATE TO ACTUAL SPECIFICATION
+	
+	RovingLight_Solid();
 }
 
 void SendDriveCommand_SaberOne(unsigned char command, unsigned char value){
