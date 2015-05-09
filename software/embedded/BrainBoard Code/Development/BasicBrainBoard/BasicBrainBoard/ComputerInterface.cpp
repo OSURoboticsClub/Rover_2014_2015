@@ -99,7 +99,7 @@ void sendDriveResponse(const DRIVE_RESPONSE & input){
 	stagingArray[DRIVE_RESPONSE_FOOTER] = 255;
 
 	//Actually 	
-	for(int i = 0; i <= DRIVE_RESPONSE_HEAD; ++i){
+	for(int i = 0; i <= DRIVE_RESPONSE_PACKET_LENGTH; ++i){
 		while(!USART_IsTXDataRegisterEmpty(&USARTC0));
 		USART_PutChar(&USARTC0, stagingArray[i]);
 	}

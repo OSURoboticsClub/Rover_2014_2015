@@ -85,33 +85,12 @@ void RGBSetColor(RGBColors choice);
 void initializeIO(void);  //Sets up all of the IO and associated settings
 //void determineID(void);
 
-void determineID(char * XmegaIDStr, XMEGAID & CurrentID);
+void determineID(char * XmegaIDStr, XMEGAID & CurrentID);  //Determines the board's current ID based on the DIP switches
 
-//Communication Variables
+//Communication Variables (super mega global)
 EXTERN char volatile freshData;           //Set high if new data was processed
-EXTERN char volatile packetIndex;
 EXTERN XMEGAID volatile GlobalCurrentID;
-EXTERN char volatile targetPacketLength;  //This is set based on GlobalCurrentID in initPCInterface()
-EXTERN bool volatile processPackets;     //Should we be waiting for computer packets?
-EXTERN char recievedData[20];            //Holds the recieved data as its parsed
-EXTERN int volatile invalidPacketCount;
-
-#define DRIVE_PACKET_LENGTH 8
-#define DRIVE_RESPONSE_PACKET_LENGTH 10
-#define ARM_PACKET_LENGTH 6
-#define ARM_RESPONSE_PACKET_LENGTH 4
-
-//DRIVE_PACKET_FROM_COMP
-enum DRIVE_PACKET_FROM_COMP {
-	DRIVE_HEAD,
-	LEFT_SPEED,
-	RIGHT_SPEED,
-	GIMBAL_PITCH,
-	GIMBAL_ROLL, 
-	GIMBAL_YAW,
-	DRIVE_CHECKSUM,
-	DRIVE_FOOTER
-	};
+EXTERN bool volatile processPackets;     //Should we be waiting for computer packets
 
 //Holds the infromation from the computer
 struct DRIVE_DATA {
@@ -122,38 +101,11 @@ struct DRIVE_DATA {
 	char gimbalYaw;
 	};
 
-enum DRIVE_PACKET_TO_COMP {
-	DRIVE_RESPONSE_HEAD, 
-	IS_PAUSED_BYTE,
-	LEFT_ABS_POSITION_B1,
-	LEFT_ABS_POSITION_B2,
-	LEFT_ABS_POSITION_B3,
-	RIGHT_ABS_POSITION_B1,
-	RIGHT_ABS_POSITION_B2,
-	RIGHT_ABS_POSITION_B3,
-	DRIVE_RESPONSE_CHECKSUM,
-	DRIVE_RESPONSE_FOOTER
-	};
-	
 struct DRIVE_RESPONSE {
 	char isPaused;
 	long leftAbsPosition;
 	long rightAbsPosition;
 	};
-
-//TODO Need to place in a Union with Arm data
-EXTERN volatile DRIVE_DATA driveData;  //Contains the information received from the computer
-
-enum ARM_PACKET_TO_COMP {
-	ARM_HEAD,
-	COMMAND,
-	X_AXIS_VALUE,
-	Y_AXIS_VALUE,
-	Z_AXIS_VALUE,
-	GRIPPER_ROTATION,
-	ARM_CHECKSUM,
-	ARM_FOOTER
-};
 
 struct ARM_DATA {
 	char commandByte;
@@ -166,11 +118,19 @@ struct ARM_DATA {
 	char gripperRotation;
 	};
 
+//Note, these need to be set to 0 by the user's code everytime
+struct ARM_RESPONSE {
+	char gripSuccess;
+	char gripUnsuccessful;
+	};
+
+//Both mega-global variables for the arm and drive datas
+	//TODO Need to place in a Union with Arm data
+EXTERN volatile DRIVE_DATA driveData;  //Contains the information received from the computer
 EXTERN volatile ARM_DATA armData;  //Contains the information received from the computer
 
 //Misc communication-related functions
 void FlushSerialBuffer(USART_data_t *UsartBuffer);
-void initPCInterface(XMEGAID InputCurrentID);
-
+void initPCInterface(XMEGAID InputCurrentID);       //This function needs to be called before the state machine
 
 #endif /* XMEGALIB_H */
