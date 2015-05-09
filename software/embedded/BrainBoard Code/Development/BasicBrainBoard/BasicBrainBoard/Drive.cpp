@@ -142,22 +142,38 @@ void parsePacket(char left, char right, char gimbalPitch, char gimbalRoll, char 
 
 //Functions for roving light
 void RovingLight_Flashing(){
-	//Roving Light in on PA3. A low level turns it on.
+	/* Roving Light is on PA3. A high level turns it on. */
+	PORTA.DIRSET = PIN3_bm;
 	
+	/* Configure Timer E1 to generate compare interrupts
+	 * at 2 Hz (resulting in a 1Hz flash rate). */
+	TCE1.CTRLB = TC_WGMODE_NORMAL_gc | TC1_CCBEN_bm;
+	TCE0.PERH = 0xFF;
+	TCE1.CTRLFSET = TC_CMD_UPDATE_gc;
+	TCE1.CTRLA = TC_CLKSEL_DIV1024_gc;
+	TCE1.CCBBUFL = 16384 & 0xFF;
+	TCE1.CCBBUFL = 16384 >> 8;
+	PMIC.CTRL |= PMIC_MEDLVLEN_bm;
+	TCE1.INTCTRLB = TC1_CCBINTLVL1_bm;
 }
 
 void RovingLight_Solid(){
-	//Roving Light in on PA3. A low level turns it on.
-	//TODO: Disable timer.
+	//Roving Light is on PA3. A high level turns it on.
+	TCE1.CTRLA = TC_CLKSEL_OFF_gc;
 	PORTA.DIRSET = PIN3_bm;
 	PORTA.OUTSET = PIN3_bm;
+}
+
+/* Roving light blink ISR. */
+ISR(TCE1_CCB_vect){
+	PORTA.OUTTGL = PIN3_bm;
 }
 
 void driveInit() {
 	PORTE.DIRSET = (PIN5_bm); //Sets output LED (status/error)
 	PORTE.OUTCLR = PIN5_bm; //Iniitalize pause at a low state, TODO, UPDATE TO ACTUAL SPECIFICATION
 	
-	RovingLight_Solid();
+	RovingLight_Flashing();
 }
 
 void SendDriveCommand_SaberOne(unsigned char command, unsigned char value){
