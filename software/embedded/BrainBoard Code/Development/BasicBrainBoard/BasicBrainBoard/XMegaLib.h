@@ -87,19 +87,11 @@ void initializeIO(void);  //Sets up all of the IO and associated settings
 
 void determineID(char * XmegaIDStr, XMEGAID & CurrentID);
 
-//Communication Variables
+//Communication Variables (super mega global)
 EXTERN char volatile freshData;           //Set high if new data was processed
-EXTERN char volatile packetIndex;
 EXTERN XMEGAID volatile GlobalCurrentID;
-EXTERN char volatile targetPacketLength;  //This is set based on GlobalCurrentID in initPCInterface()
 EXTERN bool volatile processPackets;     //Should we be waiting for computer packets?
-EXTERN char recievedData[20];            //Holds the recieved data as its parsed
-EXTERN int volatile invalidPacketCount;
 
-#define DRIVE_PACKET_LENGTH 8
-#define DRIVE_RESPONSE_PACKET_LENGTH 10
-#define ARM_PACKET_LENGTH 6
-#define ARM_RESPONSE_PACKET_LENGTH 4
 
 //DRIVE_PACKET_FROM_COMP
 enum DRIVE_PACKET_FROM_COMP {
