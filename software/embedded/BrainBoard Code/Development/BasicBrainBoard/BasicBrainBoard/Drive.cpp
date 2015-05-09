@@ -150,7 +150,7 @@ void RovingLight_Solid(){
 	//Roving Light in on PA3. A low level turns it on.
 	//TODO: Disable timer.
 	PORTA.DIRSET = PIN3_bm;
-	PORTA.OUTCLR = PIN3_bm;
+	PORTA.OUTSET = PIN3_bm;
 }
 
 void driveInit() {
