@@ -35,7 +35,7 @@ ISR(USARTC0_RXC_vect){
 		if(packetIndex == targetPacketLength){
 			FlushSerialBuffer(&USART_PC_Data);
 			packetIndex = 0;   //Reset the packet index
-			freshData = 1;     //There is new data to process
+			
 			
 			//Process packets
 			//RGBSetColor(BLUE); //Read packet color
@@ -46,6 +46,8 @@ ISR(USARTC0_RXC_vect){
 					if(recievedData[DRIVE_HEAD] == 255 && recievedData[DRIVE_FOOTER] == 255){ //basic verification, TODO: Add checksum verification
 						//SendStringPC("Valid Drive Packet. \r\n");
 						RGBSetColor(ORANGE);
+						freshData = 1;     //There is new data to process
+						//Process the data:
 						driveData.leftSpeed = recievedData[LEFT_SPEED];
 						driveData.rightSpeed = recievedData[RIGHT_SPEED];
 						driveData.gimbalPitch = recievedData[GIMBAL_PITCH];
@@ -63,6 +65,8 @@ ISR(USARTC0_RXC_vect){
 					//Lol, ignore checksum
 					if(recievedData[ARM_HEAD] == 255 && recievedData[ARM_FOOTER] == 255){
 						RGBSetColor(ORANGE);
+						freshData = 1;     //There is new data to process
+						//Process the data:
 						armData.commandByte = recievedData[ARM_COMMAND];
 						armData.xAxisValue = recievedData[X_AXIS_VALUE];
 						armData.yAxisValue = recievedData[Y_AXIS_VALUE];
@@ -78,7 +82,7 @@ ISR(USARTC0_RXC_vect){
 						}
 						
 						//Checks if the arm needs to power down 
-						if(armData.commandByte && 2 ){
+						if(armData.commandByte && 2){
 							armData.powerdown = 1;
 						}
 						else{
