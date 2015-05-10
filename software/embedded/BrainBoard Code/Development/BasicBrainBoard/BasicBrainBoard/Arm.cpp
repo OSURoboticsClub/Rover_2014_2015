@@ -86,7 +86,7 @@ static volatile struct {
 	register8_t * const cc_buf_l; /* CCxBUFL for this axis. */
 	register8_t * const int_ctrl; /* CC interrupt register for this axis. */
 	const uint8_t int_bm; /* Interrupt bit mask for this axis. */
-} ArmAxis[5] { /*                Step      |      Dir       |      nEN       |     Limit      |    CNTL     |   CCxBUFL      |     INTCTRLB    | Interrupt bit mask */
+} ArmAxis[5] { /*               Step      |      Dir       |      nEN       |     Limit      |    CNTL     |   CCxBUFL      |     INTCTRLB    | Interrupt bit mask */
 	{0,0, 10, true, 3, &PORTE, PIN4_bm, &PORTE, PIN7_bm, &PORTE, PIN5_bm, &PORTF, PIN6_bm, &(TCE0.CNTL), &(TCE0.CCABUFL), &(TCE0.INTCTRLB), TC0_CCAINTLVL1_bm}, /* X axis */
 	{0,0, 30, false, 3, &PORTE, PIN3_bm, &PORTE, PIN2_bm, &PORTE, PIN0_bm, &PORTF, PIN7_bm, &(TCE0.CNTL), &(TCE0.CCBBUFL), &(TCE0.INTCTRLB), TC0_CCBINTLVL1_bm}, /* Y axis */
 	{0,0, 50, true, 3, &PORTD, PIN6_bm, &PORTE, PIN1_bm, &PORTD, PIN7_bm, &PORTF, PIN4_bm, &(TCE0.CNTL), &(TCE0.CCCBUFL), &(TCE0.INTCTRLB), TC0_CCCINTLVL1_bm}, /* Z axis */
@@ -94,30 +94,48 @@ static volatile struct {
 	{0,0, 100, true, 3, &PORTD, PIN1_bm, &PORTD, PIN0_bm, &PORTD, PIN3_bm, &PORTF, PIN1_bm, &(TCE1.CNTL), &(TCE1.CCABUFL), &(TCE1.INTCTRLB), TC1_CCAINTLVL1_bm} /* Grip */
 };
 
+/* When true, step generation is stopped. This variable is set by a pin-change
+ * interrupt on the nPAUSE line (PF5). When nPAUSE is low, movement is disabled. */
+bool Paused;
+
+/* Pause pin change ISR. */
+ISR(PORTF_INT0_vect){
+	if(PORTF.IN & PIN5_bm){
+		Paused = false;
+	} else {
+		Paused = true;
+	}
+}
+
 /* Generate a step on the given axis and schedule to
  * run again if necessary. */
 void generate_step(arm_axis_t axis){
 	int32_t diff = ArmAxis[axis].target - ArmAxis[axis].current;
-	if(0 == diff){
-		/* Clear interrupt. */
-		*(ArmAxis[axis].int_ctrl) &= ~ArmAxis[axis].int_bm;
-		return;
-	} else if(diff > 0){
-		if(ArmAxis[axis].pos_dir){
-			ArmAxis[axis].dir_port->OUTSET = ArmAxis[axis].dir_pin;
+	
+	/* When pause, don't actually generate steps, but still reschedule the
+	 * interrupts to keep checking if we are unpaused. */ 
+	if(!Paused){
+		if(0 == diff){
+			/* Clear interrupt. */
+			*(ArmAxis[axis].int_ctrl) &= ~ArmAxis[axis].int_bm;
+			return;
+		} else if(diff > 0){
+			if(ArmAxis[axis].pos_dir){
+				ArmAxis[axis].dir_port->OUTSET = ArmAxis[axis].dir_pin;
+			} else {
+				ArmAxis[axis].dir_port->OUTCLR = ArmAxis[axis].dir_pin;
+			}
+			ArmAxis[axis].step_port->OUTTGL = ArmAxis[axis].step_pin;
+			ArmAxis[axis].current++;
 		} else {
-			ArmAxis[axis].dir_port->OUTCLR = ArmAxis[axis].dir_pin;
+			if(ArmAxis[axis].pos_dir){
+				ArmAxis[axis].dir_port->OUTCLR = ArmAxis[axis].dir_pin;
+			} else {
+				ArmAxis[axis].dir_port->OUTSET = ArmAxis[axis].dir_pin;
+			}
+			ArmAxis[axis].step_port->OUTTGL = ArmAxis[axis].step_pin;
+			ArmAxis[axis].current--;
 		}
-		ArmAxis[axis].step_port->OUTTGL = ArmAxis[axis].step_pin;
-		ArmAxis[axis].current++;
-	} else {
-		if(ArmAxis[axis].pos_dir){
-			ArmAxis[axis].dir_port->OUTCLR = ArmAxis[axis].dir_pin;
-		} else {
-			ArmAxis[axis].dir_port->OUTSET = ArmAxis[axis].dir_pin;
-		}
-		ArmAxis[axis].step_port->OUTTGL = ArmAxis[axis].step_pin;
-		ArmAxis[axis].current--;
 	}
 	
 	/* Set counter compare buffer register */
@@ -173,9 +191,7 @@ void init_steppers(){
 		ArmAxis[i].dir_port->DIRSET = ArmAxis[i].dir_pin;
 		ArmAxis[i].nen_port->DIRSET = ArmAxis[i].nen_pin;
 	}
-	enable_steppers();
-	//TODO: Sort out z-axis overheating more thoroughly.
-	disable_axis(ARM_Z);
+	disable_steppers();
 	
 	/* Setup timers. */
 	TCE0.CTRLB = TC_WGMODE_NORMAL_gc | TC0_CCDEN_bm | TC0_CCCEN_bm | TC0_CCBEN_bm | TC0_CCAEN_bm;
@@ -189,6 +205,10 @@ void init_steppers(){
 	
 	/* Enable medium level interrupts. */
 	PMIC.CTRL |= PMIC_MEDLVLEN_bm;
+	
+	/* Setup pause interrupt */
+	PORTF.INTCTRL = PORT_INT0LVL1_bm;
+	PORTF.INT0MASK = PIN5_bm;
 }
 
 /* Read NVM signature. From http://www.avrfreaks.net/forum/xmega-production-signature-row */
@@ -435,58 +455,20 @@ void wait_until_stopped(){
 	}
 }
 
-/* Demo mode */
 void armMain(){
-	RGBSetColor(PURPLE);
-	_delay_ms(1000);
-	RGBSetColor(YELLOW);
-	home_all();
-	wait_until_stopped();
-	set_target(ARM_X, 1000); /* Go to parking area */
-	set_target(ARM_Y, 3700);
-	wait_until_stopped();
-	
-	enable_axis(ARM_Z);  /* Park. */
-	set_target(ARM_Z, 970);
-	wait_until_stopped();
-	disable_axis(ARM_Z);
-	
-	while(!(PORTF.IN & PIN5_bm)){
-		/* Wait for high signal from Drive Daughterboard,
-		 * indicating that we should proceed. */
+	enable_axis(ARM_X);
+	while(1){
+		set_target(ARM_X, 200);
+		wait_until_stopped();
+		set_target(ARM_X, 0);
+		wait_until_stopped();
 	}
-	
-	enable_axis(ARM_Z);  /* Unpark. */
-	set_target(ARM_Z, 600);
-	wait_until_stopped();
-	
-	set_target(ARM_X, 1700); /* Move to pickup point. */
-	set_target(ARM_Y, 1000);
-	wait_until_stopped();
-	
-	set_target(ARM_Z, 1875); /* Move down. */
-	wait_until_stopped();
-	
-	set_target(ARM_X, 2300); /* Engage hook. */
-	wait_until_stopped();
-	
-	set_target(ARM_Z, -1000); /* Pick Up. */
-	wait_until_stopped();
-	
-	set_target(ARM_X, 2300); /* Go to sample area */
-	set_target(ARM_Y, 4150);
-	wait_until_stopped();
-	
-	set_target(ARM_Z, 400); /* Drop Sample */
-	wait_until_stopped();
-	disable_axis(ARM_Z);
-	
-	while(1);
 }
-
+		
 
 /* Operate the arm board. */
 // void armMain(){
+// 	RGBSetColor(PURPLE);
 // 	bool homed = false; /* If true, all axises have been homed,
 // 	                     * allowing them to be moved safely. */
 // 	bool completion_reported = false;
