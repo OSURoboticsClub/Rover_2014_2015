@@ -62,7 +62,7 @@ int main(void)
 	//Main's Variable Declarations
 	char XmegaIDStr[11];
 	XMEGAID CurrentID;
-		
+	
 	//Initialization Code
 	uart_init();
 	initializeIO();
@@ -120,7 +120,7 @@ int main(void)
 				processPackets = true;
 				switch (CurrentID) {
 					case DRIVE:
-						//driveInit();
+						//driveInit();  //Moved to before the state machine
 						while (1) {
 							driveMain();
 						}
