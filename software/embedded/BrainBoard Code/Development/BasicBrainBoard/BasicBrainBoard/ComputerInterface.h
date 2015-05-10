@@ -17,7 +17,7 @@ void sendDriveResponse(DRIVE_RESPONSE input);
 //Packet lengths for the different packets
 #define DRIVE_PACKET_LENGTH 8
 #define DRIVE_RESPONSE_PACKET_LENGTH 10
-#define ARM_PACKET_LENGTH 6
+#define ARM_PACKET_LENGTH 8
 #define ARM_RESPONSE_PACKET_LENGTH 4
 
 //Global variables used by the computer interface functions
@@ -59,7 +59,7 @@ enum DRIVE_PACKET_TO_COMP {
 //Arm packet from the computer
 enum ARM_PACKET_FROM_COMP {
 	ARM_HEAD,
-	COMMAND,
+	ARM_COMMAND,
 	X_AXIS_VALUE,
 	Y_AXIS_VALUE,
 	Z_AXIS_VALUE,

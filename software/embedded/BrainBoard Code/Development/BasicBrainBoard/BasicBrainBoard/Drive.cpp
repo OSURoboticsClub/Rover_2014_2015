@@ -14,7 +14,8 @@ This function exists inside a while(1) so it will loop itself forever
 */
 //DO NOT Connect to motor at this point without figuring out units and encoder, see comment below
 void driveMain(){
-	SendStringPC("Reached driveMain() ");
+	//SendStringPC("Reached driveMain() ");
+	
 	//Imaginary function from comp for speed is char compspeed();
 	int check = 0;
 	//Saber_init_uno();
@@ -59,6 +60,7 @@ void driveMain(){
 			}
 			freshData = 0;  //Marking the data as read
 		}
+		
 		
 	}
 	
@@ -133,9 +135,10 @@ ISR(TCE1_CCB_vect){
 
 void driveInit() {
 	PORTE.DIRSET = (PIN5_bm); //Sets output LED (status/error)
-	PORTE.OUTCLR = PIN5_bm; //Initalize pause at a low state, TODO, UPDATE TO ACTUAL SPECIFICATION
+	PORTE.OUTSET = PIN5_bm; //Initalize pause at a low state, TODO, UPDATE TO ACTUAL SPECIFICATION
 	
-	RovingLight_Flashing();
+	RovingLight_Solid();
+	//RovingLight_Flashing();
 }
 
 void SendDriveCommand_SaberOne(unsigned char command, unsigned char value){
@@ -510,5 +513,15 @@ RECYCLE BIN
 
 ****************************
 
+Constantly pausing the other boards
+
+		PORTE.OUTCLR = PIN5_bm;
+		
+		_delay_ms(1000);
+		
+		PORTE.OUTSET = PIN5_bm;
+		
+		_delay_ms(1000);
+		
 
 */

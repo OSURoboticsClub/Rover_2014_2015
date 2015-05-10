@@ -62,7 +62,7 @@ int main(void)
 	//Main's Variable Declarations
 	char XmegaIDStr[11];
 	XMEGAID CurrentID;
-		
+	
 	//Initialization Code
 	uart_init();
 	initializeIO();
@@ -82,6 +82,12 @@ int main(void)
 	//TODO TODO TODO Remove
 	
 	//CurrentState = MainProgram;
+
+
+	//We need to init drive early so that the roving light will blink
+	if(CurrentID == DRIVE){
+		driveInit();
+	}
 
     while(1)
     { 
@@ -114,7 +120,7 @@ int main(void)
 				processPackets = true;
 				switch (CurrentID) {
 					case DRIVE:
-						driveInit();
+						//driveInit();  //Moved to before the state machine
 						while (1) {
 							driveMain();
 						}
