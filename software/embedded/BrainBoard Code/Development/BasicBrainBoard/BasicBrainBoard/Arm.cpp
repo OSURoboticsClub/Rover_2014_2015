@@ -462,14 +462,8 @@ void armMain(){
 	RGBSetColor(PURPLE);
 	bool homed = false; /* If true, all axises have been homed,
 	                     * allowing them to be moved safely. */
-	bool completion_reported = false;
+	bool completion_reported = true;
 	while(1){
-		//TODO
-		if(armData.xAxisValue != 0){
-			RGBSetColor(WHITE);
-			_delay_ms(1000);
-		}
-		
 		RGBSetColor(PURPLE);
 		while(!freshData){
 			RGBSetColor(BLUE);
