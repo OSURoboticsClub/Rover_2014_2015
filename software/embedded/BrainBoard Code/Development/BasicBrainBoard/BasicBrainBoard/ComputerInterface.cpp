@@ -40,66 +40,69 @@ ISR(USARTC0_RXC_vect){
 			//Process packets
 			//RGBSetColor(BLUE); //Read packet color
 			
-			switch(GlobalCurrentID){
-				case DRIVE: //Parse drive packet
-					//LoL, ignore checksum
-					if(recievedData[DRIVE_HEAD] == 255 && recievedData[DRIVE_FOOTER] == 255){ //basic verification, TODO: Add checksum verification
-						//SendStringPC("Valid Drive Packet. \r\n");
-						RGBSetColor(ORANGE);
-						freshData = 1;     //There is new data to process
-						//Process the data:
-						driveData.leftSpeed = recievedData[LEFT_SPEED];
-						driveData.rightSpeed = recievedData[RIGHT_SPEED];
-						driveData.gimbalPitch = recievedData[GIMBAL_PITCH];
-						driveData.gimbalRoll = recievedData[GIMBAL_ROLL];
-						driveData.gimbalYaw = recievedData[GIMBAL_YAW];
-					}
-					else {
-						//++invalidPacketCount;
-						RGBSetColor(BLUE); //Something went pretty wrong...
-						//flush buffer? Nah, this shouldn't be necessary because it will have just the right amount of
-						//stuffz in the array when we get to this point
-					}
-					break;
-				case ARM:  //Parse arm packet
-					//Lol, ignore checksum
-					if(recievedData[ARM_HEAD] == 255 && recievedData[ARM_FOOTER] == 255){
-						RGBSetColor(ORANGE);
-						freshData = 1;     //There is new data to process
-						//Process the data:
-						armData.commandByte = recievedData[ARM_COMMAND];
-						armData.xAxisValue = recievedData[X_AXIS_VALUE];
-						armData.yAxisValue = recievedData[Y_AXIS_VALUE];
-						armData.zAxisValue = recievedData[Z_AXIS_VALUE];
-						armData.gripperRotation = recievedData[GRIPPER_ROTATION];
+			if(!freshData) {  //Only change the values if the running program has recognized that they should be changed
 						
-						//Check if the robot need to init, aka home
-						if(armData.commandByte && 4){
-							armData.initRobot = 1;
-						}
-						else{
-							armData.initRobot = 0;
-						}
-						
-						//Checks if the arm needs to power down 
-						if(armData.commandByte && 2){
-							armData.powerdown = 1;
-						}
-						else{
-							armData.powerdown = 0;
-						}
-						
-						//Checks if a grip is desired
-						if(armData.commandByte && 1 ){
-							armData.shouldGrip = 1;
+				switch(GlobalCurrentID){
+					case DRIVE: //Parse drive packet
+						//LoL, ignore checksum
+						if(recievedData[DRIVE_HEAD] == 255 && recievedData[DRIVE_FOOTER] == 255){ //basic verification, TODO: Add checksum verification
+							//SendStringPC("Valid Drive Packet. \r\n");
+							RGBSetColor(ORANGE);
+							freshData = 1;     //There is new data to process
+							//Process the data:
+							driveData.leftSpeed = recievedData[LEFT_SPEED];
+							driveData.rightSpeed = recievedData[RIGHT_SPEED];
+							driveData.gimbalPitch = recievedData[GIMBAL_PITCH];
+							driveData.gimbalRoll = recievedData[GIMBAL_ROLL];
+							driveData.gimbalYaw = recievedData[GIMBAL_YAW];
 						}
 						else {
-							armData.shouldGrip = 0;
+							//++invalidPacketCount;
+							RGBSetColor(BLUE); //Something went pretty wrong...
+							//flush buffer? Nah, this shouldn't be necessary because it will have just the right amount of
+							//stuffz in the array when we get to this point
 						}
+						break;
+					case ARM:  //Parse arm packet
+						//Lol, ignore checksum
+						if(recievedData[ARM_HEAD] == 255 && recievedData[ARM_FOOTER] == 255){
+							RGBSetColor(ORANGE);
+							freshData = 1;     //There is new data to process
+							//Process the data:
+							armData.commandByte = recievedData[ARM_COMMAND];
+							armData.xAxisValue = recievedData[X_AXIS_VALUE];
+							armData.yAxisValue = recievedData[Y_AXIS_VALUE];
+							armData.zAxisValue = recievedData[Z_AXIS_VALUE];
+							armData.gripperRotation = recievedData[GRIPPER_ROTATION];
 						
-					}
-					break;
-			}
+							//Check if the robot need to init, aka home
+							if(armData.commandByte && 4){
+								armData.initRobot = 1;
+							}
+							else{
+								armData.initRobot = 0;
+							}
+						
+							//Checks if the arm needs to power down 
+							if(armData.commandByte && 2){
+								armData.powerdown = 1;
+							}
+							else{
+								armData.powerdown = 0;
+							}
+						
+							//Checks if a grip is desired
+							if(armData.commandByte && 1 ){
+								armData.shouldGrip = 1;
+							}
+							else {
+								armData.shouldGrip = 0;
+							}
+						
+						}
+						break;
+				}  //End switch statement
+			}  //End fresh data check
 		}
 		else {  //We only want to increase the packet index if it hasn't just been set to 0
 				//by the reset functionality.
