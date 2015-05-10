@@ -500,6 +500,7 @@ void armMain(){
 			//TODO: Release routine.
 		}
 		if(armData.initRobot){
+			RGBSetColor(WHITE);
 			home_all();
 			homed = true;
 		}
