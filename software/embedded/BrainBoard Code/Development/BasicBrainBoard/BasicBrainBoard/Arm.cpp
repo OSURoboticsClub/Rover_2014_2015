@@ -112,7 +112,7 @@ ISR(PORTF_INT0_vect){
 void generate_step(arm_axis_t axis){
 	int32_t diff = ArmAxis[axis].target - ArmAxis[axis].current;
 	
-	/* When pause, don't actually generate steps, but still reschedule the
+	/* When paused, don't actually generate steps, but still reschedule the
 	 * interrupts to keep checking if we are unpaused. */ 
 	if(!Paused){
 		if(0 == diff){
@@ -453,55 +453,41 @@ void wait_until_stopped(){
 	while(any_moving()){
 		/* Wait */
 	}
-}
-
-void armMain(){
-	enable_axis(ARM_X);
-	while(1){
-		set_target(ARM_X, 200);
-		wait_until_stopped();
-		set_target(ARM_X, 0);
-		wait_until_stopped();
-	}
-}
-		
+}		
 
 /* Operate the arm board. */
-// void armMain(){
-// 	RGBSetColor(PURPLE);
-// 	bool homed = false; /* If true, all axises have been homed,
-// 	                     * allowing them to be moved safely. */
-// 	bool completion_reported = false;
-// 	while(1){
-// 		while(!checkIfNewDataAvailable()){
-// 			if(!any_moving() && !completion_reported){
-// 				setActionsComplete(true);
-// 				completion_reported = true;
-// 			}
-// 		}
-// 		
-// 		setActionsComplete(false);
-// 		completion_reported = false;
-// 		
-// 		if(homed){
-// 			set_target(ARM_X, ArmAxis[ARM_X].steps_per * getXAxisValue());
-// 			set_target(ARM_Y, ArmAxis[ARM_Y].steps_per * getYAxisValue());
-// 			//TODO: Z-axis; manage decisions about which way to turn
-// 			//TODO: Z-axis heat issues
-// 			set_target(ARM_ROTATE, ArmAxis[ARM_ROTATE].steps_per * getGripperRotation());
-// 		}
-// 		if(powerdown()){
-// 			disable_steppers();
-// 			homed = false; //TODO: Will the actuator be safely parked?
-// 		}
-// 		if(shouldGrip()){
-// 			//TODO: Grip routine.
-// 			//TODO: Release routine.
-// 		}
-// 		if(initRobot()){
-// 			//TODO: Homing routine (figure out safest order).
-// 			homed = true;
-// 		}
-// 		
-// 	}
-// }
+void armMain(){
+	RGBSetColor(PURPLE);
+	bool homed = false; /* If true, all axises have been homed,
+	                     * allowing them to be moved safely. */
+	bool completion_reported = false;
+	while(1){
+		while(!freshData){
+			if(!any_moving() && !completion_reported){
+				setActionsComplete();
+				completion_reported = true;
+			}
+		}
+		
+		completion_reported = false;
+		
+		if(homed){
+			set_target(ARM_X, ArmAxis[ARM_X].steps_per * armData.xAxisValue);
+			set_target(ARM_Y, ArmAxis[ARM_Y].steps_per * armData.yAxisValue);
+			
+		}
+		if(armData.powerdown){
+			disable_steppers();
+			homed = false; //TODO: Will the actuator be safely parked?
+		}
+		if(armData.shouldGrip){
+			//TODO: Grip routine.
+			//TODO: Release routine.
+		}
+		if(armData.initRobot){
+			home_all();
+			homed = true;
+		}
+		
+	}
+}
