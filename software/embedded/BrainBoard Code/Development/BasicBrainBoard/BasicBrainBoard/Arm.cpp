@@ -500,6 +500,6 @@ void armMain(){
 			home_all();
 			homed = true;
 		}
-		
+		freshdata = 0;
 	}
 }
