@@ -32,7 +32,7 @@ ISR(USARTC0_RXC_vect){
 		
 		recievedData[packetIndex] = USART_RXBuffer_GetByte(&USART_PC_Data);  //Read character off of buffer
 		
-		if(packetIndex == targetPacketLength){
+		if(packetIndex == (targetPacketLength-1) ){
 			FlushSerialBuffer(&USART_PC_Data);
 			packetIndex = 0;   //Reset the packet index
 			
