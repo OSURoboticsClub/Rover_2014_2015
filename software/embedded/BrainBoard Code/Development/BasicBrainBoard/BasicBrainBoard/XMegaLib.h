@@ -132,5 +132,7 @@ EXTERN volatile ARM_DATA armData;  //Contains the information received from the 
 //Misc communication-related functions
 void FlushSerialBuffer(USART_data_t *UsartBuffer);
 void initPCInterface(XMEGAID InputCurrentID);       //This function needs to be called before the state machine
+void setActionsComplete(void)  //This sets the actions to be complete
+
 
 #endif /* XMEGALIB_H */

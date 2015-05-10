@@ -59,7 +59,7 @@ enum DRIVE_PACKET_TO_COMP {
 //Arm packet from the computer
 enum ARM_PACKET_FROM_COMP {
 	ARM_HEAD,
-	COMMAND,
+	ARM_COMMAND,
 	X_AXIS_VALUE,
 	Y_AXIS_VALUE,
 	Z_AXIS_VALUE,

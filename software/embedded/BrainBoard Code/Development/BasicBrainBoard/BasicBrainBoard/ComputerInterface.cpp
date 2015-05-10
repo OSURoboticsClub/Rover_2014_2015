@@ -63,11 +63,36 @@ ISR(USARTC0_RXC_vect){
 					//Lol, ignore checksum
 					if(recievedData[ARM_HEAD] == 255 && recievedData[ARM_FOOTER] == 255){
 						RGBSetColor(ORANGE);
-						armData.commandByte = recievedData[COMMAND];
+						armData.commandByte = recievedData[ARM_COMMAND];
 						armData.xAxisValue = recievedData[X_AXIS_VALUE];
 						armData.yAxisValue = recievedData[Y_AXIS_VALUE];
 						armData.zAxisValue = recievedData[Z_AXIS_VALUE];
 						armData.gripperRotation = recievedData[GRIPPER_ROTATION];
+						
+						//Check if the robot need to init, aka home
+						if(armData.commandByte && 4){
+							armData.initRobot = 1;
+						}
+						else{
+							armData.initRobot = 0;
+						}
+						
+						//Checks if the arm needs to power down 
+						if(armData.commandByte && 2 ){
+							armData.powerdown = 1;
+						}
+						else{
+							armData.powerdown = 0;
+						}
+						
+						//Checks if a grip is desired
+						if(armData.commandByte && 1 ){
+							armData.shouldGrip = 1;
+						}
+						else {
+							armData.shouldGrip = 0;
+						}
+						
 					}
 					break;
 			}
@@ -81,8 +106,6 @@ ISR(USARTC0_RXC_vect){
 	
 	
 }
-
-
 
 void sendDriveResponse(const DRIVE_RESPONSE & input){
 	char stagingArray[DRIVE_RESPONSE_PACKET_LENGTH];
@@ -104,4 +127,9 @@ void sendDriveResponse(const DRIVE_RESPONSE & input){
 		USART_PutChar(&USARTC0, stagingArray[i]);
 	}
 	
+}
+
+//Sends the string back to the computer signifying motion is complete
+void setActionsComplete(void) {
+	SendStringPC("c");
 }
