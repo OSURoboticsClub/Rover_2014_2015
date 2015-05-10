@@ -428,6 +428,8 @@ void home_all(){
 	}
 	disable_axis(ARM_Z);
 	
+	enable_axis(ARM_X);
+	enable_axis(ARM_Y);
 	set_target(ARM_X, -5000);
 	set_target(ARM_Y, -5000);
 	//TODO: Home other axises.
@@ -462,7 +464,15 @@ void armMain(){
 	                     * allowing them to be moved safely. */
 	bool completion_reported = false;
 	while(1){
+		//TODO
+		if(armData.xAxisValue != 0){
+			RGBSetColor(WHITE);
+			_delay_ms(1000);
+		}
+		
+		RGBSetColor(PURPLE);
 		while(!freshData){
+			RGBSetColor(BLUE);
 			if(!any_moving() && !completion_reported){
 				setActionsComplete();
 				completion_reported = true;
@@ -475,6 +485,14 @@ void armMain(){
 			set_target(ARM_X, ArmAxis[ARM_X].steps_per * armData.xAxisValue);
 			set_target(ARM_Y, ArmAxis[ARM_Y].steps_per * armData.yAxisValue);
 			
+			/* Z-axis side switching. */
+			//TODO: Handle Z enable/disable.
+			int16_t z_top = -3000; /* Step position where z is straight up. */
+			if(armData.xAxisValue > 128){ /* If arm is to the left */
+				set_target(ARM_Z, z_top - ArmAxis[ARM_Z].steps_per * armData.zAxisValue);
+			} else {
+				set_target(ARM_Z, z_top + ArmAxis[ARM_Z].steps_per * armData.zAxisValue);
+			}
 		}
 		if(armData.powerdown){
 			disable_steppers();
