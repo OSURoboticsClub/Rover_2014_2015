@@ -110,7 +110,9 @@ class ArmController(object):
     def loop(self):
         while True:
             self.serial.write_packet(self.command, self.x, self.y, self.z)
-            print("Wrote packet, command = " + str(self.command) )
+            if( self.command == 0x04 ):
+                self.command = 0
+#            print("Wrote packet, command = " + str(self.command) )
             time.sleep(self.cycle_size)
     
 
