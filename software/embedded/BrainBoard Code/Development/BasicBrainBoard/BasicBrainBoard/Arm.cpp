@@ -455,7 +455,8 @@ void wait_until_stopped(){
 	while(any_moving()){
 		/* Wait */
 	}
-}		
+}
+	
 
 /* Operate the arm board. */
 void armMain(){
@@ -476,17 +477,19 @@ void armMain(){
 		completion_reported = false;
 		
 		if(homed){
-			set_target(ARM_X, ArmAxis[ARM_X].steps_per * armData.xAxisValue);
-			set_target(ARM_Y, ArmAxis[ARM_Y].steps_per * armData.yAxisValue);
-			
 			/* Z-axis side switching. */
 			//TODO: Handle Z enable/disable.
 			int16_t z_top = -3000; /* Step position where z is straight up. */
 			if(armData.xAxisValue > 128){ /* If arm is to the left */
 				set_target(ARM_Z, z_top - ArmAxis[ARM_Z].steps_per * armData.zAxisValue);
+				wait_until_stopped();
 			} else {
 				set_target(ARM_Z, z_top + ArmAxis[ARM_Z].steps_per * armData.zAxisValue);
+				wait_until_stopped();
 			}
+			
+			set_target(ARM_X, ArmAxis[ARM_X].steps_per * armData.xAxisValue);
+			set_target(ARM_Y, ArmAxis[ARM_Y].steps_per * armData.yAxisValue);
 		}
 		if(armData.powerdown){
 			disable_steppers();
