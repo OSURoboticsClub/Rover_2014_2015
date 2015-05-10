@@ -83,6 +83,12 @@ int main(void)
 	
 	//CurrentState = MainProgram;
 
+
+	//We need to init drive early so that the roving light will blink
+	if(CurrentID == DRIVE){
+		driveInit();
+	}
+
     while(1)
     { 
 		
@@ -114,7 +120,7 @@ int main(void)
 				processPackets = true;
 				switch (CurrentID) {
 					case DRIVE:
-						driveInit();
+						//driveInit();
 						while (1) {
 							driveMain();
 						}
