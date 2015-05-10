@@ -46,10 +46,7 @@ void driveMain(){
 	//Main executing loop
 	while(1){
 		
-		
-
-		//Packet interpreting
-		
+		//Packet interpreting statement, this loop runs quick enough that is should be sufficient to only poll here
 		if(freshData){
 			freshData = 0;  //Marking the data as read
 			
@@ -63,43 +60,7 @@ void driveMain(){
 			freshData = 0;  //Marking the data as read
 		}
 		
-		/*
-		SendDriveCommand_SaberOne(6, 90);
-		SendDriveCommand_SaberOne(7, 90);
-		SendDriveCommand_SaberTwo(6, 90);
-		SendDriveCommand_SaberTwo(7, 90);
-		SendDriveCommand_SaberThree(6, 90);
-		SendDriveCommand_SaberThree(7, 90);
-		*/
-		
-		/*
-		for(int i = 10; i < 150; ++i){
-			SendDriveCommand_SaberTwo(6, i);
-			SendDriveCo=-mmand_SaberTwo(7, i);
-			_delay_ms(50);
-		}
-		for(int i = 150; i > 10; --i){
-			SendDriveCommand_SaberTwo(6, i);
-			SendDriveCommand_SaberTwo(7, i);
-			_delay_ms(50);
-		}
-		*/
-		//_delay_ms(100);
-		
 	}
-	
-	/*
-	while(1){
-		if(USART_RXBufferData_Available(&USART_PC_Data)){
-			recieveChar = USART_RXBuffer_GetByte(&USART_PC_Data);
-			
-			while(!USART_IsTXDataRegisterEmpty(&USARTE0));
-				USART_PutChar(&USARTE0, recieveChar);
-		}
-	}
-	*/
-	
-	_delay_ms(1000);
 	
 	//ALGORITHM after exact functions are available a while loop will iterate through and at each start
 	//will call for a speed from RC or comp (or both?) and put that value in the speed string
@@ -521,6 +482,33 @@ RECYCLE BIN
 		}
 		
 		while(1);
+
+****************************
+
+		for(int i = 10; i < 150; ++i){
+			SendDriveCommand_SaberTwo(6, i);
+			SendDriveCo=-mmand_SaberTwo(7, i);
+			_delay_ms(50);
+		}
+		for(int i = 150; i > 10; --i){
+			SendDriveCommand_SaberTwo(6, i);
+			SendDriveCommand_SaberTwo(7, i);
+			_delay_ms(50);
+		}
+		
+****************************		
+		
+	while(1){
+		if(USART_RXBufferData_Available(&USART_PC_Data)){
+			recieveChar = USART_RXBuffer_GetByte(&USART_PC_Data);
+			
+			while(!USART_IsTXDataRegisterEmpty(&USARTE0));
+			USART_PutChar(&USARTE0, recieveChar);
+		}
+	}
+
+
+****************************
 
 
 */
