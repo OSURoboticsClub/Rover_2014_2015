@@ -69,10 +69,12 @@ static volatile struct {
 	 * higher speeds.
 	 *   period [32us units] = 1/(32e-6 * speed[steps/s]) */
 	const uint16_t step_period;
+	
 	const bool pos_dir; /* Positive (away from limit) DIR pin value. */
 	const uint32_t steps_per; /* Steps per axis increment. For X&Y, this is steps per 3mm.
 	                       * TODO: Define for other axises. */
-
+	const int32_t max_steps; /* Maximum number of steps. */
+	
 	PORT_t * const step_port; /* Port containing step pin. */
 	const uint8_t step_pin; /* Step pin bit mask. */
 	PORT_t * const dir_port; /* Port containing dir pin. */
@@ -86,12 +88,12 @@ static volatile struct {
 	register8_t * const cc_buf_l; /* CCxBUFL for this axis. */
 	register8_t * const int_ctrl; /* CC interrupt register for this axis. */
 	const uint8_t int_bm; /* Interrupt bit mask for this axis. */
-} ArmAxis[5] { /*               Step      |      Dir       |      nEN       |     Limit      |    CNTL     |   CCxBUFL      |     INTCTRLB    | Interrupt bit mask */
-	{0,0, 10, true, 100, &PORTE, PIN4_bm, &PORTE, PIN7_bm, &PORTE, PIN5_bm, &PORTF, PIN6_bm, &(TCE0.CNTL), &(TCE0.CCABUFL), &(TCE0.INTCTRLB), TC0_CCAINTLVL1_bm}, /* X axis */
-	{0,0, 30, false, 100, &PORTE, PIN3_bm, &PORTE, PIN2_bm, &PORTE, PIN0_bm, &PORTF, PIN7_bm, &(TCE0.CNTL), &(TCE0.CCBBUFL), &(TCE0.INTCTRLB), TC0_CCBINTLVL1_bm}, /* Y axis */
-	{0,0, 50, true, 3, &PORTD, PIN6_bm, &PORTE, PIN1_bm, &PORTD, PIN7_bm, &PORTF, PIN4_bm, &(TCE0.CNTL), &(TCE0.CCCBUFL), &(TCE0.INTCTRLB), TC0_CCCINTLVL1_bm}, /* Z axis */
-	{0,0, 100, true, 3, &PORTD, PIN5_bm, &PORTD, PIN4_bm, &PORTD, PIN2_bm, &PORTF, PIN0_bm, &(TCE0.CNTL), &(TCE0.CCDBUFL), &(TCE0.INTCTRLB), TC0_CCDINTLVL1_bm}, /* Rotation */
-	{0,0, 100, true, 3, &PORTD, PIN1_bm, &PORTD, PIN0_bm, &PORTD, PIN3_bm, &PORTF, PIN1_bm, &(TCE1.CNTL), &(TCE1.CCABUFL), &(TCE1.INTCTRLB), TC1_CCAINTLVL1_bm} /* Grip */
+} ArmAxis[5] { /*       Per.| Max.|      Step      |      Dir       |      nEN       |     Limit      |    CNTL     |   CCxBUFL      |     INTCTRLB    | Interrupt bit mask */
+	{0,0, 10,  true,  17, 4300, &PORTE, PIN4_bm, &PORTE, PIN7_bm, &PORTE, PIN5_bm, &PORTF, PIN6_bm, &(TCE0.CNTL), &(TCE0.CCABUFL), &(TCE0.INTCTRLB), TC0_CCAINTLVL1_bm}, /* X axis */
+	{0,0, 30, false,  17, 4400, &PORTE, PIN3_bm, &PORTE, PIN2_bm, &PORTE, PIN0_bm, &PORTF, PIN7_bm, &(TCE0.CNTL), &(TCE0.CCBBUFL), &(TCE0.INTCTRLB), TC0_CCBINTLVL1_bm}, /* Y axis */
+	{0,0, 50,  true,   3, 6000, &PORTD, PIN6_bm, &PORTE, PIN1_bm, &PORTD, PIN7_bm, &PORTF, PIN4_bm, &(TCE0.CNTL), &(TCE0.CCCBUFL), &(TCE0.INTCTRLB), TC0_CCCINTLVL1_bm}, /* Z axis */
+	{0,0, 100, true,   3,    0, &PORTD, PIN5_bm, &PORTD, PIN4_bm, &PORTD, PIN2_bm, &PORTF, PIN0_bm, &(TCE0.CNTL), &(TCE0.CCDBUFL), &(TCE0.INTCTRLB), TC0_CCDINTLVL1_bm}, /* Rotation */
+	{0,0, 100, true,   3,    0, &PORTD, PIN1_bm, &PORTD, PIN0_bm, &PORTD, PIN3_bm, &PORTF, PIN1_bm, &(TCE1.CNTL), &(TCE1.CCABUFL), &(TCE1.INTCTRLB), TC1_CCAINTLVL1_bm} /* Grip */
 };
 
 /* When true, step generation is stopped. This variable is set by a pin-change
@@ -230,6 +232,9 @@ static uint8_t ReadCalibrationByte( uint8_t index ){
  * The step positions start at 0 at the limit
  * switch and increase from there. */
 void set_target(arm_axis_t axis, int32_t position){
+	if(position > ArmAxis[axis].max_steps){
+		position = ArmAxis[axis].max_steps;
+	}
 	cli();
 	ArmAxis[axis].target = position * 2;
 	sei();
