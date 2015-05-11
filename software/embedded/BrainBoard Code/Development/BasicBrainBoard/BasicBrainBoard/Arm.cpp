@@ -91,7 +91,7 @@ static volatile struct {
 } ArmAxis[5] { /*       Per.| Max.|      Step      |      Dir       |      nEN       |     Limit      |    CNTL     |   CCxBUFL      |     INTCTRLB    | Interrupt bit mask */
 	{0,0, 10,  true,  17, 4300, &PORTE, PIN4_bm, &PORTE, PIN7_bm, &PORTE, PIN5_bm, &PORTF, PIN6_bm, &(TCE0.CNTL), &(TCE0.CCABUFL), &(TCE0.INTCTRLB), TC0_CCAINTLVL1_bm}, /* X axis */
 	{0,0, 30, false,  17, 4400, &PORTE, PIN3_bm, &PORTE, PIN2_bm, &PORTE, PIN0_bm, &PORTF, PIN7_bm, &(TCE0.CNTL), &(TCE0.CCBBUFL), &(TCE0.INTCTRLB), TC0_CCBINTLVL1_bm}, /* Y axis */
-	{0,0, 50,  true,   3, 6000, &PORTD, PIN6_bm, &PORTE, PIN1_bm, &PORTD, PIN7_bm, &PORTF, PIN4_bm, &(TCE0.CNTL), &(TCE0.CCCBUFL), &(TCE0.INTCTRLB), TC0_CCCINTLVL1_bm}, /* Z axis */
+	{0,0, 50,  true,  26, 6600, &PORTD, PIN6_bm, &PORTE, PIN1_bm, &PORTD, PIN7_bm, &PORTF, PIN4_bm, &(TCE0.CNTL), &(TCE0.CCCBUFL), &(TCE0.INTCTRLB), TC0_CCCINTLVL1_bm}, /* Z axis */
 	{0,0, 100, true,   3,    0, &PORTD, PIN5_bm, &PORTD, PIN4_bm, &PORTD, PIN2_bm, &PORTF, PIN0_bm, &(TCE0.CNTL), &(TCE0.CCDBUFL), &(TCE0.INTCTRLB), TC0_CCDINTLVL1_bm}, /* Rotation */
 	{0,0, 100, true,   3,    0, &PORTD, PIN1_bm, &PORTD, PIN0_bm, &PORTD, PIN3_bm, &PORTF, PIN1_bm, &(TCE1.CNTL), &(TCE1.CCABUFL), &(TCE1.INTCTRLB), TC1_CCAINTLVL1_bm} /* Grip */
 };
@@ -483,14 +483,20 @@ void armMain(){
 		
 		if(homed){
 			/* Z-axis side switching. */
-			//TODO: Handle Z enable/disable.
-			int16_t z_top = -3000; /* Step position where z is straight up. */
+			int16_t z_top = -3300; /* Step position where z is straight up. */
+			if(0 != armData.zAxisValue){
+				enable_axis(ARM_Z);
+			}
 			if(armData.xAxisValue > 128){ /* If arm is to the left */
 				set_target(ARM_Z, z_top - ArmAxis[ARM_Z].steps_per * armData.zAxisValue);
 				wait_until_stopped();
 			} else {
 				set_target(ARM_Z, z_top + ArmAxis[ARM_Z].steps_per * armData.zAxisValue);
 				wait_until_stopped();
+			}
+			//TODO: Remove disable when better driver installed.
+			if(0 == armData.zAxisValue){
+				disable_axis(ARM_Z);
 			}
 			
 			set_target(ARM_X, ArmAxis[ARM_X].steps_per * armData.xAxisValue);
