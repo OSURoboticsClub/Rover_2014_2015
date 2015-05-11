@@ -135,10 +135,24 @@ ISR(TCE1_CCB_vect){
 
 void driveInit() {
 	PORTE.DIRSET = (PIN5_bm); //Sets output LED (status/error)
-	PORTE.OUTSET = PIN5_bm; //Initalize pause at a low state, TODO, UPDATE TO ACTUAL SPECIFICATION
+	PORTE.OUTSET = PIN5_bm; //Initialize pause at a low state, TODO, UPDATE TO ACTUAL SPECIFICATION
 	
 	RovingLight_Solid();
+	
+	DRIVE_PAUSE_nASSERT();
+	
+	/*
+	//Enable medium level interrupts
+	PMIC.CTRL |= PMIC_MEDLVLEN_bm;
+	
+	//Setup index pulse interrupts (set on pins 3 (left) and 5 (right) )
+	PORTF.INTCTRL = PORT_INT0LVL1_bm;
+	PORTF.INT0MASK = PIN5_bm;
+	*/
+	
 	//RovingLight_Flashing();
+	
+	
 }
 
 void SendDriveCommand_SaberOne(unsigned char command, unsigned char value){
