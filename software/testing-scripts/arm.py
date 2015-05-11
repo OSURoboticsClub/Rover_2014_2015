@@ -127,6 +127,7 @@ if __name__ == '__main__':
     x = int(raw_input("x:"))
     y = int(raw_input("y:"))
     z = int(raw_input("z:"))
+    print("\n") #Added to make inputting numbers a little nicer
     try:
         arm.move(x, y, z, 0x04)
     except Exception, e:
