@@ -482,15 +482,25 @@ void armMain(){
 		completion_reported = false;
 		
 		if(homed){
-			/* Z-axis side switching. */
 			int16_t z_top = -3300; /* Step position where z is straight up. */
+			//TODO: Remove enable when better driver installed.
 			if(0 != armData.zAxisValue){
 				enable_axis(ARM_Z);
 			}
 			if(armData.xAxisValue > 128){ /* If arm is to the left */
+				if(ArmAxis[ARM_X].current < ArmAxis[ARM_X].max_steps){ /* If arm is currently on the right. */
+					set_target(ARM_Z, z_top);
+					wait_until_stopped();
+					set_target(ARM_X, ArmAxis[ARM_X].steps_per * armData.xAxisValue);
+				}
 				set_target(ARM_Z, z_top - ArmAxis[ARM_Z].steps_per * armData.zAxisValue);
 				wait_until_stopped();
 			} else {
+				if(ArmAxis[ARM_X].current > ArmAxis[ARM_X].max_steps){ /* If arm is currently on the left. */
+					set_target(ARM_Z, z_top);
+					wait_until_stopped();
+					set_target(ARM_X, ArmAxis[ARM_X].steps_per * armData.xAxisValue);
+				}
 				set_target(ARM_Z, z_top + ArmAxis[ARM_Z].steps_per * armData.zAxisValue);
 				wait_until_stopped();
 			}
@@ -498,7 +508,6 @@ void armMain(){
 			if(0 == armData.zAxisValue){
 				disable_axis(ARM_Z);
 			}
-			
 			set_target(ARM_X, ArmAxis[ARM_X].steps_per * armData.xAxisValue);
 			set_target(ARM_Y, ArmAxis[ARM_Y].steps_per * armData.yAxisValue);
 		}
