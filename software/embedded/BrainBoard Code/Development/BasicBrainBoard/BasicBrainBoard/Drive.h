@@ -27,6 +27,11 @@
 
 #define STOP_CONSTANT 50  //Originally 20
 
+//Saberteeth defines
+#define AUTOBAUD_BYTE 170
+#define SABERTOOTHADDRESS 128  //We are setting all of the addresses to 128 because they are on individual UARTS
+
+
 //#include "XMegaLib.h"
 #include "math.h"
 #include "string.h"
@@ -97,6 +102,8 @@ ISR(USARTD0_DRE_vect){
 
 /**** Function Prototypes ****/
 
+//void initializeDriveIO(void);  //Not implemented, used driveInit instead
+
 void Saber_init_uno(void);
 void Saber_init_dos(void);
 void Saber_init_tres(void);
@@ -104,6 +111,23 @@ void Saber_init_tres(void);
 void SendStringSABER_UNO(char *present);
 void SendStringSABER_DOS(char *present);
 void SendStringSaber_TRES(char *present);
+
+void SendDriveCommand_SaberOne(unsigned char command, unsigned char value);
+void SendDriveCommand_SaberTwo(unsigned char command, unsigned char value);
+void SendDriveCommand_SaberThree(unsigned char command, unsigned char value);
+unsigned char SaberChecksum(unsigned char command, unsigned char value);
+
+void parsePacket(char left, char right, char gimbalPitch, char gimbalRoll, char gimbalYaw);
+
+//Functions for roving light
+void RovingLight_Flashing();
+void RovingLight_Solid();
+
+//Functions for Pause processing
+	
+#define DRIVE_PAUSE_ASSERT(void) (PORTE.OUTCLR = PIN5_bm)
+#define DRIVE_PAUSE_nASSERT(void) (PORTE.OUTSET = PIN5_bm)
+
 
 //Below are functions for RC control (Need hardware testing)
 void RC_init();

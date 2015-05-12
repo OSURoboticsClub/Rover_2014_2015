@@ -60,25 +60,40 @@ class MotorSerial(SerialBoard):
         self.debugStr = "" #Added by Nick
         
     def write_packet(self, left=0, right=0, pitch=0, roll=0, yaw=0):
+        if left == 255:  #In order to ensure the integrity of the header and footer
+	    left = 254
+        
         if left == 0:
             left = self.left
         else:
             self.left = left
-         
+        
+        if right == 255:  #In order to ensure the integrity of the header and footer
+	    right = 254
+        
         if right == 0:
             right = self.right
         else:
             self.right = right
-   	         
+   	
+   	if pitch == 255:  #In order to ensure the integrity of the header and footer
+	    pitch = 254
+   	
         if pitch == 0:
             pitch = self.pitch
         else:
             self.pitch = pitch
         
+        if roll == 255:  #In order to ensure the integrity of the header and footer
+	    roll = 254
+        
         if roll == 0:
             roll = self.roll
         else:
             self.roll = roll
+        
+        if yaw == 255:  #In order to ensure the integrity of the header and footer
+            yaw = 254
         
         if yaw == 0:
             yaw = self.yaw
@@ -152,6 +167,6 @@ if __name__ == '__main__':
     print "Left Value: " + str(left)
     print "Right Value: " + str(right)
     motor.change_speed(left, right)
-    time.sleep(.005)
+    time.sleep(.005)  #Super-duper hacky
  
  

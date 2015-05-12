@@ -84,8 +84,55 @@ enum XMEGAID{
 void RGBSetColor(RGBColors choice);
 void initializeIO(void);  //Sets up all of the IO and associated settings
 //void determineID(void);
-void determineID(char * XmegaIDStr, XMEGAID & CurrentID);
 
+void determineID(char * XmegaIDStr, XMEGAID & CurrentID);  //Determines the board's current ID based on the DIP switches
+
+//Communication Variables (super mega global)
+EXTERN char volatile freshData;           //Set high if new data was processed
+EXTERN XMEGAID volatile GlobalCurrentID;
+EXTERN bool volatile processPackets;     //Should we be waiting for computer packets
+
+//Holds the infromation from the computer
+struct DRIVE_DATA {
+	char leftSpeed;
+	char rightSpeed;
+	char gimbalPitch;
+	char gimbalRoll;
+	char gimbalYaw;
+	};
+
+struct DRIVE_RESPONSE {
+	char isPaused;
+	long leftAbsPosition;
+	long rightAbsPosition;
+	};
+
+struct ARM_DATA {
+	char commandByte;
+	char shouldGrip;
+	char powerdown;
+	char initRobot;
+	char xAxisValue;
+	char yAxisValue;
+	char zAxisValue;
+	char gripperRotation;
+	};
+
+//Note, these need to be set to 0 by the user's code everytime
+struct ARM_RESPONSE {
+	char gripSuccess;
+	char gripUnsuccessful;
+	};
+
+//Both mega-global variables for the arm and drive datas
+	//TODO Need to place in a Union with Arm data
+EXTERN volatile DRIVE_DATA driveData;  //Contains the information received from the computer
+EXTERN volatile ARM_DATA armData;  //Contains the information received from the computer
+
+//Misc communication-related functions
+void FlushSerialBuffer(USART_data_t *UsartBuffer);
+void initPCInterface(XMEGAID InputCurrentID);       //This function needs to be called before the state machine
+void setActionsComplete(void);  //This sets the actions to be complete
 
 
 #endif /* XMEGALIB_H */

@@ -62,17 +62,33 @@ int main(void)
 	//Main's Variable Declarations
 	char XmegaIDStr[11];
 	XMEGAID CurrentID;
-		
+	
 	//Initialization Code
 	uart_init();
 	initializeIO();
 	determineID(XmegaIDStr, CurrentID);
+	initPCInterface(CurrentID);
 	timer_init();  //Initialize Timers
 	sei(); //Enable interrupts
 	
-	PMIC.CTRL |= PMIC_LOLVLEN_bm; //draws current for ?
+	/*  //Legacy from first packetized attempt
+	initializePacketProcessing(); //Needs to be ran _after_ determineID()
+	processPackets = false;       //Not ready to receive packets just yet
+	*/	
 
+	//TODO: Is the following line needed?
+	//PMIC.CTRL |= PMIC_LOLVLEN_bm;   //draws current for ?
+
+	//TODO TODO TODO Remove
 	
+	//CurrentState = MainProgram;
+
+
+	//We need to init drive early so that the roving light will blink
+	if(CurrentID == DRIVE){
+		driveInit();
+	}
+
     while(1)
     { 
 		
@@ -101,9 +117,10 @@ int main(void)
 				break;
 			case MainProgram:
 				RGBSetColor(GREEN);
+				processPackets = true;
 				switch (CurrentID) {
 					case DRIVE:
-						driveInit();
+						//driveInit();  //Moved to before the state machine
 						while (1) {
 							driveMain();
 						}
@@ -200,6 +217,7 @@ void SendStringPC(char *stufftosend){
 
 //Configures the XMEGA to run on it's 32Mhz internal? oscillator
 void SetXMEGA32MhzCalibrated(){
+	/*
 	CCP = CCP_IOREG_gc;						//Disable register security for oscillator update
 	OSC.CTRL = OSC_RC32MEN_bm;				//Enable 32MHz oscillator
 	while(!(OSC.STATUS & OSC_RC32MRDY_bm)); //Wait for oscillator to be ready
@@ -210,10 +228,35 @@ void SetXMEGA32MhzCalibrated(){
 	CCP = CCP_IOREG_gc;						//Disable register security for oscillator update
 	OSC.CTRL |= OSC_RC32KEN_bm;				//Enable 32Khz oscillator
 	while(!(OSC.STATUS & OSC_RC32KRDY_bm)); //Wait for oscillator to be ready
+	*/
 	/*
 	OSC.DFLLCTRL &= ~OSC_RC32MCREF_bm;		//Set up calibration source to be 32Khz crystal
 	DFLLRC32M.CTRL |= DFLL_ENABLE_bm;		//Enable calibration of 32Mhz oscillator 
 	*/
+	
+	int temp = 0;																			//Temporary variable for helping avoid 4 clock cycle limitation when updating secure registers
+	
+	//Enable external 8MHz oscillator
+	OSC.XOSCCTRL = (OSC_FRQRANGE_12TO16_gc | OSC_XOSCSEL_XTAL_16KCLK_gc);
+	//OSC.XOSCCTRL = (OSC_FRQRANGE_2TO9_gc | OSC_XOSCSEL_XTAL_16KCLK_gc);						//Set external oscillator to be between 2 and 9 MHz and select it
+	OSC.CTRL |= OSC_XOSCEN_bm;																//Enable the external oscillator
+	while(!(OSC.STATUS & OSC_XOSCRDY_bm));									//While the external oscillator is not ready, set the error led																		//Clear the error led if the external oscillator has stabilized
+	
+	//Enable phase locked loop to multiply external oscillator by 4 to get 32MHz
+	temp = ((OSC_PLLSRC_XOSC_gc & OSC_PLLSRC_gm) | (OSC_PLLFAC_gm & 2));				//Set the external oscillator as the clock source for the pll and set to multiply by 4
+	CCP = CCP_IOREG_gc;																		//Disable register security so we can update the pll control settings
+	OSC.PLLCTRL = temp;																		//Write pll control settings to register
+	OSC.CTRL |= OSC_PLLEN_bm;																//Enable the pll
+	while(!(OSC.STATUS & OSC_PLLRDY_bm));									//While the pll is not ready, set the error led																			//Disable the error led if successfully stabilized
+	
+	//Set system pll clock divisions and set up as source for all system clocks
+	temp = ((CLK_PSADIV_gm & CLK_PSADIV_1_gc) | (CLK_PSBCDIV_gm & CLK_PSBCDIV_1_1_gc));		//Set system to use pll divided by 1 (no division)
+	CCP = CCP_IOREG_gc;																		//Disable register security so we can update the clock source division setting
+	CLK.CTRL = temp;																		//Write division settings to register
+	
+	temp = CLK_SCLKSEL_PLL_gc;																//Set pll as system clock source
+	CCP = CCP_IOREG_gc;																		//Disable register security so we can update the system clock
+	CLK.CTRL = temp;
 }
 
 

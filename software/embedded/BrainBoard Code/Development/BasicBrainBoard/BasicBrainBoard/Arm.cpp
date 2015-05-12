@@ -69,10 +69,12 @@ static volatile struct {
 	 * higher speeds.
 	 *   period [32us units] = 1/(32e-6 * speed[steps/s]) */
 	const uint16_t step_period;
+	
 	const bool pos_dir; /* Positive (away from limit) DIR pin value. */
 	const uint32_t steps_per; /* Steps per axis increment. For X&Y, this is steps per 3mm.
 	                       * TODO: Define for other axises. */
-
+	const int32_t max_steps; /* Maximum number of steps. */
+	
 	PORT_t * const step_port; /* Port containing step pin. */
 	const uint8_t step_pin; /* Step pin bit mask. */
 	PORT_t * const dir_port; /* Port containing dir pin. */
@@ -86,38 +88,56 @@ static volatile struct {
 	register8_t * const cc_buf_l; /* CCxBUFL for this axis. */
 	register8_t * const int_ctrl; /* CC interrupt register for this axis. */
 	const uint8_t int_bm; /* Interrupt bit mask for this axis. */
-} ArmAxis[5] { /*                Step      |      Dir       |      nEN       |     Limit      |    CNTL     |   CCxBUFL      |     INTCTRLB    | Interrupt bit mask */
-	{0,0, 10, true, 3, &PORTE, PIN4_bm, &PORTE, PIN7_bm, &PORTE, PIN5_bm, &PORTF, PIN6_bm, &(TCE0.CNTL), &(TCE0.CCABUFL), &(TCE0.INTCTRLB), TC0_CCAINTLVL1_bm}, /* X axis */
-	{0,0, 30, false, 3, &PORTE, PIN3_bm, &PORTE, PIN2_bm, &PORTE, PIN0_bm, &PORTF, PIN7_bm, &(TCE0.CNTL), &(TCE0.CCBBUFL), &(TCE0.INTCTRLB), TC0_CCBINTLVL1_bm}, /* Y axis */
-	{0,0, 50, true, 3, &PORTD, PIN6_bm, &PORTE, PIN1_bm, &PORTD, PIN7_bm, &PORTF, PIN4_bm, &(TCE0.CNTL), &(TCE0.CCCBUFL), &(TCE0.INTCTRLB), TC0_CCCINTLVL1_bm}, /* Z axis */
-	{0,0, 100, true, 3, &PORTD, PIN5_bm, &PORTD, PIN4_bm, &PORTD, PIN2_bm, &PORTF, PIN0_bm, &(TCE0.CNTL), &(TCE0.CCDBUFL), &(TCE0.INTCTRLB), TC0_CCDINTLVL1_bm}, /* Rotation */
-	{0,0, 100, true, 3, &PORTD, PIN1_bm, &PORTD, PIN0_bm, &PORTD, PIN3_bm, &PORTF, PIN1_bm, &(TCE1.CNTL), &(TCE1.CCABUFL), &(TCE1.INTCTRLB), TC1_CCAINTLVL1_bm} /* Grip */
+} ArmAxis[5] { /*       Per.| Max.|      Step      |      Dir       |      nEN       |     Limit      |    CNTL     |   CCxBUFL      |     INTCTRLB    | Interrupt bit mask */
+	{0,0, 10,  true,  17, 4300, &PORTE, PIN4_bm, &PORTE, PIN7_bm, &PORTE, PIN5_bm, &PORTF, PIN6_bm, &(TCE0.CNTL), &(TCE0.CCABUFL), &(TCE0.INTCTRLB), TC0_CCAINTLVL1_bm}, /* X axis */
+	{0,0, 30, false,  17, 4400, &PORTE, PIN3_bm, &PORTE, PIN2_bm, &PORTE, PIN0_bm, &PORTF, PIN7_bm, &(TCE0.CNTL), &(TCE0.CCBBUFL), &(TCE0.INTCTRLB), TC0_CCBINTLVL1_bm}, /* Y axis */
+	{0,0, 50,  true,  26, 6600, &PORTD, PIN6_bm, &PORTE, PIN1_bm, &PORTD, PIN7_bm, &PORTF, PIN4_bm, &(TCE0.CNTL), &(TCE0.CCCBUFL), &(TCE0.INTCTRLB), TC0_CCCINTLVL1_bm}, /* Z axis */
+	{0,0, 100, true,   3,    0, &PORTD, PIN5_bm, &PORTD, PIN4_bm, &PORTD, PIN2_bm, &PORTF, PIN0_bm, &(TCE0.CNTL), &(TCE0.CCDBUFL), &(TCE0.INTCTRLB), TC0_CCDINTLVL1_bm}, /* Rotation */
+	{0,0, 100, true,   3,    0, &PORTD, PIN1_bm, &PORTD, PIN0_bm, &PORTD, PIN3_bm, &PORTF, PIN1_bm, &(TCE1.CNTL), &(TCE1.CCABUFL), &(TCE1.INTCTRLB), TC1_CCAINTLVL1_bm} /* Grip */
 };
+
+/* When true, step generation is stopped. This variable is set by a pin-change
+ * interrupt on the nPAUSE line (PF5). When nPAUSE is low, movement is disabled. */
+bool Paused;
+
+/* Pause pin change ISR. */
+ISR(PORTF_INT0_vect){
+	if(PORTF.IN & PIN5_bm){
+		Paused = false;
+	} else {
+		Paused = true;
+	}
+}
 
 /* Generate a step on the given axis and schedule to
  * run again if necessary. */
 void generate_step(arm_axis_t axis){
 	int32_t diff = ArmAxis[axis].target - ArmAxis[axis].current;
-	if(0 == diff){
-		/* Clear interrupt. */
-		*(ArmAxis[axis].int_ctrl) &= ~ArmAxis[axis].int_bm;
-		return;
-	} else if(diff > 0){
-		if(ArmAxis[axis].pos_dir){
-			ArmAxis[axis].dir_port->OUTSET = ArmAxis[axis].dir_pin;
+	
+	/* When paused, don't actually generate steps, but still reschedule the
+	 * interrupts to keep checking if we are unpaused. */ 
+	if(!Paused){
+		if(0 == diff){
+			/* Clear interrupt. */
+			*(ArmAxis[axis].int_ctrl) &= ~ArmAxis[axis].int_bm;
+			return;
+		} else if(diff > 0){
+			if(ArmAxis[axis].pos_dir){
+				ArmAxis[axis].dir_port->OUTSET = ArmAxis[axis].dir_pin;
+			} else {
+				ArmAxis[axis].dir_port->OUTCLR = ArmAxis[axis].dir_pin;
+			}
+			ArmAxis[axis].step_port->OUTTGL = ArmAxis[axis].step_pin;
+			ArmAxis[axis].current++;
 		} else {
-			ArmAxis[axis].dir_port->OUTCLR = ArmAxis[axis].dir_pin;
+			if(ArmAxis[axis].pos_dir){
+				ArmAxis[axis].dir_port->OUTCLR = ArmAxis[axis].dir_pin;
+			} else {
+				ArmAxis[axis].dir_port->OUTSET = ArmAxis[axis].dir_pin;
+			}
+			ArmAxis[axis].step_port->OUTTGL = ArmAxis[axis].step_pin;
+			ArmAxis[axis].current--;
 		}
-		ArmAxis[axis].step_port->OUTTGL = ArmAxis[axis].step_pin;
-		ArmAxis[axis].current++;
-	} else {
-		if(ArmAxis[axis].pos_dir){
-			ArmAxis[axis].dir_port->OUTCLR = ArmAxis[axis].dir_pin;
-		} else {
-			ArmAxis[axis].dir_port->OUTSET = ArmAxis[axis].dir_pin;
-		}
-		ArmAxis[axis].step_port->OUTTGL = ArmAxis[axis].step_pin;
-		ArmAxis[axis].current--;
 	}
 	
 	/* Set counter compare buffer register */
@@ -173,9 +193,7 @@ void init_steppers(){
 		ArmAxis[i].dir_port->DIRSET = ArmAxis[i].dir_pin;
 		ArmAxis[i].nen_port->DIRSET = ArmAxis[i].nen_pin;
 	}
-	enable_steppers();
-	//TODO: Sort out z-axis overheating more thoroughly.
-	disable_axis(ARM_Z);
+	disable_steppers();
 	
 	/* Setup timers. */
 	TCE0.CTRLB = TC_WGMODE_NORMAL_gc | TC0_CCDEN_bm | TC0_CCCEN_bm | TC0_CCBEN_bm | TC0_CCAEN_bm;
@@ -189,6 +207,10 @@ void init_steppers(){
 	
 	/* Enable medium level interrupts. */
 	PMIC.CTRL |= PMIC_MEDLVLEN_bm;
+	
+	/* Setup pause interrupt */
+	PORTF.INTCTRL = PORT_INT0LVL1_bm;
+	PORTF.INT0MASK = PIN5_bm;
 }
 
 /* Read NVM signature. From http://www.avrfreaks.net/forum/xmega-production-signature-row */
@@ -210,6 +232,9 @@ static uint8_t ReadCalibrationByte( uint8_t index ){
  * The step positions start at 0 at the limit
  * switch and increase from there. */
 void set_target(arm_axis_t axis, int32_t position){
+	if(position > ArmAxis[axis].max_steps){
+		position = ArmAxis[axis].max_steps;
+	}
 	cli();
 	ArmAxis[axis].target = position * 2;
 	sei();
@@ -408,6 +433,8 @@ void home_all(){
 	}
 	disable_axis(ARM_Z);
 	
+	enable_axis(ARM_X);
+	enable_axis(ARM_Y);
 	set_target(ARM_X, -5000);
 	set_target(ARM_Y, -5000);
 	//TODO: Home other axises.
@@ -434,93 +461,69 @@ void wait_until_stopped(){
 		/* Wait */
 	}
 }
-
-/* Demo mode */
-void armMain(){
-	RGBSetColor(PURPLE);
-	_delay_ms(1000);
-	RGBSetColor(YELLOW);
-	home_all();
-	wait_until_stopped();
-	set_target(ARM_X, 1000); /* Go to parking area */
-	set_target(ARM_Y, 3700);
-	wait_until_stopped();
 	
-	enable_axis(ARM_Z);  /* Park. */
-	set_target(ARM_Z, 970);
-	wait_until_stopped();
-	disable_axis(ARM_Z);
-	
-	while(!(PORTF.IN & PIN6_bm)){
-		/* Wait for high signal from Drive Daughterboard,
-		 * indicating that we should proceed. */
-	}
-	
-	enable_axis(ARM_Z);  /* Unpark. */
-	set_target(ARM_Z, 600);
-	wait_until_stopped();
-	
-	set_target(ARM_X, 2000); /* Move to pickup point. */
-	set_target(ARM_Y, 1000);
-	wait_until_stopped();
-	
-	set_target(ARM_Z, 1500); /* Move down. */
-	wait_until_stopped();
-	
-	set_target(ARM_X, 2300); /* Engage hook. */
-	wait_until_stopped();
-	
-	set_target(ARM_Z, -1000); /* Pick Up. */
-	wait_until_stopped();
-	
-	set_target(ARM_X, 2300); /* Go to sample area */
-	set_target(ARM_Y, 3700);
-	wait_until_stopped();
-	
-	set_target(ARM_Z, 300); /* Drop Sample */
-	disable_axis(ARM_Z);
-	wait_until_stopped();
-	
-	
-	while(1);
-}
-
 
 /* Operate the arm board. */
-// void armMain(){
-// 	bool homed = false; /* If true, all axises have been homed,
-// 	                     * allowing them to be moved safely. */
-// 	bool completion_reported = false;
-// 	while(1){
-// 		while(!checkIfNewDataAvailable()){
-// 			if(!any_moving() && !completion_reported){
-// 				setActionsComplete(true);
-// 				completion_reported = true;
-// 			}
-// 		}
-// 		
-// 		setActionsComplete(false);
-// 		completion_reported = false;
-// 		
-// 		if(homed){
-// 			set_target(ARM_X, ArmAxis[ARM_X].steps_per * getXAxisValue());
-// 			set_target(ARM_Y, ArmAxis[ARM_Y].steps_per * getYAxisValue());
-// 			//TODO: Z-axis; manage decisions about which way to turn
-// 			//TODO: Z-axis heat issues
-// 			set_target(ARM_ROTATE, ArmAxis[ARM_ROTATE].steps_per * getGripperRotation());
-// 		}
-// 		if(powerdown()){
-// 			disable_steppers();
-// 			homed = false; //TODO: Will the actuator be safely parked?
-// 		}
-// 		if(shouldGrip()){
-// 			//TODO: Grip routine.
-// 			//TODO: Release routine.
-// 		}
-// 		if(initRobot()){
-// 			//TODO: Homing routine (figure out safest order).
-// 			homed = true;
-// 		}
-// 		
-// 	}
-// }
+void armMain(){
+	RGBSetColor(PURPLE);
+	bool homed = false; /* If true, all axises have been homed,
+	                     * allowing them to be moved safely. */
+	bool completion_reported = true;
+	while(1){
+		RGBSetColor(PURPLE);
+		while(!freshData){
+			RGBSetColor(BLUE);
+			if(!any_moving() && !completion_reported){
+				setActionsComplete();
+				completion_reported = true;
+			}
+		}
+		
+		completion_reported = false;
+		
+		if(homed){
+			int16_t z_top = -3300; /* Step position where z is straight up. */
+			//TODO: Remove enable when better driver installed.
+			if(0 != armData.zAxisValue){
+				enable_axis(ARM_Z);
+			}
+			if(armData.xAxisValue > 128){ /* If arm is to the left */
+				if(ArmAxis[ARM_X].current < ArmAxis[ARM_X].max_steps){ /* If arm is currently on the right. */
+					set_target(ARM_Z, z_top);
+					wait_until_stopped();
+					set_target(ARM_X, ArmAxis[ARM_X].steps_per * armData.xAxisValue);
+				}
+				set_target(ARM_Z, z_top - ArmAxis[ARM_Z].steps_per * armData.zAxisValue);
+				wait_until_stopped();
+			} else {
+				if(ArmAxis[ARM_X].current > ArmAxis[ARM_X].max_steps){ /* If arm is currently on the left. */
+					set_target(ARM_Z, z_top);
+					wait_until_stopped();
+					set_target(ARM_X, ArmAxis[ARM_X].steps_per * armData.xAxisValue);
+				}
+				set_target(ARM_Z, z_top + ArmAxis[ARM_Z].steps_per * armData.zAxisValue);
+				wait_until_stopped();
+			}
+			//TODO: Remove disable when better driver installed.
+			if(0 == armData.zAxisValue){
+				disable_axis(ARM_Z);
+			}
+			set_target(ARM_X, ArmAxis[ARM_X].steps_per * armData.xAxisValue);
+			set_target(ARM_Y, ArmAxis[ARM_Y].steps_per * armData.yAxisValue);
+		}
+		if(armData.powerdown){
+			disable_steppers();
+			homed = false; //TODO: Will the actuator be safely parked?
+		}
+		if(armData.shouldGrip){
+			//TODO: Grip routine.
+			//TODO: Release routine.
+		}
+		if(armData.initRobot){
+			RGBSetColor(WHITE);
+			home_all();
+			homed = true;
+		}
+		freshData = 0;
+	}
+}
