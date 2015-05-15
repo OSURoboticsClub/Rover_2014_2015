@@ -73,7 +73,12 @@ vector<float> trainDistance(Size boardSize){
 	Mat image;
 
 	//image = imread("/home/scott/Rover/Rover2015/software/HomeBase/ChessboardDetection/bw_cal.jpg"); //read in trained image file
-	image = imread("/home/ubuntu/Rover/ChessboardDetection/bw_cal.jpg"); //read in trained image file
+	image = imread("./bw_cal.jpg"); //read in trained image file
+	if (image.empty()) {
+		cerr << "could not find training image" << endl;
+		exit(0);
+	}
+
 	vector<vector<Point2f> > imagePoints(1);
 	bool found = findChessboardCorners(image, boardSize, imagePoints[0]);
 
@@ -207,7 +212,6 @@ vector<float> detectBoard(VideoCapture &cap, Mat &image, Size boardSize, vector<
 int main( int argc, const char** argv )
 {
 	Size boardSize(GRID_COLS,GRID_ROWS); //(cols-1, rows-1) This way it finds points going across the rows
-
 	vector<float> focal = trainDistance(boardSize);
 
 	VideoCapture cap; //capturing video off of camera
@@ -228,7 +232,9 @@ int main( int argc, const char** argv )
 		vector<float> board = detectBoard(cap, image, boardSize, focal);
 		distance = board[0];
 		angle = board[1];
-		imshow("Image View", image);
+		if (! image.empty()) {
+			imshow("Image View", image);
+		}
 		char c = (char)waitKey(10);
 		if( c == 27 )
 			break;
