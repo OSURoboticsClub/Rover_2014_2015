@@ -39,6 +39,8 @@
 #define GRID_COLS 5
 #define SQUARE_SZIE 50.8
 #define TRAIN_DIST 558.8
+#define TILT_THRESH 35
+
 
 //vector<int> createCmd(int move, int val);
 //vector<vector<int> > generateCommands(float theta, float D, float offset);

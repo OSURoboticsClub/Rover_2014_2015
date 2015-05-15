@@ -87,6 +87,86 @@ vector<float> trainDistance(Size boardSize){
 	vector<float> focal = computeFocal(pix_dist);
 	return focal;
 }
+/*
+ *  Given two vertices, finds the vertical angle of the
+ *  top vertex with respect to the bottom (bottom = center/pivot).
+ *  @return value of range [-90, 90],
+ *          positive angle is clockwise tilt,
+ *          negative angle is counter-clockwise tilt
+ *      - * -
+ *    *   |   *
+ *    -   |   +
+ *        |
+ *        *
+ */
+float
+findTilt(Point2f p1, Point2f p2)
+{
+	Point2f top, bot;
+	if (p1.y > p2.y) {
+		top = p2;
+		bot = p1;
+	} else if (p1.y < p2.y) {
+		top = p1;
+		bot = p2;
+	} else {
+		if (p1.x > p2.x) {
+			return -90;
+		} else if (p1.x < p2.x) {
+			return 90;
+		} else {
+			return 0;
+		}
+	}
+
+	int delta_x, delta_y;
+	float theta;
+	delta_x = top.x - bot.x;
+	delta_y = bot.y - top.y; //y pixel increases downwards
+	theta = atan(delta_x / delta_y);
+	return theta;
+}
+
+/*
+ *  This function calculate angle of orientation (yaw) using trigonometric methods
+ *  Assumptions: the four corner vertices create a parallelogram, thus we are
+ *               using only one of the sides for calculating tilt
+ */
+float
+findOrientation(vector<Point2f> corners, int rows, int cols)
+{
+	bool ERROR = false;
+	int tilt;
+//	if (corners.size() != (rows*cols)) {
+//		cerr << "Incompatible rows and cols for passed in corners" << endl;
+//	}
+	Point2f top_left = corners[0];
+	Point2f top_right = corners[1];
+    Point2f bot_left = corners[2];
+    Point2f bot_right = corners[3];
+
+	float theta = findTilt(bot_right, top_right);
+	if (theta > TILT_THRESH) {
+		ERROR = true;
+		tilt = theta; //set global
+		return 0;
+	} else {
+		ERROR = false;
+	}
+
+	//fix needed: rearrange if board is upside down
+
+	float delta_y;
+	delta_y = bot_right.y - top_right.y;
+	float r_len = delta_y / cos(theta);
+	delta_y = bot_left.y - top_left.y;
+	float l_len = delta_y / cos(theta);
+
+	float ratio = l_len / r_len;  //ratio (left : right)
+	float orientation = (1 - ratio) * 264; //264 based on my testing
+	//cout << "left: " << l_len << ", right: " << r_len << ", ratio: " << ratio << ", angle: " << orientation << endl;
+	return orientation;
+}
 vector<float> detectBoard(VideoCapture &cap, Mat &image, Size boardSize, vector<float> focal){
 	vector<float> board(2);
 	while(true){
@@ -104,12 +184,13 @@ vector<float> detectBoard(VideoCapture &cap, Mat &image, Size boardSize, vector<
 			vector<Point2f> corners = getCorners(imagePoints, boardSize);
 			vector<float> pix_dist = getPixDist(corners);
 			float D = computeDistance(pix_dist, focal);
+			float angle = findOrientation(corners, GRID_ROWS, GRID_COLS);
 			board[0] = D;
-			board[1] = 0; //this should be the angle of the board
+			board[1] = angle; //this should be the angle of the board
 			drawChessboardCorners(image, boardSize, cv::Mat(imagePoints[0]), found );
 
 			ostringstream msg;
-			msg << D << "mm";
+			msg << "Distance "<< D << "mm" << " Angle " << angle;
 			int baseLine = 0;
 			Size textSize = getTextSize(msg.str(), 1, 1, 1, &baseLine);
 			Point textOrigin(image.cols - 2*textSize.width - 10, image.rows - 2*baseLine - 10);
@@ -122,6 +203,7 @@ vector<float> detectBoard(VideoCapture &cap, Mat &image, Size boardSize, vector<
 	}
 	return board;
 }
+
 int main( int argc, const char** argv )
 {
 	Size boardSize(GRID_COLS,GRID_ROWS); //(cols-1, rows-1) This way it finds points going across the rows
