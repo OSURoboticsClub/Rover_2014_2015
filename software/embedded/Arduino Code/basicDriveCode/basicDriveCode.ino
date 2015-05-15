@@ -12,13 +12,13 @@ Date: January 2015
 #define CHANNEL5 5  //Speed control
 #define CHANNEL6 6  //Enable
 
-#define CH2_MIN 927
-#define CH2_MAX 1654
+#define CH2_MIN 1048
+#define CH2_MAX 1868
 #define CH2_STOP ((CH2_MAX-CH2_MIN)/2 + CH2_MIN)
 #define CH2_MAGNATUDE ((CH2_MAX - CH2_MIN) / 2)
 
-#define CH3_MIN 919
-#define CH3_MAX 1644
+#define CH3_MIN 1075
+#define CH3_MAX 1888
 #define CH3_STOP ((CH3_MAX-CH3_MIN)/2 + CH3_MIN)
 #define CH3_MAGNATUDE ((CH3_MAX - CH3_MIN) / 2)
 
@@ -44,21 +44,28 @@ void setup()
   pinMode(CHANNEL6, INPUT);
   
   Serial.begin(9600);
-  Serial.println(CH2_STOP);
+  Serial.println("[Board Initializing...]");
   
   
   SWSerial.begin(9600);
   RearST.autobaud();
   MidST.autobaud();
   FrontST.autobaud();
+  
+  Serial.println("[Board Initialization Complete]");
 }
 
 void loop()
 {
   short lChannel = pulseIn(CHANNEL2, HIGH);
+  Serial.print(lChannel);
+  Serial.print(" ");
   lChannel -= CH2_STOP;
   
   short rChannel = pulseIn(CHANNEL3, HIGH);
+  //Serial.print(rChannel);
+  //Serial.print(" ");
+
   rChannel -= CH3_STOP;
   
   short enChannel = pulseIn(CHANNEL6, HIGH);
@@ -66,8 +73,26 @@ void loop()
   short speedChannel = pulseIn(CHANNEL5, HIGH);
   //TO BE IMPLEMENTED LATER
   
+
+  //Begin SUPER DUPER HACKY SECTION
+  
+  
+  //Swap sides
+  short temp = rChannel;
+  rChannel = lChannel;
+  lChannel = temp;
+  
+  
+  //Flip both directions
+  rChannel *= -1;  
+  lChannel *= -1;
+  
+  //End SUPER DUPER HACKY SECTION
+  
   float lRatio;
   float rRatio;
+  
+
   
   if(enChannel > CH6_MAX){  //Motors are good to go to be operated in a normal fashion
 	  //Serial.println("MOTOR GO!");
@@ -136,6 +161,14 @@ void loop()
   }
   else {  //All motor stop
 	  Serial.println("NO MOTOR :(");
+
+          FrontST.command(4, 0);
+          MidST.command(4, 0);
+          RearST.command(4, 0);
+          
+          FrontST.command(0, 0);
+          MidST.command(0, 0);
+          RearST.command(0, 0);
   }
   
   delay(20);
