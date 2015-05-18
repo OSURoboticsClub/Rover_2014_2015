@@ -44,6 +44,22 @@ void driveMain(){
 	
 	char recieveChar;
 	
+	
+	//XBee Testing code
+	while(1){
+		if(CHECK_XBEE_INPUT()){
+			RGBSetColor(BLUE);
+			RovingLight_Flashing();
+		}
+		else {
+			RGBSetColor(ORANGE);
+			RovingLight_Solid();
+		}
+	}
+	
+	
+	/*
+	
 	//Main executing loop
 	while(1){
 		
@@ -63,6 +79,8 @@ void driveMain(){
 		
 		
 	}
+	
+	*/
 	
 	//ALGORITHM after exact functions are available a while loop will iterate through and at each start
 	//will call for a speed from RC or comp (or both?) and put that value in the speed string
@@ -140,6 +158,9 @@ void driveInit() {
 	RovingLight_Solid();
 	
 	DRIVE_PAUSE_nASSERT();
+	
+	PORTE.DIRCLR = (PIN0_bm); //Set the XBee input pin to an input
+	PORTE.PIN0CTRL = (PORT_OPC_PULLDOWN_gc); //Setting the XBee input to a pulldown (defaulty paused)
 	
 	/*
 	//Enable medium level interrupts

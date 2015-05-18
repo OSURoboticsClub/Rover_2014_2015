@@ -128,6 +128,8 @@ void RovingLight_Solid();
 #define DRIVE_PAUSE_ASSERT(void) (PORTE.OUTCLR = PIN5_bm)
 #define DRIVE_PAUSE_nASSERT(void) (PORTE.OUTSET = PIN5_bm)
 
+//Returns high if in running mode
+#define CHECK_XBEE_INPUT(void) (PORTE.IN & PIN0_bm)  //XBee Input macro
 
 //Below are functions for RC control (Need hardware testing)
 void RC_init();

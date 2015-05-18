@@ -81,7 +81,7 @@ int main(void)
 
 	//TODO TODO TODO Remove
 	
-	//CurrentState = MainProgram;
+	CurrentState = MainProgram;
 
 
 	//We need to init drive early so that the roving light will blink
