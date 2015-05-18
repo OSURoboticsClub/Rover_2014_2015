@@ -18,7 +18,7 @@
 
 //Define macros for options
 #define DEF_STATE 0 		//Default start state, 0 for pause/1 for run
-#define BLINK_INTERVAL 100      //Delay between blinks of status led when paused
+#define BLINK_INTERVAL 500      //Delay between blinks of status led when paused
 
 /*******************************************************************************
 *				 CODE BODY                                     *
