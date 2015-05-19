@@ -71,6 +71,8 @@ static volatile struct {
 	const uint16_t step_period;
 	
 	const bool pos_dir; /* Positive (away from limit) DIR pin value. */
+	const bool en_pol; /* Enable pin polarity. false = active-low. */
+	
 	const uint32_t steps_per; /* Steps per axis increment. For X&Y, this is steps per 3mm.
 	                       * TODO: Define for other axises. */
 	const int32_t max_steps; /* Maximum number of steps. */
@@ -88,12 +90,12 @@ static volatile struct {
 	register8_t * const cc_buf_l; /* CCxBUFL for this axis. */
 	register8_t * const int_ctrl; /* CC interrupt register for this axis. */
 	const uint8_t int_bm; /* Interrupt bit mask for this axis. */
-} ArmAxis[5] { /*       Per.| Max.|      Step      |      Dir       |      nEN       |     Limit      |    CNTL     |   CCxBUFL      |     INTCTRLB    | Interrupt bit mask */
-	{0,0, 10,  true,  17, 4300, &PORTE, PIN4_bm, &PORTE, PIN7_bm, &PORTE, PIN5_bm, &PORTF, PIN6_bm, &(TCE0.CNTL), &(TCE0.CCABUFL), &(TCE0.INTCTRLB), TC0_CCAINTLVL1_bm}, /* X axis */
-	{0,0, 30, false,  17, 4400, &PORTE, PIN3_bm, &PORTE, PIN2_bm, &PORTE, PIN0_bm, &PORTF, PIN7_bm, &(TCE0.CNTL), &(TCE0.CCBBUFL), &(TCE0.INTCTRLB), TC0_CCBINTLVL1_bm}, /* Y axis */
-	{0,0, 50,  true,  26, 6600, &PORTD, PIN6_bm, &PORTE, PIN1_bm, &PORTD, PIN7_bm, &PORTF, PIN4_bm, &(TCE0.CNTL), &(TCE0.CCCBUFL), &(TCE0.INTCTRLB), TC0_CCCINTLVL1_bm}, /* Z axis */
-	{0,0, 100, true,   3,    0, &PORTD, PIN5_bm, &PORTD, PIN4_bm, &PORTD, PIN2_bm, &PORTF, PIN0_bm, &(TCE0.CNTL), &(TCE0.CCDBUFL), &(TCE0.INTCTRLB), TC0_CCDINTLVL1_bm}, /* Rotation */
-	{0,0, 100, true,   3,    0, &PORTD, PIN1_bm, &PORTD, PIN0_bm, &PORTD, PIN3_bm, &PORTF, PIN1_bm, &(TCE1.CNTL), &(TCE1.CCABUFL), &(TCE1.INTCTRLB), TC1_CCAINTLVL1_bm} /* Grip */
+} ArmAxis[5] { /*             Per.| Max.|      Step      |      Dir       |      nEN       |     Limit      |    CNTL     |   CCxBUFL      |     INTCTRLB    | Interrupt bit mask */
+	{0,0, 10,  true, false, 17, 4300, &PORTE, PIN4_bm, &PORTE, PIN7_bm, &PORTE, PIN5_bm, &PORTF, PIN6_bm, &(TCE0.CNTL), &(TCE0.CCABUFL), &(TCE0.INTCTRLB), TC0_CCAINTLVL1_bm}, /* X axis */
+	{0,0, 30, false, false, 17, 4400, &PORTE, PIN3_bm, &PORTE, PIN2_bm, &PORTE, PIN0_bm, &PORTF, PIN7_bm, &(TCE0.CNTL), &(TCE0.CCBBUFL), &(TCE0.INTCTRLB), TC0_CCBINTLVL1_bm}, /* Y axis */
+	{0,0, 50,  true,  true, 26, 6600, &PORTD, PIN6_bm, &PORTE, PIN1_bm, &PORTD, PIN7_bm, &PORTF, PIN4_bm, &(TCE0.CNTL), &(TCE0.CCCBUFL), &(TCE0.INTCTRLB), TC0_CCCINTLVL1_bm}, /* Z axis */
+	{0,0, 100, true, false,  3,    0, &PORTD, PIN5_bm, &PORTD, PIN4_bm, &PORTD, PIN2_bm, &PORTF, PIN0_bm, &(TCE0.CNTL), &(TCE0.CCDBUFL), &(TCE0.INTCTRLB), TC0_CCDINTLVL1_bm}, /* Rotation */
+	{0,0, 100, true, false,  3,    0, &PORTD, PIN1_bm, &PORTD, PIN0_bm, &PORTD, PIN3_bm, &PORTF, PIN1_bm, &(TCE1.CNTL), &(TCE1.CCABUFL), &(TCE1.INTCTRLB), TC1_CCAINTLVL1_bm} /* Grip */
 };
 
 /* When true, step generation is stopped. This variable is set by a pin-change
@@ -193,7 +195,7 @@ void init_steppers(){
 		ArmAxis[i].dir_port->DIRSET = ArmAxis[i].dir_pin;
 		ArmAxis[i].nen_port->DIRSET = ArmAxis[i].nen_pin;
 	}
-	disable_steppers();
+	enable_steppers();
 	
 	/* Setup timers. */
 	TCE0.CTRLB = TC_WGMODE_NORMAL_gc | TC0_CCDEN_bm | TC0_CCCEN_bm | TC0_CCBEN_bm | TC0_CCAEN_bm;
@@ -279,7 +281,11 @@ bool stepper_fault(){
 /* Enable all stepper drivers. */
 void enable_steppers(){
 	for(int i=0; i < 5; i++){
-		ArmAxis[i].nen_port->OUTCLR = ArmAxis[i].nen_pin;
+		if(ArmAxis[i].en_pol){
+			ArmAxis[i].nen_port->OUTSET = ArmAxis[i].nen_pin;
+		} else {
+			ArmAxis[i].nen_port->OUTCLR = ArmAxis[i].nen_pin;
+		}
 	}
 }
 
@@ -289,7 +295,11 @@ void disable_steppers(){
 	cli();
 	for(int i=0; i < 5; i++){
 		ArmAxis[i].target = ArmAxis[i].current;
-		ArmAxis[i].nen_port->OUTSET = ArmAxis[i].nen_pin;
+		if(ArmAxis[i].en_pol){
+			ArmAxis[i].nen_port->OUTCLR = ArmAxis[i].nen_pin;
+		} else {
+			ArmAxis[i].nen_port->OUTSET = ArmAxis[i].nen_pin;
+		}
 	}
 	sei();
 }
@@ -326,11 +336,19 @@ void stop_all(){
 
 /* Enable or disable a given axis. */
 void enable_axis(arm_axis_t axis){
-	ArmAxis[axis].nen_port->OUTCLR = ArmAxis[axis].nen_pin;
+	if(ArmAxis[axis].en_pol){
+		ArmAxis[axis].nen_port->OUTSET = ArmAxis[i].nen_pin;
+	} else {
+		ArmAxis[axis].nen_port->OUTCLR = ArmAxis[i].nen_pin;
+	}
 }
 
 void disable_axis(arm_axis_t axis){
-	ArmAxis[axis].nen_port->OUTSET = ArmAxis[axis].nen_pin;
+	if(ArmAxis[axis].en_pol){
+		ArmAxis[axis].nen_port->OUTCLR = ArmAxis[i].nen_pin;
+	} else {
+		ArmAxis[axis].nen_port->OUTSET = ArmAxis[i].nen_pin;
+	}
 }
 
 /* Setup the ADC to digitize the flex sensors. */
@@ -417,8 +435,6 @@ void home_all(){
 	 * but I don't care very much at this point. */
 	
 	/* Home Z first. */
-	//TODO: Deal with Z axis more elegantly
-	enable_axis(ARM_Z);
 	set_target(ARM_Z, 4000);
 	while(!limit_pressed(ARM_Z)){
 		/* Wait for Z to hit limit. */
@@ -427,11 +443,9 @@ void home_all(){
 	set_zero(ARM_Z);
 	homed[(int) ARM_Z] = true;
 	set_target(ARM_Z, -3300);
-	//TODO: Deal with Z axis more elegantly
 	while(axis_moving(ARM_Z)){
 		/* Wait for Z axis to finish moving to its high position. */
 	}
-	disable_axis(ARM_Z);
 	
 	enable_axis(ARM_X);
 	enable_axis(ARM_Y);
@@ -445,11 +459,6 @@ void home_all(){
 				stop_axis((arm_axis_t) i);
 				set_zero((arm_axis_t) i);
 				homed[i] = true;
-				
-				//TODO: Deal with Z more elegantly
-				if(ARM_Z == i){
-					set_target(ARM_Z, 0); //TODO: Find high point
-				}
 			}
 		}
 	}
