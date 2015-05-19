@@ -91,11 +91,11 @@ static volatile struct {
 	register8_t * const int_ctrl; /* CC interrupt register for this axis. */
 	const uint8_t int_bm; /* Interrupt bit mask for this axis. */
 } ArmAxis[5] { /*             Per.| Max.|      Step      |      Dir       |      nEN       |     Limit      |    CNTL     |   CCxBUFL      |     INTCTRLB    | Interrupt bit mask */
-	{0,0, 10,  true, false, 17, 4300, &PORTE, PIN4_bm, &PORTE, PIN7_bm, &PORTE, PIN5_bm, &PORTF, PIN6_bm, &(TCE0.CNTL), &(TCE0.CCABUFL), &(TCE0.INTCTRLB), TC0_CCAINTLVL1_bm}, /* X axis */
-	{0,0, 30, false, false, 17, 4400, &PORTE, PIN3_bm, &PORTE, PIN2_bm, &PORTE, PIN0_bm, &PORTF, PIN7_bm, &(TCE0.CNTL), &(TCE0.CCBBUFL), &(TCE0.INTCTRLB), TC0_CCBINTLVL1_bm}, /* Y axis */
-	{0,0, 50,  true,  true, 26, 6600, &PORTD, PIN6_bm, &PORTE, PIN1_bm, &PORTD, PIN7_bm, &PORTF, PIN4_bm, &(TCE0.CNTL), &(TCE0.CCCBUFL), &(TCE0.INTCTRLB), TC0_CCCINTLVL1_bm}, /* Z axis */
-	{0,0, 100, true, false,  3,    0, &PORTD, PIN5_bm, &PORTD, PIN4_bm, &PORTD, PIN2_bm, &PORTF, PIN0_bm, &(TCE0.CNTL), &(TCE0.CCDBUFL), &(TCE0.INTCTRLB), TC0_CCDINTLVL1_bm}, /* Rotation */
-	{0,0, 100, true, false,  3,    0, &PORTD, PIN1_bm, &PORTD, PIN0_bm, &PORTD, PIN3_bm, &PORTF, PIN1_bm, &(TCE1.CNTL), &(TCE1.CCABUFL), &(TCE1.INTCTRLB), TC1_CCAINTLVL1_bm} /* Grip */
+	{0,0, 10,  true, false, 17,  4300, &PORTE, PIN4_bm, &PORTE, PIN7_bm, &PORTE, PIN5_bm, &PORTF, PIN6_bm, &(TCE0.CNTL), &(TCE0.CCABUFL), &(TCE0.INTCTRLB), TC0_CCAINTLVL1_bm}, /* X axis */
+	{0,0, 30, false, false, 17,  4400, &PORTE, PIN3_bm, &PORTE, PIN2_bm, &PORTE, PIN0_bm, &PORTF, PIN7_bm, &(TCE0.CNTL), &(TCE0.CCBBUFL), &(TCE0.INTCTRLB), TC0_CCBINTLVL1_bm}, /* Y axis */
+	{0,0, 10,  true,  true, 65, 16500, &PORTD, PIN6_bm, &PORTE, PIN1_bm, &PORTD, PIN7_bm, &PORTF, PIN4_bm, &(TCE0.CNTL), &(TCE0.CCCBUFL), &(TCE0.INTCTRLB), TC0_CCCINTLVL1_bm}, /* Z axis */
+	{0,0, 100, true, false,  3,     0, &PORTD, PIN5_bm, &PORTD, PIN4_bm, &PORTD, PIN2_bm, &PORTF, PIN0_bm, &(TCE0.CNTL), &(TCE0.CCDBUFL), &(TCE0.INTCTRLB), TC0_CCDINTLVL1_bm}, /* Rotation */
+	{0,0, 100, true, false,  3,     0, &PORTD, PIN1_bm, &PORTD, PIN0_bm, &PORTD, PIN3_bm, &PORTF, PIN1_bm, &(TCE1.CNTL), &(TCE1.CCABUFL), &(TCE1.INTCTRLB), TC1_CCAINTLVL1_bm} /* Grip */
 };
 
 /* When true, step generation is stopped. This variable is set by a pin-change
@@ -435,14 +435,14 @@ void home_all(){
 	 * but I don't care very much at this point. */
 	
 	/* Home Z first. */
-	set_target(ARM_Z, 4000);
+	set_target(ARM_Z, 10000);
 	while(!limit_pressed(ARM_Z)){
 		/* Wait for Z to hit limit. */
 	}
 	stop_axis(ARM_Z);
 	set_zero(ARM_Z);
 	homed[(int) ARM_Z] = true;
-	set_target(ARM_Z, -3300);
+	set_target(ARM_Z, -8250);
 	while(axis_moving(ARM_Z)){
 		/* Wait for Z axis to finish moving to its high position. */
 	}
@@ -491,7 +491,7 @@ void armMain(){
 		completion_reported = false;
 		
 		if(homed){
-			int16_t z_top = -3300; /* Step position where z is straight up. */
+			int16_t z_top = -8250; /* Step position where z is straight up. */
 			//TODO: Remove enable when better driver installed.
 			if(0 != armData.zAxisValue){
 				enable_axis(ARM_Z);
