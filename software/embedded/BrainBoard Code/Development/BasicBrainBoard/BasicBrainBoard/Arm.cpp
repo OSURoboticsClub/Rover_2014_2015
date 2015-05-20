@@ -337,17 +337,17 @@ void stop_all(){
 /* Enable or disable a given axis. */
 void enable_axis(arm_axis_t axis){
 	if(ArmAxis[axis].en_pol){
-		ArmAxis[axis].nen_port->OUTSET = ArmAxis[i].nen_pin;
+		ArmAxis[axis].nen_port->OUTSET = ArmAxis[axis].nen_pin;
 	} else {
-		ArmAxis[axis].nen_port->OUTCLR = ArmAxis[i].nen_pin;
+		ArmAxis[axis].nen_port->OUTCLR = ArmAxis[axis].nen_pin;
 	}
 }
 
 void disable_axis(arm_axis_t axis){
 	if(ArmAxis[axis].en_pol){
-		ArmAxis[axis].nen_port->OUTCLR = ArmAxis[i].nen_pin;
+		ArmAxis[axis].nen_port->OUTCLR = ArmAxis[axis].nen_pin;
 	} else {
-		ArmAxis[axis].nen_port->OUTSET = ArmAxis[i].nen_pin;
+		ArmAxis[axis].nen_port->OUTSET = ArmAxis[axis].nen_pin;
 	}
 }
 
