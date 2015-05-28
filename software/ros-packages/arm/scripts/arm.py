@@ -24,6 +24,7 @@ class SerialBoard(object):
                 s = serial.Serial(port[0], self.baud, timeout=self.timeout);
                 s.write('p')
                 device_id = s.readline()
+                print device_id
                 if device_id.strip() == self.id_str.strip():
                     s.write("r")
                     self.serial = s
@@ -73,9 +74,10 @@ class ArmSerial(SerialBoard):
             command = self.command
         else:
             self.command = command
+        if not command == 0x04:
+            command = 0
         packet = struct.pack(self.packet_struct, chr(0xff), chr(command), chr(x), chr(y), chr(z), chr(0), chr(self.checksum()), chr(0xff))
         self.serial.write(packet)
-        self.serial.read(1)
         
 class ArmController(object):
     
@@ -88,7 +90,7 @@ class ArmController(object):
         self.y = 0
         self.z = 0
         self.command = 0x04
-        self.move = True
+        self.need_move = True
         self.commands = rospy.Subscriber("/arm/commands", String, self.parse_packet)
         self.state = rospy.Publisher("/arm/state", String, queue_size=10)
     
@@ -107,7 +109,7 @@ class ArmController(object):
         self.y = y
         self.z = z
         self.command = grip
-        self.move = True
+        self.need_move = True
     
     #parses the packet and calls move
     #packets structure = "x,y,z,grip"  where 0 < (x == y == z) < 255 and grip = 0|1
@@ -120,17 +122,18 @@ class ArmController(object):
     #
     def loop(self):
         while True:
-            if self.move:
+            if self.need_move:
                 self.serial.write_packet(self.command, self.x, self.y, self.z)
-                self.move = False
+                self.need_move = False
                 if( self.command == 0x04 ):
                     self.command = 0
-            self.state.publish(String(str(1) if self.move else str(0)))
+            self.state.publish(String(str(1) if self.need_move else str(0)))
             time.sleep(self.cycle_size)
     
 
 if __name__ == '__main__':
-  arm = ArmController()
-  loop = threading.Thread(target=arm.loop)
-  loop.start()
-  rospy.spin() 
+    rospy.init_node("arm_controller")
+    arm = ArmController()
+    loop = threading.Thread(target=arm.loop)
+    loop.start()
+    rospy.spin() 
