@@ -96,10 +96,10 @@ class MotorController(object):
         self.serial = MotorSerial();
         if(not self.serial.find_port()):
             raise Exception("Motor controler could not be started; Serial connection failed.")
-        self.left = 0
-        self.right = 0
-        self.cur_right = 0
-        self.cur_left = 0
+        self.left = 127
+        self.right = 127
+        self.cur_right = 127
+        self.cur_left = 127
         self.step = 1
         self.cycle_size = .01
         #ros vars

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 import rospy
 from std_msgs.msg import String
 
@@ -39,12 +39,12 @@ class StateMachine(object):
         self.right_s = self.full_back
 
     def left(self):
-        self.left_s = self.zero
-        self.right_s = self.full_spd
+        self.left_s = int((self.full_back-127)/1.5)+127
+        self.right_s = int((self.full_spd-127)/1.5)+127
 
     def right(self):
-        self.left_s = self.full_spd
-        self.right_s = self.zero
+        self.left_s = int((self.full_spd-127)/1.5)+127
+        self.right_s = int((self.full_back-127)/1.5)+127
 
     def stop(self):
         self.left_s = self.zero
