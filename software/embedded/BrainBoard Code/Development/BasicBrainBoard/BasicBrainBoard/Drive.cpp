@@ -44,8 +44,12 @@ void driveMain(){
 	
 	char recieveChar;
 	
+	RovingLight_Flashing();  //Always be flashing for testing, because no pause switch
+	
 	
 	//XBee Testing code
+	
+	/*
 	while(1){
 		if(CHECK_XBEE_INPUT()){
 			RGBSetColor(BLUE);
@@ -56,9 +60,20 @@ void driveMain(){
 			RovingLight_Solid();
 		}
 	}
+	*/
 	
 	
 	/*
+	//Drive motor direction testing
+	while (1){
+		parsePacket(160, 160, 0, 0, 0);
+		_delay_ms(50);
+		RGBSetColor(ORANGE);
+	}
+	*/
+	
+	
+	
 	
 	//Main executing loop
 	while(1){
@@ -69,10 +84,10 @@ void driveMain(){
 			
 			parsePacket(driveData.leftSpeed, driveData.rightSpeed, 0, 0, 0);
 			if(driveData.leftSpeed > 120 && driveData.leftSpeed < 130){
-				//RGBSetColor(BLUE);
+				RGBSetColor(BLUE);
 			}
 			else {
-				//RGBSetColor(GREEN);
+				RGBSetColor(GREEN);
 			}
 			freshData = 0;  //Marking the data as read
 		}
@@ -80,7 +95,7 @@ void driveMain(){
 		
 	}
 	
-	*/
+	
 	
 	//ALGORITHM after exact functions are available a while loop will iterate through and at each start
 	//will call for a speed from RC or comp (or both?) and put that value in the speed string
@@ -103,7 +118,13 @@ void parsePacket(char left, char right, char gimbalPitch, char gimbalRoll, char 
 	
 	left is a number between 0 and 255, 0 signifying full reverse, 255 signifying full forward
 	
-	One option is to use the separate forward and backwards commands, but it's unlikely that we need that accuracy.
+	One option is to use the separate forward and backwards commands, but it's unlikely that we need that precision.
+	
+	5/29 setup
+	Saber 1, bottom, rear motors
+	Saber 2, middle, middle motors
+	Saber 3, top, front motors
+	
 	
 	*/
 	
