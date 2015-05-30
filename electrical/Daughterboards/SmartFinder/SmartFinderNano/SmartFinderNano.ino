@@ -11,6 +11,7 @@ void setup() {
 void loop() {
   maxVol = 0;
   minVol = 1024;
+  while (Serial.read() != 'a') {}
   // Loop ten times and populate audioArray with analogRead data
   for (int i = 0; i < 10; i++) {
     // analogRead takes ~100 us
@@ -25,5 +26,5 @@ void loop() {
   // Calculate volume in byte formate for serial transmission
   finalVol = (byte)((maxVol - minVol)/4);
   // Send the volume info downstream for higher level processing
-  Serial.write(listToVolume(finalVol);
+  Serial.write(finalVol);
 }
