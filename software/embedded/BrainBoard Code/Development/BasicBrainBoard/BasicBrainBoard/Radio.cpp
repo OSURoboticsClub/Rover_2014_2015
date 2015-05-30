@@ -9,7 +9,7 @@
 
 /*
 Description: This function holds all of the code for the radio firmware for the BB
-Author: TBD
+Author: Nick McComb
 
 Pseudocode (algorithm):
 - Makes the Radio Function
@@ -21,6 +21,18 @@ This function exists inside a while(1) so it will loop itself forever
 */
 void radioMain(){
 	
+	//Test limit switch and stepper motor code
+	
+	while(!CHECK_RADIO_LIMIT_SW()){
+		RADIO_STEPPER_STEP_SET();
+		_delay_us(500);
+		RADIO_STEPPER_STEP_CLR();
+		_delay_us(1000);
+		
+		_delay_ms(1);  //Slow everything down delay
+	}
+	
+	while(1);
 }
 
 

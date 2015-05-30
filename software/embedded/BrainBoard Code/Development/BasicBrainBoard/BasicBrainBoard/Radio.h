@@ -2,7 +2,7 @@
  * Radio.h
  *
  * Created: 3/4/2015 1:07:19 AM
- *  Author: nrpic_000
+ *  Author: Nick McComb
  */ 
 
 
@@ -39,7 +39,7 @@ PF6
 /* RADIO STEPPER CONTROL */
 
 #define RADIO_STEPPER_STEP_SET(void) (PORTE.OUTSET = PIN4_bm)
-#define RADIO_STEPPER_STEP_SET(void) (PORTE.OUTCLR = PIN4_bm)
+#define RADIO_STEPPER_STEP_CLR(void) (PORTE.OUTCLR = PIN4_bm)
 
 #define RADIO_STEPPER_DIR_SET(void) (PORTE.OUTSET = PIN7_bm)
 #define RADIO_STEPPER_DIR_CLR(void) (PORTE.OUTCLR = PIN7_bm)
