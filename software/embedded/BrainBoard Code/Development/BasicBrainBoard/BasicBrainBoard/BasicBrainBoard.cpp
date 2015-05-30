@@ -111,7 +111,7 @@ int main(void)
 					if (recieveChar == 'r'){
 						CurrentState = MainProgram;
 					}
-					else if (recieveChar == 'p'){
+					else if (recieveChar == 'p'){  //Hack to make device always respond to poke
 						SendStringPC(XmegaIDStr); //Identify itself
 						//CurrentState = WaitForReady;
 					}
