@@ -51,7 +51,7 @@ class MotorSerial(SerialBoard):
         #serial settings
         self.baud = 9600
         self.timeout = 3
-        self.id_str = "Motor Controller"
+        self.id_str = "DRIVE"
         self.serial = None;
         #serial packet vars
         self.packet_struct = "cccccccc"
@@ -89,7 +89,6 @@ class MotorSerial(SerialBoard):
         packet = struct.pack(self.packet_struct, chr(0xff), chr(left), chr(right), chr(pitch), chr(roll), chr(yaw), chr(~(left ^(right/2)) & 0xff), chr(0xff))
         self.serial.write(packet)
         #read the return packet although we dont use it yet
-        self.serial.read(15)
         
 class MotorController(object):
     

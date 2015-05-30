@@ -1,11 +1,18 @@
 /*
 Arduino RC Drive code for the basic Rover chassis
-Author: Nick McComb
+
+Takes input from an RC Reciever and outputs to three connected saberteeth, with different addresses. 
+You can find this documented below.
+
+Author: Nick McComb [mccombn@onid.oregonstate.edu]
 Date: January 2015
 */
 
 #include <SoftwareSerial.h>
 #include <Sabertooth.h>
+
+//Comment the following line out if you do not want serial debug statements
+#define DEBUG
 
 #define CHANNEL2 2  //Vertical Left Stick
 #define CHANNEL3 3  //Vertical Right Stick
@@ -29,6 +36,7 @@ Date: January 2015
 #define CH6_MIN 950   //Higher than actual, use < statement
 #define CH6_MAX 1630  //Lower than actual, use > statement
 
+//This defines how far away from the "CH*_MAGNATUDE" the motors will actually stop
 #define STOP_CONSTANT 50  //Originally 20
 
 SoftwareSerial SWSerial(NOT_A_PIN, 12); // RX on no pin (unused), TX on pin 11 (to S1).
@@ -44,7 +52,9 @@ void setup()
   pinMode(CHANNEL6, INPUT);
   
   Serial.begin(9600);
-  Serial.println("[Board Initializing...]");
+  #ifdef DEBUG
+    Serial.println("[Board Initializing...]");
+  #endif
   
   
   SWSerial.begin(9600);
@@ -52,14 +62,18 @@ void setup()
   MidST.autobaud();
   FrontST.autobaud();
   
-  Serial.println("[Board Initialization Complete]");
+  #ifdef DEBUG
+    Serial.println("[Board Initialization Complete]");
+  #endif
 }
 
 void loop()
 {
   short lChannel = pulseIn(CHANNEL2, HIGH);
-  Serial.print(lChannel);
-  Serial.print(" ");
+  #ifdef DEBUG
+    Serial.print(lChannel);
+    Serial.print(" ");
+  #endif
   lChannel -= CH2_STOP;
   
   short rChannel = pulseIn(CHANNEL3, HIGH);
@@ -71,12 +85,8 @@ void loop()
   short enChannel = pulseIn(CHANNEL6, HIGH);
   
   short speedChannel = pulseIn(CHANNEL5, HIGH);
-  //TO BE IMPLEMENTED LATER
   
-
-  //Begin SUPER DUPER HACKY SECTION
-  
-  
+  //##! Begin SUPER DUPER HACKY SECTION !##
   //Swap sides
   short temp = rChannel;
   rChannel = lChannel;
@@ -85,43 +95,50 @@ void loop()
   
   //Flip both directions
   rChannel *= -1;  
-  lChannel *= -1;
-  
-  //End SUPER DUPER HACKY SECTION
+  lChannel *= -1;  
+  //##! End SUPER DUPER HACKY SECTION !##
   
   float lRatio;
   float rRatio;
   
-
-  
-  if(enChannel > CH6_MAX){  //Motors are good to go to be operated in a normal fashion
+  if(enChannel > CH6_MAX){  //Motors are good to go to be operated in a normal fashion (e.g. ESTOP is not activated)
 	  //Serial.println("MOTOR GO!");
 	  
 	  char lCommand = 0;
 	  char lData = 0;
 	  
-	  char rCommand = 4;
+	  char rCommand = 4;  
 	  char rData = 0;
-	  
-	  Serial.print("Left:  ");
+	   
+    #ifdef DEBUG
+	    Serial.print("Left:  ");
+    #endif
 	  if(abs(lChannel) > STOP_CONSTANT){  //Moving case
-		lRatio = constrain(((float)lChannel / (float)CH2_MAGNATUDE), -1, 1);
-		Serial.print(abs(lRatio) * 100);
-		Serial.print("% ");
-		if(lChannel > 0){
-			Serial.print("forward  ");
-			lCommand = 0;
-			lData = constrain(((int)(lRatio * (float) 127)), 0, 127);
-		}
-		else {
-			Serial.print("backward ");
-			lRatio *= -1;  //Make the ratio positive
-			lCommand = 1;
-			lData = constrain(((int)(lRatio * (float) 127)), 0, 127);
-		}
+      lRatio = constrain(((float)lChannel / (float)CH2_MAGNATUDE), -1, 1);
+      #ifdef DEBUG
+        Serial.print(abs(lRatio) * 100);
+        Serial.print("% ");
+      #endif
+      if(lChannel > 0){
+        #ifdef DEBUG
+          Serial.print("forward  ");
+        #endif
+        lCommand = 0;
+        lData = constrain(((int)(lRatio * (float) 127)), 0, 127);
+      }
+      else {
+        #ifdef DEBUG
+          Serial.print("backward ");
+        #endif
+        lRatio *= -1;  //Make the ratio positive
+        lCommand = 1;
+        lData = constrain(((int)(lRatio * (float) 127)), 0, 127);
+      }
 	  }
 	  else{  //Not moving case
-		  Serial.print("Stop            ");
+      #ifdef DEBUG
+		    Serial.print("Stop            ");
+      #endif
 		  lCommand = 1;
 		  lData = 0;
 	  }
@@ -130,48 +147,58 @@ void loop()
 	  MidST.command(lCommand, lData);
 	  RearST.command(lCommand, lData);
 	  
-	  Serial.print("Right: ");
+    #ifdef DEBUG
+	    Serial.print("Right: ");
+    #endif
 	  if(abs(rChannel) > STOP_CONSTANT){  //Moving case
-		rRatio = constrain(((float)rChannel / (float)CH3_MAGNATUDE), -1, 1);
-		Serial.print(abs(rRatio) * 100);
-		Serial.print("% ");
-		if(rChannel > 0){  //Forward drive mode
-			Serial.println("forward");
-			rCommand = 4;
-			rData = constrain((int)(rRatio * (float) 127), 0, 127);
-		}
-		else { //Backward Drive Mode
-			Serial.println("backward");
-			rRatio *= -1; //Make the ratio positive
-			rCommand = 5;
-			rData = constrain((int)(rRatio * (float) 127), 0, 127);
-		}
+      rRatio = constrain(((float)rChannel / (float)CH3_MAGNATUDE), -1, 1);
+      #ifdef DEBUG
+        Serial.print(abs(rRatio) * 100);
+        Serial.print("% ");
+      #endif
+      if(rChannel > 0){  //Forward drive mode
+        #ifdef DEBUG
+          Serial.println("forward");
+        #endif
+        rCommand = 4;
+        rData = constrain((int)(rRatio * (float) 127), 0, 127);
+      }
+      else { //Backward Drive Mode
+        #ifdef DEBUG
+          Serial.println("backward");
+        #endif
+        rRatio *= -1; //Make the ratio positive
+        rCommand = 5;
+        rData = constrain((int)(rRatio * (float) 127), 0, 127);
+      }
 	  }
-	  else{  //Not moving case
-		  Serial.println("Stop");
-		  rCommand = 4;
-		  rData = 0;
-	  }
+    else{  //Not moving case
+      #ifdef DEBUG
+        Serial.println("Stop");
+      #endif
+      rCommand = 4;
+      rData = 0;
+    }
 
-	  FrontST.command(rCommand, rData);
-	  MidST.command(rCommand, rData);
-	  RearST.command(rCommand, rData);
+    FrontST.command(rCommand, rData);
+    MidST.command(rCommand, rData);
+    RearST.command(rCommand, rData);
 
 
   }
   else {  //All motor stop
-	  Serial.println("NO MOTOR :(");
+    #ifdef DEBUG
+	    Serial.println("NO MOTOR :(");
+    #endif
 
-          FrontST.command(4, 0);
-          MidST.command(4, 0);
-          RearST.command(4, 0);
+    FrontST.command(4, 0);
+    MidST.command(4, 0);
+    RearST.command(4, 0);
           
-          FrontST.command(0, 0);
-          MidST.command(0, 0);
-          RearST.command(0, 0);
+    FrontST.command(0, 0);
+    MidST.command(0, 0);
+    RearST.command(0, 0);
   }
   
-  delay(20);
-
-  
+  delay(20);  
 }
