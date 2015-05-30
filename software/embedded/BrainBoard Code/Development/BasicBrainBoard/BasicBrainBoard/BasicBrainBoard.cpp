@@ -111,6 +111,11 @@ int main(void)
 					if (recieveChar == 'r'){
 						CurrentState = MainProgram;
 					}
+					else if (recieveChar == 'p'){
+						SendStringPC(XmegaIDStr); //Identify itself
+						//CurrentState = WaitForReady;
+					}
+					
 					//else, do nothing and wait for more chars
 				}
 				break;
