@@ -1,0 +1,58 @@
+{
+    "states": [
+	{   
+	    "name": "Search For Objectives",
+	    "machine_name": "search",
+	    "forward": ["path_finding"]
+	},
+	{   
+	    "name": "Position Over Objective",
+	    "machine_name": "pickup",
+	    "forward": ["object_recognition"]
+	},
+	{   
+	    "name": "Avoid Obstacle",
+	    "machine_name": "avoid",
+	    "forward": ["avoid_obstacle"]
+	},
+	{   
+	    "name": "Return To Base station",
+	    "machine_name": "return",
+	    "forward": ["find_base"]
+	}
+    ],
+    "transitions": [
+	{
+	    "name": "Detect Object",
+	    "from": ["search"],
+	    "to": "pickup"
+	},
+	{
+	    "name": "Incomplete Objective",
+	    "from": ["pickup", "avoid"],
+	    "to": "search"
+	},
+	{
+	    "name": "Objective Complete",
+	    "from": ["avoid", "pickup"],
+	    "to": "return"
+	},
+	{
+	    "name": "Detect Obstacle",
+	    "from": ["return", "search"],
+	    "to": "avoid"
+	},
+	{
+	    "name": "Time Expired",
+	    "from": ["search"],
+	    "to": "return"
+	}
+    ],
+    "forwards": [
+	"path_finding",
+	"object_recognition",
+	"find_base",
+	"avoid_obstacle"
+    ],
+    "init": "search"
+}

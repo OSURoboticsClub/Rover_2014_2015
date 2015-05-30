@@ -7,8 +7,8 @@ import threading
 class StateMachine(object):
 
     def __init__(self):
-        self.full_spd = 255
-        self.full_back = 0
+        self.full_spd = 215
+        self.full_back = 40
         self.zero = 127
 
         self.left_s = self.zero
