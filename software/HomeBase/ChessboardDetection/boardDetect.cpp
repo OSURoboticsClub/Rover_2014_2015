@@ -41,11 +41,17 @@ vector<float> getPixDist(vector<Point2f> corners){
 
 	return dists;
 }
-vector<float> computeFocal(vector<float> pixDist){
+vector<float> computeFocal(int side, vector<float> pixDist, float D){
 	//F = (P x  D) / W
-	float D = TRAIN_DIST; //train distance 22 inches or 558.8mm
-	float Wh = SQUARE_SZIE * (GRID_COLS-1); //width of 4 squares (50.8mm) each
-	float Wv = SQUARE_SZIE * (GRID_ROWS-1); //width of 3 squares (50.8mm) each
+	//float D = TRAIN_DIST; //train distance 22 inches or 558.8mm
+	float Wh, Wv;
+	if(side == FRONT){
+		Wh = FRONT_SZIE * (FRONT_COLS-1); //width of 4 squares (50.8mm) each
+		Wv = FRONT_SZIE * (FRONT_ROWS-1); //width of 3 squares (50.8mm) each
+	} else {
+		Wh = BACK_SZIE * (BACK_COLS-1); //width of 4 squares (50.8mm) each
+		Wv = BACK_SZIE * (BACK_ROWS-1); //width of 3 squares (50.8mm) each
+	}
 	float Fh1 = (pixDist[0] * D) / Wh;
 	float Fh2 = (pixDist[1] * D) / Wh;
 	float Fv1 = (pixDist[2] * D) / Wv;
@@ -58,10 +64,17 @@ vector<float> computeFocal(vector<float> pixDist){
 	focal[1] = Fv;
 	return focal;
 }
-float computeDistance(vector<float> pixDist, vector<float> focal){
+float computeDistance(int side, vector<float> pixDist, vector<float> focal){
 	//D = (W x F) / P
-	float Wh = SQUARE_SZIE * (GRID_COLS-1); //width of 4 squares (50.8mm) each
-	float Wv = SQUARE_SZIE * (GRID_ROWS-1); //width of 3 squares (50.8mm) each
+
+	float Wh, Wv;
+	if(side == FRONT){
+		Wh = FRONT_SZIE * (FRONT_COLS-1);
+		Wv = FRONT_SZIE * (FRONT_ROWS-1);
+	} else {
+		Wh = BACK_SZIE * (BACK_COLS-1);
+		Wv = BACK_SZIE * (BACK_ROWS-1);
+	}
 	float Dh1 = (Wh * focal[0]) / pixDist[0];
 	float Dh2 = (Wh * focal[0]) / pixDist[1];
 	float Dv1 = (Wv * focal[1]) / pixDist[2];
@@ -69,27 +82,42 @@ float computeDistance(vector<float> pixDist, vector<float> focal){
 	float D = (Dh1 + Dh2 + Dv1 + Dv2) / 4;
 	return D;
 }
-vector<float> trainDistance(Size boardSize){
-	Mat image;
-
-	//image = imread("/home/scott/Rover/Rover2015/software/HomeBase/ChessboardDetection/bw_cal.jpg"); //read in trained image file
-	image = imread("./bw_cal.jpg"); //read in trained image file
-	if (image.empty()) {
-		cerr << "could not find training image" << endl;
-		exit(0);
+vector<float> trainDistance(int side, Size boardSize){
+	Mat image5, image10;
+	if(side == FRONT){
+		image5 = imread(FRONT_TRAIN5); //read in trained image file
+		image10 = imread(FRONT_TRAIN10); //read in trained image file
+		if (image5.empty() || image10.empty()) {
+			cerr << "could not find training image" << endl;
+			exit(0);
+		}
+	} else {
+		image5 = imread(BACK_TRAIN5); //read in trained image file
+		image10 = imread(BACK_TRAIN10); //read in trained image file
+		if (image5.empty() || image10.empty()) {
+			cerr << "could not find training image" << endl;
+			exit(0);
+		}
 	}
 
-	vector<vector<Point2f> > imagePoints(1);
-	bool found = findChessboardCorners(image, boardSize, imagePoints[0]);
+	vector<vector<Point2f> > imagePoints5(1), imagePoints10(1);
+	bool found5 = findChessboardCorners(image5, boardSize, imagePoints5[0]);
+	bool found10 = findChessboardCorners(image10, boardSize, imagePoints10[0]);
 
-	if(!found)
+	if(!(found5 && found10))
 	{
-		cerr << "Could not find chess board!" << endl;
+		cerr << "Could not find chess board in TRAINING!" << endl;
 		return vector<float>();
 	}
-	vector<Point2f> corners = getCorners(imagePoints, boardSize);
-	vector<float> pix_dist = getPixDist(corners);
-	vector<float> focal = computeFocal(pix_dist);
+	vector<Point2f> corners5 = getCorners(imagePoints5, boardSize);
+	vector<Point2f> corners10 = getCorners(imagePoints10, boardSize);
+	vector<float> pix_dist5 = getPixDist(corners5);
+	vector<float> pix_dist10 = getPixDist(corners10);
+	vector<float> focal5 = computeFocal(side, pix_dist5, TRAIN_DIST5);
+	vector<float> focal10 = computeFocal(side, pix_dist10, TRAIN_DIST10);
+	vector<float> focal(2);
+	focal[0] = (focal5[0] + focal10[0])/2;
+	focal[1] = (focal5[1] + focal10[1])/2;
 	return focal;
 }
 /*
@@ -172,47 +200,52 @@ findOrientation(vector<Point2f> corners, int rows, int cols)
 	//cout << "left: " << l_len << ", right: " << r_len << ", ratio: " << ratio << ", angle: " << orientation << endl;
 	return orientation;
 }
-vector<float> detectBoard(VideoCapture &cap, Mat &image, Size boardSize, vector<float> focal){
+vector<float> detectBoard(Mat &image, int side, Size boardSize, vector<float> focal){
 	vector<float> board(2);
-	while(true){
-		cap >> image; //pull frame off of the camera
-		if( image.empty() )
-			break;
-		// Find the chessboard corners
-		vector<vector<Point2f> > imagePoints(1);
-		bool found = findChessboardCorners(image, boardSize, imagePoints[0]);
-		if(!found)
-		{
-			cerr << "Could not find chess board!" << endl;
-		}else {
 
-			vector<Point2f> corners = getCorners(imagePoints, boardSize);
-			vector<float> pix_dist = getPixDist(corners);
-			float D = computeDistance(pix_dist, focal);
-			float angle = findOrientation(corners, GRID_ROWS, GRID_COLS);
-			board[0] = D;
-			board[1] = angle; //this should be the angle of the board
-			drawChessboardCorners(image, boardSize, cv::Mat(imagePoints[0]), found );
+	if( image.empty() )
+		break;
+	// Find the chessboard corners
+	vector<vector<Point2f> > imagePoints(1);
+	bool found = findChessboardCorners(image, boardSize, imagePoints[0]);
+	if(!found)
+	{
+		cerr << "Could not find chess board!" << endl;
+		board[0] = CANT_FIND;
+		return board;
+	}else {
 
-			ostringstream msg;
-			msg << "Distance "<< D << "mm" << " Angle " << angle;
-			int baseLine = 0;
-			Size textSize = getTextSize(msg.str(), 1, 1, 1, &baseLine);
-			Point textOrigin(image.cols - 2*textSize.width - 10, image.rows - 2*baseLine - 10);
-			putText( image, msg.str(), textOrigin, 1, 1, Scalar(0,0,255));
+		vector<Point2f> corners = getCorners(imagePoints, boardSize);
+		vector<float> pix_dist = getPixDist(corners);
+		float D = computeDistance(side, pix_dist, focal);
+		float angle;
+		if(side = FRONT){
+			angle = findOrientation(corners, FRONT_ROWS, FRONT_COLS);
+		} else {
+			angle = findOrientation(corners, BACK_ROWS, BACK_COLS);
 		}
+		board[0] = D;
+		board[1] = angle; //this should be the angle of the board
+		drawChessboardCorners(image, boardSize, cv::Mat(imagePoints[0]), found );
 
-		waitKey(10);
-		if(found)
-			break;
+		ostringstream msg;
+		msg << "Distance "<< D << "mm" << " Angle " << angle;
+		int baseLine = 0;
+		Size textSize = getTextSize(msg.str(), 1, 1, 1, &baseLine);
+		Point textOrigin(image.cols - 2*textSize.width - 10, image.rows - 2*baseLine - 10);
+		putText( image, msg.str(), textOrigin, 1, 1, Scalar(0,0,255));
 	}
+
 	return board;
 }
 
 int main( int argc, const char** argv )
 {
-	Size boardSize(GRID_COLS,GRID_ROWS); //(cols-1, rows-1) This way it finds points going across the rows
-	vector<float> focal = trainDistance(boardSize);
+	Size frontSize(FRONT_COLS,FRONT_ROWS); //(cols-1, rows-1) This way it finds points going across the rows
+	Size backSize(BACK_COLS,BACK_ROWS); //(cols-1, rows-1) This way it finds points going across the rows
+	vector<float> focalf = trainDistance(FRONT, frontSize);
+	vector<float> focalb = trainDistance(BACK, backSize);
+
 
 	VideoCapture cap; //capturing video off of camera
 	cap.open(0); //open camera to default camera
@@ -228,8 +261,17 @@ int main( int argc, const char** argv )
 	cout << ": width=" << cap.get(CV_CAP_PROP_FRAME_WIDTH) << ", height=" << cap.get(CV_CAP_PROP_FRAME_HEIGHT) << endl;
 	Mat image;
 	float distance, angle;
+	int side = 0;
 	while(true){
-		vector<float> board = detectBoard(cap, image, boardSize, focal);
+		cap >> image;
+		vector<float> board = detectBoard(image, FRONT, frontSize, focalf);
+		if(board[0] == CANT_FIND){
+			board = detectBoard(image, BACK, backSize, focalb);
+			side = BACK;
+		} else {
+			side = FRONT;
+		}
+
 		distance = board[0];
 		angle = board[1];
 		if (! image.empty()) {

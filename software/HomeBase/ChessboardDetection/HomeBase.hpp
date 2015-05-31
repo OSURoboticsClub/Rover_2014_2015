@@ -24,8 +24,8 @@
 #include <time.h>
 #include <stdlib.h>
 
-#define RES_WIDTH  640
-#define RES_HEIGHT 480
+#define RES_WIDTH  808
+#define RES_HEIGHT 608
 
 #define ALIGN_THRESH 10
 #define FWD 1
@@ -35,12 +35,23 @@
 #define CLOSE 2000
 #define NEAR_DIST 1000
 
-#define GRID_ROWS 4
-#define GRID_COLS 5
-#define SQUARE_SZIE 50.8
-#define TRAIN_DIST 558.8
+#define FRONT 1
+#define BACK 2
+#define CANT_FIND -12345
+#define FRONT_ROWS 4
+#define FRONT_COLS 6
+#define BACK_ROWS 4
+#define BACK_COLS 5
+#define FRONT_SZIE 180.0
+#define BACK_SZIE 200.0
+#define TRAIN_DIST5 5000.0
+#define TRAIN_DIST10 10000.0
 #define TILT_THRESH 35
 
+#define FRONT_TRAIN5 = "./Front_5m.png";
+#define FRONT_TRAIN10 = "./Front_10m.png";
+#define BACK_TRAIN5 = "./Back_5m.png";
+#define BACK_TRAIN10 = "./Back_10m.png";
 
 //vector<int> createCmd(int move, int val);
 //vector<vector<int> > generateCommands(float theta, float D, float offset);
