@@ -6,3 +6,4 @@
 *.hex
 *.map
 *.srec
+*.CMake*

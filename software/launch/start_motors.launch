@@ -1,0 +1,6 @@
+<launch>
+    <node name="motor_states" pkg="motor_controller" type="motor_states.py" output="screen"></node>
+    <node name="motor_packets" pkg="motor_controller" type="motor_queue_proc.py" output="screen"></node>   
+    <node name="motor_controller" pkg="motor_controller" type="motor.py" output="screen"></node>
+
+</launch>

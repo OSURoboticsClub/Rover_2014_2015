@@ -78,22 +78,28 @@ void initializeIO(){
 void determineID(char * XmegaIDStr, XMEGAID & CurrentID){
 	if      (!CHECK_DIP_SW_1() && !CHECK_DIP_SW_2()){
 		CurrentID = DRIVE;
-		strcpy(XmegaIDStr, "DRIVE");
+		strcpy(XmegaIDStr, "DRIVE\n");
 	}
 	else if (!CHECK_DIP_SW_1() && CHECK_DIP_SW_2()) {
 		CurrentID = ARM;
-		strcpy(XmegaIDStr, "ARM");
+		strcpy(XmegaIDStr, "ARM\n");
 	}
 	else if (CHECK_DIP_SW_1() && !CHECK_DIP_SW_2()){
 		CurrentID = RADIO;
-		strcpy(XmegaIDStr, "RADIO");
+		strcpy(XmegaIDStr, "RADIO\n");
 	}
 	else if (CHECK_DIP_SW_1() && CHECK_DIP_SW_2()){
 		CurrentID = DEBUG_MODE;
-		strcpy(XmegaIDStr, "DEBUG_MODE");
+		strcpy(XmegaIDStr, "DEBUG\n");
 	} 
 	
 }
 
+
+void FlushSerialBuffer(USART_data_t *UsartBuffer){
+	while(USART_RXBufferData_Available(UsartBuffer)){
+		USART_RXBuffer_GetByte(UsartBuffer);
+	}
+}
 
 #endif
