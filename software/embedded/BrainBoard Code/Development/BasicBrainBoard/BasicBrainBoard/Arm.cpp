@@ -94,8 +94,8 @@ static volatile struct {
 	{0,0, 10,  true, false, 17,  4300, &PORTE, PIN4_bm, &PORTE, PIN7_bm, &PORTE, PIN5_bm, &PORTF, PIN6_bm, &(TCE0.CNTL), &(TCE0.CCABUFL), &(TCE0.INTCTRLB), TC0_CCAINTLVL1_bm}, /* X axis */
 	{0,0, 30, false, false, 17,  4400, &PORTE, PIN3_bm, &PORTE, PIN2_bm, &PORTE, PIN0_bm, &PORTF, PIN7_bm, &(TCE0.CNTL), &(TCE0.CCBBUFL), &(TCE0.INTCTRLB), TC0_CCBINTLVL1_bm}, /* Y axis */
 	{0,0, 10, false,  true, 65, 16500, &PORTD, PIN6_bm, &PORTE, PIN1_bm, &PORTD, PIN7_bm, &PORTF, PIN4_bm, &(TCE0.CNTL), &(TCE0.CCCBUFL), &(TCE0.INTCTRLB), TC0_CCCINTLVL1_bm}, /* Z axis */
-	{0,0, 30, true, false,  3,   800, &PORTD, PIN5_bm, &PORTD, PIN4_bm, &PORTD, PIN2_bm, &PORTF, PIN0_bm, &(TCE0.CNTL), &(TCE0.CCDBUFL), &(TCE0.INTCTRLB), TC0_CCDINTLVL1_bm}, /* Rotation */
-	{0,0, 30, true, false,  3,   800, &PORTD, PIN1_bm, &PORTD, PIN0_bm, &PORTD, PIN3_bm, &PORTF, PIN1_bm, &(TCE1.CNTL), &(TCE1.CCABUFL), &(TCE1.INTCTRLB), TC1_CCAINTLVL1_bm} /* Grip */
+	{0,0, 30, true, false,  3,    800, &PORTD, PIN5_bm, &PORTD, PIN4_bm, &PORTD, PIN2_bm, &PORTF, PIN0_bm, &(TCE0.CNTL), &(TCE0.CCDBUFL), &(TCE0.INTCTRLB), TC0_CCDINTLVL1_bm}, /* Rotation */
+	{0,0, 30, true, false,  3,   8000, &PORTD, PIN1_bm, &PORTD, PIN0_bm, &PORTD, PIN3_bm, &PORTF, PIN1_bm, &(TCE1.CNTL), &(TCE1.CCABUFL), &(TCE1.INTCTRLB), TC1_CCAINTLVL1_bm} /* Grip */
 };
 
 /* When true, step generation is stopped. This variable is set by a pin-change
@@ -419,15 +419,13 @@ void armInit(){
  * The arm should be positioned roughly in the middle of its volume,
  * and the z-axis should be raised up with its arm folding to the left
  * side of the robot. */
-/* TODO: Home grip axis. */
 void home_all(){
 	bool homed[5];
 	homed[0] = false;
 	homed[1] = false;
 	homed[2] = false;
+	homed[4] = false;
 	
-	//TODO: home these axises
-	homed[4] = true;
 	homed[3] = true;
 	
 	/* Configuration Point: Homing directions and max. distances.
@@ -449,14 +447,30 @@ void home_all(){
 	stop_axis(ARM_Z);
 	set_zero(ARM_Z);
 	homed[(int) ARM_Z] = true;
-	RGBSetColor(PURPLE);
+	RGBSetColor(WHITE);
 	set_target(ARM_Z, -8250);
 	while(axis_moving(ARM_Z)){
 		/* Wait for Z axis to finish moving to its high position. */
 	}
+	
+	/* Home the gripper separately, as homing it in the main loop wasn't working. */
+	set_target(ARM_GRIP, -ArmAxis[ARM_GRIP].max_steps);
+	pressed = 0;
+	while(pressed < 2){
+		pressed = 0;
+		while(!limit_pressed(ARM_GRIP)){
+			/* Wait for grip to hit limit. */
+		}
+		for(int i=0;i<7;i++){
+			if(limit_pressed(ARM_GRIP))pressed++;
+		}
+	}
+	stop_axis(ARM_GRIP);
+	set_zero(ARM_GRIP);
+	homed[(int) ARM_GRIP] = true;
+	
 	set_target(ARM_X, -5000);
 	set_target(ARM_Y, -5000);
-	//TODO: Home other axises.
 	
 	while(!(homed[0] && homed[1] && homed[2] && homed[3] && homed[4])){
 		for(int i=0;i<5;i++){
@@ -526,17 +540,17 @@ void armMain(){
 				set_target(ARM_Z, z_top + ArmAxis[ARM_Z].steps_per * armData.zAxisValue);
 				wait_until_stopped();
 			}
+			
+			if(armData.shouldGrip){
+				set_target(ARM_GRIP, ArmAxis[ARM_GRIP].max_steps);
+				RGBSetColor(YELLOW);
+			} else {
+				set_target(ARM_GRIP, 0);
+			}
 		}
 		if(armData.powerdown){
 			//disable_steppers();
 			homed = false; //TODO: Will the actuator be safely parked?
-		}
-		if(armData.shouldGrip){
-			set_target(ARM_GRIP, 6000);
-			RGBSetColor(YELLOW);
-			_delay_ms(3000);
-		} else {
-			set_target(ARM_GRIP, 0);
 		}
 		if(armData.initRobot){
 			RGBSetColor(WHITE);
