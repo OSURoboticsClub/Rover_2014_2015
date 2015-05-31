@@ -101,7 +101,7 @@ class ArmController(object):
         self.x = x
         self.y = y
         self.z = z
-#        self.command = grip
+        self.command = grip
     
     #
     # Loop to be constantly executed to keep sending packets and to perform
@@ -127,9 +127,10 @@ if __name__ == '__main__':
     x = int(raw_input("x:"))
     y = int(raw_input("y:"))
     z = int(raw_input("z:"))
+    command = int(raw_input("command: "))
     print("\n") #Added to make inputting numbers a little nicer
     try:
-        arm.move(x, y, z, 0x04)
+        arm.move(x, y, z, command)
     except Exception, e:
         print e
  
