@@ -15,7 +15,34 @@ vector<int> createCmd(int move, int val){
 	cmd[1] = val;
 	return cmd;
 }
-vector<vector<int> > generateCommands(float theta, float D, float offset){
+vector<vector<int> > generateBackCommands(float theta, float D){
+	vector<vector<int> > cmds;
+	if(D < FARAWAY) {
+		float d = D * sin(abs(theta));
+		if(theta < 0){
+			cmds.push_back(createCmd(TURN_LEFT, 90-theta));
+			cmds.push_back(createCmd(FWD, 5000));
+			cmds.push_back(createCmd(TURN_RIGHT, 90));
+			cmds.push_back(createCmd(FWD, D + 5000));
+			cmds.push_back(createCmd(TURN_RIGHT, 90));
+			cmds.push_back(createCmd(FWD, d));
+			cmds.push_back(createCmd(TURN_RIGHT, 90));
+		} else {
+			cmds.push_back(createCmd(TURN_RIGHT, 90-theta));
+			cmds.push_back(createCmd(FWD, 5000));
+			cmds.push_back(createCmd(TURN_LEFT, 90));
+			cmds.push_back(createCmd(FWD, D + 5000));
+			cmds.push_back(createCmd(TURN_LEFT, 90));
+			cmds.push_back(createCmd(FWD, d));
+			cmds.push_back(createCmd(TURN_LEFT, 90));
+		}
+	} else {
+		cmds = generateCommands(theta, D);
+	}
+
+	return cmds;
+}
+vector<vector<int> > generateCommands(float theta, float D){
 	vector<vector<int> > cmds;
 	if(abs(theta) < 10){
 		if(D > FARAWAY){
