@@ -76,7 +76,7 @@ ISR(USARTC0_RXC_vect){
 							armData.gripperRotation = recievedData[GRIPPER_ROTATION];
 						
 							//Check if the robot need to init, aka home
-							if(armData.commandByte && 4){
+							if(armData.commandByte & 4){
 								armData.initRobot = 1;
 							}
 							else{
@@ -84,7 +84,7 @@ ISR(USARTC0_RXC_vect){
 							}
 						
 							//Checks if the arm needs to power down 
-							if(armData.commandByte && 2){
+							if(armData.commandByte & 2){
 								armData.powerdown = 1;
 							}
 							else{
@@ -92,7 +92,7 @@ ISR(USARTC0_RXC_vect){
 							}
 						
 							//Checks if a grip is desired
-							if(armData.commandByte && 1 ){
+							if(armData.commandByte & 1 ){
 								armData.shouldGrip = 1;
 							}
 							else {
