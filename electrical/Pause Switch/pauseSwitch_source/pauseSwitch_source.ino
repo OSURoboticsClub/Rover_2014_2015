@@ -1,7 +1,7 @@
 /******************************************************
 *OSURC Rover Pause Switch Firmware
 *Written by Steven Gloyd (gloyds@onid.oregonstate.edu)
-*Updated 4/22/2015
+*Updated 6/4/2015
 *******************************************************/
 
 
