@@ -124,11 +124,10 @@ void RovingLight_Flashing();
 void RovingLight_Solid();
 
 //Functions for Pause processing
-	
-#define DRIVE_PAUSE_ASSERT(void) (PORTE.OUTCLR = PIN5_bm)
-#define DRIVE_PAUSE_nASSERT(void) (PORTE.OUTSET = PIN5_bm)
+#define DRIVE_PAUSE_ASSERT(void) (PORTE.OUTCLR = PIN5_bm)  //Enable pause state  (Not Running, low signal)
+#define DRIVE_PAUSE_nASSERT(void) (PORTE.OUTSET = PIN5_bm) //Disable pause state (Running, high signal)
 
-//Returns high if in running mode
+//Returns high if in running mode (!pause)
 #define CHECK_XBEE_INPUT(void) (PORTE.IN & PIN0_bm)  //XBee Input macro
 
 //Below are functions for RC control (Need hardware testing)
@@ -136,7 +135,6 @@ void RC_init();
 unsigned long cyclesto_ms(unsigned long cycles);
 unsigned long read(int ch);
 int RCSpeed(int ch); //Does work on RC signal values to determine speed value to send to the kangaroo
-
 
 char * i_to_st(int value);
 char * add_st(char *st1, char *st2); //puts st2 at the end of st1
