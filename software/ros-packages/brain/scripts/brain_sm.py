@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import rospy
 from std_msgs.msg import String
-
+import os
 import simplejson
 
 class StateMachine(object):
@@ -88,7 +88,7 @@ class State(object):
     def __str__(self):
         return "State: "+self.state_name
 
-if __name__ == "__main__":
+if __name__ == "__main__": 
     rospy.init_node('brain_statemachine')
-    sm = StateMachine("statemachine.json")
+    sm = StateMachine(os.path.join(os.path.dirname(os.path.realpath(__file__)), "statemachine.json"))
     rospy.spin()

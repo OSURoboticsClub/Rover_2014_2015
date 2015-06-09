@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import itertools
+import time
 
 import rospy
 from std_msgs.msg import String
@@ -50,9 +51,12 @@ class QueueProc(object):
 	    self.state_change.publish("stop")
 	    return
 	nxt = self.queue.pop(0)
+        if (nxt[0] == "left" or nxt[0] == "right"):
+            self.state_change.publish("stop")
+            time.sleep(2)
 	self.state_change.publish(nxt[0])
 	tmer = self.timer_class(nxt[1], self.timer_expire, (nxt[0] == "left" or nxt[0] == "right"))
-	tmer.start()
+        tmer.start()
 
 #
 # General timer class, does nothing
@@ -63,6 +67,9 @@ class GeneralTimer():
 
     def start(self):
     	self.callback()
+
+    def get_time(self):
+        return 0
 
 
 #
@@ -81,13 +88,18 @@ class TimeTimer(GeneralTimer):
     	self.aps = 15
 
     def start(self):
-	if not self.is_angle:	
-	    rospy.Timer(rospy.Duration(float(self.distance)/(self.mps*10)), self.timer_callback, True)
-	else:
-	    rospy.Timer(rospy.Duration(self.distance/self.aps), self.timer_callback, True)
+	rospy.Timer(rospy.Duration(self.get_time()), self.timer_callback, True)
+
 
     def timer_callback(self, tEvent):
 	self.callback()
+
+    def get_time(self):
+        if not self.is_angle:
+            return float(self.distance)/(self.mps*10)
+        else:
+            return self.distance/self.aps 
+
 
 if __name__ == "__main__":
     proc = QueueProc()
