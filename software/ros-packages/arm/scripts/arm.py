@@ -74,10 +74,11 @@ class ArmSerial(SerialBoard):
             command = self.command
         else:
             self.command = command
-        if not command == 0x04:
-            command = 0
+        print self.command
         packet = struct.pack(self.packet_struct, chr(0xff), chr(command), chr(x), chr(y), chr(z), chr(0), chr(self.checksum()), chr(0xff))
         self.serial.write(packet)
+        self.serial.read(1) 
+        time.sleep(15)
         
 class ArmController(object):
     
@@ -108,7 +109,8 @@ class ArmController(object):
         self.x = x
         self.y = y
         self.z = z
-        self.command = grip
+        self.command = 1 if grip==1 else 0
+        print self.command
         self.need_move = True
     
     #parses the packet and calls move
@@ -125,7 +127,7 @@ class ArmController(object):
             if self.need_move:
                 self.serial.write_packet(self.command, self.x, self.y, self.z)
                 self.need_move = False
-                if( self.command == 0x04 ):
+                if self.command == 4:
                     self.command = 0
             self.state.publish(String(str(1) if self.need_move else str(0)))
             time.sleep(self.cycle_size)
