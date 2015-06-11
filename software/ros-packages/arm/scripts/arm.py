@@ -104,8 +104,8 @@ class ArmController(object):
         
         if 0 > z > 255:
             raise Exception("z not in range [0, 255]")
-        if grip > 1:
-            raise Exception("grip must be 1 or 0")
+        #if grip > 1:
+        #    raise Exception("grip must be 1 or 0")
         self.x = x
         self.y = y
         self.z = z
