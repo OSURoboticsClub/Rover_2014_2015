@@ -109,7 +109,7 @@ class ArmController(object):
         self.x = x
         self.y = y
         self.z = z
-        self.command = 1 if grip==1 else 0
+        self.command = grip
         print self.command
         self.need_move = True
     
