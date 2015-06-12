@@ -82,7 +82,7 @@ void driveMain(){
 		
 		//XBee Interface Code (Pause Switch)
 		if(CHECK_XBEE_INPUT()){ //Running state
-			RGBSetColor(BLUE);        //Debugging light
+			//RGBSetColor(BLUE);        //Debugging light
 			RovingLight_Flashing();   //Sets the indicator light to be flashing
 			DRIVE_PAUSE_nASSERT();    //Outputs the correct signal to the other boards
 			
@@ -92,16 +92,16 @@ void driveMain(){
 				
 				parsePacket(driveData.leftSpeed, driveData.rightSpeed, 0, 0, 0);
 				if(driveData.leftSpeed > 120 && driveData.leftSpeed < 130){
-					RGBSetColor(BLUE);
+				//	RGBSetColor(BLUE);
 				}
 				else {
-					RGBSetColor(GREEN);
+				//	RGBSetColor(GREEN);
 				}
 				freshData = 0;  //Marking the data as read
 			}
 		}
 		else {  //Not running state
-			RGBSetColor(ORANGE);      //Debugging light
+			//RGBSetColor(ORANGE);      //Debugging light
 			RovingLight_Solid();      //Sets the indicator light to be solid
 			DRIVE_PAUSE_ASSERT();     //Outputs the correct signal to the other boards
 			

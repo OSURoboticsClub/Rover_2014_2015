@@ -58,7 +58,7 @@ ISR(USARTC0_RXC_vect){
 						}
 						else {
 							//++invalidPacketCount;
-							//RGBSetColor(BLUE); //Something went pretty wrong...
+							RGBSetColor(PURPLE); //Something went pretty wrong...
 							//flush buffer? Nah, this shouldn't be necessary because it will have just the right amount of
 							//stuffz in the array when we get to this point
 						}
