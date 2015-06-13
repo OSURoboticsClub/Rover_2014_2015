@@ -38,7 +38,7 @@ class StateMachine(object):
         self.left_s = self.full_back
         self.right_s = self.full_back
 
-    def left(self):
+    def left(self): 
         self.left_s = int((self.full_back-127)/1.5)+127
         self.right_s = int((self.full_spd-127)/1.5)+127
 
@@ -63,6 +63,7 @@ class StateMachine(object):
     #
     def state_change(self, data):
         state = self.states.get(data.data, "stop")
+        print data.data
         state()
 
 

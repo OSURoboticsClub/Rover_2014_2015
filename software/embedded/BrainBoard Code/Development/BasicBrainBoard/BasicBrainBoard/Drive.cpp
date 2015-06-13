@@ -44,23 +44,7 @@ void driveMain(){
 	
 	char recieveChar;
 	
-	RovingLight_Flashing();  //Always be flashing for testing, because no pause switch
-	
-	
-	//XBee Testing code
-	
-	/*
-	while(1){
-		if(CHECK_XBEE_INPUT()){
-			RGBSetColor(BLUE);
-			RovingLight_Flashing();
-		}
-		else {
-			RGBSetColor(ORANGE);
-			RovingLight_Solid();
-		}
-	}
-	*/
+	//RovingLight_Flashing();  //Always be flashing for testing, because no pause switch
 	
 	
 	/*
@@ -73,35 +57,64 @@ void driveMain(){
 	*/
 	
 	
+	/*
+	while (1) {
+		RGBSetColor(PURPLE);
+		
+		//XBee Interface Code (Pause Switch)
+		if(CHECK_XBEE_INPUT()){ //Running state
+			RGBSetColor(BLUE);        //Debugging light
+			RovingLight_Flashing();   //Sets the indicator light to be flashing
+			DRIVE_PAUSE_nASSERT();    //Outputs the correct signal to the other boards
+		}
+		else {  //Not running state
+			RGBSetColor(ORANGE);      //Debugging light
+			RovingLight_Solid();      //Sets the indicator light to be solid
+			DRIVE_PAUSE_ASSERT();     //Outputs the correct signal to the other boards
+		}
+	}
+	*/
+	
 	
 	
 	//Main executing loop
 	while(1){
 		
-		//Packet interpreting statement, this loop runs quick enough that is should be sufficient to only poll here
-		if(freshData){
-			freshData = 0;  //Marking the data as read
+		//XBee Interface Code (Pause Switch)
+		if(CHECK_XBEE_INPUT()){ //Running state
+			//RGBSetColor(BLUE);        //Debugging light
+			RovingLight_Flashing();   //Sets the indicator light to be flashing
+			DRIVE_PAUSE_nASSERT();    //Outputs the correct signal to the other boards
 			
-			parsePacket(driveData.leftSpeed, driveData.rightSpeed, 0, 0, 0);
-			if(driveData.leftSpeed > 120 && driveData.leftSpeed < 130){
-				RGBSetColor(BLUE);
+			//Packet interpreting statement, this loop runs quick enough that is should be sufficient to only poll here
+			if(freshData){
+				freshData = 0;  //Marking the data as read
+				
+				parsePacket(driveData.leftSpeed, driveData.rightSpeed, 0, 0, 0);
+				if(driveData.leftSpeed > 120 && driveData.leftSpeed < 130){
+				//	RGBSetColor(BLUE);
+				}
+				else {
+				//	RGBSetColor(GREEN);
+				}
+				freshData = 0;  //Marking the data as read
 			}
-			else {
-				RGBSetColor(GREEN);
-			}
-			freshData = 0;  //Marking the data as read
 		}
-		
+		else {  //Not running state
+			//RGBSetColor(ORANGE);      //Debugging light
+			RovingLight_Solid();      //Sets the indicator light to be solid
+			DRIVE_PAUSE_ASSERT();     //Outputs the correct signal to the other boards
+			
+			parsePacket(127, 127, 0, 0, 0);  //Send the motor stop command
+			
+			if(freshData){  //If Rover is paused, throw away packets
+				freshData = 0;
+			}
+		}
+
 		
 	}
-	
-	
-	
-	//ALGORITHM after exact functions are available a while loop will iterate through and at each start
-	//will call for a speed from RC or comp (or both?) and put that value in the speed string
-	//After that all the strings (cmmd,speed,cap) are put into all (ex all = cmmd+speed+cap) then
-	//SendString is called on all.c_str (returns a c string version that the SendString function can use\
-
+		
 	while(1);
 	
 }
@@ -173,8 +186,11 @@ ISR(TCE1_CCB_vect){
 }
 
 void driveInit() {
-	PORTE.DIRSET = (PIN5_bm); //Sets output LED (status/error)
+	
+	//Pause switch output setup (configured as a "roving" signal
+	PORTE.DIRSET = (PIN5_bm); 
 	PORTE.OUTSET = PIN5_bm; //Initialize pause at a low state, TODO, UPDATE TO ACTUAL SPECIFICATION
+	PORTE.PIN0CTRL = (PORT_OPC_PULLUP_gc); //Add a pullup for the indicator light
 	
 	RovingLight_Solid();
 	
@@ -182,7 +198,7 @@ void driveInit() {
 	
 	PORTE.DIRCLR = (PIN0_bm); //Set the XBee input pin to an input
 	PORTE.PIN0CTRL = (PORT_OPC_PULLDOWN_gc); //Setting the XBee input to a pulldown (defaulty paused)
-	
+		
 	/*
 	//Enable medium level interrupts
 	PMIC.CTRL |= PMIC_MEDLVLEN_bm;
@@ -579,5 +595,14 @@ Constantly pausing the other boards
 		
 		_delay_ms(1000);
 		
+****************************
+
+Old algorithm (a la Cameron)
+
+//ALGORITHM after exact functions are available a while loop will iterate through and at each start
+//will call for a speed from RC or comp (or both?) and put that value in the speed string
+//After that all the strings (cmmd,speed,cap) are put into all (ex all = cmmd+speed+cap) then
+//SendString is called on all.c_str (returns a c string version that the SendString function can use\
+
 
 */

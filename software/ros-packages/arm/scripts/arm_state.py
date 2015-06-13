@@ -17,6 +17,7 @@ class ArmStates(object):
         self.get_object = rospy.Subscriber("/arm/pickup", String, self.pickup)
         self.arm = rospy.Publisher("/arm/commands", String, queue_size=10)
         self.arm_state = rospy.Subscriber("/arm/state", String, self.state_change)
+        self.toggle_handler = rospy.Subscriber("/arm/toggle", String, self.toggle)
 
 
 
@@ -38,7 +39,6 @@ class ArmStates(object):
         print "Moving"
         while self.working:
             pass
-        time.sleep(15)
         self.arm.publish(String("%d,%d,%d,%d" % tuple([int(x) for x in position])))
         self.working = True
 
@@ -61,6 +61,24 @@ class ArmStates(object):
         else:
             self.grab(position)
             self.store()
+            
+    def toggle(self, lower):
+        #All of the following values need calibrating
+        grip_hard_x = 100 
+        grip_hard_y = 150
+        grip_hard_z = 240
+        
+        store_hard_x = grip_hard_x
+        store_hard_y = 200 #Calibrate!
+        store_hard_z = 0
+        
+        if(int(lower) > 0):  #Lower case
+            self.move([grip_hard_x, grip_hard_y, 0,           4]) #Home the arm
+            self.move([grip_hard_x, grip_hard_y, 0,           0]) 
+            self.move([grip_hard_x, grip_hard_y, grip_hard_z, 0])
+        else:                #Raising case
+            self.move([grip_hard_x,  grip_hard_y,  0,            0])
+            self.move([store_hard_x, store_hard_y, store_hard_z, 0])
 
 if __name__ == "__main__":
     rospy.init_node("arm_states")
